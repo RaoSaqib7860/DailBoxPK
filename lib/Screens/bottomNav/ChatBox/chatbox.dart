@@ -1,5 +1,17 @@
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dail_box/AppUtils.dart/APiUtilsForAuth.dart';
+import 'package:dail_box/AppUtils.dart/ApiUtisAllFiles.dart';
+import 'package:dail_box/AppUtils.dart/SizedConfig.dart';
+import 'package:dail_box/AppUtils.dart/SnackBarUtils.dart';
 import 'package:dail_box/util/colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'ChatBoxController.dart';
 
 class ChatBox extends StatefulWidget {
   @override
@@ -7,139 +19,688 @@ class ChatBox extends StatefulWidget {
 }
 
 class _ChatBoxState extends State<ChatBox> {
+  final controller = Get.put(ChatBoxController());
+
+  @override
+  void initState() {
+    ApiUtils.getgetDiscussionform(controller: controller);
+    ApiUtils.getgetpackges();
+    ApiUtils.getgetmybusinesslist();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(15),
-            child: Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'Discussion Forum',
+          style: TextStyle(
+            fontSize: 16,
+          ),
+        ),
+        elevation: 0,
+        backgroundColor: blueColor,
+      ),
+      body: Stack(
+        children: [
+          Column(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(15),
+                child: Column(
                   children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.only(left: 10, right: 10),
-                        height: 45,
-                        color: blueColor,
-                        child: Theme(
-                            data: new ThemeData(
-                                canvasColor: blueColor,
-                                primaryColor: Colors.black,
-                                accentColor: Colors.black,
-                                hintColor: Colors.black),
-                            child: DropdownButton<String>(
-                              items: <String>['INDUSTRY', 'B', 'C', 'D']
-                                  .map((String value) {
-                                return new DropdownMenuItem<String>(
-                                  value: value,
-                                  child: new Text(
-                                    value,
-                                  ),
-                                );
-                              }).toList(),
-                              value: 'INDUSTRY',
-                              icon: Icon(
-                                Icons.keyboard_arrow_down,
-                                color: Colors.white,
-                              ),
-                              underline: Container(
-                                color: Colors.transparent,
-                              ),
-                              style: TextStyle(color: Colors.white),
-                              isExpanded: true,
-                              onChanged: (_) {},
-                            )),
+                    Obx(
+                      () => Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Container(
+                              padding: EdgeInsets.only(left: 10, right: 10),
+                              height: 30,
+                              color: blueColor,
+                              child: Theme(
+                                  data: new ThemeData(
+                                      canvasColor: blueColor,
+                                      primaryColor: Colors.black,
+                                      accentColor: Colors.black,
+                                      hintColor: Colors.black),
+                                  child: DropdownButton<String>(
+                                    items:
+                                        controller.listofIndustry.map((value) {
+                                      return DropdownMenuItem<String>(
+                                        value: '$value',
+                                        child:
+                                            Text('${value['industry_name']}'),
+                                        onTap: () {
+                                          controller.currentlistofIndustryIndex
+                                                  .value =
+                                              controller.listofIndustry
+                                                  .indexOf(value);
+                                          controller.listofIndustryHint.value =
+                                              value['industry_name'];
+                                          ApiUtils.getgetMainCatapp(
+                                              value['id']);
+                                        },
+                                      );
+                                    }).toList(),
+                                    hint: Text(
+                                      controller.listofIndustryHint.value,
+                                      style: TextStyle(
+                                          fontSize: 12, color: Colors.white),
+                                    ),
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down,
+                                      color: Colors.white,
+                                    ),
+                                    underline: Container(
+                                      color: Colors.transparent,
+                                    ),
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 12),
+                                    isExpanded: true,
+                                    onChanged: (_) {},
+                                  )),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: Container(
+                              padding: EdgeInsets.only(left: 10, right: 10),
+                              height: 30,
+                              color: Colors.red[900],
+                              child: Theme(
+                                  data: new ThemeData(
+                                      canvasColor: Colors.red[900],
+                                      primaryColor: Colors.black,
+                                      accentColor: Colors.black,
+                                      hintColor: Colors.black),
+                                  child: DropdownButton<String>(
+                                    items: controller.listofCat.map((value) {
+                                      return DropdownMenuItem<String>(
+                                        value: '$value',
+                                        child:
+                                            Text('${value['main_cat_name']}'),
+                                        onTap: () {
+                                          controller
+                                                  .currentlistofCatIndex.value =
+                                              controller.listofCat
+                                                  .indexOf(value);
+                                          controller.listofCatHint.value =
+                                              value['main_cat_name'];
+                                        },
+                                      );
+                                    }).toList(),
+                                    hint: Text(
+                                      controller.listofCatHint.value,
+                                      style: TextStyle(
+                                          fontSize: 12, color: Colors.white),
+                                    ),
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down,
+                                      color: Colors.white,
+                                    ),
+                                    underline: Container(
+                                      color: Colors.transparent,
+                                    ),
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 12),
+                                    isExpanded: true,
+                                    onChanged: (_) {},
+                                  )),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     SizedBox(
-                      width: 10,
+                      height: 10,
                     ),
-                    Expanded(
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(5.0),
                       child: Container(
-                        padding: EdgeInsets.only(left: 10, right: 10),
-                        height: 45,
-                        color: Colors.red[900],
-                        child: Theme(
-                            data: new ThemeData(
-                                canvasColor: Colors.red[900],
-                                primaryColor: Colors.black,
-                                accentColor: Colors.black,
-                                hintColor: Colors.black),
-                            child: DropdownButton<String>(
-                              items: <String>['CATEGORIES', 'B', 'C', 'D']
-                                  .map((String value) {
-                                return new DropdownMenuItem<String>(
-                                  value: value,
-                                  child: new Text(
-                                    value,
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                );
-                              }).toList(),
-                              value: 'CATEGORIES',
-                              icon: Icon(
-                                Icons.keyboard_arrow_down,
-                                color: Colors.white,
-                              ),
-                              underline: Container(
-                                color: Colors.transparent,
-                              ),
-                              style: TextStyle(color: Colors.white),
-                              isExpanded: true,
-                              onChanged: (_) {},
-                            )),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0),
+                          color: Colors.grey[100],
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey[400]!,
+                              offset: Offset(0.0, 1.0), //(x,y)
+                              blurRadius: 6.0,
+                            ),
+                          ],
+                        ),
+                        child: TextFormField(
+                          cursorColor: Colors.black,
+                          // controller: controller.nameCon,
+                          enabled: false,
+                          keyboardType: TextInputType.text,
+                          decoration: new InputDecoration(
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              contentPadding: EdgeInsets.only(
+                                  left: 15, bottom: 11, top: 11, right: 15),
+                              hintStyle:
+                                  TextStyle(color: greyColor, fontSize: 14),
+                              hintText: "Search here"),
+                        ),
                       ),
-                    )
+                    ),
+                    SizedBox(
+                      height: height * 0.020,
+                    ),
                   ],
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                Material(
-                  elevation: 3,
-                  child: TextFormField(
-                    cursorColor: Colors.black,
-                    keyboardType: TextInputType.text,
-                    decoration: new InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: greyColor,
+              ),
+              Expanded(
+                  child: Obx(
+                () => CustomScrollView(
+                  physics: BouncingScrollPhysics(),
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: width * 0.030),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Center(
+                                        child: Text(
+                                          'Add new Discussion Post',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                              height: 25,
+                                              padding: EdgeInsets.only(left: 3),
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      width: 1,
+                                                      color: Colors.black26)),
+                                              child: Theme(
+                                                  data: new ThemeData(
+                                                      canvasColor:
+                                                          Colors.red[900],
+                                                      primaryColor:
+                                                          Colors.black,
+                                                      accentColor: Colors.black,
+                                                      hintColor: Colors.black),
+                                                  child: DropdownButton<String>(
+                                                    items: controller
+                                                        .listofIndustrytwo
+                                                        .map((value) {
+                                                      return DropdownMenuItem<
+                                                          String>(
+                                                        value: '$value',
+                                                        child: Text(
+                                                          '${value['industry_name']}',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 10),
+                                                        ),
+                                                        onTap: () {
+                                                          controller
+                                                                  .currentlistofIndustryIndextwo
+                                                                  .value =
+                                                              controller
+                                                                  .listofIndustrytwo
+                                                                  .indexOf(
+                                                                      value);
+                                                          controller
+                                                                  .listofIndustryHinttwo
+                                                                  .value =
+                                                              value[
+                                                                  'industry_name'];
+                                                          ApiUtils
+                                                              .getgetMainCatapptwo(
+                                                                  value['id']);
+                                                        },
+                                                      );
+                                                    }).toList(),
+                                                    hint: Text(
+                                                      controller
+                                                          .listofIndustryHinttwo
+                                                          .value,
+                                                      style: TextStyle(
+                                                          fontSize: 8,
+                                                          color: Colors.black),
+                                                    ),
+                                                    icon: Icon(
+                                                      Icons.keyboard_arrow_down,
+                                                      color: Colors.black26,
+                                                      size: 20,
+                                                    ),
+                                                    underline: Container(
+                                                      color: Colors.transparent,
+                                                    ),
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 10),
+                                                    isExpanded: true,
+                                                    onChanged: (_) {},
+                                                  )),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 3,
+                                          ),
+                                          Expanded(
+                                            child: Container(
+                                              height: 25,
+                                              padding: EdgeInsets.only(left: 3),
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      width: 1,
+                                                      color: Colors.black26)),
+                                              child: Theme(
+                                                  data: new ThemeData(
+                                                      canvasColor:
+                                                          Colors.red[900],
+                                                      primaryColor:
+                                                          Colors.black,
+                                                      accentColor: Colors.black,
+                                                      hintColor: Colors.black),
+                                                  child: DropdownButton<String>(
+                                                    items: controller
+                                                        .listofCattwo
+                                                        .map((value) {
+                                                      return DropdownMenuItem<
+                                                          String>(
+                                                        value: '$value',
+                                                        child: Text(
+                                                          '${value['main_cat_name']}',
+                                                          style: TextStyle(
+                                                              fontSize: 10,
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
+                                                        onTap: () {
+                                                          controller
+                                                                  .currentlistofCatIndextwo
+                                                                  .value =
+                                                              controller
+                                                                  .listofCattwo
+                                                                  .indexOf(
+                                                                      value);
+                                                          controller
+                                                                  .listofCatHinttwo
+                                                                  .value =
+                                                              value[
+                                                                  'main_cat_name'];
+                                                        },
+                                                      );
+                                                    }).toList(),
+                                                    hint: Text(
+                                                      controller
+                                                          .listofCatHinttwo
+                                                          .value,
+                                                      style: TextStyle(
+                                                          fontSize: 8,
+                                                          color: Colors.black),
+                                                    ),
+                                                    icon: Icon(
+                                                      Icons.keyboard_arrow_down,
+                                                      color: Colors.black26,
+                                                      size: 20,
+                                                    ),
+                                                    underline: Container(
+                                                      color: Colors.transparent,
+                                                    ),
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 10),
+                                                    isExpanded: true,
+                                                    onChanged: (_) {},
+                                                  )),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 3,
+                                          ),
+                                          Expanded(
+                                            child: Container(
+                                              height: 25,
+                                              padding: EdgeInsets.only(left: 3),
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      width: 1,
+                                                      color: Colors.black26)),
+                                              child: Theme(
+                                                  data: new ThemeData(
+                                                      canvasColor:
+                                                          Colors.red[900],
+                                                      primaryColor:
+                                                          Colors.black,
+                                                      accentColor: Colors.black,
+                                                      hintColor: Colors.black),
+                                                  child: DropdownButton<String>(
+                                                    items: controller
+                                                        .listofbuisness
+                                                        .map((value) {
+                                                      return DropdownMenuItem<
+                                                          String>(
+                                                        value: '$value',
+                                                        child: Text(
+                                                          '${value['business_name']}',
+                                                          style: TextStyle(
+                                                              fontSize: 10,
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
+                                                        onTap: () {
+                                                          controller
+                                                                  .currentlistofbuisnessIndex
+                                                                  .value =
+                                                              controller
+                                                                  .listofbuisness
+                                                                  .indexOf(
+                                                                      value);
+                                                          controller
+                                                                  .listoflistofbuisnessHint
+                                                                  .value =
+                                                              value[
+                                                                  'business_name'];
+                                                        },
+                                                      );
+                                                    }).toList(),
+                                                    hint: Text(
+                                                      controller
+                                                          .listoflistofbuisnessHint
+                                                          .value,
+                                                      style: TextStyle(
+                                                          fontSize: 8,
+                                                          color: Colors.black),
+                                                    ),
+                                                    icon: Icon(
+                                                      Icons.keyboard_arrow_down,
+                                                      color: Colors.black26,
+                                                      size: 20,
+                                                    ),
+                                                    underline: Container(
+                                                      color: Colors.transparent,
+                                                    ),
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 10),
+                                                    isExpanded: true,
+                                                    onChanged: (_) {},
+                                                  )),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            TextFormField(
+                              cursorColor: Colors.black,
+                              controller: controller.writeCommentCon.value,
+                              keyboardType: TextInputType.text,
+                              decoration: new InputDecoration(
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  disabledBorder: InputBorder.none,
+                                  contentPadding: EdgeInsets.only(
+                                      left: 15, bottom: 11, top: 11, right: 15),
+                                  hintStyle:
+                                      TextStyle(color: greyColor, fontSize: 12),
+                                  hintText: "Write something here"),
+                            ),
+                            SizedBox(
+                              height: 2,
+                            ),
+                            Container(
+                              color: greyColor,
+                              width: MediaQuery.of(context).size.width,
+                              height: 0.5,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Center(
+                              child: InkWell(
+                                onTap: () {
+                                  controller.displayBottomSheet();
+                                },
+                                child: Container(
+                                  height: height * 0.030,
+                                  width: width * 0.3,
+                                  child: Row(
+                                    children: [
+                                      Center(
+                                        child: Icon(
+                                          Icons.image,
+                                          color: Colors.black26,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 3,
+                                      ),
+                                      Center(
+                                        child: Text(
+                                          'Add Pictures',
+                                          style: TextStyle(fontSize: 11),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            !controller.isf1.value
+                                ? SizedBox()
+                                : Column(
+                                    children: [
+                                      SizedBox(
+                                        height: height * 0.010,
+                                      ),
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(5),
+                                        child: Container(
+                                            height: height * 0.2,
+                                            width: width,
+                                            child: Image.file(
+                                              controller.f1.value,
+                                              fit: BoxFit.cover,
+                                            )),
+                                      ),
+                                    ],
+                                  ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                InkWell(
+                                  onTap: () async {
+                                    if (controller
+                                            .listofIndustryHinttwo.value !=
+                                        'Select Industry') {
+                                      if (controller.listofCatHinttwo.value !=
+                                          'Category') {
+                                        if (controller.listoflistofbuisnessHint
+                                                .value !=
+                                            'Business') {
+                                          if (controller.writeCommentCon.value
+                                              .text.isNotEmpty) {
+                                            controller.loading.value = true;
+                                            await ApiUtilsAllFiles
+                                                .getpostDiscussionform(
+                                                    controller);
+                                            controller.writeCommentCon.value
+                                                .text = '';
+                                            controller.isf1.value = false;
+                                            controller.f1.value = File('path');
+                                            controller.loadmainList.value =
+                                                false;
+                                            ApiUtils.getgetDiscussionform(
+                                                controller: controller);
+                                          }
+                                        } else {
+                                          snackBarFailer(
+                                              'Please select Business');
+                                        }
+                                      } else {
+                                        snackBarFailer(
+                                            'Please select Category');
+                                      }
+                                    } else {
+                                      snackBarFailer('Please select industry');
+                                    }
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 15, vertical: 8),
+                                    decoration: BoxDecoration(
+                                        color: Colors.blueGrey[100],
+                                        borderRadius: BorderRadius.circular(5),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color:
+                                                  Colors.black.withOpacity(0.1),
+                                              offset: Offset(2, 2),
+                                              blurRadius: 5)
+                                        ]),
+                                    child: Text(
+                                      'Publish Now',
+                                      style: TextStyle(
+                                          color: blueColor,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Divider(
+                              thickness: 10,
+                            ),
+                          ],
                         ),
-                        border: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        errorBorder: InputBorder.none,
-                        disabledBorder: InputBorder.none,
-                        contentPadding: EdgeInsets.only(
-                            left: 15, bottom: 11, top: 11, right: 15),
-                        hintStyle: TextStyle(color: greyColor, fontSize: 14),
-                        hintText: "Search chat box"),
+                      ),
+                    ),
+                    !controller.loadmainList.value
+                        ? SliverToBoxAdapter(
+                            child: Container(
+                              height: height * 0.2,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.blue,
+                                ),
+                              ),
+                            ),
+                          )
+                        : controller.listofChatBox.isEmpty
+                            ? SliverToBoxAdapter(
+                                child: Container(
+                                  height: height * 0.2,
+                                  child: Center(
+                                    child: Text('Empty'),
+                                  ),
+                                ),
+                              )
+                            : SliverList(
+                                delegate: SliverChildBuilderDelegate(
+                                  (BuildContext context, int index) {
+                                    return Column(
+                                      children: [
+                                        ChatBoxItem(
+                                          mapData:
+                                              controller.listofChatBox[index],
+                                        ),
+                                        Divider(
+                                          thickness: 15,
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                  childCount: controller.listofChatBox.length,
+                                ),
+                              )
+                  ],
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
+                ),
+              )),
+              // Expanded(
+              //   child: Obx(
+              //     () => controller.listofChatBox.contains(1)
+              //         ? Center(
+              //             child: CircularProgressIndicator(
+              //               color: Colors.blue,
+              //             ),
+              //           )
+              //         : controller.listofChatBox.isEmpty
+              //             ? Center(
+              //                 child: Text('Empty'),
+              //               )
+              //             : ListView.separated(
+              //                 itemCount: controller.listofChatBox.length,
+              //                 itemBuilder: (BuildContext ctxt, int index) {
+              //                   return ChatBoxItem(
+              //                     mapData: controller.listofChatBox[index],
+              //                   );
+              //                 },
+              //                 separatorBuilder: (BuildContext ctxt, int index) {
+              //                   return Divider(
+              //                     thickness: 10,
+              //                   );
+              //                 },
+              //                 physics: BouncingScrollPhysics(),
+              //               ),
+              //   ),
+              // ),
+            ],
+          ),
+          Obx(() => controller.loading.value == true
+              ? InkWell(
+                  onTap: () {
+                    controller.loading.value = false;
+                  },
+                  child: Container(
+                    height: height,
+                    width: width,
+                    child: Center(
+                      child: SpinKitPulse(
+                        color: Colors.white,
+                        size: 80.0,
+                      ),
+                    ),
+                    decoration:
+                        BoxDecoration(color: Colors.black.withOpacity(0.5)),
                   ),
                 )
-              ],
-            ),
-          ),
-          Divider(
-            thickness: 10,
-          ),
-          Expanded(
-            child: ListView.separated(
-              itemCount: 10,
-              itemBuilder: (BuildContext ctxt, int index) {
-                return ChatBoxItem();
-              },
-              separatorBuilder: (BuildContext ctxt, int index) {
-                return Divider(
-                  thickness: 10,
-                );
-              },
-            ),
-          )
+              : SizedBox())
         ],
       ),
     );
@@ -147,20 +708,27 @@ class _ChatBoxState extends State<ChatBox> {
 }
 
 class ChatBoxItem extends StatefulWidget {
+  final Map? mapData;
+  final ChatBoxController? controller;
+
+  const ChatBoxItem({Key? key, this.mapData, this.controller})
+      : super(key: key);
+
   @override
   _ChatBoxItemState createState() => _ChatBoxItemState();
 }
 
 class _ChatBoxItemState extends State<ChatBoxItem> {
-  String text =
-      'Arrive at your destination in the smoothest ride possible, by sailing through real-time trip planning to payment with a few clicks. We\'re never more than 5 minutes away with pick-up stations closer from and to your home, office or anywhere in between. Grabbing coffee along your way?';
-
   String? firstHalf;
   String? secondHalf;
   bool flag = true;
 
+  List commitList = [];
+  List Likelist = [];
+
   @override
   void initState() {
+    String text = '${widget.mapData!['discussionform_text']}';
     // TODO: implement initState
     if (text.length > 150) {
       firstHalf = text.substring(0, 150);
@@ -169,11 +737,31 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
       firstHalf = text;
       secondHalf = "";
     }
+    getApiData();
     super.initState();
+  }
+
+  getApiData() async {
+    List list = await ApiUtils.gettotalCommentform(
+        controller: widget.controller,
+        id: '${widget.mapData!['discussion_id']}');
+    setState(() {
+      commitList = list;
+    });
+    List list2 = await ApiUtils.gettotalLikeform(
+        controller: widget.controller,
+        id: '${widget.mapData!['discussion_id']}');
+    setState(() {
+      Likelist = list2;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    String value = widget.mapData!['date_time'].toString().split(' ')[0] +
+        'T' +
+        widget.mapData!['date_time'].toString().split(' ')[1];
+    var time = DateFormat.jm().format(DateTime.parse(value));
     return Container(
       padding: EdgeInsets.all(10),
       child: Column(
@@ -181,14 +769,14 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
           Row(
             children: <Widget>[
               Container(
-                height: 60,
-                width: 60,
+                height: 40,
+                width: 40,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     image: DecorationImage(
                         fit: BoxFit.cover,
                         image: NetworkImage(
-                            'https://post.healthline.com/wp-content/uploads/2019/01/Male_Doctor_732x549-thumbnail.jpg'))),
+                            'https://www.dailboxx.websitescare.com/upload/listing/${widget.mapData!['listing_image']}'))),
               ),
               SizedBox(
                 width: 15,
@@ -201,29 +789,27 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
                       children: <Widget>[
                         Expanded(
                           child: Text(
-                            'Aaban Motors Cars',
+                            '${widget.mapData!['business_name']}',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w600,
-                                fontSize: 16),
+                                fontSize: 14),
                           ),
                         ),
                         Text(
-                          '30 min',
-                          style: TextStyle(color: greyColor, fontSize: 11),
+                          '${widget.mapData!['date_time'].toString().split(' ')[0]}' +
+                              '  $time',
+                          style: TextStyle(color: greyColor, fontSize: 10),
                         ),
                         SizedBox(
                           width: 10,
                         ),
-                        Icon(Icons.menu)
+                        Icon(Icons.more_horiz)
                       ],
                     ),
                     Text(
-                      'Automobile > Bikes',
-                      style: TextStyle(
-                          color: greyColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12),
+                      '${widget.mapData!['industry_name']} > ${widget.mapData!['main_cat_name']}',
+                      style: TextStyle(color: greyColor, fontSize: 10),
                     ),
                   ],
                 ),
@@ -235,6 +821,7 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
           ),
           Container(
             padding: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+            width: width,
             child: secondHalf!.isEmpty
                 ? new Text(
                     firstHalf!,
@@ -268,17 +855,36 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
                     ],
                   ),
           ),
-          Text(
-            '',
-            style: TextStyle(color: greyColor, fontSize: 12),
-          ),
           SizedBox(
-            height: 20,
+            height: height * 0.010,
+          ),
+          widget.mapData!['fourm_image'] == ''
+              ? SizedBox()
+              : ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Container(
+                    height: height * 0.2,
+                    width: width,
+                    child: CachedNetworkImage(
+                      height: double.infinity,
+                      fit: BoxFit.contain,
+                      imageUrl:
+                          "https://www.dailboxx.websitescare.com/upload/discussionform/${widget.mapData!['fourm_image']}",
+                      placeholder: (context, url) => SpinKitWave(
+                        color: Colors.blue,
+                        size: 12.0,
+                      ),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                    ),
+                  ),
+                ),
+          SizedBox(
+            height: height * 0.010,
           ),
           Container(
             color: greyColor,
             width: MediaQuery.of(context).size.width,
-            height: 2,
+            height: 0.5,
           ),
           Container(
             child: Row(
@@ -287,14 +893,17 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
                 Row(
                   children: <Widget>[
                     Icon(
-                      Icons.thumb_up,
+                      CupertinoIcons.hand_thumbsup,
                       color: blueColor,
+                      size: 20,
                     ),
                     SizedBox(
                       width: 5,
                     ),
                     Text(
-                      '25 Likes',
+                      Likelist.isEmpty
+                          ? 'Likes'
+                          : '${Likelist[0]['total_likes']} Likes',
                       style: TextStyle(fontSize: 12),
                     )
                   ],
@@ -305,14 +914,17 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
                 Row(
                   children: <Widget>[
                     Icon(
-                      Icons.chat,
+                      CupertinoIcons.chat_bubble,
                       color: blueColor,
+                      size: 20,
                     ),
                     SizedBox(
                       width: 5,
                     ),
                     Text(
-                      '12 Comments',
+                      commitList.isEmpty
+                          ? 'Comments'
+                          : '${commitList[0]['total_comments']} Comments',
                       style: TextStyle(fontSize: 12),
                     )
                   ],

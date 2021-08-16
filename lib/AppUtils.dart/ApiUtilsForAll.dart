@@ -257,8 +257,6 @@ class ApiUtilsForAll {
       controller.loading.value = false;
       if (data['result'] == 'success') {
         Navigator.of(navigatorKey.currentContext!).pop();
-        Navigator.of(navigatorKey.currentContext!).pop();
-        Navigator.of(navigatorKey.currentContext!).pop();
         callHome();
         snackBarSuccess('Your Service has been submitted for approval');
       } else {

@@ -3,10 +3,12 @@ import 'package:dail_box/AppUtils.dart/APiUtilsForAuth.dart';
 import 'package:dail_box/AppUtils.dart/SizedConfig.dart';
 import 'package:dail_box/AppUtils.dart/SnackBarUtils.dart';
 import 'package:dail_box/Screens/ForgotPassword/ForgotPasswordController.dart';
+import 'package:dail_box/Screens/HomeScreen/home_screen.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -23,6 +25,16 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         backgroundColor: Colors.white,
         body: Stack(
           children: [
+            Align(
+              alignment: Alignment.topCenter,
+              child: Transform.translate(
+                offset: Offset(0, -height / 9),
+                child: SvgPicture.asset(
+                  'assets/svg/db main.svg',
+                  height: height / 3,
+                ),
+              ),
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -35,26 +47,22 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     IconButton(
                       icon: Icon(
                         Icons.arrow_back,
-                        size: 30,
+                        size: 25,
                       ),
                       onPressed: () {
                         Navigator.pop(context);
                       },
                     ),
-                    Image(
-                      image: AssetImage('assets/icons/logo_red.png'),
-                      height: 50,
-                    ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Get.offAll(HomeScreen);
+                      },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           'Skip',
                           style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white),
+                              fontSize: 16, fontWeight: FontWeight.w600),
                         ),
                       ),
                     )

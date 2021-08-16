@@ -9,6 +9,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 class PhoneVerification extends StatefulWidget {
+  final bool? fromreset;
+  const PhoneVerification({Key? key, this.fromreset = false}) : super(key: key);
   @override
   _PhoneVerificationState createState() => _PhoneVerificationState();
 }
@@ -135,12 +137,12 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                               child: RaisedButton(
                                 color: blueColor,
                                 onPressed: () {
-                                 if (controller.codeCon.text.isNotEmpty) {
-                                   controller.loading.value=true;
-                                   ApiUtils.verifyotpApi(controller);
-                                 }else{
-                                   snackBarFailer('Please enter otp code');
-                                 }
+                                  if (controller.codeCon.text.isNotEmpty) {
+                                    controller.loading.value = true;
+                                    ApiUtils.verifyotpApi(controller);
+                                  } else {
+                                    snackBarFailer('Please enter otp code');
+                                  }
                                 },
                                 child: Text(
                                   "NEXT",

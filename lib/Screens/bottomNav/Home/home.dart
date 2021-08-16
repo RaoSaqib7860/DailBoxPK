@@ -18,8 +18,9 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
-callHome(){
-  Get.to(HomeScreen());
+callHome() {
+  final controller = Get.find<HomeController>();
+  controller.getApiData(controller);
 }
 
 class Home extends StatefulWidget {
@@ -32,11 +33,7 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    ApiUtilsForAll.getgethomecats(controller);
-    ApiUtilsForAll.gethomeproducts(controller);
-    ApiUtilsForAll.getwhatstrading(controller);
-    ApiUtilsForAll.gethomebanner(controller);
-    ApiUtilsForAll.getmostrecentlisting(controller);
+    controller.getApiData(controller);
     super.initState();
   }
 
@@ -173,7 +170,8 @@ class _HomeState extends State<Home> {
                                             errorWidget:
                                                 (context, url, error) =>
                                                     Icon(Icons.error),
-                                          ),backgroundColor: Colors.white,
+                                          ),
+                                          backgroundColor: Colors.white,
                                           radius: height * 0.030,
                                         ),
                                         SizedBox(
@@ -203,7 +201,8 @@ class _HomeState extends State<Home> {
                                             errorWidget:
                                                 (context, url, error) =>
                                                     Icon(Icons.error),
-                                          ),backgroundColor: Colors.white,
+                                          ),
+                                          backgroundColor: Colors.white,
                                           radius: height * 0.030,
                                         ),
                                         duration: Duration(milliseconds: 700),

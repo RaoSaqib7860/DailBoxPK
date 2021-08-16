@@ -4,6 +4,7 @@ import 'package:dail_box/Screens/HomeScreen/home_screen.dart';
 import 'package:dail_box/Screens/SignIn/sign_in.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class RegisterSelection extends StatefulWidget {
@@ -15,12 +16,19 @@ class _RegisterSelectionState extends State<RegisterSelection> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-          child: Scaffold(
+      child: Scaffold(
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(
-              height: 10,
+            Align(
+              alignment: Alignment.topCenter,
+              child: Transform.translate(
+                offset: Offset(0, -height / 9),
+                child: SvgPicture.asset(
+                  'assets/svg/db main.svg',
+                  height: height / 3,
+                ),
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -34,20 +42,16 @@ class _RegisterSelectionState extends State<RegisterSelection> {
                     Navigator.pop(context);
                   },
                 ),
-                Image(
-                  image: AssetImage('assets/icons/logo_red.png'),
-                  height: 50,
-                ),
                 InkWell(
                   onTap: () {
-                    Get.offAll(HomeScreen());
+                    Get.offAll(HomeScreen);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       'Skip',
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                      TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                     ),
                   ),
                 )
@@ -73,11 +77,12 @@ class _RegisterSelectionState extends State<RegisterSelection> {
             SizedBox(
               height: 30,
             ),
-            FlipInX(delay: Duration(milliseconds: 300),
+            FlipInX(
+              delay: Duration(milliseconds: 300),
               child: Container(
                 margin: EdgeInsets.only(left: 30, right: 30),
                 width: MediaQuery.of(context).size.width,
-                height: height/16,
+                height: height / 16,
                 child: RaisedButton(
                   color: blueColor,
                   onPressed: () {},
@@ -91,15 +96,16 @@ class _RegisterSelectionState extends State<RegisterSelection> {
             SizedBox(
               height: 30,
             ),
-            FlipInX(delay: Duration(milliseconds: 300),
+            FlipInX(
+              delay: Duration(milliseconds: 300),
               child: Container(
                 margin: EdgeInsets.only(left: 30, right: 30),
                 width: MediaQuery.of(context).size.width,
-                height: height/16,
+                height: height / 16,
                 child: RaisedButton(
                   color: redColor,
                   onPressed: () {
-                   Get.to(SignIn());
+                    Get.to(SignIn());
                   },
                   child: Text(
                     "USER",

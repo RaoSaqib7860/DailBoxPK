@@ -1,5 +1,5 @@
 import 'package:dail_box/Screens/HomeScreen/home_screen.dart';
-import 'package:dail_box/login/create_password.dart';
+import 'package:dail_box/Screens/CreatePassword/create_password.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

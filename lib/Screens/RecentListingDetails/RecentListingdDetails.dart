@@ -5,6 +5,7 @@ import 'package:dail_box/AppUtils.dart/AppBarGlobal.dart';
 import 'package:dail_box/AppUtils.dart/ShimmerEffect.dart';
 import 'package:dail_box/AppUtils.dart/SizedConfig.dart';
 import 'package:dail_box/Screens/AddProduct.dart/AddProduct.dart';
+import 'package:dail_box/Screens/AddService/AddService.dart';
 import 'package:dail_box/Screens/BuisnessRegistration.dart/BuisnessRegistration.dart';
 import 'package:dail_box/Screens/RecentListingDetails/RecentListingsController.dart';
 import 'package:dail_box/util/colors.dart';
@@ -891,24 +892,6 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  InkWell(
-                                    onTap: () {
-                                      Get.to(AddProduct(
-                                        id: widget.id,
-                                      ));
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.all(5),
-                                      child: Icon(
-                                        Icons.add,
-                                        size: 20,
-                                        color: Colors.white,
-                                      ),
-                                      decoration: BoxDecoration(
-                                          color: blueColor,
-                                          shape: BoxShape.circle),
-                                    ),
-                                  )
                                 ],
                               ),
                               controller.listoflistingsProduct.isEmpty
@@ -1042,22 +1025,6 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  InkWell(
-                                    onTap: () {
-                                      Get.to(() => BuisnessRegistration());
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.all(5),
-                                      child: Icon(
-                                        Icons.add,
-                                        size: 20,
-                                        color: Colors.white,
-                                      ),
-                                      decoration: BoxDecoration(
-                                          color: blueColor,
-                                          shape: BoxShape.circle),
-                                    ),
-                                  )
                                 ],
                               ),
                               SizedBox(

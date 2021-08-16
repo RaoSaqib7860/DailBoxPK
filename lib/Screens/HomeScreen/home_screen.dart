@@ -1,6 +1,11 @@
 import 'package:dail_box/AppUtils.dart/BottomSheet.dart';
+import 'package:dail_box/Screens/AddProduct.dart/AddProduct.dart';
+import 'package:dail_box/Screens/AddService/AddService.dart';
+import 'package:dail_box/Screens/BuisnessRegistration.dart/BuisnessRegistration.dart';
+import 'package:dail_box/Screens/HowitWorks/HowitWorks.dart';
+import 'package:dail_box/Screens/SignIn/sign_in.dart';
 import 'package:dail_box/drawerScreens/advertise.dart';
-import 'package:dail_box/drawerScreens/contact_us.dart';
+import 'package:dail_box/Screens/ContactUs/contact_us.dart';
 import 'package:dail_box/drawerScreens/notification.dart';
 import 'package:dail_box/drawerScreens/profile.dart';
 import 'package:dail_box/drawerScreens/setting.dart';
@@ -9,21 +14,22 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class HomeScreen extends StatefulWidget {
   static List<MenuItem> mainMenu = [
-    MenuItem('Profile', Icons.person_outline, 0),
-    MenuItem('Notifications', Icons.notifications_none, 1),
-    MenuItem('Advertise', Icons.business, 2),
-    MenuItem('How it works', Icons.build, 3),
-    MenuItem('Customer care', Icons.child_care, 4),
-    MenuItem('Share', Icons.share, 5),
-    MenuItem('Rate us', Icons.thumb_up, 6),
-    MenuItem('Corporate overview', Icons.business, 7),
-    MenuItem('Settings', Icons.settings, 8),
-
-//    MenuItem(tr("payment"), Icons.payment, 0),
-//    MenuItem(tr("promos"), Icons.card_giftcard, 1),
+    MenuItem(title: 'Add New Business', icon: CupertinoIcons.add, index: 7),
+    MenuItem(title: 'Profile', icon: Icons.person_outline, index: 0),
+    MenuItem(title: 'Notifications', icon: Icons.notifications_none, index: 1),
+    MenuItem(title: 'Advertise', icon: Icons.business, index: 2),
+    MenuItem(title: 'How it works', icon: Icons.work, index: 3),
+    MenuItem(title: 'Customer care', icon: Icons.child_care, index: 4),
+    MenuItem(
+        title: 'Add Product', icon: Icons.my_library_add_outlined, index: 5),
+    MenuItem(title: 'Add Service', icon: Icons.build, index: 6),
+    MenuItem(title: 'Settings', icon: CupertinoIcons.settings, index: 8),
+    MenuItem(title: 'Logout', icon: Icons.logout, index: 9, iscolor: true),
   ];
 
   @override
@@ -32,7 +38,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _drawerController = ZoomDrawerController();
-
   int _currentPage = 0;
 
   @override
@@ -51,8 +56,8 @@ class _HomeScreenState extends State<HomeScreen> {
         borderRadius: 24.0,
         showShadow: true,
         angle: 0.0,
-        slideWidth:
-            MediaQuery.of(context).size.width * (ZoomDrawer.isRTL() ? .45 : 0.65),
+        slideWidth: MediaQuery.of(context).size.width *
+            (ZoomDrawer.isRTL() ? .45 : 0.65),
         openCurve: Curves.fastOutSlowIn,
         closeCurve: Curves.easeIn,
       ),
@@ -74,13 +79,34 @@ class _HomeScreenState extends State<HomeScreen> {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Advertise()));
         break;
+      case 3:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HowItWorks()));
+        break;
       case 4:
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => ContactUs()));
         break;
+      case 5:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => AddProduct()));
+        break;
+      case 6:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => AddService()));
+        break;
+      case 7:
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => BuisnessRegistration()));
+        break;
       case 8:
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Settings()));
+        break;
+      case 9:
+        GetStorage storage = GetStorage();
+        storage.erase();
+        Get.offAll(SignIn());
         break;
     }
     _drawerController.toggle!();

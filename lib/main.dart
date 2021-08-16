@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Zoom Drawer Demo',
+      title: 'Dial Box',
       debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
       defaultTransition: Transition.cupertino,

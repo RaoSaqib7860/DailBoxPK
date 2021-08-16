@@ -8,4 +8,12 @@ class HomeController extends GetxController {
   List listofmostrecentlisting = [1, 2, 3, 4, 5, 6, 7, 8].obs;
   List listgethomecats = [1, 2, 3, 4, 5, 6, 7, 8].obs;
   List listofhomebanner = [1, 2, 3].obs;
+
+  getApiData(HomeController controller) {
+    ApiUtilsForAll.getgethomecats(controller);
+    ApiUtilsForAll.gethomeproducts(controller);
+    ApiUtilsForAll.getwhatstrading(controller);
+    ApiUtilsForAll.gethomebanner(controller);
+    ApiUtilsForAll.getmostrecentlisting(controller);
+  }
 }

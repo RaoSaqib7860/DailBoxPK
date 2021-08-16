@@ -9,6 +9,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class BottomSheetCustom extends StatefulWidget {
   const BottomSheetCustom({Key? key}) : super(key: key);
+
   @override
   _BottomSheetCustomState createState() => _BottomSheetCustomState();
 }
@@ -40,10 +41,7 @@ class _BottomSheetCustomState extends State<BottomSheetCustom> {
       // Default is true.
       hideNavigationBarWhenKeyboardShows: true,
       // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
-      decoration: NavBarDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        colorBehindNavBar: Colors.white,
-      ),
+
       popAllScreensOnTapOfSelectedTab: true,
       popActionScreens: PopActionScreensType.all,
       itemAnimationProperties: ItemAnimationProperties(
@@ -81,26 +79,26 @@ class _BottomSheetCustomState extends State<BottomSheetCustom> {
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.settings),
-        title: ("Chat "),
+        icon: Icon(CupertinoIcons.bubble_left_bubble_right_fill),
+        title: ("Discussion"),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.home),
-        title: ("Home"),
+        icon: Icon(Icons.list_alt),
+        title: ("Listings"),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.settings),
-        title: ("Settings"),
+        icon: Icon(CupertinoIcons.chat_bubble_text),
+        title: ("Message"),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.settings),
-        title: ("Settings"),
+        icon: Icon(Icons.account_balance),
+        title: ("Government"),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),

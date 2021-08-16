@@ -9,6 +9,7 @@ import 'package:dail_box/util/colors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class SignUp extends StatefulWidget {
@@ -24,6 +25,16 @@ class _SignUpState extends State<SignUp> {
       child: Scaffold(
         body: Stack(
           children: [
+            Align(
+              alignment: Alignment.topCenter,
+              child: Transform.translate(
+                offset: Offset(0, -height / 9),
+                child: SvgPicture.asset(
+                  'assets/svg/db main.svg',
+                  height: height / 3,
+                ),
+              ),
+            ),
             Obx(
               () => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,13 +54,9 @@ class _SignUpState extends State<SignUp> {
                           Navigator.pop(context);
                         },
                       ),
-                      Image(
-                        image: AssetImage('assets/icons/logo_red.png'),
-                        height: 50,
-                      ),
                       InkWell(
                         onTap: () {
-                          Get.offAll(HomeScreen());
+                          Get.offAll(HomeScreen);
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -62,6 +69,7 @@ class _SignUpState extends State<SignUp> {
                       )
                     ],
                   ),
+                  SizedBox(height: 10,),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
@@ -71,9 +79,6 @@ class _SignUpState extends State<SignUp> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              SizedBox(
-                                height: 10,
-                              ),
                               RichText(
                                 text: new TextSpan(
                                     text: 'Create your',
@@ -122,7 +127,8 @@ class _SignUpState extends State<SignUp> {
                                           boxShadow: [
                                             BoxShadow(
                                               color: Colors.grey[400]!,
-                                              offset: Offset(0.0, 1.0), //(x,y)
+                                              offset: Offset(0.0, 1.0),
+                                              //(x,y)
                                               blurRadius: 6.0,
                                             ),
                                           ],
@@ -169,7 +175,8 @@ class _SignUpState extends State<SignUp> {
                                           boxShadow: [
                                             BoxShadow(
                                               color: Colors.grey[400]!,
-                                              offset: Offset(0.0, 1.0), //(x,y)
+                                              offset: Offset(0.0, 1.0),
+                                              //(x,y)
                                               blurRadius: 6.0,
                                             ),
                                           ],

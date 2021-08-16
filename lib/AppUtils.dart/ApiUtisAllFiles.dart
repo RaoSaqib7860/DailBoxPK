@@ -1,6 +1,6 @@
-import 'dart:convert';
 import 'package:dail_box/Screens/AddProduct.dart/AddProductController.dart';
 import 'package:dail_box/Screens/BuisnessRegistration.dart/BuisnessRegistrationController.dart';
+import 'package:dail_box/Screens/bottomNav/ChatBox/ChatBoxController.dart';
 import 'package:dail_box/Screens/bottomNav/Home/home.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:path/path.dart';
 import '../main.dart';
+import 'APiUtilsForAuth.dart';
 import 'ApiUtilsForAll.dart';
 import 'BaseUtils.dart';
 import 'LogsUtils.dart';
@@ -36,13 +37,11 @@ class ApiUtilsAllFiles extends ChangeNotifier {
       var responce = await Dio().post(
           '$baseUrl${ApiUtilsForAll.addproduct}$secretCodeString',
           data: formData);
-      var data = jsonDecode(responce.data);
+      var data = responce.data;
       printlog('data is = $data');
       printlog('data is = ${responce.statusCode}');
       controller.loading.value = false;
       if (data["result"] == "success") {
-        Navigator.of(navigatorKey.currentContext!).pop();
-        Navigator.of(navigatorKey.currentContext!).pop();
         Navigator.of(navigatorKey.currentContext!).pop();
         callHome();
         snackBarSuccess('Your product has been submitted for approval');
@@ -108,15 +107,64 @@ class ApiUtilsAllFiles extends ChangeNotifier {
       var responce = await Dio().post(
           '$baseUrl${ApiUtilsForAll.addlisting}$secretCodeString',
           data: formData);
-      var data = jsonDecode(responce.data);
+      var data = responce.data;
       printlog('data is = $data');
       printlog('data is = ${responce.statusCode}');
       //controller.loading.value = false;
       if (data["result"] == "success") {
         snackBarSuccess('Your product has been submitted for approval');
         Navigator.of(navigatorKey.currentContext!).pop();
-        Navigator.of(navigatorKey.currentContext!).pop();
+        callHome();
       } else {}
+    } catch (e) {}
+  }
+
+  static Future getpostDiscussionform(ChatBoxController controller) async {
+    GetStorage storage = GetStorage();
+    FormData formData;
+    if (controller.isf1.value) {
+      print('in image now');
+      formData = FormData.fromMap({
+        'business_id': controller
+                .listofbuisness[controller.currentlistofbuisnessIndex.value]
+            ['business_id'],
+        'industry_id': controller.listofIndustrytwo[
+            controller.currentlistofIndustryIndextwo.value]['id'],
+        'industry_main_cat_id': controller
+            .listofCattwo[controller.currentlistofCatIndextwo.value]['id'],
+        'user_id': storage.read('userId'),
+        'discussionform_text': controller.writeCommentCon.value.text,
+        'fourm_image': await MultipartFile.fromFile(controller.f1.value.path,
+            filename: basename(controller.f1.value.path)),
+      });
+    } else {
+      formData = FormData.fromMap({
+        'business_id': controller
+                .listofbuisness[controller.currentlistofbuisnessIndex.value]
+            ['business_id'],
+        'industry_id': controller.listofIndustrytwo[
+            controller.currentlistofIndustryIndextwo.value]['id'],
+        'industry_main_cat_id': controller
+            .listofCattwo[controller.currentlistofCatIndextwo.value]['id'],
+        'user_id': storage.read('userId'),
+        'discussionform_text': controller.writeCommentCon.value.text,
+        'fourm_image': ''
+      });
+    }
+    try {
+      var responce = await Dio().post(
+          '$baseUrl${ApiUtils.postDiscussionform}$secretCodeString',
+          data: formData);
+      var data = responce.data;
+      printlog('data is = $data');
+      printlog('data is = ${responce.statusCode}');
+      controller.loading.value = false;
+      controller.loading.value = false;
+      if (data["result"] == "success") {
+        snackBarSuccess(data['message']);
+      } else {
+        snackBarSuccess('${data['message']}');
+      }
     } catch (e) {}
   }
 }
