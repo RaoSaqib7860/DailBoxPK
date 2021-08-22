@@ -4,14 +4,17 @@ import 'package:dail_box/AppUtils.dart/ApiUtilsForAll.dart';
 import 'package:dail_box/AppUtils.dart/AppBarGlobal.dart';
 import 'package:dail_box/AppUtils.dart/ShimmerEffect.dart';
 import 'package:dail_box/Screens/IndustryDetails/IndustryDetailsController.dart';
+import 'package:dail_box/util/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'IndustrySubDetails/IndustrySubDetails.dart';
 
 class IndustryDetails extends StatefulWidget {
   final String? id;
+  final String? name;
 
-  const IndustryDetails({Key? key, this.id}) : super(key: key);
+  const IndustryDetails({Key? key, this.id, this.name}) : super(key: key);
 
   @override
   _IndustryDetailsState createState() => _IndustryDetailsState();
@@ -33,7 +36,7 @@ class _IndustryDetailsState extends State<IndustryDetails> {
       var width = size.maxWidth;
       return SafeArea(
         child: Scaffold(
-          appBar: appBarGlobal('Industry details'),
+          appBar: appBarGlobal('${widget.name}'),
           body: Container(
             height: height,
             width: width,
@@ -92,43 +95,66 @@ class _IndustryDetailsState extends State<IndustryDetails> {
                                       ],
                                     ),
                                   )
-                                : Column(
-                                    children: [
-                                      Expanded(
-                                        child: ZoomIn(
-                                          child: Container(
-                                            child: CachedNetworkImage(
-                                              height: double.infinity,
-                                              fit: BoxFit.contain,
-                                              imageUrl:
-                                                  "https://dailboxx.websitescare.com/upload/industry/${controller.listofindustryDetails[index]['icons']}",
-                                              placeholder: (context, url) =>
-                                                  SpinKitWave(
-                                                color: Colors.blue,
-                                                size: 15.0,
+                                : InkWell(
+                                    onTap: () {
+                                      print('clicked');
+                                      Get.to(IndustrySubDetails(
+                                        user_id:
+                                            '${controller.listofindustryDetails[index]['sub_cat_id']}',
+                                        name:
+                                            '${controller.listofindustryDetails[index]['main_cat_name']}',
+                                      ));
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Expanded(
+                                          child: ZoomIn(
+                                            child: Container(
+                                              child: CachedNetworkImage(
+                                                height: double.infinity,
+                                                fit: BoxFit.contain,
+                                                imageUrl:
+                                                    "https://dailboxx.websitescare.com/upload/industry/${controller.listofindustryDetails[index]['icons']}",
+                                                placeholder: (context, url) =>
+                                                    SpinKitWave(
+                                                  color: Colors.blue,
+                                                  size: 15.0,
+                                                ),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Icon(Icons.error),
                                               ),
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      Icon(Icons.error),
                                             ),
+                                            duration:
+                                                Duration(milliseconds: 700),
                                           ),
-                                          duration: Duration(milliseconds: 700),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: height * 0.0050,
-                                      ),
-                                      Container(
-                                        child: Text(
-                                          '${controller.listofindustryDetails[index]['main_cat_name']}',
-                                          style: TextStyle(fontSize: 9),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 2,
-                                          textAlign: TextAlign.center,
+                                        SizedBox(
+                                          height: height * 0.0050,
                                         ),
-                                        width: width * 0.150,
-                                      )
-                                    ],
+                                        Container(
+                                          child: Text(
+                                            '${controller.listofindustryDetails[index]['main_cat_name']}',
+                                            style: TextStyle(fontSize: 9),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 2,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          width: width * 0.150,
+                                        ),
+                                        Container(
+                                          child: Text(
+                                            '( ${controller.listofindustryDetails[index]['total_listing']} )',
+                                            style: TextStyle(
+                                                fontSize: 7, color: blueColor),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 2,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          width: width * 0.150,
+                                        ),
+                                      ],
+                                    ),
                                   );
                           },
                               childCount:

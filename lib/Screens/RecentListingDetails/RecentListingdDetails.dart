@@ -1,13 +1,13 @@
 import 'dart:ui';
+import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dail_box/AppUtils.dart/ApiUtilsForAll.dart';
 import 'package:dail_box/AppUtils.dart/AppBarGlobal.dart';
 import 'package:dail_box/AppUtils.dart/ShimmerEffect.dart';
 import 'package:dail_box/AppUtils.dart/SizedConfig.dart';
-import 'package:dail_box/Screens/AddProduct.dart/AddProduct.dart';
-import 'package:dail_box/Screens/AddService/AddService.dart';
-import 'package:dail_box/Screens/BuisnessRegistration.dart/BuisnessRegistration.dart';
+import 'package:dail_box/AppUtils.dart/SnackBarUtils.dart';
 import 'package:dail_box/Screens/RecentListingDetails/RecentListingsController.dart';
+import 'package:dail_box/Screens/SearchDetail/SearchDetails.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,12 +15,15 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'dart:math' as math;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class RecentListingsDetails extends StatefulWidget {
   final String? id;
+  final String? businessId;
 
-  const RecentListingsDetails({Key? key, this.id}) : super(key: key);
+  const RecentListingsDetails({Key? key, this.id, this.businessId})
+      : super(key: key);
 
   @override
   _RecentListingsDetailsState createState() => _RecentListingsDetailsState();
@@ -28,6 +31,7 @@ class RecentListingsDetails extends StatefulWidget {
 
 class _RecentListingsDetailsState extends State<RecentListingsDetails> {
   final controller = Get.put(RecentListnigsController());
+  GetStorage storage = GetStorage();
 
   @override
   void initState() {
@@ -38,8 +42,10 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
   getApiData() async {
     controller.getLocationData();
     await ApiUtilsForAll.getgetlisting(controller, widget.id!);
-    await ApiUtilsForAll.getgetlistingproduct(controller, widget.id!);
-    await ApiUtilsForAll.getgetlistingservices(controller, widget.id!);
+    await ApiUtilsForAll.getgetlistingproduct(controller, widget.businessId!);
+    await ApiUtilsForAll.getgetlistingservices(controller, widget.businessId!);
+    await ApiUtilsForAll.getgetlistingrating(
+        id: widget.businessId, controller: controller);
   }
 
   @override
@@ -473,13 +479,13 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                 child: Text(
                                   '${controller.listofrecentListings[0]['business_name']}',
                                   style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
                                       letterSpacing: 0.5),
                                 ),
                               ),
                               SizedBox(
-                                height: height * 0.010,
+                                height: height * 0.020,
                               ),
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(5),
@@ -510,38 +516,93 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                 style: TextStyle(
                                     fontSize: 13, fontWeight: FontWeight.bold),
                               ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    '4.0',
-                                    style: TextStyle(
-                                        fontSize: 12, color: Colors.black26),
-                                  ),
-                                  SizedBox(
-                                    width: width * 0.010,
-                                  ),
-                                  Row(
-                                    children: [1, 2, 3, 4, 5].map((e) {
-                                      return InkWell(
-                                        child: Icon(
-                                          Icons.star,
-                                          size: 20,
-                                          color: Colors.yellow[700],
-                                        ),
-                                      );
-                                    }).toList(),
-                                  ),
-                                  SizedBox(
-                                    width: width * 0.010,
-                                  ),
-                                  Text(
-                                    '125 reviews',
-                                    style: TextStyle(
-                                        fontSize: 12, color: Colors.black26),
-                                  ),
-                                ],
+                              SizedBox(
+                                height: height * 0.010,
                               ),
+                              controller.listgetlistingrating.isEmpty
+                                  ? ShimerEffect(
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            '----',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.black26),
+                                          ),
+                                          SizedBox(
+                                            width: width * 0.010,
+                                          ),
+                                          Row(
+                                            children: [1, 2, 3, 4, 5].map((e) {
+                                              return InkWell(
+                                                child: Icon(
+                                                  Icons.star,
+                                                  size: 16,
+                                                  color: Colors.yellow[700],
+                                                ),
+                                              );
+                                            }).toList(),
+                                          ),
+                                          SizedBox(
+                                            width: width * 0.010,
+                                          ),
+                                          Text(
+                                            '.....',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.black26),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  : Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          '${controller.listgetlistingrating[0]['rating']}',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.black26),
+                                        ),
+                                        SizedBox(
+                                          width: width * 0.010,
+                                        ),
+                                        Row(
+                                          children: [1, 2, 3, 4, 5].map((e) {
+                                            int value = double.parse(
+                                                    '${controller.listgetlistingrating[0]['rating'] ?? '0.0'}')
+                                                .toInt();
+                                            return value >= e
+                                                ? InkWell(
+                                                    child: Icon(
+                                                      Icons.star,
+                                                      size: 16,
+                                                      color: Colors.yellow[700],
+                                                    ),
+                                                  )
+                                                : InkWell(
+                                                    child: Icon(
+                                                      Icons.star_border,
+                                                      size: 16,
+                                                      color: Colors.yellow[700],
+                                                    ),
+                                                  );
+                                          }).toList(),
+                                        ),
+                                        SizedBox(
+                                          width: width * 0.010,
+                                        ),
+                                        Text(
+                                          '${controller.listgetlistingrating[0]['reviews']} reviews',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.black26),
+                                        ),
+                                      ],
+                                    ),
                               SizedBox(
                                 height: height * 0.020,
                               ),
@@ -609,19 +670,33 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                               SizedBox(
                                 height: height * 0.030,
                               ),
-                              Container(
-                                margin: EdgeInsets.symmetric(
-                                    horizontal: width * 0.030),
-                                height: height * 0.055,
-                                width: width,
-                                child: Center(
-                                  child: Text(
-                                    'Message',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                                decoration: BoxDecoration(color: blueColor),
-                              ),
+                              '${controller.listofrecentListings[0]['user_id']}' ==
+                                      storage.read('userId')
+                                  ? SizedBox()
+                                  : InkWell(
+                                      onTap: () {
+                                        sendMessage(
+                                            to_msg:
+                                                '${controller.listofrecentListings[0]['user_id']}',
+                                            bussinies_id:
+                                                '${controller.listofrecentListings[0]['business_id']}');
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: width * 0.030),
+                                        height: height * 0.055,
+                                        width: width,
+                                        child: Center(
+                                          child: Text(
+                                            'Message',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ),
+                                        decoration:
+                                            BoxDecoration(color: blueColor),
+                                      ),
+                                    ),
                               SizedBox(
                                 height: height * 0.020,
                               ),
@@ -633,30 +708,27 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                               SizedBox(
                                 height: height * 0.015,
                               ),
-                              Center(
-                                child: Text(
-                                  'Rate this Business',
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold),
+                              InkWell(
+                                onTap: () {
+                                  ratingDailog(
+                                      listing_id:
+                                          '${controller.listofrecentListings[0]['id']}',
+                                      businessName:
+                                          '${controller.listofrecentListings[0]['business_name']}');
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: width * 0.030),
+                                  height: height * 0.055,
+                                  width: width,
+                                  child: Center(
+                                    child: Text(
+                                      'Rate this Business',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  decoration: BoxDecoration(color: blueColor),
                                 ),
-                              ),
-                              SizedBox(
-                                height: height * 0.020,
-                              ),
-                              Row(
-                                children: [1, 2, 3, 4, 5].map((e) {
-                                  return Container(
-                                    margin: EdgeInsets.symmetric(
-                                        horizontal: width * 0.020),
-                                    child: Icon(Icons.star_border,
-                                        color: Colors.black38),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 1, color: Colors.black26)),
-                                  );
-                                }).toList(),
-                                mainAxisAlignment: MainAxisAlignment.center,
                               ),
                               SizedBox(
                                 height: height * 0.015,
@@ -887,7 +959,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Popular products',
+                                    'Products',
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold),
@@ -1020,7 +1092,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Popular Services',
+                                    'Services',
                                     style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold),
@@ -1171,6 +1243,276 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
       decoration: BoxDecoration(
           border: Border.all(width: 1, color: blueColor),
           shape: BoxShape.circle),
+    );
+  }
+
+  sendMessage({String? bussinies_id, String? to_msg}) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    TextEditingController textCon = TextEditingController();
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            insetPadding: EdgeInsets.symmetric(horizontal: width / 20),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0)), //this right here
+            child: Container(
+              height: height / 2.50,
+              width: width,
+              padding: EdgeInsets.symmetric(horizontal: width * 0.030),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  Text(
+                    'Send Message',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Colors.grey[100],
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[400]!,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 6.0,
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        cursorColor: Colors.black,
+                        maxLines: 6,
+                        keyboardType: TextInputType.text,
+                        controller: textCon,
+                        textInputAction: TextInputAction.done,
+                        decoration: new InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            contentPadding: EdgeInsets.only(
+                                left: 15, bottom: 11, top: 11, right: 15),
+                            hintStyle:
+                                TextStyle(color: greyColor, fontSize: 12),
+                            hintText: "Enter message here"),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  Center(
+                    child: InkWell(
+                      onTap: () {
+                        if (textCon.text.isNotEmpty) {
+                          ApiUtilsForAll.getmessage(
+                              bussinies_id: '$bussinies_id',
+                              from_msg: storage.read('userId'),
+                              to_msg: '$to_msg',
+                              massages: textCon.text);
+                          Navigator.of(context).pop();
+                        } else {
+                          Navigator.of(context).pop();
+                          snackBarFailer('Please type message to receiver');
+                        }
+                      },
+                      child: Container(
+                        height: height * 0.055,
+                        width: width / 2,
+                        child: Center(
+                          child: Text(
+                            'SEND',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                            color: blueColor,
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              decoration: BoxDecoration(color: Colors.white),
+            ),
+          );
+        });
+  }
+
+  ratingDailog({String? listing_id, String? businessName}) {
+    int rating = 0;
+    var height = Get.height;
+    var width = Get.width;
+    List list = [1, 2, 3, 4, 5];
+    List listofCheck = [false, false, false, false, false];
+    TextEditingController tecCon = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return FlipInX(
+              child: Dialog(
+                insetPadding:
+                    EdgeInsets.only(left: width / 20, right: width / 20),
+                child: Container(
+                  height: height / 2.5,
+                  width: width,
+                  child: ListView(
+                    children: [
+                      SizedBox(
+                        height: height / 30,
+                      ),
+                      Center(
+                          child: Text(
+                        'Rate your Experience here'.tr,
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1),
+                      )),
+                      SizedBox(
+                        height: height / 50,
+                      ),
+                      Row(
+                        children: list.map((e) {
+                          int index = list.indexOf(e);
+                          return listofCheck[index] == false
+                              ? Padding(
+                                  padding: EdgeInsets.only(
+                                      left: width / 50, right: width / 50),
+                                  child: InkWell(
+                                    onTap: () {
+                                      for (var i = 0;
+                                          i < listofCheck.length;
+                                          i++) {
+                                        setState(() {
+                                          listofCheck[i] = false;
+                                        });
+                                      }
+                                      for (var i = 0; i < index + 1; i++) {
+                                        setState(() {
+                                          listofCheck[i] = true;
+                                        });
+                                      }
+                                      rating = index + 1;
+                                    },
+                                    child: Container(
+                                      child: Image.asset(
+                                        'assets/images/star.png',
+                                        color: Colors.black26,
+                                      ),
+                                      height: height / 20,
+                                      width: width / 10,
+                                    ),
+                                  ),
+                                )
+                              : Padding(
+                                  padding: EdgeInsets.only(
+                                      left: width / 50, right: width / 50),
+                                  child: InkWell(
+                                    onTap: () {
+                                      for (var i = 0;
+                                          i < listofCheck.length;
+                                          i++) {
+                                        setState(() {
+                                          listofCheck[i] = false;
+                                        });
+                                      }
+                                      for (var i = 0; i < index + 1; i++) {
+                                        setState(() {
+                                          listofCheck[i] = true;
+                                        });
+                                      }
+                                      rating = index + 1;
+                                    },
+                                    child: Container(
+                                      child: Image.asset(
+                                        'assets/images/star.png',
+                                        color: Colors.yellow[700],
+                                      ),
+                                      height: height / 20,
+                                      width: width / 10,
+                                    ),
+                                  ),
+                                );
+                        }).toList(),
+                        mainAxisAlignment: MainAxisAlignment.center,
+                      ),
+                      SizedBox(
+                        height: height / 30,
+                      ),
+                      Container(
+                          padding: EdgeInsets.only(
+                              left: width / 20, right: width / 20),
+                          child: GenaricTextField(
+                            botomwidth: height / 50,
+                            line: 5,
+                            topwidth: height / 50,
+                            controller: tecCon,
+                          )),
+                      SizedBox(
+                        height: height / 40,
+                      ),
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              if (listofCheck.contains(true)) {
+                                if (tecCon.text.isNotEmpty) {
+                                  Navigator.of(context).pop();
+                                  ApiUtilsForAll.getgivelistingrate(
+                                      listing_id: '$listing_id',
+                                      business_name: '$businessName',
+                                      rating_points: '$rating',
+                                      rating_review: tecCon.text);
+                                } else {
+                                  Navigator.of(context).pop();
+                                  snackBarFailer('Please enter feed back'.tr);
+                                }
+                              } else {
+                                Navigator.of(context).pop();
+                                snackBarFailer('Please rate to Driver'.tr);
+                              }
+                            },
+                            child: Container(
+                              height: height * 0.045,
+                              width: width * 0.3,
+                              child: Center(
+                                child: Text(
+                                  'Ok'.tr,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 12),
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                  color: blueColor,
+                                  borderRadius: BorderRadius.circular(30)),
+                            ),
+                          ),
+                        ],
+                        mainAxisAlignment: MainAxisAlignment.center,
+                      ),
+                    ],
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }

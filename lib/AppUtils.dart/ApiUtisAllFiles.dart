@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:dail_box/Screens/AddProduct.dart/AddProductController.dart';
 import 'package:dail_box/Screens/BuisnessRegistration.dart/BuisnessRegistrationController.dart';
 import 'package:dail_box/Screens/bottomNav/ChatBox/ChatBoxController.dart';
@@ -161,6 +162,30 @@ class ApiUtilsAllFiles extends ChangeNotifier {
       controller.loading.value = false;
       controller.loading.value = false;
       if (data["result"] == "success") {
+        snackBarSuccess(data['message']);
+      } else {
+        snackBarSuccess('${data['message']}');
+      }
+    } catch (e) {}
+  }
+
+  static Future getmyProfileImage(File f1) async {
+    GetStorage storage = GetStorage();
+    FormData formData;
+    formData = FormData.fromMap({
+      'user_id': storage.read('userId'),
+      'profile_image':
+          await MultipartFile.fromFile(f1.path, filename: basename(f1.path)),
+    });
+    try {
+      var responce = await Dio().post(
+          '$baseUrl${ApiUtils.myProfileImage}$secretCodeString',
+          data: formData);
+      var data = responce.data;
+      printlog('data is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data["result"] == "success") {
+        storage.write('profile_image', '/upload/profile/${data['data']}');
         snackBarSuccess(data['message']);
       } else {
         snackBarSuccess('${data['message']}');

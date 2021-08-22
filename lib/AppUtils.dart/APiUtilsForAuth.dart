@@ -6,6 +6,9 @@ import 'package:dail_box/Screens/ForgotPassword/ForgotPasswordController.dart';
 import 'package:dail_box/Screens/MessageDetails/MessageDetailsController.dart';
 import 'package:dail_box/Screens/OtpCodeVarification/PhoneVarificationController.dart';
 import 'package:dail_box/Screens/OtpCodeVarification/phone_verification.dart';
+import 'package:dail_box/Screens/Profile/EditProfileController.dart';
+import 'package:dail_box/Screens/Profile/ProfileController.dart';
+import 'package:dail_box/Screens/SearchDetail/SearchDetailsController.dart';
 import 'package:dail_box/Screens/SignIn/SignInController.dart';
 import 'package:dail_box/Screens/SignUp/SignUpController.dart';
 import 'package:dail_box/Screens/HomeScreen/home_screen.dart';
@@ -38,6 +41,14 @@ class ApiUtils {
   static final String getAllMyMessages = '/getAllMyMessages';
   static final String getChatOneToOne = '/getChatOneToOne';
   static final String getChatOneToOneSave = '/getChatOneToOneSave';
+  static final String myProfileImage = '/myProfileImage';
+  static final String editMyProfile = '/editMyProfile';
+  static final String getproduct = '/getproduct';
+  static final String giveproductrate = '/giveproductrate';
+  static final String getproductallreview = '/getproductallreview';
+  static final String getservice = '/getservice';
+  static final String getserviceallreview = '/getserviceallreview';
+  static final String giveservicerate = '/giveservicerate';
 
   static Future loginApi(SignInController controller) async {
     //http://dailboxx.websitescare.com/Alphaapis/login?code=DAILBOXX-03448567673
@@ -69,7 +80,7 @@ class ApiUtils {
         storage.write('l_name', '${data['data']['l_name']}');
         storage.write('profile_image', '${data['data']['profile_image']}');
         Future.delayed(Duration(seconds: 2), () {
-          Get.to(HomeScreen());
+          Get.offAll(HomeScreen());
         });
       } else {
         snackBarFailer(data['message']);
@@ -223,7 +234,6 @@ class ApiUtils {
   }
 
   static Future getgetDiscussionform({ChatBoxController? controller}) async {
-    //http://dailboxx.websitescare.com/Alphaapis/getDiscussionform?code=DAILBOXX-03448567673
     var url = Uri.parse('$baseUrl$getDiscussionform$secretCodeString');
     try {
       var responce = await http.get(
@@ -396,6 +406,162 @@ class ApiUtils {
       var data = jsonDecode(responce.body);
       printlog('getgetChatOneToOne list is  = $data');
       printlog('data is = ${responce.statusCode}');
+    } catch (e) {}
+  }
+
+  static Future getgetDiscussionformprofile(
+      {ProfileController? controller}) async {
+    var url = Uri.parse('$baseUrl$getDiscussionform$secretCodeString');
+    try {
+      var responce = await http.get(
+        url,
+      );
+      var data = jsonDecode(responce.body);
+      printlog('data is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.listofChatBox.clear();
+        controller.listofChatBox.value = data['data'] ?? [];
+        controller.loadmainList.value = true;
+        print('list data = ${controller.listofChatBox}');
+      } else {
+        snackBarFailer(data['message']);
+      }
+    } catch (e) {}
+  }
+
+  //  //http://dailboxx.websitescare.com/Alphaapis/editMyProfile?code=DAILBOXX-03448567673
+
+  static Future geteditMyProfile({EditProfileController? controller}) async {
+    var url = Uri.parse('$baseUrl$editMyProfile$secretCodeString');
+    GetStorage storage = GetStorage();
+    print('call api');
+    try {
+      var responce = await http.post(url, body: {
+        'userId': storage.read('userId'),
+        'mobile': controller!.phoneCon.text,
+        'password': controller.p2Con.text,
+        'email': storage.read('email'),
+      });
+      var data = jsonDecode(responce.body);
+      printlog('data is = $data');
+      printlog('data is = ${responce.statusCode}');
+      controller.loading.value = false;
+      snackBarSuccess('User information Updated Success!');
+    } catch (e) {}
+  }
+
+  //http://dailboxx.websitescare.com/Alphaapis/getproduct?code=DAILBOXX-03448567673
+
+  static Future getgetproduct(
+      {SearchDetailsController? controller, String? id}) async {
+    var url = Uri.parse('$baseUrl$getproduct$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        'productid': id,
+      });
+      var data = jsonDecode(responce.body);
+      printlog('data is = $data');
+      printlog('data is = ${responce.statusCode}');
+      controller!.listofData.value = data['data'] ?? [];
+    } catch (e) {}
+  }
+
+  //http://dailboxx.websitescare.com/Alphaapis/giveproductrate?code=DAILBOXX-03448567673
+
+  static Future getgiveproductrate(
+      {String? product_id,
+      String? product_rating,
+      String? product_review}) async {
+    GetStorage storage = GetStorage();
+    var url = Uri.parse('$baseUrl$giveproductrate$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        'product_id': '$product_id',
+        'user_id': storage.read('userId'),
+        'product_rating': '$product_rating',
+        'product_review': '$product_review',
+      });
+      var data = jsonDecode(responce.body);
+      printlog('data is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        snackBarSuccess(data['message']);
+      } else {
+        snackBarFailer(data['message']);
+      }
+    } catch (e) {}
+  }
+
+//http://dailboxx.websitescare.com/Alphaapis/getproductallreview?code=DAILBOXX-03448567673
+  static Future getgetproductallreview(
+      {SearchDetailsController? controller, String? id}) async {
+    var url = Uri.parse('$baseUrl$getproductallreview$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        'productid': id,
+      });
+      var data = jsonDecode(responce.body);
+      printlog('getgetproductallreview is = $data');
+      printlog('data is = ${responce.statusCode}');
+      controller!.listofReview.value = data['data'] ?? [];
+    } catch (e) {}
+  }
+
+//http://dailboxx.websitescare.com/Alphaapis/getservice?code=DAILBOXX-03448567673
+
+  static Future getgetservice(
+      {SearchDetailsController? controller, String? id}) async {
+    var url = Uri.parse('$baseUrl$getservice$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        'serviceid': id,
+      });
+      var data = jsonDecode(responce.body);
+      printlog('getgetservice is = $data');
+      printlog('data is = ${responce.statusCode}');
+      controller!.listofData.value = data['data'] ?? [];
+    } catch (e) {}
+  }
+
+  //http://dailboxx.websitescare.com/Alphaapis/getserviceallreview?code=DAILBOXX-03448567673
+
+  static Future getgetserviceallreview(
+      {SearchDetailsController? controller, String? id}) async {
+    var url = Uri.parse('$baseUrl$getserviceallreview$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        'serviceid': id,
+      });
+      var data = jsonDecode(responce.body);
+      printlog('getgetserviceallreview is = $data');
+      printlog('data is = ${responce.statusCode}');
+      controller!.listofReview.value = data['data'] ?? [];
+    } catch (e) {}
+  }
+
+//http://dailboxx.websitescare.com/Alphaapis/giveservicerate?code=DAILBOXX-03448567673
+  static Future getgiveservicerate(
+      {String? product_id,
+        String? product_rating,
+        String? product_review}) async {
+    GetStorage storage = GetStorage();
+    var url = Uri.parse('$baseUrl$giveservicerate$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        'service_id': '$product_id',
+        'user_id': storage.read('userId'),
+        'service_rating': '$product_rating',
+        'service_review': '$product_review',
+      });
+      var data = jsonDecode(responce.body);
+      printlog('data is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        snackBarSuccess(data['message']);
+      } else {
+        snackBarFailer(data['message']);
+      }
     } catch (e) {}
   }
 }

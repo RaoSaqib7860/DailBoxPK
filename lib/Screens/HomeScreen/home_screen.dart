@@ -7,7 +7,7 @@ import 'package:dail_box/Screens/SignIn/sign_in.dart';
 import 'package:dail_box/drawerScreens/advertise.dart';
 import 'package:dail_box/Screens/ContactUs/contact_us.dart';
 import 'package:dail_box/drawerScreens/notification.dart';
-import 'package:dail_box/drawerScreens/profile.dart';
+import 'package:dail_box/Screens/Profile/profile.dart';
 import 'package:dail_box/drawerScreens/setting.dart';
 import 'package:dail_box/menu_page.dart';
 import 'package:flutter/animation.dart';

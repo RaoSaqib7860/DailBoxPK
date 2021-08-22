@@ -49,10 +49,9 @@ class _SignInState extends State<SignIn> {
                       icon: Icon(
                         Icons.arrow_back,
                         size: 25,
+                        color: Colors.white,
                       ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
+                      onPressed: () {},
                     ),
                     InkWell(
                       onTap: () {

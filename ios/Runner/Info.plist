@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Dial Box</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -22,35 +24,35 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-    <key>NSAppTransportSecurity</key>
-    <dict>
-      <key>NSAllowsArbitraryLoads</key>
-      <true/>
-    </dict>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>SharingOut would like to access your Music</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Modoose would like to access your calender.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Your Camera is used to update your profile and add food images.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>YOur Contact is used to update your profile with contact information.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Your Location is used to show you nearby foods.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Your Location is used to provide directions to destination.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Modoose need to access your device microphone.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Modoose would like to access your motion.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Your photo library is used to update food image and profile picture.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>The app uses speech recognition for dictating notes.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-    <key>NSAppleMusicUsageDescription</key>
-    <string>SharingOut would like to access your Music</string>
-    <key>NSCalendarsUsageDescription</key>
-    <string>Modoose would like to access your calender.</string>
-    <key>NSCameraUsageDescription</key>
-    <string>Your Camera is used to update your profile and add food images.</string>
-    <key>NSContactsUsageDescription</key>
-    <string>YOur Contact is used to update your profile with contact information.</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>Your Location is used to show you nearby foods.</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>Your Location is used to provide directions to destination.</string>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>Modoose need to access your device microphone.</string>
-    <key>NSMotionUsageDescription</key>
-    <string>Modoose would like to access your motion.</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Your photo library is used to update food image and profile picture.</string>
-    <key>NSSpeechRecognitionUsageDescription</key>
-    <string>The app uses speech recognition for dictating notes.</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -66,5 +68,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
 </dict>
 </plist>

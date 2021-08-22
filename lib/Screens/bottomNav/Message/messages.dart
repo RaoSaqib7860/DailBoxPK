@@ -216,7 +216,7 @@ class _MessagesState extends State<Messages> {
                                 child: Row(
                                   children: <Widget>[
                                     CircularProfileAvatar(
-                                      'https://www.dailboxx.websitescare.com${controller.listofMessages[index]['profileimage']}',
+                                      'https://www.dailboxx.websitescare.com/upload/profile/${controller.listofMessages[index]['profileimage']}',
                                       elevation: 5,
                                       radius: 25,
                                     ),

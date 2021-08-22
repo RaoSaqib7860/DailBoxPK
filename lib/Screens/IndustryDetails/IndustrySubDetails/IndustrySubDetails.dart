@@ -1,39 +1,41 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dail_box/AppUtils.dart/ApiUtilsForAll.dart';
+import 'package:dail_box/AppUtils.dart/AppBarGlobal.dart';
 import 'package:dail_box/AppUtils.dart/ShimmerEffect.dart';
-import 'package:dail_box/Screens/bottomNav/Listings/ListingsController.dart';
+import 'package:dail_box/AppUtils.dart/SnackBarUtils.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'IndustrySubDetailsController.dart';
 
-class Listings extends StatefulWidget {
+class IndustrySubDetails extends StatefulWidget {
   final String? user_id;
   final String? name;
 
-  const Listings({Key? key, this.user_id = '-1', this.name = 'My Listings'})
+  const IndustrySubDetails(
+      {Key? key, this.user_id = '-1', this.name = 'My Listings'})
       : super(key: key);
 
   @override
-  _ListingsState createState() => _ListingsState();
+  _IndustrySubDetailsState createState() => _IndustrySubDetailsState();
 }
 
-class _ListingsState extends State<Listings> {
-  final controller = Get.put(ListingsController());
+class _IndustrySubDetailsState extends State<IndustrySubDetails> {
+  final controller = Get.put(IndustrySubDetailsController());
   List list = ['Filter', 'Verified', 'Open Now', 'Top Rated'];
   GetStorage storage = GetStorage();
 
   @override
   void initState() {
-    Future.delayed(Duration(milliseconds: 0),(){
+    Future.delayed(Duration(milliseconds: 0), () {
       controller.listofListings.clear();
       controller.isLoadinglist.value = false;
     });
-    ApiUtilsForAll.getgetmybusinesslistforListings(
-        controller: controller,
-        id: widget.user_id == '-1' ? storage.read('userId') : widget.user_id);
+    ApiUtilsForAll.getgetmybusinesslistforListingss(
+        controller: controller, id: widget.user_id);
     super.initState();
   }
 
@@ -437,105 +439,156 @@ class _ListingsState extends State<Listings> {
                                               SizedBox(
                                                 height: height * 0.010,
                                               ),
-                                              widget.user_id == '-1'
+                                              storage.read('userId') ==
+                                                      '${controller.listofListings[i]['user_posted_id']}'
                                                   ? SizedBox()
                                                   : Row(
                                                       children: [
-                                                        Container(
-                                                          height:
-                                                              height * 0.040,
-                                                          width: width * 0.220,
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Icon(
-                                                                Icons.call,
-                                                                color: Colors
-                                                                    .white,
-                                                                size: 15,
-                                                              ),
-                                                              SizedBox(
-                                                                width: 5,
-                                                              ),
-                                                              Text(
-                                                                'Call',
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontSize:
-                                                                        10),
-                                                              )
-                                                            ],
-                                                          ),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: blueColor,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: width * 0.020,
-                                                        ),
-                                                        Container(
-                                                          height:
-                                                              height * 0.040,
-                                                          width: width * 0.220,
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Icon(
-                                                                Icons
-                                                                    .messenger_outline,
-                                                                color:
-                                                                    blueColor,
-                                                                size: 15,
-                                                              ),
-                                                              SizedBox(
-                                                                width: 5,
-                                                              ),
-                                                              Text(
-                                                                'Message',
-                                                                style: TextStyle(
-                                                                    color:
-                                                                        blueColor,
-                                                                    fontSize:
-                                                                        10),
-                                                              )
-                                                            ],
-                                                          ),
-                                                          decoration: BoxDecoration(
+                                                        InkWell(
+                                                          child: Container(
+                                                            height:
+                                                                height * 0.040,
+                                                            width:
+                                                                width * 0.220,
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Icon(
+                                                                  Icons.call,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  size: 15,
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 5,
+                                                                ),
+                                                                Text(
+                                                                  'Call',
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize:
+                                                                          10),
+                                                                )
+                                                              ],
+                                                            ),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: blueColor,
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
                                                                           5),
-                                                              border: Border.all(
-                                                                  width: 1,
+                                                            ),
+                                                          ),
+                                                          onTap: () {
+                                                            launchURL(
+                                                                "tel://${controller.listofListings[0]['cell_number']}");
+                                                          },
+                                                        ),
+                                                        SizedBox(
+                                                          width: width * 0.020,
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            sendMessage(
+                                                                controller:
+                                                                    controller,
+                                                                index: i);
+                                                          },
+                                                          child: Container(
+                                                            height:
+                                                                height * 0.040,
+                                                            width:
+                                                                width * 0.220,
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Icon(
+                                                                  Icons
+                                                                      .messenger_outline,
                                                                   color:
-                                                                      blueColor)),
+                                                                      blueColor,
+                                                                  size: 15,
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 5,
+                                                                ),
+                                                                Text(
+                                                                  'Message',
+                                                                  style: TextStyle(
+                                                                      color:
+                                                                          blueColor,
+                                                                      fontSize:
+                                                                          10),
+                                                                )
+                                                              ],
+                                                            ),
+                                                            decoration: BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            5),
+                                                                border: Border.all(
+                                                                    width: 1,
+                                                                    color:
+                                                                        blueColor)),
+                                                          ),
                                                         ),
                                                       ],
                                                     )
                                             ],
                                           )),
-                                          widget.user_id == '-1'
+                                          storage.read('userId') ==
+                                                  '${controller.listofListings[i]['user_posted_id']}'
                                               ? SizedBox()
-                                              : Icon(
-                                                  CupertinoIcons.suit_heart,
-                                                  color: Colors.black38,
-                                                )
+                                              : '${controller.listofListings[i]['islike']}' ==
+                                                      'false'
+                                                  ? InkWell(
+                                                      onTap: () async {
+                                                        await ApiUtilsForAll
+                                                            .getlike(
+                                                                id:
+                                                                    '${controller.listofListings[i]['business_id']}',
+                                                                controller:
+                                                                    controller,
+                                                                index: i);
+                                                        setState(() {});
+                                                      },
+                                                      child: Icon(
+                                                        CupertinoIcons
+                                                            .suit_heart,
+                                                        color: Colors.black38,
+                                                      ),
+                                                    )
+                                                  : InkWell(
+                                                      onTap: () async {
+                                                        await ApiUtilsForAll
+                                                            .getlike(
+                                                                id:
+                                                                    '${controller.listofListings[i]['business_id']}',
+                                                                controller:
+                                                                    controller,
+                                                                index: i,
+                                                                isLike: false);
+                                                        setState(() {});
+                                                      },
+                                                      child: Icon(
+                                                        CupertinoIcons
+                                                            .suit_heart_fill,
+                                                        color: blueColor,
+                                                      ),
+                                                    )
                                         ],
                                       ),
                                     );
@@ -549,5 +602,140 @@ class _ListingsState extends State<Listings> {
         ),
       );
     });
+  }
+
+  sendMessage({IndustrySubDetailsController? controller, int? index}) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    TextEditingController textCon = TextEditingController();
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            insetPadding: EdgeInsets.symmetric(horizontal: width / 20),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0)), //this right here
+            child: Container(
+              height: height / 2.50,
+              width: width,
+              padding: EdgeInsets.symmetric(horizontal: width * 0.030),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  Text(
+                    'Send Message',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Colors.grey[100],
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[400]!,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 6.0,
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        cursorColor: Colors.black,
+                        maxLines: 6,
+                        keyboardType: TextInputType.text,
+                        controller: textCon,
+                        textInputAction: TextInputAction.done,
+                        decoration: new InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            contentPadding: EdgeInsets.only(
+                                left: 15, bottom: 11, top: 11, right: 15),
+                            hintStyle:
+                                TextStyle(color: greyColor, fontSize: 12),
+                            hintText: "Enter message here"),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  Center(
+                    child: InkWell(
+                      onTap: () {
+                        if (textCon.text.isNotEmpty) {
+                          ApiUtilsForAll.getmessage(
+                              bussinies_id: controller!.listofListings[index!]
+                                  ['business_id'],
+                              from_msg: storage.read('userId'),
+                              to_msg: controller.listofListings[index]
+                                  ['user_posted_id'],
+                              massages: textCon.text);
+                          Navigator.of(context).pop();
+                        } else {
+                          Navigator.of(context).pop();
+                          snackBarFailer('Please type message to receiver');
+                        }
+                      },
+                      child: Container(
+                        height: height * 0.055,
+                        width: width / 2,
+                        child: Center(
+                          child: Text(
+                            'SEND',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                            color: blueColor,
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              decoration: BoxDecoration(color: Colors.white),
+            ),
+          );
+        });
+  }
+}
+
+class LikeButton extends StatefulWidget {
+  final String? buisinessId;
+
+  const LikeButton({Key? key, this.buisinessId}) : super(key: key);
+
+  @override
+  _LikeButtonState createState() => _LikeButtonState();
+}
+
+class _LikeButtonState extends State<LikeButton> {
+  bool isresult = false;
+
+  @override
+  void initState() {
+    getAPiData();
+    super.initState();
+  }
+
+  getAPiData() {
+    ApiUtilsForAll.getlike(id: widget.buisinessId);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Icon(
+      CupertinoIcons.suit_heart,
+      color: Colors.black38,
+    );
   }
 }

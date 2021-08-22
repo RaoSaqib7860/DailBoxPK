@@ -8,6 +8,7 @@ class RecentListnigsController extends GetxController {
   final listofrecentListings = [].obs;
   final listoflistingsProduct = [].obs;
   final listofProductServices = [].obs;
+
   var lat = 0.0.obs;
   var lng = 0.0.obs;
   Completer<GoogleMapController> mapcontroller = Completer();
@@ -62,4 +63,6 @@ class RecentListnigsController extends GetxController {
     marker = {};
     super.dispose();
   }
+
+  final listgetlistingrating = [].obs;
 }

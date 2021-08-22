@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'package:dail_box/Screens/AddProduct.dart/AddProductController.dart';
 import 'package:dail_box/Screens/BuisnessRegistration.dart/BuisnessRegistrationController.dart';
 import 'package:dail_box/Screens/IndustryDetails/IndustryDetailsController.dart';
+import 'package:dail_box/Screens/IndustryDetails/IndustrySubDetails/IndustrySubDetailsController.dart';
 import 'package:dail_box/Screens/RecentListingDetails/RecentListingsController.dart';
 import 'package:dail_box/Screens/SearchPage/SearchController.dart';
 import 'package:dail_box/Screens/bottomNav/Home/HomeController.dart';
 import 'package:dail_box/Screens/bottomNav/Home/home.dart';
+import 'package:dail_box/Screens/bottomNav/Listings/ListingsController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -34,8 +36,18 @@ class ApiUtilsForAll {
   static final String getmainindurty = '/getmainindurty';
   static final String getMainCatapp = '/getMainCatapp';
   static final String getMainSubCatapp = '/getMainSubCatapp';
-  static final String addlisting ='/addlisting';
+  static final String addlisting = '/addlisting';
+  static final String getmybusinesslistforListings = '/getmybusinesslist';
+  static final String getbusinesslistbysubid = '/getbusinesslistbysubid';
+  static final String like = '/like';
+  static final String dislike = '/dislike';
+  static final String message = '/message';
+  static final String homeserives = '/homeserives';
+  static final String getlistingrating = '/getlistingrating';
 
+  //static final String givelistingrate = '/givelistingrate';
+
+  //http://dailboxx.websitescare.com/Alphaapis/getbusinesslistbysubid?code=DAILBOXX-03448567673
   GetStorage storage = GetStorage();
 
   static Future gethomeproducts(HomeController controller) async {
@@ -93,13 +105,30 @@ class ApiUtilsForAll {
     var url = Uri.parse('$baseUrl$gethomecats$secretCodeString');
     try {
       var responce =
-          await http.post(url, body: {'limit_a': '0', 'limit_b': '8'});
+          await http.post(url, body: {'limit_a': '0', 'limit_b': '100'});
       var data = jsonDecode(responce.body);
       printlog('getgethomecats is = ${data['data']}');
       printlog('data is = ${responce.statusCode}');
       if (data['result'] == 'success') {
         controller.listgethomecats.clear();
         controller.listgethomecats = data['data'];
+      } else {
+        snackBarFailer(data['message']);
+      }
+    } catch (e) {}
+  }
+
+  static Future gethomeserives(HomeController controller) async {
+    var url = Uri.parse('$baseUrl$homeserives$secretCodeString');
+    try {
+      var responce =
+          await http.post(url, body: {'limit_a': '0', 'limit_b': '100'});
+      var data = jsonDecode(responce.body);
+      printlog('gethomeserives is = ${data['data']}');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller.listofMostPopularServices.clear();
+        controller.listofMostPopularServices = data['data'];
       } else {
         snackBarFailer(data['message']);
       }
@@ -215,26 +244,27 @@ class ApiUtilsForAll {
   }
 
   static Future getgivelistingrate(
-      RecentListnigsController controller, String id) async {
+      {String? listing_id,
+      String? business_name,
+      String? rating_points,
+      String? rating_review}) async {
     GetStorage storage = GetStorage();
     var url = Uri.parse('$baseUrl$givelistingrate$secretCodeString');
     try {
       var responce = await http.post(url, body: {
-        'listing_id': id,
-        'business_name': "",
+        'listing_id': '$listing_id',
+        'business_name': '$business_name',
         'user_id': storage.read('userId'),
-        'rating_points': '',
-        'rating_review': ""
+        'rating_points': '$rating_points',
+        'rating_review': "$rating_review"
       });
       var data = jsonDecode(responce.body);
-      printlog('listing product services data  is = ${data['data']}');
+      printlog('listing rate data  is = $data');
       printlog('data is = ${responce.statusCode}');
       if (data['result'] == 'success') {
-        controller.listofProductServices.clear();
-        controller.listofProductServices.value = data['data'] ?? [];
+        snackBarSuccess('${data['message']}');
       } else {
-        controller.listofProductServices.clear();
-        // snackBarFailer(data['message']);
+        snackBarFailer('${data['message']}');
       }
     } catch (e) {}
   }
@@ -328,6 +358,7 @@ class ApiUtilsForAll {
       } else {}
     } catch (e) {}
   }
+
   static Future getgetMainSubCatapp(String id) async {
     printlog('main id =$id');
     var url = Uri.parse('$baseUrl$getMainSubCatapp$secretCodeString');
@@ -339,6 +370,115 @@ class ApiUtilsForAll {
       printlog('data is = ${responce.statusCode}');
       if (data['result'] == 'success') {
         controller.listofSubCat.value = data['data'];
+      } else {}
+    } catch (e) {}
+  }
+
+  //http://dailboxx.websitescare.com/Alphaapis/getmybusinesslist?code=DAILBOXX-03448567673
+
+  static Future getgetmybusinesslistforListings(
+      {String? id, ListingsController? controller}) async {
+    GetStorage storage = GetStorage();
+    printlog('main id =$id');
+    var url = Uri.parse(
+        '$baseUrl${storage.read('userId') == id ? getmybusinesslistforListings : getbusinesslistbysubid}$secretCodeString');
+    try {
+      var responce = await http.post(url,
+          body: {storage.read('userId') == id ? 'userid' : 'sub_cat_id': id});
+      var data = jsonDecode(responce.body);
+      printlog('getgetmybusinesslistforListings list is  = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.listofListings.value = data['data'];
+        controller.isLoadinglist.value = true;
+      } else {
+        controller!.isLoadinglist.value = true;
+      }
+    } catch (e) {}
+  }
+
+//http://dailboxx.websitescare.com/Alphaapis/getbusinesslistbysubid?code=DAILBOXX-03448567673
+  static Future getgetmybusinesslistforListingss(
+      {String? id, IndustrySubDetailsController? controller}) async {
+    GetStorage storage = GetStorage();
+    printlog('main id =$id');
+    var url = Uri.parse('$baseUrl$getbusinesslistbysubid$secretCodeString');
+    try {
+      var responce =
+          await http.post(url, body: {'user_id': '48', 'sub_cat_id': '10'});
+      var data = jsonDecode(responce.body);
+      printlog('getgetmybusinesslistforListings list is  = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.listofListings.value = data['data'];
+        controller.isLoadinglist.value = true;
+      } else {
+        controller!.isLoadinglist.value = true;
+      }
+    } catch (e) {}
+  }
+
+  //http://dailboxx.websitescare.com/Alphaapis/like?code=DAILBOXX-03448567673
+  //http://dailboxx.websitescare.com/Alphaapis/dislike?code=DAILBOXX-03448567673
+  static Future getlike(
+      {String? id,
+      IndustrySubDetailsController? controller,
+      int? index,
+      bool? isLike = true}) async {
+    GetStorage storage = GetStorage();
+    printlog('main id =$id');
+    var url = Uri.parse('$baseUrl${isLike! ? like : dislike}$secretCodeString');
+    try {
+      var responce = await http
+          .post(url, body: {'user_id': storage.read('userId'), 'post_id': id});
+      var data = jsonDecode(responce.body);
+      printlog('getlike list is  = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        if (isLike) {
+          controller!.listofListings[index!]['islike'] = 'true';
+        } else {
+          controller!.listofListings[index!]['islike'] = 'false';
+        }
+        print('object');
+      }
+    } catch (e) {}
+  }
+
+  static Future getmessage(
+      {String? listing_id,
+      String? to_msg,
+      String? from_msg,
+      String? massages,
+      String? bussinies_id}) async {
+    var url = Uri.parse('$baseUrl$message$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        'to_msg': to_msg,
+        'from_msg': from_msg,
+        'massages': massages,
+        'listing_id': bussinies_id
+      });
+      var data = jsonDecode(responce.body);
+      printlog('getmessage list is  = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        snackBarSuccess('${data['message']}');
+      }
+    } catch (e) {}
+  }
+
+  static Future getgetlistingrating(
+      {String? id, RecentListnigsController? controller}) async {
+    printlog('main id =$id');
+    var url = Uri.parse('$baseUrl$getlistingrating$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {'listingrate': id});
+      var data = jsonDecode(responce.body);
+      printlog('getgetlistingrating list is  = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.listgetlistingrating.value = data['data'];
       } else {}
     } catch (e) {}
   }

@@ -347,7 +347,7 @@ class _MessageDetailsState extends State<MessageDetails> {
                                               margin: EdgeInsets.only(
                                                   bottom: height / 60),
                                               child: CircularProfileAvatar(
-                                                'https://www.dailboxx.websitescare.com${con.listofDealssms[i]['profile_image']}',
+                                                'https://www.dailboxx.websitescare.com/upload/profile/${con.listofDealssms[i]['profile_image']}',
                                                 borderColor: Colors.black,
                                                 borderWidth: 0.5,
                                                 elevation: 3,
@@ -519,7 +519,7 @@ class _MessageDetailsState extends State<MessageDetails> {
                                               margin: EdgeInsets.only(
                                                   bottom: height / 60),
                                               child: CircularProfileAvatar(
-                                                'https://www.dailboxx.websitescare.com${con.listofDealssms[i]['profile_image']}',
+                                                'https://www.dailboxx.websitescare.com/upload/profile/${con.listofDealssms[i]['profile_image']}',
                                                 borderColor: Colors.black,
                                                 borderWidth: 0.5,
                                                 elevation: 3,
