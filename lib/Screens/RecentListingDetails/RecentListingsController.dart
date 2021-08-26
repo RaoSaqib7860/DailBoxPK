@@ -13,15 +13,16 @@ class RecentListnigsController extends GetxController {
   var lng = 0.0.obs;
   Completer<GoogleMapController> mapcontroller = Completer();
   var kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
+    target: LatLng(33.721491, -6.058594),
     zoom: 14.4746,
   ).obs;
   var isload = false.obs;
   late Set<Marker> marker = {};
+  var loadMap = false.obs;
 
   getLocationData() async {
-    List<Location> locations =
-        await locationFromAddress("Gronausestraat 710, Enschede");
+    List<Location> locations = await locationFromAddress(
+        "${listofrecentListings[0]['business_address']} ${listofrecentListings[0]['city']} ${listofrecentListings[0]['area']}");
     locations.forEach((element) {
       Location location = element;
       lat.value = location.latitude;
@@ -38,10 +39,11 @@ class RecentListnigsController extends GetxController {
           lat.value,
           lng.value,
         ),
-        zoom: 14.4746,
+        zoom: 13.4746,
       );
       printlog('isloaded');
       isload.value = true;
+      loadMap.value = true;
     });
   }
 
@@ -56,7 +58,7 @@ class RecentListnigsController extends GetxController {
     listoflistingsProduct.value = [];
     listofProductServices.value = [];
     kGooglePlex.value = CameraPosition(
-      target: LatLng(37.42796133580664, -122.085749655962),
+      target: LatLng(33.721491, -6.058594),
       zoom: 14.4746,
     );
     isload.value = false;

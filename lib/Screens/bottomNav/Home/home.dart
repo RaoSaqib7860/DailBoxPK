@@ -312,6 +312,7 @@ class _HomeState extends State<Home> {
                                                 'https://dailboxx.websitescare.com/upload/industry/${controller.listofwhatstrading[i]['image']}',
                                             text:
                                                 '${controller.listofwhatstrading[i]['industry_name']}',
+                                            iscenter: true,
                                           ),
                                         ),
                                       );
@@ -432,6 +433,9 @@ class _HomeState extends State<Home> {
                                             businessId: controller
                                                     .listofmostrecentlisting[i]
                                                 ['business_id'],
+                                            name: controller
+                                                    .listofmostrecentlisting[i]
+                                                ['business_name'],
                                           ));
                                         },
                                         child: FadeInRight(
@@ -507,23 +511,34 @@ class _HomeState extends State<Home> {
                                 return controller.listofMostPopular.contains(1)
                                     ? ShimmerData()
                                     : FadeInRight(
-                                        child: CardView(
-                                          url:
-                                              'https://dailboxx.websitescare.com/upload/products/${controller.listofMostPopular[i]['pimage1']}',
-                                          text:
-                                              '${controller.listofMostPopular[i]['pname']}',
-                                          number: Column(
-                                            children: [
-                                              SizedBox(
-                                                height: 2,
-                                              ),
-                                              Text(
-                                                '${controller.listofMostPopular[i]['pprice']}',
-                                                style: TextStyle(
-                                                    fontSize: 10,
-                                                    color: Colors.black26),
-                                              ),
-                                            ],
+                                        child: InkWell(
+                                          onTap: () {
+                                            Get.to(SearchDetails(
+                                              buisinessId: controller
+                                                  .listofMostPopular[i]['id'],
+                                              fromApi: 'product',
+                                              name:
+                                                  '${controller.listofMostPopular[i]['pname']}',
+                                            ));
+                                          },
+                                          child: CardView(
+                                            url:
+                                                'https://dailboxx.websitescare.com/upload/products/${controller.listofMostPopular[i]['pimage1']}',
+                                            text:
+                                                '${controller.listofMostPopular[i]['pname']}',
+                                            number: Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: 2,
+                                                ),
+                                                Text(
+                                                  'price : ${controller.listofMostPopular[i]['pprice']}/-',
+                                                  style: TextStyle(
+                                                      fontSize: 10,
+                                                      color: blueColor),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       );
@@ -555,7 +570,7 @@ class _HomeState extends State<Home> {
                         ),
                         SliverToBoxAdapter(
                           child: Container(
-                            height: height * 0.140,
+                            height: height * 0.090,
                             width: width,
                             padding:
                                 EdgeInsets.symmetric(horizontal: width * 0.030),
@@ -564,58 +579,57 @@ class _HomeState extends State<Home> {
                                 return controller.listofMostPopularServices
                                         .contains(1)
                                     ? ShimmerData()
-                                    : Card(
-                                        child: Container(
-                                          width: width * 0.3,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 8),
-                                                child: Text(
-                                                  '${controller.listofMostPopularServices[i]['s_name']}',
-                                                  style: TextStyle(
-                                                      fontSize: 13,
-                                                      color: blueColor),
-                                                  textAlign: TextAlign.center,
+                                    : InkWell(
+                                        onTap: () {
+                                          Get.to(SearchDetails(
+                                            buisinessId: controller
+                                                    .listofMostPopularServices[
+                                                i]['id'],
+                                            fromApi: 'service',
+                                            name:
+                                                '${controller.listofMostPopularServices[i]['business_name']}',
+                                          ));
+                                        },
+                                        child: Card(
+                                          child: Container(
+                                            width: width * 0.3,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  height: 10,
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                height: 5,
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 8),
-                                                child: Text(
-                                                  'price : ${controller.listofMostPopularServices[i]['s_cost']}',
-                                                  style:
-                                                      TextStyle(fontSize: 10),
-                                                  textAlign: TextAlign.center,
+                                                Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 8),
+                                                  child: Text(
+                                                    '${controller.listofMostPopularServices[i]['s_name']}',
+                                                    style: TextStyle(
+                                                        fontSize: 13,
+                                                        color: Colors.black),
+                                                    textAlign: TextAlign.center,
+                                                  ),
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                height: 5,
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 8),
-                                                child: Text(
-                                                  '${controller.listofMostPopularServices[i]['s_details']}',
-                                                  maxLines: 2,
-                                                  style:
-                                                      TextStyle(fontSize: 10),
-                                                  textAlign: TextAlign.start,
+                                                SizedBox(
+                                                  height: 5,
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                height: 5,
-                                              ),
-                                            ],
+                                                Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 8),
+                                                  child: Text(
+                                                    'Starting price : ${controller.listofMostPopularServices[i]['s_cost']}/-',
+                                                    style: TextStyle(
+                                                        fontSize: 10,
+                                                        color: blueColor),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       );
@@ -664,13 +678,15 @@ class _HomeState extends State<Home> {
                                           serchController.listofSearch[i]['id'],
                                       fromApi: 'service',
                                       name:
-                                          '${serchController.listofSearch[i]['s_name']}',
+                                          '${serchController.listofSearch[i]['business_name']}',
                                     ));
                                   } else {
                                     Get.to(RecentListingsDetails(
                                       id: serchController.listofSearch[i]['id'],
                                       businessId: serchController
                                           .listofSearch[i]['business_id'],
+                                      name: serchController.listofSearch[i]
+                                          ['business_name'],
                                     ));
                                   }
                                 },
@@ -735,6 +751,7 @@ class CardView extends StatefulWidget {
   final String? text;
   final String? url;
   final Widget? number;
+  final bool? iscenter;
 
   const CardView(
       {Key? key,
@@ -742,7 +759,8 @@ class CardView extends StatefulWidget {
       this.url,
       this.number = const SizedBox(
         height: 5,
-      )})
+      ),
+      this.iscenter = false})
       : super(key: key);
 
   @override
@@ -757,7 +775,9 @@ class _CardViewState extends State<CardView> {
       child: Container(
         width: width * 0.360,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: widget.iscenter!
+              ? CrossAxisAlignment.center
+              : CrossAxisAlignment.start,
           children: [
             Expanded(
               child: CachedNetworkImage(
@@ -769,7 +789,8 @@ class _CardViewState extends State<CardView> {
                   color: Colors.blue,
                   size: 20.0,
                 ),
-                errorWidget: (context, url, error) => Icon(Icons.error),
+                errorWidget: (context, url, error) => Image.network(
+                    'http://dailboxx.websitescare.com/upload/appnoimage.png'),
               ),
             ),
             SizedBox(

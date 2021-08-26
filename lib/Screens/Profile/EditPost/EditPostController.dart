@@ -1,31 +1,27 @@
 import 'dart:io';
-
-import 'package:dail_box/AppUtils.dart/APiUtilsForAuth.dart';
-import 'package:dail_box/AppUtils.dart/ApiUtisAllFiles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ProfileController extends GetxController {
-  var listofChatBox = [].obs;
-  var loadmainList = false.obs;
+class EditPostController extends GetxController {
+  TextEditingController textCon = TextEditingController();
 
   var f1 = File('path').obs;
   var isf1 = false.obs;
 
   final ImagePicker _picker = ImagePicker();
 
-  onImageButtonPressed(ImageSource source, {String? tag}) async {
+  onImageButtonPressed(ImageSource source) async {
     try {
       final pickedFile = await _picker.getImage(
         source: source,
       );
-      setImageFile(f: pickedFile, tag: tag);
+      setImageFile(f: pickedFile);
     } catch (e) {}
   }
 
-  setImageFile({PickedFile? f, String? tag}) async {
+  setImageFile({PickedFile? f}) async {
     final filePath = f!.path;
     final lastIndex = filePath.lastIndexOf(new RegExp(r'.jp'));
     final splitted = filePath.substring(0, (lastIndex));
@@ -35,7 +31,6 @@ class ProfileController extends GetxController {
         minWidth: 800, minHeight: 1500, quality: 60);
     f1.value = compressedImage!;
     isf1.value = true;
-    ApiUtilsAllFiles.getmyProfileImage(f1.value);
   }
 
   void displayBottomSheet() {
@@ -113,8 +108,5 @@ class ProfileController extends GetxController {
             ),
           );
         });
-  }
-  callApiData(ProfileController controller){
-    ApiUtils.getgetDiscussionformprofile(controller: controller);
   }
 }

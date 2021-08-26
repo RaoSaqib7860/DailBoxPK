@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'package:dail_box/Screens/AddProduct.dart/AddProductController.dart';
 import 'package:dail_box/Screens/BuisnessRegistration.dart/BuisnessRegistrationController.dart';
+import 'package:dail_box/Screens/Profile/EditPost/EditPostController.dart';
+import 'package:dail_box/Screens/Profile/EditProfileController.dart';
+import 'package:dail_box/Screens/Profile/profile.dart';
 import 'package:dail_box/Screens/bottomNav/ChatBox/ChatBoxController.dart';
 import 'package:dail_box/Screens/bottomNav/Home/home.dart';
 import 'package:dio/dio.dart';
@@ -115,6 +118,7 @@ class ApiUtilsAllFiles extends ChangeNotifier {
       if (data["result"] == "success") {
         snackBarSuccess('Your product has been submitted for approval');
         Navigator.of(navigatorKey.currentContext!).pop();
+        Navigator.of(navigatorKey.currentContext!).pop();
         callHome();
       } else {}
     } catch (e) {}
@@ -189,6 +193,50 @@ class ApiUtilsAllFiles extends ChangeNotifier {
         snackBarSuccess(data['message']);
       } else {
         snackBarSuccess('${data['message']}');
+      }
+    } catch (e) {}
+  }
+
+  static Future getupdateDiscussionform(
+      {Map? map, EditPostController? controller}) async {
+    print('${controller!.textCon.text}');
+    FormData formData;
+    GetStorage storage = GetStorage();
+    if (controller.isf1.value) {
+      print('in image');
+      formData = FormData.fromMap({
+        'business_id': '${map!['business_id']}',
+        'industry_id': '${map['industry_id']}',
+        'industry_main_cat_id': '${map['industry_main_cat_id']}',
+        'user_id': storage.read('userId'),
+        'discussionform_text': controller.textCon.text,
+        'fourm_image': await MultipartFile.fromFile(controller.f1.value.path,
+            filename: basename(controller.f1.value.path)),
+        'form_id': '${map['form_id']}',
+        'image_url': ''
+      });
+    } else {
+      formData = FormData.fromMap({
+        'business_id': '${map!['business_id']}',
+        'industry_id': '${map['industry_id']}',
+        'industry_main_cat_id': '${map['industry_main_cat_id']}',
+        'user_id': storage.read('userId'),
+        'discussionform_text': controller.textCon.text,
+        'fourm_image': '',
+        'form_id': '${map['form_id']}',
+        'image_url': '${map['fourm_image'] ?? ''}'
+      });
+    }
+    try {
+      var responce = await Dio().post(
+          '$baseUrl${ApiUtilsForAll.updateDiscussionform}$secretCodeString',
+          data: formData);
+      var data = responce.data;
+      printlog('getupdateDiscussionform list is  = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        Navigator.of(navigatorKey.currentContext!).pop();
+        callProfile();
       }
     } catch (e) {}
   }

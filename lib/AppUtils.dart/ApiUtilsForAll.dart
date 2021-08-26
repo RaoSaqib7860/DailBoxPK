@@ -3,6 +3,8 @@ import 'package:dail_box/Screens/AddProduct.dart/AddProductController.dart';
 import 'package:dail_box/Screens/BuisnessRegistration.dart/BuisnessRegistrationController.dart';
 import 'package:dail_box/Screens/IndustryDetails/IndustryDetailsController.dart';
 import 'package:dail_box/Screens/IndustryDetails/IndustrySubDetails/IndustrySubDetailsController.dart';
+import 'package:dail_box/Screens/Profile/EditPost/EditPostController.dart';
+import 'package:dail_box/Screens/Profile/ProfileController.dart';
 import 'package:dail_box/Screens/RecentListingDetails/RecentListingsController.dart';
 import 'package:dail_box/Screens/SearchPage/SearchController.dart';
 import 'package:dail_box/Screens/bottomNav/Home/HomeController.dart';
@@ -44,6 +46,9 @@ class ApiUtilsForAll {
   static final String message = '/message';
   static final String homeserives = '/homeserives';
   static final String getlistingrating = '/getlistingrating';
+  static final String removeDiscussionform = '/removeDiscussionform';
+  static final String updateDiscussionform = '/updateDiscussionform';
+  static final String getlistingallrating = '/getlistingallrating';
 
   //static final String givelistingrate = '/givelistingrate';
 
@@ -398,14 +403,15 @@ class ApiUtilsForAll {
   }
 
 //http://dailboxx.websitescare.com/Alphaapis/getbusinesslistbysubid?code=DAILBOXX-03448567673
-  static Future getgetmybusinesslistforListingss(
-      {String? id, IndustrySubDetailsController? controller}) async {
+  static Future getgetmybusinesslistforListingss({
+    String? subid,
+    IndustrySubDetailsController? controller,
+  }) async {
     GetStorage storage = GetStorage();
-    printlog('main id =$id');
+    printlog('main id =$subid');
     var url = Uri.parse('$baseUrl$getbusinesslistbysubid$secretCodeString');
     try {
-      var responce =
-          await http.post(url, body: {'user_id': '48', 'sub_cat_id': '10'});
+      var responce = await http.post(url, body: {'sub_cat_id': subid});
       var data = jsonDecode(responce.body);
       printlog('getgetmybusinesslistforListings list is  = $data');
       printlog('data is = ${responce.statusCode}');
@@ -479,6 +485,38 @@ class ApiUtilsForAll {
       printlog('data is = ${responce.statusCode}');
       if (data['result'] == 'success') {
         controller!.listgetlistingrating.value = data['data'];
+      } else {}
+    } catch (e) {}
+  }
+
+  //http://dailboxx.websitescare.com/Alphaapis/removeDiscussionform?code=DAILBOXX-03448567673
+
+  static Future getremoveDiscussionform({String? id, int? index}) async {
+    final controller = Get.find<ProfileController>();
+    var url = Uri.parse('$baseUrl$removeDiscussionform$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {'form_id': id});
+      var data = jsonDecode(responce.body);
+      printlog('getgetlistingrating list is  = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller.listofChatBox.removeAt(index!);
+      } else {}
+    } catch (e) {}
+  }
+
+//http://dailboxx.websitescare.com/Alphaapis/getlistingallrating?code=DAILBOXX-03448567673
+  static Future getgetlistingallrating({String? id, int? index}) async {
+    final controller = Get.find<ProfileController>();
+    var url = Uri.parse('$baseUrl$getlistingallrating$secretCodeString');
+    try {
+      var responce =
+          await http.post(url, body: {'listingallrate': '', 'b_id': ''});
+      var data = jsonDecode(responce.body);
+      printlog('getgetlistingrating list is  = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller.listofChatBox.removeAt(index!);
       } else {}
     } catch (e) {}
   }

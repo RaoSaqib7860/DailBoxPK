@@ -127,7 +127,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                             Row(
                               children: [
                                 Text(
-                                  '${controller.listofData[0]['rating']}',
+                                  '${controller.listofData[0]['rating'] ?? 0.0}',
                                   style:
                                       TextStyle(fontSize: 12, color: blueColor),
                                 ),
@@ -441,7 +441,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                             Row(
                               children: [
                                 Text(
-                                  '${controller.listofData[0]['rating']}',
+                                  '${controller.listofData[0]['rating'] ?? 0.0}',
                                   style:
                                       TextStyle(fontSize: 12, color: blueColor),
                                 ),

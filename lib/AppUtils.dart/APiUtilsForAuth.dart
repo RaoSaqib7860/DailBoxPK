@@ -8,6 +8,7 @@ import 'package:dail_box/Screens/OtpCodeVarification/PhoneVarificationController
 import 'package:dail_box/Screens/OtpCodeVarification/phone_verification.dart';
 import 'package:dail_box/Screens/Profile/EditProfileController.dart';
 import 'package:dail_box/Screens/Profile/ProfileController.dart';
+import 'package:dail_box/Screens/Profile/profile.dart';
 import 'package:dail_box/Screens/SearchDetail/SearchDetailsController.dart';
 import 'package:dail_box/Screens/SignIn/SignInController.dart';
 import 'package:dail_box/Screens/SignUp/SignUpController.dart';
@@ -17,6 +18,8 @@ import 'package:dail_box/Screens/SignIn/sign_in.dart';
 import 'package:dail_box/Screens/bottomNav/ChatBox/ChatBoxController.dart';
 import 'package:dail_box/Screens/bottomNav/Gourment/GovernmentController.dart';
 import 'package:dail_box/Screens/bottomNav/Message/MessageController.dart';
+import 'package:dail_box/main.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
@@ -49,6 +52,7 @@ class ApiUtils {
   static final String getservice = '/getservice';
   static final String getserviceallreview = '/getserviceallreview';
   static final String giveservicerate = '/giveservicerate';
+  static final String myActivity = '/myActivity';
 
   static Future loginApi(SignInController controller) async {
     //http://dailboxx.websitescare.com/Alphaapis/login?code=DAILBOXX-03448567673
@@ -240,7 +244,7 @@ class ApiUtils {
         url,
       );
       var data = jsonDecode(responce.body);
-      printlog('data is = $data');
+      printlog('getgetDiscussionform data is = $data');
       printlog('data is = ${responce.statusCode}');
       if (data['result'] == 'success') {
         controller!.listofChatBox.clear();
@@ -409,13 +413,14 @@ class ApiUtils {
     } catch (e) {}
   }
 
+  //http://dailboxx.websitescare.com/Alphaapis/myActivity?code=DAILBOXX-03448567673
   static Future getgetDiscussionformprofile(
       {ProfileController? controller}) async {
-    var url = Uri.parse('$baseUrl$getDiscussionform$secretCodeString');
+    var url = Uri.parse('$baseUrl$myActivity$secretCodeString');
+    GetStorage storage = GetStorage();
     try {
-      var responce = await http.get(
-        url,
-      );
+      var responce =
+          await http.post(url, body: {'user_id': storage.read('userId')});
       var data = jsonDecode(responce.body);
       printlog('data is = $data');
       printlog('data is = ${responce.statusCode}');
@@ -446,8 +451,11 @@ class ApiUtils {
       var data = jsonDecode(responce.body);
       printlog('data is = $data');
       printlog('data is = ${responce.statusCode}');
-      controller.loading.value = false;
       snackBarSuccess('User information Updated Success!');
+      if ('result' == 'success') {
+        Navigator.of(navigatorKey.currentContext!).pop();
+        callProfile();
+      }
     } catch (e) {}
   }
 
@@ -543,8 +551,8 @@ class ApiUtils {
 //http://dailboxx.websitescare.com/Alphaapis/giveservicerate?code=DAILBOXX-03448567673
   static Future getgiveservicerate(
       {String? product_id,
-        String? product_rating,
-        String? product_review}) async {
+      String? product_rating,
+      String? product_review}) async {
     GetStorage storage = GetStorage();
     var url = Uri.parse('$baseUrl$giveservicerate$secretCodeString');
     try {

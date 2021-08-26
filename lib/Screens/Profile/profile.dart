@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:dail_box/AppUtils.dart/APiUtilsForAuth.dart';
 import 'package:dail_box/AppUtils.dart/SizedConfig.dart';
-import 'package:dail_box/Screens/Profile/EditProfileController.dart';
 import 'package:dail_box/Screens/Profile/ProfileController.dart';
 import 'package:dail_box/Screens/bottomNav/ChatBox/chatbox.dart';
 import 'package:dail_box/util/colors.dart';
@@ -11,8 +8,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
 import 'EditProfile.dart';
+
+callProfile() {
+  final controller = Get.find<ProfileController>();
+  controller.loadmainList.value = false;
+  controller.callApiData(controller);
+}
 
 class Profile extends StatefulWidget {
   @override
@@ -26,7 +28,7 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     print('${storage.read('profile_image')}');
-    ApiUtils.getgetDiscussionformprofile(controller: controller);
+    controller.callApiData(controller);
     super.initState();
   }
 
@@ -312,6 +314,7 @@ class _ProfileState extends State<Profile> {
                                   children: [
                                     ChatBoxItem(
                                       mapData: controller.listofChatBox[index],
+                                      index: index,
                                     ),
                                     Divider(
                                       thickness: 15,

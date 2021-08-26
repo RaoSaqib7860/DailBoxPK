@@ -99,7 +99,7 @@ class _IndustryDetailsState extends State<IndustryDetails> {
                                     onTap: () {
                                       print('clicked');
                                       Get.to(IndustrySubDetails(
-                                        user_id:
+                                        subId:
                                             '${controller.listofindustryDetails[index]['sub_cat_id']}',
                                         name:
                                             '${controller.listofindustryDetails[index]['main_cat_name']}',

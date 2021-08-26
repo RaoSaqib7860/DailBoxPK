@@ -1,4 +1,5 @@
 import 'package:dail_box/AppUtils.dart/BottomSheet.dart';
+import 'package:dail_box/Screens/AddNewBuisness/AddNewBuisness.dart';
 import 'package:dail_box/Screens/AddProduct.dart/AddProduct.dart';
 import 'package:dail_box/Screens/AddService/AddService.dart';
 import 'package:dail_box/Screens/BuisnessRegistration.dart/BuisnessRegistration.dart';
@@ -97,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
         break;
       case 7:
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => BuisnessRegistration()));
+            MaterialPageRoute(builder: (context) => AddNewBuiseness()));
         break;
       case 8:
         Navigator.push(

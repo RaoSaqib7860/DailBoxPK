@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dail_box/AppUtils.dart/APiUtilsForAuth.dart';
+import 'package:dail_box/AppUtils.dart/ApiUtilsForAll.dart';
 import 'package:dail_box/AppUtils.dart/ApiUtisAllFiles.dart';
 import 'package:dail_box/AppUtils.dart/SizedConfig.dart';
 import 'package:dail_box/AppUtils.dart/SnackBarUtils.dart';
+import 'package:dail_box/Screens/Profile/EditPost/EditPost.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -633,7 +635,7 @@ class _ChatBoxState extends State<ChatBox> {
                                   (BuildContext context, int index) {
                                     return Column(
                                       children: [
-                                        ChatBoxItem(
+                                        ChatBoxItem2(
                                           mapData:
                                               controller.listofChatBox[index],
                                         ),
@@ -708,9 +710,10 @@ class _ChatBoxState extends State<ChatBox> {
 
 class ChatBoxItem extends StatefulWidget {
   final Map? mapData;
+  final int? index;
   final ChatBoxController? controller;
 
-  const ChatBoxItem({Key? key, this.mapData, this.controller})
+  const ChatBoxItem({Key? key, this.mapData, this.controller, this.index})
       : super(key: key);
 
   @override
@@ -757,6 +760,7 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
 
   @override
   Widget build(BuildContext context) {
+    print('object = ${widget.mapData}');
     String value = widget.mapData!['date_time'].toString().split(' ')[0] +
         'T' +
         widget.mapData!['date_time'].toString().split(' ')[1];
@@ -775,7 +779,7 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
                     image: DecorationImage(
                         fit: BoxFit.cover,
                         image: NetworkImage(
-                            'https://www.dailboxx.websitescare.com/upload/listing/${widget.mapData!['listing_image']}'))),
+                            'https://www.dailboxx.websitescare.com/upload/industry/${widget.mapData!['industy_sub_name_image']}'))),
               ),
               SizedBox(
                 width: 15,
@@ -788,7 +792,7 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
                       children: <Widget>[
                         Expanded(
                           child: Text(
-                            '${widget.mapData!['business_name']}',
+                            '${widget.mapData!['industy_name']}',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w600,
@@ -798,16 +802,290 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
                         Text(
                           '${widget.mapData!['date_time'].toString().split(' ')[0]}' +
                               '  $time',
-                          style: TextStyle(color: greyColor, fontSize: 10),
+                          style: TextStyle(color: greyColor, fontSize: 8),
                         ),
                         SizedBox(
                           width: 10,
                         ),
-                        Icon(Icons.more_horiz)
+                        PopupMenuButton(
+                            child: Icon(Icons.more_horiz),
+                            onSelected: (v) {
+                              if (v == 1) {
+                                Get.to(EditPost(mapdata: widget.mapData!));
+                              } else {
+                                ApiUtilsForAll.getremoveDiscussionform(
+                                    index: widget.index,
+                                    id: widget.mapData!['form_id']);
+                              }
+                            },
+                            itemBuilder: (context) => [
+                                  PopupMenuItem(
+                                    child: Text("Edit"),
+                                    value: 1,
+                                  ),
+                                  PopupMenuItem(
+                                    child: Text("Delete"),
+                                    value: 2,
+                                  )
+                                ])
                       ],
                     ),
                     Text(
-                      '${widget.mapData!['industry_name']} > ${widget.mapData!['main_cat_name']}',
+                      '${widget.mapData!['industy_name']} > ${widget.mapData!['industy_sub_name']}',
+                      style: TextStyle(color: greyColor, fontSize: 10),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Container(
+            padding: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+            width: width,
+            child: secondHalf!.isEmpty
+                ? new Text(
+                    firstHalf!,
+                    style: TextStyle(color: greyColor, fontSize: 12),
+                  )
+                : new Column(
+                    children: <Widget>[
+                      new Text(
+                        flag
+                            ? (firstHalf! + "...")
+                            : (firstHalf! + secondHalf!),
+                        style: TextStyle(color: greyColor, fontSize: 12),
+                      ),
+                      new InkWell(
+                        child: new Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            new Text(
+                              flag ? "See more" : "See less",
+                              style: new TextStyle(color: blueColor),
+                            ),
+                          ],
+                        ),
+                        onTap: () {
+                          setState(() {
+                            flag = !flag;
+                            print(flag);
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+          ),
+          SizedBox(
+            height: height * 0.010,
+          ),
+          widget.mapData!['fourm_image'] == ''
+              ? SizedBox()
+              : ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Container(
+                    height: height * 0.2,
+                    width: width,
+                    child: CachedNetworkImage(
+                      height: double.infinity,
+                      fit: BoxFit.contain,
+                      imageUrl:
+                          "https://www.dailboxx.websitescare.com/upload/discussionform/${widget.mapData!['fourm_image']}",
+                      placeholder: (context, url) => SpinKitWave(
+                        color: Colors.blue,
+                        size: 12.0,
+                      ),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                    ),
+                  ),
+                ),
+          SizedBox(
+            height: height * 0.010,
+          ),
+          Container(
+            color: greyColor,
+            width: MediaQuery.of(context).size.width,
+            height: 0.5,
+          ),
+          Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Icon(
+                      CupertinoIcons.hand_thumbsup,
+                      color: blueColor,
+                      size: 20,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      Likelist.isEmpty
+                          ? 'Likes'
+                          : '${Likelist[0]['total_likes']} Likes',
+                      style: TextStyle(fontSize: 12),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  width: 30,
+                ),
+                Row(
+                  children: <Widget>[
+                    Icon(
+                      CupertinoIcons.chat_bubble,
+                      color: blueColor,
+                      size: 20,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      commitList.isEmpty
+                          ? 'Comments'
+                          : '${commitList[0]['total_comments']} Comments',
+                      style: TextStyle(fontSize: 12),
+                    )
+                  ],
+                )
+              ],
+            ),
+            padding: EdgeInsets.only(top: 10),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class ChatBoxItem2 extends StatefulWidget {
+  final Map? mapData;
+  final int? index;
+  final ChatBoxController? controller;
+
+  const ChatBoxItem2({Key? key, this.mapData, this.controller, this.index})
+      : super(key: key);
+
+  @override
+  _ChatBoxItem2State createState() => _ChatBoxItem2State();
+}
+
+class _ChatBoxItem2State extends State<ChatBoxItem2> {
+  String? firstHalf;
+  String? secondHalf;
+  bool flag = true;
+
+  List commitList = [];
+  List Likelist = [];
+
+  @override
+  void initState() {
+    String text = '${widget.mapData!['discussionform_text']}';
+    // TODO: implement initState
+    if (text.length > 150) {
+      firstHalf = text.substring(0, 150);
+      secondHalf = text.substring(150, text.length);
+    } else {
+      firstHalf = text;
+      secondHalf = "";
+    }
+    getApiData();
+    super.initState();
+  }
+
+  getApiData() async {
+    List list = await ApiUtils.gettotalCommentform(
+        controller: widget.controller,
+        id: '${widget.mapData!['discussion_id']}');
+    setState(() {
+      commitList = list;
+    });
+    List list2 = await ApiUtils.gettotalLikeform(
+        controller: widget.controller,
+        id: '${widget.mapData!['discussion_id']}');
+    setState(() {
+      Likelist = list2;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    print('object = ${widget.mapData}');
+    String value = widget.mapData!['date_time'].toString().split(' ')[0] +
+        'T' +
+        widget.mapData!['date_time'].toString().split(' ')[1];
+    var time = DateFormat.jm().format(DateTime.parse(value));
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(
+                            'https://www.dailboxx.websitescare.com/upload/profile/${widget.mapData!['profile_image']}'))),
+              ),
+              SizedBox(
+                width: 15,
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Text(
+                            '${widget.mapData!['industry_name']}',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14),
+                          ),
+                        ),
+                        Text(
+                          '${widget.mapData!['date_time'].toString().split(' ')[0]}' +
+                              '  $time',
+                          style: TextStyle(color: greyColor, fontSize: 8),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        PopupMenuButton(
+                            child: Icon(Icons.more_horiz),
+                            onSelected: (v) {
+                              if (v == 1) {
+                                Get.to(EditPost(mapdata: widget.mapData!));
+                              } else {
+                                ApiUtilsForAll.getremoveDiscussionform(
+                                    index: widget.index,
+                                    id: widget.mapData!['discussion_id']);
+                              }
+                            },
+                            itemBuilder: (context) => [
+                                  PopupMenuItem(
+                                    child: Text("Edit"),
+                                    value: 1,
+                                  ),
+                                  PopupMenuItem(
+                                    child: Text("Delete"),
+                                    value: 2,
+                                  )
+                                ])
+                      ],
+                    ),
+                    Text(
+                      '${widget.mapData!['main_cat_name']} > ${widget.mapData!['business_name']}',
                       style: TextStyle(color: greyColor, fontSize: 10),
                     ),
                   ],

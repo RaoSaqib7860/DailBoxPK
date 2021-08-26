@@ -3,6 +3,7 @@ import 'package:dail_box/AppUtils.dart/ApiUtilsForAll.dart';
 import 'package:dail_box/AppUtils.dart/AppBarGlobal.dart';
 import 'package:dail_box/AppUtils.dart/ShimmerEffect.dart';
 import 'package:dail_box/AppUtils.dart/SnackBarUtils.dart';
+import 'package:dail_box/Screens/RecentListingDetails/RecentListingdDetails.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +13,10 @@ import 'package:get_storage/get_storage.dart';
 import 'IndustrySubDetailsController.dart';
 
 class IndustrySubDetails extends StatefulWidget {
-  final String? user_id;
+  final String? subId;
   final String? name;
 
-  const IndustrySubDetails(
-      {Key? key, this.user_id = '-1', this.name = 'My Listings'})
+  const IndustrySubDetails({Key? key, this.name = 'My Listings', this.subId})
       : super(key: key);
 
   @override
@@ -35,275 +35,258 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
       controller.isLoadinglist.value = false;
     });
     ApiUtilsForAll.getgetmybusinesslistforListingss(
-        controller: controller, id: widget.user_id);
+        controller: controller, subid: widget.subId);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (c, size) {
-      var height = size.maxHeight;
-      var width = size.maxWidth;
-      return SafeArea(
-        key: GlobalKey(debugLabel: '${widget.name}'),
-        child: Scaffold(
-          key: GlobalKey(debugLabel: '${widget.name}'),
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text(
-              widget.name!,
-              style: TextStyle(
-                fontSize: 16,
-              ),
+    var height = Get.height;
+    var width = Get.width;
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            widget.name!,
+            style: TextStyle(
+              fontSize: 16,
             ),
-            elevation: 0,
-            backgroundColor: blueColor,
           ),
-          body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: width * 0.030),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: height * 0.030,
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(5.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                      color: Colors.grey[100],
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey[400]!,
-                          offset: Offset(0.0, 1.0), //(x,y)
-                          blurRadius: 6.0,
-                        ),
-                      ],
+          elevation: 0,
+          backgroundColor: blueColor,
+        ),
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: width * 0.030),
+          child: Column(
+            children: [
+              SizedBox(
+                height: height * 0.030,
+              ),
+              TextFormField(
+                // controller: serchController.searchCon,
+                cursorColor: Colors.black,
+                // onChanged: (value) {
+                //   if (value.length > 3) {
+                //     ApiUtilsForAll.getsearchhome(serchController);
+                //   } else {
+                //     serchController.listofSearch.value = [];
+                //   }
+                // },
+                decoration: new InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: greyColor,
                     ),
-                    child: TextFormField(
-                      // controller: serchController.searchCon,
-                      cursorColor: Colors.black,
-                      keyboardType: TextInputType.text,
-                      enabled: true,
-                      // onChanged: (value) {
-                      //   if (value.length > 3) {
-                      //     ApiUtilsForAll.getsearchhome(serchController);
-                      //   } else {
-                      //     serchController.listofSearch.value = [];
-                      //   }
-                      // },
-                      decoration: new InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: greyColor,
-                          ),
-                          border: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          enabledBorder: InputBorder.none,
-                          errorBorder: InputBorder.none,
-                          disabledBorder: InputBorder.none,
-                          contentPadding: EdgeInsets.only(
-                              left: 15, bottom: 11, top: 11, right: 15),
-                          hintStyle: TextStyle(color: greyColor, fontSize: 12),
-                          hintText: "Search here"),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.030,
-                ),
-                Container(
-                  height: 1,
-                  width: width,
-                  color: Colors.black12,
-                ),
-                Obx(
-                  () => Expanded(
-                      child: !controller.isLoadinglist.value
-                          ? ListView.builder(
-                              itemBuilder: (c, i) {
-                                return ShimerEffect(
-                                  child: Container(
-                                    height: height * 0.2,
-                                    width: width,
-                                    decoration: BoxDecoration(
-                                        border: Border(
-                                            bottom: BorderSide(
-                                                color: Colors.black12,
-                                                width: 1))),
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          height: height * 0.150,
-                                          width: width * 0.300,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  width: 1.5, color: blueColor),
-                                              borderRadius:
-                                                  BorderRadius.circular(5)),
-                                          child: ClipRRect(
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    contentPadding: EdgeInsets.only(
+                        left: 15, bottom: 11, top: 11, right: 15),
+                    hintStyle: TextStyle(color: greyColor, fontSize: 12),
+                    hintText: "Search here"),
+              ),
+              SizedBox(
+                height: height * 0.030,
+              ),
+              Container(
+                height: 1,
+                width: width,
+                color: Colors.black12,
+              ),
+              Obx(
+                () => Expanded(
+                    child: !controller.isLoadinglist.value
+                        ? ListView.builder(
+                            itemBuilder: (c, i) {
+                              return ShimerEffect(
+                                child: Container(
+                                  height: height * 0.2,
+                                  width: width,
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                              color: Colors.black12,
+                                              width: 1))),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        height: height * 0.150,
+                                        width: width * 0.300,
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                width: 1.5, color: blueColor),
                                             borderRadius:
-                                                BorderRadius.circular(2),
-                                            child: Image.asset(
-                                              'assets/images/nature.jpg',
-                                              fit: BoxFit.cover,
-                                            ),
+                                                BorderRadius.circular(5)),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(2),
+                                          child: Image.asset(
+                                            'assets/images/nature.jpg',
+                                            fit: BoxFit.cover,
                                           ),
                                         ),
-                                        SizedBox(
-                                          width: width * 0.020,
-                                        ),
-                                        Expanded(
-                                            child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'RMS Pack & Movers Service',
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Text(
-                                              'blue area islamabad',
-                                              style: TextStyle(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w300,
-                                                  color: Colors.black26),
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  '4.0',
-                                                  style: TextStyle(
-                                                      fontSize: 12,
-                                                      color: Colors.black26),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.020,
+                                      ),
+                                      Expanded(
+                                          child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'RMS Pack & Movers Service',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(
+                                            'blue area islamabad',
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.w300,
+                                                color: Colors.black26),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                '4.0',
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    color: Colors.black26),
+                                              ),
+                                              SizedBox(
+                                                width: width * 0.010,
+                                              ),
+                                              Row(
+                                                children:
+                                                    [1, 2, 3, 4, 5].map((e) {
+                                                  return InkWell(
+                                                    child: Icon(
+                                                      Icons.star,
+                                                      size: 16,
+                                                      color: Colors.yellow[700],
+                                                    ),
+                                                  );
+                                                }).toList(),
+                                              ),
+                                              Text(
+                                                '125 reviews',
+                                                style: TextStyle(
+                                                    fontSize: 10,
+                                                    color: Colors.black26),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: height * 0.010,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Container(
+                                                height: height * 0.040,
+                                                width: width * 0.220,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.call,
+                                                      color: Colors.white,
+                                                      size: 15,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                      'Call',
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 10),
+                                                    )
+                                                  ],
                                                 ),
-                                                SizedBox(
-                                                  width: width * 0.010,
+                                                decoration: BoxDecoration(
+                                                  color: blueColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
                                                 ),
-                                                Row(
-                                                  children:
-                                                      [1, 2, 3, 4, 5].map((e) {
-                                                    return InkWell(
-                                                      child: Icon(
-                                                        Icons.star,
-                                                        size: 16,
-                                                        color:
-                                                            Colors.yellow[700],
-                                                      ),
-                                                    );
-                                                  }).toList(),
+                                              ),
+                                              SizedBox(
+                                                width: width * 0.020,
+                                              ),
+                                              Container(
+                                                height: height * 0.040,
+                                                width: width * 0.220,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.messenger_outline,
+                                                      color: blueColor,
+                                                      size: 15,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                      'Message',
+                                                      style: TextStyle(
+                                                          color: blueColor,
+                                                          fontSize: 10),
+                                                    )
+                                                  ],
                                                 ),
-                                                Text(
-                                                  '125 reviews',
-                                                  style: TextStyle(
-                                                      fontSize: 10,
-                                                      color: Colors.black26),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: height * 0.010,
-                                            ),
-                                            Row(
-                                              children: [
-                                                Container(
-                                                  height: height * 0.040,
-                                                  width: width * 0.220,
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Icon(
-                                                        Icons.call,
-                                                        color: Colors.white,
-                                                        size: 15,
-                                                      ),
-                                                      SizedBox(
-                                                        width: 5,
-                                                      ),
-                                                      Text(
-                                                        'Call',
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 10),
-                                                      )
-                                                    ],
-                                                  ),
-                                                  decoration: BoxDecoration(
-                                                    color: blueColor,
+                                                decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             5),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: width * 0.020,
-                                                ),
-                                                Container(
-                                                  height: height * 0.040,
-                                                  width: width * 0.220,
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Icon(
-                                                        Icons.messenger_outline,
-                                                        color: blueColor,
-                                                        size: 15,
-                                                      ),
-                                                      SizedBox(
-                                                        width: 5,
-                                                      ),
-                                                      Text(
-                                                        'Message',
-                                                        style: TextStyle(
-                                                            color: blueColor,
-                                                            fontSize: 10),
-                                                      )
-                                                    ],
-                                                  ),
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5),
-                                                      border: Border.all(
-                                                          width: 1,
-                                                          color: blueColor)),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        )),
-                                        Icon(
-                                          CupertinoIcons.suit_heart,
-                                          color: Colors.black38,
-                                        )
-                                      ],
-                                    ),
+                                                    border: Border.all(
+                                                        width: 1,
+                                                        color: blueColor)),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      )),
+                                      Icon(
+                                        CupertinoIcons.suit_heart,
+                                        color: Colors.black38,
+                                      )
+                                    ],
                                   ),
-                                );
-                              },
-                              itemCount: 10,
-                            )
-                          : controller.listofListings.isEmpty
-                              ? Center(
-                                  child: Text('Empty'),
-                                )
-                              : ListView.builder(
-                                  itemBuilder: (c, i) {
-                                    return Container(
+                                ),
+                              );
+                            },
+                            itemCount: 10,
+                          )
+                        : controller.listofListings.isEmpty
+                            ? Center(
+                                child: Text('Empty'),
+                              )
+                            : ListView.builder(
+                                itemBuilder: (c, i) {
+                                  return InkWell(
+                                    onTap: () {
+                                      Get.to(RecentListingsDetails(
+                                        id: controller.listofListings[i]['id'],
+                                        businessId: controller.listofListings[i]
+                                            ['business_id'],
+                                        name: controller.listofListings[i]
+                                            ['business_name'],
+                                      ));
+                                    },
+                                    child: Container(
                                       height: height * 0.2,
                                       width: width,
                                       decoration: BoxDecoration(
@@ -591,17 +574,17 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
                                                     )
                                         ],
                                       ),
-                                    );
-                                  },
-                                  itemCount: controller.listofListings.length,
-                                )),
-                )
-              ],
-            ),
+                                    ),
+                                  );
+                                },
+                                itemCount: controller.listofListings.length,
+                              )),
+              )
+            ],
           ),
         ),
-      );
-    });
+      ),
+    );
   }
 
   sendMessage({IndustrySubDetailsController? controller, int? index}) {
