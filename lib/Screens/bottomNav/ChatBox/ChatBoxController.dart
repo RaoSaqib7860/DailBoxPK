@@ -1,13 +1,13 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ChatBoxController extends GetxController {
+  TextEditingController emailCon = TextEditingController();
   var listofChatBox = [].obs;
-  var loadmainList=false.obs;
+  var loadmainList = false.obs;
 
   var loading = false.obs;
   var firstTab = true.obs;

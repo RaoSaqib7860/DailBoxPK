@@ -8,6 +8,7 @@ class RecentListnigsController extends GetxController {
   final listofrecentListings = [].obs;
   final listoflistingsProduct = [].obs;
   final listofProductServices = [].obs;
+  final listofFaq = [].obs;
 
   var lat = 0.0.obs;
   var lng = 0.0.obs;

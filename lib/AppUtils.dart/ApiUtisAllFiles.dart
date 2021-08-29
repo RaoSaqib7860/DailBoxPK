@@ -130,9 +130,7 @@ class ApiUtilsAllFiles extends ChangeNotifier {
     if (controller.isf1.value) {
       print('in image now');
       formData = FormData.fromMap({
-        'business_id': controller
-                .listofbuisness[controller.currentlistofbuisnessIndex.value]
-            ['business_id'],
+        'business_id': '0',
         'industry_id': controller.listofIndustrytwo[
             controller.currentlistofIndustryIndextwo.value]['id'],
         'industry_main_cat_id': controller

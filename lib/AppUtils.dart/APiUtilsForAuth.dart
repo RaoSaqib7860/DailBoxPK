@@ -9,6 +9,7 @@ import 'package:dail_box/Screens/OtpCodeVarification/phone_verification.dart';
 import 'package:dail_box/Screens/Profile/EditProfileController.dart';
 import 'package:dail_box/Screens/Profile/ProfileController.dart';
 import 'package:dail_box/Screens/Profile/profile.dart';
+import 'package:dail_box/Screens/RecentListingDetails/RecentListingsController.dart';
 import 'package:dail_box/Screens/SearchDetail/SearchDetailsController.dart';
 import 'package:dail_box/Screens/SignIn/SignInController.dart';
 import 'package:dail_box/Screens/SignUp/SignUpController.dart';
@@ -53,6 +54,10 @@ class ApiUtils {
   static final String getserviceallreview = '/getserviceallreview';
   static final String giveservicerate = '/giveservicerate';
   static final String myActivity = '/myActivity';
+  static final String sortDiscussionform = '/sortDiscussionform';
+  static final String searchDiscussionform = '/searchDiscussionform';
+  static final String getFAQ = '/getFAQ';
+  static final String removeFAQ = '/removeFAQ';
 
   static Future loginApi(SignInController controller) async {
     //http://dailboxx.websitescare.com/Alphaapis/login?code=DAILBOXX-03448567673
@@ -242,15 +247,16 @@ class ApiUtils {
 
   static Future getgetDiscussionform({ChatBoxController? controller}) async {
     var url = Uri.parse('$baseUrl$getDiscussionform$secretCodeString');
+    GetStorage storage = GetStorage();
     try {
-      var responce = await http.get(
-        url,
-      );
+      var responce =
+          await http.post(url, body: {'user_id': storage.read('userId')});
       var data = jsonDecode(responce.body);
       printlog('getgetDiscussionform data is = $data');
       printlog('data is = ${responce.statusCode}');
+      controller!.loadmainList.value = true;
       if (data['result'] == 'success') {
-        controller!.listofChatBox.clear();
+        controller.listofChatBox.clear();
         controller.listofChatBox.value = data['data'] ?? [];
         controller.loadmainList.value = true;
         print('list data = ${controller.listofChatBox}');
@@ -572,6 +578,91 @@ class ApiUtils {
         snackBarSuccess(data['message']);
       } else {
         snackBarFailer(data['message']);
+      }
+    } catch (e) {}
+  }
+
+  static Future getsortDiscussionform(
+      {String? main_cat_id,
+      String? sub_cat_id,
+      ChatBoxController? controller}) async {
+    GetStorage storage = GetStorage();
+    var url = Uri.parse('$baseUrl$sortDiscussionform$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        'main_cat_id': '$main_cat_id',
+        'user_id': storage.read('userId'),
+        'sub_cat_id': '$sub_cat_id',
+      });
+      var data = jsonDecode(responce.body);
+      printlog('data is = $data');
+      printlog('data is = ${responce.statusCode}');
+      controller!.loadmainList.value = false;
+      if (data['result'] == 'success') {
+        controller.listofChatBox.clear();
+        controller.listofChatBox.value = data['data'] ?? [];
+      } else {
+        controller.listofChatBox.value = [];
+      }
+      controller.loadmainList.value = true;
+    } catch (e) {}
+  }
+
+  static Future getsearchDiscussionform(
+      {ChatBoxController? controller, String? search}) async {
+    GetStorage storage = GetStorage();
+    var url = Uri.parse('$baseUrl$searchDiscussionform$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        'search': '$search',
+        'user_id': storage.read('userId'),
+      });
+      var data = jsonDecode(responce.body);
+      printlog('data is = $data');
+      printlog('data is = ${responce.statusCode}');
+      controller!.loadmainList.value = false;
+      if (data['result'] == 'success') {
+        controller.listofChatBox.clear();
+        controller.listofChatBox.value = data['data'] ?? [];
+      } else {
+        controller.listofChatBox.value = [];
+      }
+      controller.loadmainList.value = true;
+    } catch (e) {}
+  }
+
+  static Future getgetFAQ(
+      {RecentListnigsController? controller, String? id}) async {
+    var url = Uri.parse('$baseUrl$getFAQ$secretCodeString');
+    print('id is = $id');
+    try {
+      var responce = await http.post(url, body: {
+        'b_id': id,
+      });
+      var data = jsonDecode(responce.body);
+      printlog('getgetFAQ is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.listofFaq.value = data['data'];
+      }
+    } catch (e) {}
+  }
+
+  static Future getremoveFAQ({
+    RecentListnigsController? controller,
+    String? b_id,
+    String? faq_id,
+    int? index,
+  }) async {
+    var url = Uri.parse('$baseUrl$removeFAQ$secretCodeString');
+    try {
+      var responce =
+          await http.post(url, body: {'b_id': b_id, 'faq_id': faq_id});
+      var data = jsonDecode(responce.body);
+      printlog('getgetFAQ is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.listofFaq.removeAt(index!);
       }
     } catch (e) {}
   }

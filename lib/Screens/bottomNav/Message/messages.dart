@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-
 import 'MessageController.dart';
 
 class Messages extends StatefulWidget {
@@ -83,6 +82,48 @@ class _MessagesState extends State<Messages> {
               ],
             ),
           ),
+          // Container(
+          //   padding: EdgeInsets.all(15),
+          //   child: Column(
+          //     children: <Widget>[
+          //       SizedBox(
+          //         height: 10,
+          //       ),
+          //       ClipRRect(
+          //         borderRadius: BorderRadius.circular(5.0),
+          //         child: Container(
+          //           decoration: BoxDecoration(
+          //             borderRadius: BorderRadius.circular(5.0),
+          //             color: Colors.grey[100],
+          //             boxShadow: [
+          //               BoxShadow(
+          //                 color: Colors.grey[400]!,
+          //                 offset: Offset(0.0, 1.0), //(x,y)
+          //                 blurRadius: 6.0,
+          //               ),
+          //             ],
+          //           ),
+          //           child: TextFormField(
+          //             cursorColor: Colors.black,
+          //             // controller: controller.nameCon,
+          //             enabled: false,
+          //             keyboardType: TextInputType.text,
+          //             decoration: new InputDecoration(
+          //                 border: InputBorder.none,
+          //                 focusedBorder: InputBorder.none,
+          //                 enabledBorder: InputBorder.none,
+          //                 errorBorder: InputBorder.none,
+          //                 disabledBorder: InputBorder.none,
+          //                 contentPadding: EdgeInsets.only(
+          //                     left: 15, bottom: 11, top: 11, right: 15),
+          //                 hintStyle: TextStyle(color: greyColor, fontSize: 14),
+          //                 hintText: "Search here"),
+          //           ),
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           Divider(
             thickness: 10,
           ),

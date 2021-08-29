@@ -5,8 +5,12 @@ import 'package:dail_box/Screens/IndustryDetails/IndustryDetailsController.dart'
 import 'package:dail_box/Screens/IndustryDetails/IndustrySubDetails/IndustrySubDetailsController.dart';
 import 'package:dail_box/Screens/Profile/EditPost/EditPostController.dart';
 import 'package:dail_box/Screens/Profile/ProfileController.dart';
+import 'package:dail_box/Screens/Profile/ViewAllLike/ViewAllLikeController.dart';
+import 'package:dail_box/Screens/Profile/ViewComments/ViewCommentController.dart';
 import 'package:dail_box/Screens/RecentListingDetails/RecentListingsController.dart';
 import 'package:dail_box/Screens/SearchPage/SearchController.dart';
+import 'package:dail_box/Screens/bottomNav/ChatBox/ChatBoxController.dart';
+import 'package:dail_box/Screens/bottomNav/ChatBox/Comment/CommentPageController.dart';
 import 'package:dail_box/Screens/bottomNav/Home/HomeController.dart';
 import 'package:dail_box/Screens/bottomNav/Home/home.dart';
 import 'package:dail_box/Screens/bottomNav/Listings/ListingsController.dart';
@@ -54,10 +58,14 @@ class ApiUtilsForAll {
   static final String removeDiscussionform = '/removeDiscussionform';
   static final String updateDiscussionform = '/updateDiscussionform';
   static final String getlistingallrating = '/getlistingallrating';
+  static final String getAllLikeform = '/getAllLikeform';
+  static final String getAllCommentsform = '/getAllCommentsform';
+  static final String likeDiscussionform = '/likeDiscussionform';
+  static final String dislikeDiscussionform = '/dislikeDiscussionform';
+  static final String postCommentform = '/postCommentform';
 
-  //static final String givelistingrate = '/givelistingrate';
+  //http://dailboxx.websitescare.com/Alphaapis/postCommentform?code=DAILBOXX-03448567673
 
-  //http://dailboxx.websitescare.com/Alphaapis/getbusinesslistbysubid?code=DAILBOXX-03448567673
   GetStorage storage = GetStorage();
 
   static Future gethomeproducts(HomeController controller) async {
@@ -525,4 +533,101 @@ class ApiUtilsForAll {
       } else {}
     } catch (e) {}
   }
+
+//http://dailboxx.websitescare.com/Alphaapis/getAllLikeform?code=DAILBOXX-03448567673
+// http://dailboxx.websitescare.com/Alphaapis/getAllCommentsform?code=DAILBOXX-03448567673
+
+  static Future getgetAllLikeform(
+      {String? form_id, ViewAllLikeController? controller}) async {
+    var url = Uri.parse('$baseUrl$getAllLikeform$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {'form_id': form_id});
+      var data = jsonDecode(responce.body);
+      printlog('getgetlistingrating list is  = $data');
+      printlog('data is = ${responce.statusCode}');
+      controller!.isloading.value = true;
+      if (data['result'] == 'success') {
+        controller.listoflike.value = data['data'] ?? [];
+      }
+    } catch (e) {}
+  }
+
+  static Future getgetAllCommentsform(
+      {String? form_id, ViewCommentsController? controller}) async {
+    var url = Uri.parse('$baseUrl$getAllCommentsform$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {'form_id': form_id});
+      var data = jsonDecode(responce.body);
+      printlog('getgetAllCommentsform list is  = $data');
+      printlog('data is = ${responce.statusCode}');
+      controller!.isloading.value = true;
+      if (data['result'] == 'success') {
+        controller.listofComment.value = data['data'] ?? [];
+      }
+    } catch (e) {}
+  }
+
+  static Future getgetAllCommentsforms(
+      {String? form_id, CommentPageController? controller}) async {
+    var url = Uri.parse('$baseUrl$getAllCommentsform$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {'form_id': form_id});
+      var data = jsonDecode(responce.body);
+      printlog('getgetAllCommentsform list is  = $data');
+      printlog('data is = ${responce.statusCode}');
+      controller!.isloading.value = false;
+      controller.isloading.value = true;
+      if (data['result'] == 'success') {
+        controller.listofComment.value = data['data'] ?? [];
+      }
+    } catch (e) {}
+  }
+
+  static Future getlikeDiscussionform(
+      {String? form_id,
+      ChatBoxController? controller,
+      int? index,
+      bool? isLike = true}) async {
+    GetStorage storage = GetStorage();
+    printlog('main id =$form_id');
+    var url = Uri.parse(
+        '$baseUrl${isLike! ? likeDiscussionform : dislikeDiscussionform}$secretCodeString');
+    try {
+      var responce = await http.post(url,
+          body: {'user_id': storage.read('userId'), 'form_id': form_id});
+      var data = jsonDecode(responce.body);
+      printlog('getlike list is  = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        if (isLike) {
+          controller!.listofChatBox[index!]['islike'] = 'true';
+          int total =
+              int.parse('${controller.listofChatBox[index]['total_likes']}');
+          controller.listofChatBox[index]['total_likes'] = '${total + 1}';
+        } else {
+          controller!.listofChatBox[index!]['islike'] = 'false';
+          int total =
+              int.parse('${controller.listofChatBox[index]['total_likes']}');
+          controller.listofChatBox[index]['total_likes'] = '${total - 1}';
+        }
+        print('object');
+      }
+    } catch (e) {}
+  }
+
+  static Future getpostCommentform({String? form_id, String? text}) async {
+    var url = Uri.parse('$baseUrl$postCommentform$secretCodeString');
+    GetStorage storage = GetStorage();
+    try {
+      var responce = await http.post(url, body: {
+        'form_id': form_id,
+        'user_id': storage.read('userId'),
+        'comments': '$text'
+      });
+      var data = jsonDecode(responce.body);
+      printlog('getgetAllCommentsform list is  = $data');
+      printlog('data is = ${responce.statusCode}');
+    } catch (e) {}
+  }
+
 }
