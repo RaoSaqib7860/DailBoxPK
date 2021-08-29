@@ -33,7 +33,7 @@ class _BoardScreenState extends State<BoardScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    'Choose your language',
+                    'Choose your language'.tr,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 25,
@@ -43,7 +43,7 @@ class _BoardScreenState extends State<BoardScreen> {
                     height: 10,
                   ),
                   Text(
-                    'اپنی زبان کا انتخاب کریں',
+                    'اپنی زبان کا انتخاب کریں'.tr,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -63,7 +63,7 @@ class _BoardScreenState extends State<BoardScreen> {
                           Get.to(RegisterSelection());
                         },
                         child: Text(
-                          "ENGLISH",
+                          "ENGLISH".tr,
                           style: TextStyle(color: blueColor),
                         ),
                       ),
@@ -81,7 +81,7 @@ class _BoardScreenState extends State<BoardScreen> {
                         color: redColor,
                         onPressed: () {},
                         child: Text(
-                          "اردو",
+                          "اردو".tr,
                           style: TextStyle(color: Colors.white),
                         ),
                       ),

@@ -49,7 +49,7 @@ class _RegisterSelectionState extends State<RegisterSelection> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      'Skip',
+                      'Skip'.tr,
                       style:
                       TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                     ),
@@ -63,14 +63,14 @@ class _RegisterSelectionState extends State<RegisterSelection> {
             Padding(
               padding: const EdgeInsets.all(30.0),
               child: Text(
-                'SIGN UP AS',
+                'SIGN UP AS'.tr,
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 30.0, right: 30),
               child: Text(
-                'Register your bussiness with dialboxx to gain visibility in the marketplace. Showcase your bussiness information.',
+                'Register your bussiness with dialboxx to gain visibility in the marketplace. Showcase your bussiness information.'.tr,
                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
               ),
             ),
@@ -87,7 +87,7 @@ class _RegisterSelectionState extends State<RegisterSelection> {
                   color: blueColor,
                   onPressed: () {},
                   child: Text(
-                    "BUSSINES OWNER",
+                    "BUSSINES OWNER".tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -108,7 +108,7 @@ class _RegisterSelectionState extends State<RegisterSelection> {
                     Get.to(SignIn());
                   },
                   child: Text(
-                    "USER",
+                    "USER".tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

@@ -54,7 +54,7 @@ class _IndustryDetailsState extends State<IndustryDetails> {
                             height: height - 150,
                             width: width,
                             child: Center(
-                              child: Text('Empty'),
+                              child: Text('Empty'.tr),
                             ),
                           ),
                         )

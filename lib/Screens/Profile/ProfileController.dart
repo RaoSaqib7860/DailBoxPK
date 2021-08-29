@@ -11,7 +11,7 @@ class ProfileController extends GetxController {
   var listofChatBox = [].obs;
   var loadmainList = false.obs;
 
-  var f1 = File('path').obs;
+  var f1 = File('path'.tr).obs;
   var isf1 = false.obs;
 
   final ImagePicker _picker = ImagePicker();

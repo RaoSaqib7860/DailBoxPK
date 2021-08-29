@@ -14,12 +14,12 @@ class AddProductController extends GetxController {
   TextEditingController sDetailsCon = TextEditingController();
   var buisnessIDforProduct = 100.obs;
   var listofBuisness = [].obs;
-  var selectBusinessHint = 'Select Business'.obs;
-  var selectBusinessid = 'Select Business'.obs;
+  var selectBusinessHint = 'Select Business'.tr.obs;
+  var selectBusinessid = 'Select Business'.tr.obs;
 
   var buisnessIDforservice = 100.obs;
-  var selectserviceHint = 'Select Business'.obs;
-  var selectserviceid = 'Select Business'.obs;
+  var selectserviceHint = 'Select Business'.tr.obs;
+  var selectserviceid = 'Select Business'.tr.obs;
 
   var loading = false.obs;
   var firstTab = true.obs;

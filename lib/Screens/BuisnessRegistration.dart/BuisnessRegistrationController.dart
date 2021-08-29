@@ -10,39 +10,39 @@ class BuisnessRegistrationController extends GetxController {
 
   var listofPackage = [].obs;
   var currentPackageIndex = 0.obs;
-  var packageHint = 'Select Package'.obs;
+  var packageHint = 'Select Package'.tr.obs;
 
   var listofIndustry = [].obs;
   var currentlistofIndustryIndex = 0.obs;
-  var listofIndustryHint = 'Select Industry'.obs;
+  var listofIndustryHint = 'Select Industry'.tr.obs;
 
-  var listofSV = ['Yes', 'No'].obs;
+  var listofSV = ['Yes'.tr, 'No'.tr].obs;
   var currentSVIndex = 0.obs;
-  var SVHint = 'Physical store* / Virtual store*'.obs;
+  var SVHint = 'Physical store* / Virtual store*'.tr.obs;
 
-  var listOfDeliveryAvailable = ['Yes', 'No'].obs;
+  var listOfDeliveryAvailable = ['Yes'.tr, 'No'.tr].obs;
   var currentListOfDeliveryAvailableIndex = 0.obs;
-  var listOfDeliveryAvailableHint = 'Delivery Available'.obs;
+  var listOfDeliveryAvailableHint = 'Delivery Available'.tr.obs;
 
-  var listOfBooking = ['Yes', 'No'].obs;
+  var listOfBooking = ['Yes'.tr, 'No'.tr].obs;
   var currentlistOfBookingIndex = 0.obs;
-  var listOfBookingHint = 'Booking'.obs;
+  var listOfBookingHint = 'Booking'.tr.obs;
 
-  var listpick_up = ['Yes', 'No'].obs;
+  var listpick_up = ['Yes'.tr, 'No'.tr].obs;
   var currentpick_upIndex = 0.obs;
-  var pick_upHint = 'PickUp'.obs;
+  var pick_upHint = 'PickUp'.tr.obs;
 
-  var listby_appointment = ['Yes', 'No'].obs;
+  var listby_appointment = ['Yes'.tr, 'No'.tr].obs;
   var currentby_appointmentIndex = 0.obs;
-  var by_appointmentHint = 'By Appointment'.obs;
+  var by_appointmentHint = 'By Appointment'.tr.obs;
 
   var listofCat = [].obs;
   var currentlistofCatIndex = 0.obs;
-  var listofCatHint = 'Category'.obs;
+  var listofCatHint = 'Category'.tr.obs;
 
   var listofSubCat = [].obs;
   var currentlistofSubCatIndex = 0.obs;
-  var listofSubCatHint = 'Sub Category'.obs;
+  var listofSubCatHint = 'Sub Category'.tr.obs;
 
   TextEditingController businessName = TextEditingController();
   TextEditingController businessEmail = TextEditingController();
@@ -63,14 +63,14 @@ class BuisnessRegistrationController extends GetxController {
   TextEditingController keyWordController = TextEditingController();
   TextEditingController hearAboutController = TextEditingController();
   var listOfKeyWord = [].obs;
-  var mon = 'Select time'.obs;
-  var tue = 'Select time'.obs;
-  var wed = 'Select time'.obs;
-  var thus = 'Select time'.obs;
-  var fri = 'Select time'.obs;
-  var sat = 'Select time'.obs;
-  var sun = 'Select time'.obs;
-  var Date = 'Select Date'.obs;
+  var mon = 'Select time'.tr.obs;
+  var tue = 'Select time'.tr.obs;
+  var wed = 'Select time'.tr.obs;
+  var thus = 'Select time'.tr.obs;
+  var fri = 'Select time'.tr.obs;
+  var sat = 'Select time'.tr.obs;
+  var sun = 'Select time'.tr.obs;
+  var Date = 'Select Date'.tr.obs;
 
   var f1 = File('path').obs;
   var isf1 = false.obs;

@@ -36,7 +36,7 @@ class _AddServiceState extends State<AddService> {
       var width = size.maxWidth;
       return SafeArea(
           child: Scaffold(
-        appBar: appBarGlobal('Add Service'),
+        appBar: appBarGlobal('Add Service'.tr),
         body: Stack(
           children: [
             Container(
@@ -99,14 +99,14 @@ class _AddServiceState extends State<AddService> {
                           ),
                           TextFromFieldsCustom(
                             controller: controller.sNameCon,
-                            hint: 'Service Name',
+                            hint: 'Service Name'.tr,
                           ),
                           SizedBox(
                             height: height * 0.030,
                           ),
                           TextFromFieldsCustom(
                             controller: controller.sPriceCon,
-                            hint: 'Service Cost',
+                            hint: 'Service Cost'.tr,
                             isNumber: true,
                           ),
                           SizedBox(
@@ -114,7 +114,7 @@ class _AddServiceState extends State<AddService> {
                           ),
                           TextFromFieldsCustom(
                             controller: controller.sDetailsCon,
-                            hint: 'Service Details',
+                            hint: 'Service Details'.tr,
                           ),
                           SizedBox(
                             height: height * 0.030,
@@ -123,7 +123,7 @@ class _AddServiceState extends State<AddService> {
                             child: InkWell(
                               onTap: () {
                                 if (controller.selectserviceHint.value !=
-                                    'Select Business') {
+                                    'Select Business'.tr) {
                                   if (controller.sNameCon.text.isNotEmpty) {
                                     if (controller.sPriceCon.text.isNotEmpty) {
                                       if (controller
@@ -155,7 +155,7 @@ class _AddServiceState extends State<AddService> {
                                 width: width,
                                 child: Center(
                                   child: Text(
-                                    'Add Service',
+                                    'Add Service'.tr,
                                     style: TextStyle(
                                         color: Colors.white,
                                         letterSpacing: 0.5),

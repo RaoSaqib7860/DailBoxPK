@@ -42,7 +42,7 @@ class _AddProductState extends State<AddProduct> {
       var width = size.maxWidth;
       return SafeArea(
           child: Scaffold(
-        appBar: appBarGlobal('Add Product'),
+        appBar: appBarGlobal('Add Product'.tr),
         body: Stack(
           children: [
             Container(
@@ -110,14 +110,14 @@ class _AddProductState extends State<AddProduct> {
                                 ),
                                 TextFromFieldsCustom(
                                   controller: controller.sNameCon,
-                                  hint: 'Service Name',
+                                  hint: 'Service Name'.tr,
                                 ),
                                 SizedBox(
                                   height: height * 0.030,
                                 ),
                                 TextFromFieldsCustom(
                                   controller: controller.sPriceCon,
-                                  hint: 'Service Cost',
+                                  hint: 'Service Cost'.tr,
                                   isNumber: true,
                                 ),
                                 SizedBox(
@@ -125,7 +125,7 @@ class _AddProductState extends State<AddProduct> {
                                 ),
                                 TextFromFieldsCustom(
                                   controller: controller.sDetailsCon,
-                                  hint: 'Service Details',
+                                  hint: 'Service Details'.tr,
                                 ),
                                 SizedBox(
                                   height: height * 0.030,
@@ -134,7 +134,7 @@ class _AddProductState extends State<AddProduct> {
                                   child: InkWell(
                                     onTap: () {
                                       if (controller.selectserviceHint.value !=
-                                          'Select Business') {
+                                          'Select Business'.tr) {
                                         if (controller
                                             .sNameCon.text.isNotEmpty) {
                                           if (controller
@@ -170,7 +170,7 @@ class _AddProductState extends State<AddProduct> {
                                       width: width,
                                       child: Center(
                                         child: Text(
-                                          'Add Service',
+                                          'Add Service'.tr,
                                           style: TextStyle(
                                               color: Colors.white,
                                               letterSpacing: 0.5),
@@ -235,14 +235,14 @@ class _AddProductState extends State<AddProduct> {
                                   ),
                                   TextFromFieldsCustom(
                                     controller: controller.pNameCon,
-                                    hint: 'Product Name',
+                                    hint: 'Product Name'.tr,
                                   ),
                                   SizedBox(
                                     height: height * 0.030,
                                   ),
                                   TextFromFieldsCustom(
                                     controller: controller.pPriceCon,
-                                    hint: 'Product Price',
+                                    hint: 'Product Price'.tr,
                                     isNumber: true,
                                   ),
                                   SizedBox(
@@ -250,7 +250,7 @@ class _AddProductState extends State<AddProduct> {
                                   ),
                                   TextFromFieldsCustom(
                                     controller: controller.pDetailsCon,
-                                    hint: 'Product Details',
+                                    hint: 'Product Details'.tr,
                                   ),
                                   SizedBox(
                                     height: height * 0.030,
@@ -260,7 +260,7 @@ class _AddProductState extends State<AddProduct> {
                                       Expanded(
                                         child: Center(
                                           child: Text(
-                                            'Product image 1',
+                                            'Product image 1'.tr,
                                             style: TextStyle(fontSize: 11),
                                           ),
                                         ),
@@ -268,7 +268,7 @@ class _AddProductState extends State<AddProduct> {
                                       Expanded(
                                         child: Center(
                                           child: Text(
-                                            'Product image 2',
+                                            'Product image 2'.tr,
                                             style: TextStyle(fontSize: 11),
                                           ),
                                         ),
@@ -276,7 +276,7 @@ class _AddProductState extends State<AddProduct> {
                                       Expanded(
                                         child: Center(
                                           child: Text(
-                                            'Product image 3',
+                                            'Product image 3'.tr,
                                             style: TextStyle(fontSize: 11),
                                           ),
                                         ),
@@ -381,7 +381,7 @@ class _AddProductState extends State<AddProduct> {
                                       onTap: () {
                                         if (controller
                                                 .selectBusinessHint.value !=
-                                            'Select Business') {
+                                            'Select Business'.tr) {
                                           if (controller
                                               .pNameCon.text.isNotEmpty) {
                                             if (controller
@@ -402,7 +402,7 @@ class _AddProductState extends State<AddProduct> {
                                                           ['business_id']);
                                                 } else {
                                                   snackBarFailer(
-                                                      'Please select all images first');
+                                                      'Please select all images first'.tr);
                                                 }
                                               } else {
                                                 snackBarFailer(
@@ -426,7 +426,7 @@ class _AddProductState extends State<AddProduct> {
                                         width: width,
                                         child: Center(
                                           child: Text(
-                                            'Add Product',
+                                            'Add Product'.tr,
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 letterSpacing: 0.5),

@@ -60,7 +60,7 @@ class _SignInState extends State<SignIn> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          'Skip',
+                          'Skip'.tr,
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600),
                         ),
@@ -79,7 +79,7 @@ class _SignInState extends State<SignIn> {
                             height: height / 40,
                           ),
                           Text(
-                            'SIGN IN',
+                            'SIGN IN'.tr,
                             style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.w600,
@@ -124,7 +124,7 @@ class _SignInState extends State<SignIn> {
                                         right: 15),
                                     hintStyle: TextStyle(
                                         color: greyColor, fontSize: 12),
-                                    hintText: "Email or phone"),
+                                    hintText: "Email or phone".tr),
                               ),
                             ),
                           ),
@@ -182,7 +182,7 @@ class _SignInState extends State<SignIn> {
                                           right: 15),
                                       hintStyle: TextStyle(
                                           color: greyColor, fontSize: 12),
-                                      hintText: "Password"),
+                                      hintText: "Password".tr),
                                 ),
                               ),
                             ),
@@ -197,7 +197,7 @@ class _SignInState extends State<SignIn> {
                                 Get.to(ForgotPassword());
                               },
                               child: Text(
-                                'Forgot Password ?',
+                                'Forgot Password ?'.tr,
                                 style: TextStyle(
                                     color: redColor,
                                     fontWeight: FontWeight.w600,
@@ -229,7 +229,7 @@ class _SignInState extends State<SignIn> {
                                   }
                                 },
                                 child: Text(
-                                  "SIGN IN",
+                                  "SIGN IN".tr,
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),
@@ -249,7 +249,7 @@ class _SignInState extends State<SignIn> {
                                 ),
                               ),
                               Text(
-                                'Or Sign in with',
+                                'Or Sign in with'.tr,
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.w500),
@@ -312,14 +312,14 @@ class _SignInState extends State<SignIn> {
                             alignment: Alignment.center,
                             child: RichText(
                               text: new TextSpan(
-                                  text: 'Don\'t have an account ? ',
+                                  text: 'Don\'t have an account ? '.tr,
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 16,
                                       fontWeight: FontWeight.w400),
                                   children: [
                                     new TextSpan(
-                                      text: ' Sign Up ',
+                                      text: ' Sign Up '.tr,
                                       style: TextStyle(
                                           color: blueColor,
                                           fontWeight: FontWeight.bold),

@@ -30,21 +30,21 @@ class _BRTwoState extends State<BRTwo> {
             height: height * 0.020,
           ),
           TextFromFieldsCustom(
-            hint: 'City* / Area**',
+            hint: 'City* / Area**'.tr,
             controller: controller.businessArea,
           ),
           SizedBox(
             height: height * 0.020,
           ),
           TextFromFieldsCustom(
-            hint: 'Website URL',
+            hint: 'Website URL'.tr,
             controller: controller.businessWebsiteUrl,
           ),
           SizedBox(
             height: height * 0.020,
           ),
           TextFromFieldsCustom(
-            hint: 'Number of Employs',
+            hint: 'Number of Employs'.tr,
             isNumber: true,
             controller: controller.businessNoOfEmployess,
           ),
@@ -52,35 +52,35 @@ class _BRTwoState extends State<BRTwo> {
             height: height * 0.020,
           ),
           TextFromFieldsCustom(
-            hint: 'FaceBook URL',
+            hint: 'FaceBook URL'.tr,
             controller: controller.businessFb,
           ),
           SizedBox(
             height: height * 0.020,
           ),
           TextFromFieldsCustom(
-            hint: 'Instagram URL',
+            hint: 'Instagram URL'.tr,
             controller: controller.businessInsta,
           ),
           SizedBox(
             height: height * 0.020,
           ),
           TextFromFieldsCustom(
-            hint: 'Twitter URL',
+            hint: 'Twitter URL'.tr,
             controller: controller.businessTwitter,
           ),
           SizedBox(
             height: height * 0.020,
           ),
           TextFromFieldsCustom(
-            hint: 'Youtube URl',
+            hint: 'Youtube URl'.tr,
             controller: controller.businessNoOfYoutube,
           ),
           SizedBox(
             height: height * 0.020,
           ),
           TextFromFieldsCustom(
-            hint: 'Service Area',
+            hint: 'Service Area'.tr,
             controller: controller.businessServiceArea,
           ),
           SizedBox(
@@ -261,13 +261,13 @@ class _BRTwoState extends State<BRTwo> {
                                   .businessServiceArea.text.isNotEmpty) {
                                 if (controller
                                         .listOfDeliveryAvailableHint.value !=
-                                    'Delivery Available') {
+                                    'Delivery Available'.tr) {
                                   if (controller.pick_upHint.value !=
-                                      'PickUp') {
+                                      'PickUp'.tr) {
                                     if (controller.listOfBookingHint.value !=
-                                        'PickUp') {
+                                        'PickUp'.tr) {
                                       if (controller.by_appointmentHint.value !=
-                                          'By Appointment') {
+                                          'By Appointment'.tr) {
                                         controller.currentIndex.value = 3;
                                       } else {
                                         snackBarSuccess(
@@ -313,7 +313,7 @@ class _BRTwoState extends State<BRTwo> {
                 width: width,
                 child: Center(
                   child: Text(
-                    'NEXT',
+                    'NEXT'.tr,
                     style: TextStyle(color: Colors.white, letterSpacing: 0.5),
                   ),
                 ),

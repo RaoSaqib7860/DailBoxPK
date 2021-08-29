@@ -112,7 +112,7 @@ class _HomeState extends State<Home> {
                                     left: 15, bottom: 11, top: 11, right: 15),
                                 hintStyle:
                                     TextStyle(color: greyColor, fontSize: 12),
-                                hintText: "Search service or industry"),
+                                hintText: "Search service or industry".tr),
                           ),
                         ),
                       ),
@@ -127,7 +127,7 @@ class _HomeState extends State<Home> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Text(
-                                  'Most Popular Industries',
+                                  'Most Popular Industries'.tr,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 16),
@@ -137,7 +137,7 @@ class _HomeState extends State<Home> {
                                   child: Row(
                                     children: [
                                       Text(
-                                        'View All ',
+                                        'View All '.tr,
                                         style: TextStyle(
                                             color: blueColor, fontSize: 12),
                                       ),
@@ -274,7 +274,7 @@ class _HomeState extends State<Home> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Text(
-                                  'Whats Trending Now?',
+                                  'Whats Trending Now?'.tr,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 16),
@@ -401,7 +401,7 @@ class _HomeState extends State<Home> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Text(
-                                  'Most Recent Listings',
+                                  'Most Recent Listings'.tr,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 16),
@@ -488,7 +488,7 @@ class _HomeState extends State<Home> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Text(
-                                  'Popular Product',
+                                  'Popular Product'.tr,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 16),
@@ -516,7 +516,7 @@ class _HomeState extends State<Home> {
                                             Get.to(SearchDetails(
                                               buisinessId: controller
                                                   .listofMostPopular[i]['id'],
-                                              fromApi: 'product',
+                                              fromApi: 'product'.tr,
                                               name:
                                                   '${controller.listofMostPopular[i]['pname']}',
                                             ));
@@ -556,7 +556,7 @@ class _HomeState extends State<Home> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Text(
-                                  'Popular Services',
+                                  'Popular Services'.tr,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 16),
@@ -668,7 +668,7 @@ class _HomeState extends State<Home> {
                                     Get.to(SearchDetails(
                                       buisinessId:
                                           serchController.listofSearch[i]['id'],
-                                      fromApi: 'product',
+                                      fromApi: 'product'.tr,
                                       name:
                                           '${serchController.listofSearch[i]['pname']}',
                                     ));
@@ -676,7 +676,7 @@ class _HomeState extends State<Home> {
                                     Get.to(SearchDetails(
                                       buisinessId:
                                           serchController.listofSearch[i]['id'],
-                                      fromApi: 'service',
+                                      fromApi: 'service'.tr,
                                       name:
                                           '${serchController.listofSearch[i]['business_name']}',
                                     ));
@@ -843,7 +843,7 @@ class _ShimmerDataState extends State<ShimmerData> {
               )),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: height * 0.010),
-                child: Text('data'),
+                child: Text('data'.tr),
               )
             ],
           ),

@@ -42,7 +42,7 @@ class _ContactUsState extends State<ContactUs> {
             },
           ),
           title: Text(
-            'Contact Us',
+            'Contact Us'.tr,
             style: TextStyle(
               fontSize: 16,
             ),
@@ -91,7 +91,7 @@ class _ContactUsState extends State<ContactUs> {
                                         height: 10,
                                       ),
                                       Text(
-                                        'Call Us',
+                                        'Call Us'.tr,
                                         style: TextStyle(
                                             color: blueColor,
                                             fontWeight: FontWeight.w600,
@@ -125,7 +125,7 @@ class _ContactUsState extends State<ContactUs> {
                                         height: 10,
                                       ),
                                       Text(
-                                        'Email Us',
+                                        'Email Us'.tr,
                                         style: TextStyle(
                                             color: Colors.orange,
                                             fontWeight: FontWeight.w600,
@@ -159,7 +159,7 @@ class _ContactUsState extends State<ContactUs> {
                                         height: 10,
                                       ),
                                       Text(
-                                        'Chat with Us',
+                                        'Chat with Us'.tr,
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.w600,
@@ -175,7 +175,7 @@ class _ContactUsState extends State<ContactUs> {
                             height: 20,
                           ),
                           Text(
-                            'Quick Contact',
+                            'Quick Contact'.tr,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 18),
                           ),
@@ -218,7 +218,7 @@ class _ContactUsState extends State<ContactUs> {
                                         right: 15),
                                     hintStyle: TextStyle(
                                         color: greyColor, fontSize: 14),
-                                    hintText: "First Name"),
+                                    hintText: "First Name".tr),
                               ),
                             ),
                           ),
@@ -261,7 +261,7 @@ class _ContactUsState extends State<ContactUs> {
                                         right: 15),
                                     hintStyle: TextStyle(
                                         color: greyColor, fontSize: 14),
-                                    hintText: "Email"),
+                                    hintText: "Email".tr),
                               ),
                             ),
                           ),
@@ -304,7 +304,7 @@ class _ContactUsState extends State<ContactUs> {
                                         right: 15),
                                     hintStyle: TextStyle(
                                         color: greyColor, fontSize: 14),
-                                    hintText: "Phone"),
+                                    hintText: "Phone".tr),
                               ),
                             ),
                           ),
@@ -351,7 +351,7 @@ class _ContactUsState extends State<ContactUs> {
                                         right: 15),
                                     hintStyle: TextStyle(
                                         color: greyColor, fontSize: 14),
-                                    hintText: "Message"),
+                                    hintText: "Message".tr),
                               ),
                             ),
                           ),
@@ -371,7 +371,7 @@ class _ContactUsState extends State<ContactUs> {
                                 }
                               },
                               child: Text(
-                                "SEND",
+                                "SEND".tr,
                                 style: TextStyle(color: Colors.white),
                               ),
                             ),

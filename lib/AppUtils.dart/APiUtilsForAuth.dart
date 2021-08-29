@@ -120,6 +120,9 @@ class ApiUtils {
     } catch (e) {}
   }
 
+
+  
+
   static Future verifyotpApi(PhoneVarificationController controller) async {
     SignUpController c = Get.find();
     var url = Uri.parse('$baseUrl$verifyotpphone$secretCodeString');

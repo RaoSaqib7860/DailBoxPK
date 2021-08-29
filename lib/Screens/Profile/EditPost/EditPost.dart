@@ -35,7 +35,7 @@ class _EditPostState extends State<EditPost> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Edit',
+          'Edit'.tr,
           style: TextStyle(
             fontSize: 16,
           ),
@@ -176,7 +176,7 @@ class _EditPostState extends State<EditPost> {
                   width: width,
                   child: Center(
                     child: Text(
-                      'Update',
+                      'Update'.tr,
                       style: TextStyle(color: Colors.white),
                     ),
                   ),

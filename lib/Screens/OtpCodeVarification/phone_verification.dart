@@ -52,7 +52,7 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            'Skip',
+                            'Skip'.tr,
                             style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -72,7 +72,7 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                             SizedBox(
                               height: height / 30,
                             ),
-                            Text('Phone verification',
+                            Text('Phone verification'.tr,
                                 style: TextStyle(
                                     color: blueColor,
                                     fontSize: 20,
@@ -81,7 +81,7 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                               height: 10,
                             ),
                             Text(
-                              'Register your bussiness with dialboxx to gain visibility in the marketplace.',
+                              'Register your bussiness with dialboxx to gain visibility in the marketplace.'.tr,
                               style: TextStyle(
                                   fontSize: 13, fontWeight: FontWeight.w400),
                             ),
@@ -123,7 +123,7 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                                           right: 15),
                                       hintStyle: TextStyle(
                                           color: greyColor, fontSize: 14),
-                                      hintText: "Otp code"),
+                                      hintText: "Otp code".tr),
                                 ),
                               ),
                             ),
@@ -145,7 +145,7 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                                   }
                                 },
                                 child: Text(
-                                  "NEXT",
+                                  "NEXT".tr,
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),

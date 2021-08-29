@@ -23,7 +23,7 @@ class Listings extends StatefulWidget {
 
 class _ListingsState extends State<Listings> {
   final controller = Get.put(ListingsController());
-  List list = ['Filter', 'Verified', 'Open Now', 'Top Rated'];
+  List list = ['Filter'.tr, 'Verified'.tr, 'Open Now'.tr, 'Top Rated'.tr];
   GetStorage storage = GetStorage();
 
   @override
@@ -101,7 +101,7 @@ class _ListingsState extends State<Listings> {
                         contentPadding: EdgeInsets.only(
                             left: 15, bottom: 11, top: 11, right: 15),
                         hintStyle: TextStyle(color: greyColor, fontSize: 12),
-                        hintText: "Search here"),
+                        hintText: "Search here".tr),
                   ),
                 ),
               ),
@@ -157,13 +157,13 @@ class _ListingsState extends State<Listings> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'RMS Pack & Movers Service',
+                                            'RMS Pack & Movers Service'.tr,
                                             style: TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           Text(
-                                            'blue area islamabad',
+                                            'blue area islamabad'.tr,
                                             style: TextStyle(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.w300,
@@ -172,7 +172,7 @@ class _ListingsState extends State<Listings> {
                                           Row(
                                             children: [
                                               Text(
-                                                '4.0',
+                                                '4.0'.tr,
                                                 style: TextStyle(
                                                     fontSize: 12,
                                                     color: Colors.black26),
@@ -193,7 +193,7 @@ class _ListingsState extends State<Listings> {
                                                 }).toList(),
                                               ),
                                               Text(
-                                                '125 reviews',
+                                                '125 reviews'.tr,
                                                 style: TextStyle(
                                                     fontSize: 10,
                                                     color: Colors.black26),
@@ -223,7 +223,7 @@ class _ListingsState extends State<Listings> {
                                                       width: 5,
                                                     ),
                                                     Text(
-                                                      'Call',
+                                                      'Call'.tr,
                                                       style: TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 10),
@@ -257,7 +257,7 @@ class _ListingsState extends State<Listings> {
                                                       width: 5,
                                                     ),
                                                     Text(
-                                                      'Message',
+                                                      'Message'.tr,
                                                       style: TextStyle(
                                                           color: blueColor,
                                                           fontSize: 10),
@@ -289,7 +289,7 @@ class _ListingsState extends State<Listings> {
                           )
                         : controller.listofListings.isEmpty
                             ? Center(
-                                child: Text('Empty'),
+                                child: Text('Empty'.tr),
                               )
                             : ListView.builder(
                                 itemBuilder: (c, i) {
@@ -465,7 +465,7 @@ class _ListingsState extends State<Listings> {
                                                                 width: 5,
                                                               ),
                                                               Text(
-                                                                'Call',
+                                                                'Call'.tr,
                                                                 style: TextStyle(
                                                                     color: Colors
                                                                         .white,
@@ -509,7 +509,7 @@ class _ListingsState extends State<Listings> {
                                                                 width: 5,
                                                               ),
                                                               Text(
-                                                                'Message',
+                                                                'Message'.tr,
                                                                 style: TextStyle(
                                                                     color:
                                                                         blueColor,

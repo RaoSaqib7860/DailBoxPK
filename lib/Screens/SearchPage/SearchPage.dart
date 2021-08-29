@@ -23,7 +23,7 @@ class _SearchPageState extends State<SearchPage> {
       var width = size.maxWidth;
       return SafeArea(
           child: Scaffold(
-        appBar: appBarGlobal('Search'),
+        appBar: appBarGlobal('Search'.tr),
         body: Column(
           children: [
             Padding(
@@ -64,7 +64,7 @@ class _SearchPageState extends State<SearchPage> {
                         contentPadding: EdgeInsets.only(
                             left: 15, bottom: 11, top: 11, right: 15),
                         hintStyle: TextStyle(color: greyColor, fontSize: 12),
-                        hintText: "Search service or industry"),
+                        hintText: "Search service or industry".tr),
                   ),
                 ),
               ),

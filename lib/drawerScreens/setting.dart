@@ -25,7 +25,7 @@ class _SettingsState extends State<Settings> {
             },
           ),
           title: Text(
-            'Settings',
+            'Settings'.tr,
             style: TextStyle(
               fontSize: 16,
             ),
@@ -56,7 +56,7 @@ class _SettingsState extends State<Settings> {
                             ),
                             Expanded(
                                 child: Text(
-                              'Change Password',
+                              'Change Password'.tr,
                               style: TextStyle(fontSize: 14),
                             )),
                             Icon(
@@ -80,7 +80,7 @@ class _SettingsState extends State<Settings> {
                           ),
                           Expanded(
                               child: Text(
-                            'Terms & Conditions',
+                            'Terms & Conditions'.tr,
                             style: TextStyle(fontSize: 14),
                           )),
                           Icon(
@@ -103,7 +103,7 @@ class _SettingsState extends State<Settings> {
                           ),
                           Expanded(
                               child: Text(
-                            'Privacy Policy',
+                            'Privacy Policy'.tr,
                             style: TextStyle(fontSize: 14),
                           )),
                           Icon(
@@ -126,11 +126,11 @@ class _SettingsState extends State<Settings> {
                           ),
                           Expanded(
                               child: Text(
-                            'Version',
+                            'Version'.tr,
                             style: TextStyle(fontSize: 14),
                           )),
                           Text(
-                            '1.0.0',
+                            '1.0.0'.tr,
                             style: TextStyle(fontSize: 11),
                           )
                         ],

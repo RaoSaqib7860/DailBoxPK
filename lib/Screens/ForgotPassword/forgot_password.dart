@@ -60,7 +60,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          'Skip',
+                          'Skip'.tr,
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600),
                         ),
@@ -82,7 +82,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             ),
                             RichText(
                               text: new TextSpan(
-                                  text: 'Forgot',
+                                  text: 'Forgot'.tr,
                                   style: TextStyle(
                                       color: blueColor,
                                       fontSize: 20,
@@ -90,19 +90,19 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                       fontWeight: FontWeight.w400),
                                   children: [
                                     new TextSpan(
-                                      text: ' your ',
+                                      text: ' your '.tr,
                                       style: TextStyle(color: Colors.black),
                                       recognizer: new TapGestureRecognizer()
                                         ..onTap = () => print('Tap Here onTap'),
                                     ),
                                     new TextSpan(
-                                      text: 'password ',
+                                      text: 'password '.tr,
                                       recognizer: new TapGestureRecognizer()
                                         ..onTap = () => print('Tap Here onTap'),
                                     ),
                                     new TextSpan(
                                       style: TextStyle(color: Colors.black),
-                                      text: 'so Try again..',
+                                      text: 'so Try again..'.tr,
                                       recognizer: new TapGestureRecognizer()
                                         ..onTap = () => print('Tap Here onTap'),
                                     )
@@ -112,7 +112,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               height: height / 50,
                             ),
                             Text(
-                              'Register your bussiness with dialboxx to gain visibility in the marketplace.',
+                              'Register your bussiness with dialboxx to gain visibility in the marketplace.'.tr,
                               style: TextStyle(
                                   fontSize: 13, fontWeight: FontWeight.w400),
                             ),
@@ -154,7 +154,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                           right: 15),
                                       hintStyle: TextStyle(
                                           color: greyColor, fontSize: 14),
-                                      hintText: "Email"),
+                                      hintText: "Email".tr),
                                 ),
                               ),
                             ),
@@ -177,7 +177,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                   }
                                 },
                                 child: Text(
-                                  "SUBMIT",
+                                  "SUBMIT".tr,
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),

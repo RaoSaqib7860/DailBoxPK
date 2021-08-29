@@ -1,5 +1,6 @@
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Notifications extends StatefulWidget {
   @override
@@ -27,7 +28,7 @@ class _NotificationsState extends State<Notifications> {
                     Navigator.pop(context);
                   },
                 ),
-                Text('Notifications',style: TextStyle(
+                Text('Notifications'.tr,style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
                     fontSize: 20
@@ -57,7 +58,7 @@ class _NotificationsState extends State<Notifications> {
                             color: Colors.black
                           ),
                           padding: EdgeInsets.all(20),
-                          child: Text('PP',style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w500),),
+                          child: Text('PP'.tr,style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w500),),
                         ),
                         SizedBox(width: 10,),
                         Expanded(
@@ -67,7 +68,7 @@ class _NotificationsState extends State<Notifications> {
                              Row(
                                children: <Widget>[
                                  Expanded(
-                                   child: Text('We\'re never more than 5 minutes away with pick-up stations closer from and to your home, office or anywhere in between.',
+                                   child: Text('We\'re never more than 5 minutes away with pick-up stations closer from and to your home, office or anywhere in between.'.tr,
                                      maxLines: 3,
                                      style: TextStyle(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 13,),),
                                  ),
@@ -76,7 +77,7 @@ class _NotificationsState extends State<Notifications> {
                                crossAxisAlignment: CrossAxisAlignment.start,
                              ),
                               SizedBox(height: 10,),
-                              Text('15 June at 02:05 am',style: TextStyle(color: greyColor,fontSize: 11),),
+                              Text('15 June at 02:05 am'.tr,style: TextStyle(color: greyColor,fontSize: 11),),
                               SizedBox(height: 5,),
                               Container(
                                 color: greyColor,

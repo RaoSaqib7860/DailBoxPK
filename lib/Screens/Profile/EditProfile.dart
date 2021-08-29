@@ -43,7 +43,7 @@ class _EditProfileState extends State<EditProfile> {
               },
             ),
             title: Text(
-              'Edit Profile',
+              'Edit Profile'.tr,
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -62,7 +62,7 @@ class _EditProfileState extends State<EditProfile> {
                       height: 30,
                     ),
                     Text(
-                      'Previous password',
+                      'Previous password'.tr,
                       style: TextStyle(fontSize: 12, color: greyColor),
                     ),
                     SizedBox(
@@ -119,7 +119,7 @@ class _EditProfileState extends State<EditProfile> {
                                     left: 15, bottom: 11, top: 11, right: 15),
                                 hintStyle:
                                     TextStyle(color: greyColor, fontSize: 12),
-                                hintText: "New Password"),
+                                hintText: "New Password".tr),
                           ),
                         ),
                       ),
@@ -128,7 +128,7 @@ class _EditProfileState extends State<EditProfile> {
                       height: 10,
                     ),
                     Text(
-                      'New password',
+                      'New password'.tr,
                       style: TextStyle(fontSize: 12, color: greyColor),
                     ),
                     SizedBox(
@@ -185,7 +185,7 @@ class _EditProfileState extends State<EditProfile> {
                                     left: 15, bottom: 11, top: 11, right: 15),
                                 hintStyle:
                                     TextStyle(color: greyColor, fontSize: 14),
-                                hintText: "Confirm Password"),
+                                hintText: "Confirm Password".tr),
                           ),
                         ),
                       ),
@@ -194,7 +194,7 @@ class _EditProfileState extends State<EditProfile> {
                       height: 10,
                     ),
                     Text(
-                      'Mobile No*',
+                      'Mobile No*'.tr,
                       style: TextStyle(fontSize: 12, color: greyColor),
                     ),
                     SizedBox(
@@ -265,7 +265,7 @@ class _EditProfileState extends State<EditProfile> {
                           }
                         },
                         child: Text(
-                          "SUBMIT",
+                          "SUBMIT".tr,
                           style: TextStyle(color: Colors.white),
                         ),
                       ),

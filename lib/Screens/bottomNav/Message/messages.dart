@@ -31,7 +31,7 @@ class _MessagesState extends State<Messages> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Chat',
+          'Chat'.tr,
           style: TextStyle(
             fontSize: 16,
           ),
@@ -76,7 +76,7 @@ class _MessagesState extends State<Messages> {
                           contentPadding: EdgeInsets.only(
                               left: 15, bottom: 11, top: 11, right: 15),
                           hintStyle: TextStyle(color: greyColor, fontSize: 14),
-                          hintText: "Search here"),
+                          hintText: "Search here".tr),
                     ),
                   ),
                 ),

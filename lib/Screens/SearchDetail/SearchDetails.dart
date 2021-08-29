@@ -31,11 +31,11 @@ class _SearchDetailsState extends State<SearchDetails> {
   void initState() {
     controller.listofData.clear();
     controller.listofReview.clear();
-    if (widget.fromApi == 'product') {
+    if (widget.fromApi == 'product'.tr) {
       ApiUtils.getgetproduct(controller: controller, id: widget.buisinessId);
       ApiUtils.getgetproductallreview(
           controller: controller, id: widget.buisinessId);
-    } else if (widget.fromApi == 'service') {
+    } else if (widget.fromApi == 'service'.tr) {
       ApiUtils.getgetservice(controller: controller, id: widget.buisinessId);
       ApiUtils.getgetserviceallreview(
           controller: controller, id: widget.buisinessId);
@@ -58,7 +58,7 @@ class _SearchDetailsState extends State<SearchDetails> {
             },
           ),
           title: Text(
-            'Details',
+            'Details'.tr,
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
           centerTitle: false,
@@ -77,7 +77,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                       ),
                     ),
                   )
-                : widget.fromApi == 'service'
+                : widget.fromApi == 'service'.tr
                     ? SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,7 +107,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                                           width: width * 0.350,
                                           child: Center(
                                             child: Text(
-                                              'Rating this item',
+                                              'Rating this item'.tr,
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 12),
@@ -189,7 +189,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                               height: height * 0.020,
                             ),
                             Text(
-                              'Rating and Reviews',
+                              'Rating and Reviews'.tr,
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
@@ -421,7 +421,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                                           width: width * 0.350,
                                           child: Center(
                                             child: Text(
-                                              'Rating this item',
+                                              'Rating this item'.tr,
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 12),
@@ -503,7 +503,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                               height: height * 0.020,
                             ),
                             Text(
-                              'Rating and Reviews',
+                              'Rating and Reviews'.tr,
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),

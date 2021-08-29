@@ -20,17 +20,17 @@ import 'package:get_storage/get_storage.dart';
 
 class HomeScreen extends StatefulWidget {
   static List<MenuItem> mainMenu = [
-    MenuItem(title: 'Add New Business', icon: CupertinoIcons.add, index: 7),
-    MenuItem(title: 'Profile', icon: Icons.person_outline, index: 0),
-    MenuItem(title: 'Notifications', icon: Icons.notifications_none, index: 1),
-    MenuItem(title: 'Advertise', icon: Icons.business, index: 2),
-    MenuItem(title: 'How it works', icon: Icons.work, index: 3),
-    MenuItem(title: 'Customer care', icon: Icons.child_care, index: 4),
+    MenuItem(title: 'Add New Business'.tr, icon: CupertinoIcons.add, index: 7),
+    MenuItem(title: 'Profile'.tr, icon: Icons.person_outline, index: 0),
+    MenuItem(title: 'Notifications'.tr, icon: Icons.notifications_none, index: 1),
+    MenuItem(title: 'Advertise'.tr, icon: Icons.business, index: 2),
+    MenuItem(title: 'How it works'.tr, icon: Icons.work, index: 3),
+    MenuItem(title: 'Customer care'.tr, icon: Icons.child_care, index: 4),
     MenuItem(
-        title: 'Add Product', icon: Icons.my_library_add_outlined, index: 5),
-    MenuItem(title: 'Add Service', icon: Icons.build, index: 6),
-    MenuItem(title: 'Settings', icon: CupertinoIcons.settings, index: 8),
-    MenuItem(title: 'Logout', icon: Icons.logout, index: 9, iscolor: true),
+        title: 'Add Product'.tr, icon: Icons.my_library_add_outlined, index: 5),
+    MenuItem(title: 'Add Service'.tr, icon: Icons.build, index: 6),
+    MenuItem(title: 'Settings'.tr, icon: CupertinoIcons.settings, index: 8),
+    MenuItem(title: 'Logout'.tr, icon: Icons.logout, index: 9, iscolor: true),
   ];
 
   @override

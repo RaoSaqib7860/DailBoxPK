@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:dail_box/Screens/AddProduct.dart/AddProductController.dart';
 import 'package:dail_box/Screens/BuisnessRegistration.dart/BuisnessRegistrationController.dart';
 import 'package:dail_box/Screens/Profile/EditPost/EditPostController.dart';
-import 'package:dail_box/Screens/Profile/EditProfileController.dart';
+
 import 'package:dail_box/Screens/Profile/profile.dart';
 import 'package:dail_box/Screens/bottomNav/ChatBox/ChatBoxController.dart';
 import 'package:dail_box/Screens/bottomNav/Home/home.dart';

@@ -124,14 +124,14 @@ class _BROneState extends State<BROne> {
             height: height * 0.020,
           ),
           TextFromFieldsCustom(
-            hint: 'Business name*',
+            hint: 'Business name*'.tr,
             controller: controller.businessName,
           ),
           SizedBox(
             height: height * 0.020,
           ),
           TextFromFieldsCustom(
-            hint: 'Business Description*',
+            hint: 'Business Description*'.tr,
             controller: controller.businessDiscription,
           ),
           SizedBox(
@@ -145,14 +145,14 @@ class _BROneState extends State<BROne> {
           ),
           TextFromFieldsCustom(
             controller: controller.businessEmail,
-            hint: 'Business email',
+            hint: 'Business email'.tr,
           ),
           SizedBox(
             height: height * 0.020,
           ),
           TextFromFieldsCustom(
             controller: controller.businessPhone,
-            hint: 'Cell number',
+            hint: 'Cell number'.tr,
             isNumber: true,
           ),
           SizedBox(
@@ -160,7 +160,7 @@ class _BROneState extends State<BROne> {
           ),
           TextFromFieldsCustom(
             controller: controller.businessLandline,
-            hint: 'Landline number',
+            hint: 'Landline number'.tr,
             isNumber: true,
           ),
           SizedBox(
@@ -168,7 +168,7 @@ class _BROneState extends State<BROne> {
           ),
           TextFromFieldsCustom(
             controller: controller.businessWhatsApp,
-            hint: 'WhatsApp number',
+            hint: 'WhatsApp number'.tr,
             isNumber: true,
           ),
           SizedBox(
@@ -176,14 +176,14 @@ class _BROneState extends State<BROne> {
           ),
           TextFromFieldsCustom(
             controller: controller.businessCity,
-            hint: 'City',
+            hint: 'City'.tr,
           ),
           SizedBox(
             height: height * 0.020,
           ),
           TextFromFieldsCustom(
             controller: controller.businessAddress,
-            hint: 'City',
+            hint: 'City'.tr,
           ),
           SizedBox(
             height: height * 0.020,
@@ -241,7 +241,7 @@ class _BROneState extends State<BROne> {
                             if (controller.businessWhatsApp.text.isNotEmpty) {
                               if (controller.businessCity.text.isNotEmpty) {
                                 if (controller.SVHint.value !=
-                                    'Physical store* / Virtual store*') {
+                                    'Physical store* / Virtual store*'.tr) {
                                   controller.currentIndex.value = 2;
                                 } else {
                                   snackBarSuccess(
@@ -277,7 +277,7 @@ class _BROneState extends State<BROne> {
                 width: width,
                 child: Center(
                   child: Text(
-                    'NEXT',
+                    'NEXT'.tr,
                     style: TextStyle(color: Colors.white, letterSpacing: 0.5),
                   ),
                 ),

@@ -33,7 +33,7 @@ class _GovernmentState extends State<Government> {
           },
         ),
         title: Text(
-          'Government Directory',
+          'Government Directory'.tr,
           style: TextStyle(
             fontSize: 16,
           ),
@@ -77,7 +77,7 @@ class _GovernmentState extends State<Government> {
                       contentPadding: EdgeInsets.only(
                           left: 15, bottom: 11, top: 11, right: 15),
                       hintStyle: TextStyle(color: greyColor, fontSize: 14),
-                      hintText: "Search here"),
+                      hintText: "Search here".tr),
                 ),
               ),
             ),
@@ -153,7 +153,7 @@ class _GovernmentState extends State<Government> {
                                                                 .spaceBetween,
                                                         children: <Widget>[
                                                           Text(
-                                                            'Business Name',
+                                                            'Business Name'.tr,
                                                             style: TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
@@ -179,7 +179,7 @@ class _GovernmentState extends State<Government> {
                                                       ),
                                                       Divider(),
                                                       Text(
-                                                        'Contact info',
+                                                        'Contact info'.tr,
                                                         style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -199,7 +199,7 @@ class _GovernmentState extends State<Government> {
                                                       ),
                                                       Divider(),
                                                       Text(
-                                                        'Business Overview',
+                                                        'Business Overview'.tr,
                                                         style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -217,7 +217,7 @@ class _GovernmentState extends State<Government> {
 
                                                       Divider(),
                                                       Text(
-                                                        'Business Offered',
+                                                        'Business Offered'.tr,
                                                         style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -250,7 +250,7 @@ class _GovernmentState extends State<Government> {
                                         top: 10,
                                         bottom: 10),
                                     child: Text(
-                                      'Contact',
+                                      'Contact'.tr,
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 12),
                                     ),

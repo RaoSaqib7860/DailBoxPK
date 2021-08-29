@@ -1,6 +1,7 @@
 import 'package:dail_box/AppUtils.dart/LogsUtils.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 
 double? lat;
 double? long;
@@ -35,12 +36,12 @@ Future checkGps(BuildContext context) async {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text("Can't get gurrent location"),
+              title: Text("Can't get gurrent location".tr),
               content:
-              const Text('Please make sure you enable GPS and try again'),
+               Text('Please make sure you enable GPS and try again'.tr),
               actions: <Widget>[
                 FlatButton(
-                    child: Text('Ok'),
+                    child: Text('Ok'.tr),
                     onPressed: () {
                       // final AndroidIntent intent = AndroidIntent(
                       //     action:

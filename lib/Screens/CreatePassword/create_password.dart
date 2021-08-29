@@ -65,7 +65,7 @@ class _CreatePasswordState extends State<CreatePassword> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    'Skip',
+                                    'Skip'.tr,
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600),
@@ -79,26 +79,26 @@ class _CreatePasswordState extends State<CreatePassword> {
                           ),
                           RichText(
                             text: new TextSpan(
-                                text: 'Confirm',
+                                text: 'Confirm'.tr,
                                 style: TextStyle(
                                     color: blueColor,
                                     fontSize: 22,
                                     fontWeight: FontWeight.w400),
                                 children: [
                                   new TextSpan(
-                                    text: ' your ',
+                                    text: ' your '.tr,
                                     style: TextStyle(color: Colors.black),
                                     recognizer: new TapGestureRecognizer()
                                       ..onTap = () => print('Tap Here onTap'),
                                   ),
                                   new TextSpan(
-                                    text: 'password ',
+                                    text: 'password '.tr,
                                     recognizer: new TapGestureRecognizer()
                                       ..onTap = () => print('Tap Here onTap'),
                                   ),
                                   new TextSpan(
                                     style: TextStyle(color: Colors.black),
-                                    text: 'Let\'s finally..',
+                                    text: 'Let\'s finally..'.tr,
                                     recognizer: new TapGestureRecognizer()
                                       ..onTap = () => print('Tap Here onTap'),
                                   )
@@ -108,7 +108,7 @@ class _CreatePasswordState extends State<CreatePassword> {
                             height: 10,
                           ),
                           Text(
-                            'Register your bussiness with dialboxx to gain visibility in the marketplace.',
+                            'Register your bussiness with dialboxx to gain visibility in the marketplace.'.tr,
                             style: TextStyle(
                                 fontSize: 13, fontWeight: FontWeight.w400),
                           ),
@@ -172,7 +172,7 @@ class _CreatePasswordState extends State<CreatePassword> {
                                           right: 15),
                                       hintStyle: TextStyle(
                                           color: greyColor, fontSize: 12),
-                                      hintText: "New Password"),
+                                      hintText: "New Password".tr),
                                 ),
                               ),
                             ),
@@ -216,7 +216,7 @@ class _CreatePasswordState extends State<CreatePassword> {
                                         right: 15),
                                     hintStyle: TextStyle(
                                         color: greyColor, fontSize: 14),
-                                    hintText: "Confirm Password"),
+                                    hintText: "Confirm Password".tr),
                               ),
                             ),
                           ),
@@ -278,7 +278,7 @@ class _CreatePasswordState extends State<CreatePassword> {
                                           right: 15),
                                       hintStyle: TextStyle(
                                           color: greyColor, fontSize: 14),
-                                      hintText: "OTP"),
+                                      hintText: "OTP".tr),
                                 ),
                               ),
                             ),
@@ -319,7 +319,7 @@ class _CreatePasswordState extends State<CreatePassword> {
                                 }
                               },
                               child: Text(
-                                "SUBMIT",
+                                "SUBMIT".tr,
                                 style: TextStyle(color: Colors.white),
                               ),
                             ),

@@ -57,7 +57,7 @@ class _BRThreeState extends State<BRThree> {
                   height: height * 0.010,
                 ),
                 Text(
-                  'Timings',
+                  'Timings'.tr,
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
@@ -67,7 +67,7 @@ class _BRThreeState extends State<BRThree> {
                   children: [
                     Row(
                       children: [
-                        Text('Monday :'),
+                        Text('Monday :'.tr),
                         InkWell(
                           onTap: () async {
                             TimeRange result = await showTimeRangePicker(
@@ -112,7 +112,7 @@ class _BRThreeState extends State<BRThree> {
                     ),
                     Row(
                       children: [
-                        Text('Tuesday :'),
+                        Text('Tuesday :'.tr),
                         InkWell(
                           onTap: () async {
                             TimeRange result = await showTimeRangePicker(
@@ -162,7 +162,7 @@ class _BRThreeState extends State<BRThree> {
                   children: [
                     Row(
                       children: [
-                        Text('Wednesday :'),
+                        Text('Wednesday :'.tr),
                         InkWell(
                           onTap: () async {
                             TimeRange result = await showTimeRangePicker(
@@ -207,7 +207,7 @@ class _BRThreeState extends State<BRThree> {
                     ),
                     Row(
                       children: [
-                        Text('Thursday :'),
+                        Text('Thursday :'.tr),
                         InkWell(
                           onTap: () async {
                             TimeRange result = await showTimeRangePicker(
@@ -257,7 +257,7 @@ class _BRThreeState extends State<BRThree> {
                   children: [
                     Row(
                       children: [
-                        Text('Friday :'),
+                        Text('Friday :'.tr),
                         InkWell(
                           onTap: () async {
                             TimeRange result = await showTimeRangePicker(
@@ -302,7 +302,7 @@ class _BRThreeState extends State<BRThree> {
                     ),
                     Row(
                       children: [
-                        Text('Saturday :'),
+                        Text('Saturday :'.tr),
                         InkWell(
                           onTap: () async {
                             TimeRange result = await showTimeRangePicker(
@@ -350,7 +350,7 @@ class _BRThreeState extends State<BRThree> {
                 ),
                 Row(
                   children: [
-                    Text('Sunday :'),
+                    Text('Sunday :'.tr),
                     InkWell(
                       onTap: () async {
                         TimeRange result = await showTimeRangePicker(
@@ -439,12 +439,12 @@ class _BRThreeState extends State<BRThree> {
             height: height * 0.020,
           ),
           TextFromFieldsCustom(
-            hint: 'keywords',
+            hint: 'keywords'.tr,
             postIcon: IconButton(
               onPressed: () {
-                print('Now Click');
+                print('Now Click'.tr);
                 if (controller.keyWordController.text.isNotEmpty) {
-                  print('Now Click');
+                  print('Now Click'.tr);
                   controller.listOfKeyWord
                       .add(controller.keyWordController.text.toString().trim());
                   print('listOfKeyWord = ${controller.listOfKeyWord}');
@@ -566,7 +566,7 @@ class _BRThreeState extends State<BRThree> {
             height: height * 0.020,
           ),
           TextFromFieldsCustom(
-            hint: 'Hear About',
+            hint: 'Hear About'.tr,
             controller: controller.hearAboutController,
           ),
           SizedBox(
@@ -588,7 +588,7 @@ class _BRThreeState extends State<BRThree> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text('Select Image'),
+                        Text('Select Image'.tr),
                         Center(
                           child: Icon(
                             Icons.add,
@@ -655,7 +655,7 @@ class _BRThreeState extends State<BRThree> {
                 width: width,
                 child: Center(
                   child: Text(
-                    'SUBMIT',
+                    'SUBMIT'.tr,
                     style: TextStyle(color: Colors.white, letterSpacing: 0.5),
                   ),
                 ),

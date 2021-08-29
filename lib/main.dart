@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Dial Box',
+      title: 'Dial Box'.tr,
       debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
       defaultTransition: Transition.cupertino,

@@ -25,7 +25,7 @@ class IndustrySubDetails extends StatefulWidget {
 
 class _IndustrySubDetailsState extends State<IndustrySubDetails> {
   final controller = Get.put(IndustrySubDetailsController());
-  List list = ['Filter', 'Verified', 'Open Now', 'Top Rated'];
+  List list = ['Filter'.tr, 'Verified'.tr, 'Open Now'.tr, 'Top Rated'.tr];
   GetStorage storage = GetStorage();
 
   @override
@@ -86,7 +86,7 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
                     contentPadding: EdgeInsets.only(
                         left: 15, bottom: 11, top: 11, right: 15),
                     hintStyle: TextStyle(color: greyColor, fontSize: 12),
-                    hintText: "Search here"),
+                    hintText: "Search here".tr),
               ),
               SizedBox(
                 height: height * 0.030,
@@ -140,13 +140,13 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'RMS Pack & Movers Service',
+                                            'RMS Pack & Movers Service'.tr,
                                             style: TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           Text(
-                                            'blue area islamabad',
+                                            'blue area islamabad'.tr,
                                             style: TextStyle(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.w300,
@@ -176,7 +176,7 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
                                                 }).toList(),
                                               ),
                                               Text(
-                                                '125 reviews',
+                                                '125 reviews'.tr,
                                                 style: TextStyle(
                                                     fontSize: 10,
                                                     color: Colors.black26),
@@ -206,7 +206,7 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
                                                       width: 5,
                                                     ),
                                                     Text(
-                                                      'Call',
+                                                      'Call'.tr,
                                                       style: TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 10),
@@ -240,7 +240,7 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
                                                       width: 5,
                                                     ),
                                                     Text(
-                                                      'Message',
+                                                      'Message'.tr,
                                                       style: TextStyle(
                                                           color: blueColor,
                                                           fontSize: 10),
@@ -272,7 +272,7 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
                           )
                         : controller.listofListings.isEmpty
                             ? Center(
-                                child: Text('Empty'),
+                                child: Text('Empty'.tr),
                               )
                             : ListView.builder(
                                 itemBuilder: (c, i) {
@@ -451,7 +451,7 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
                                                                   width: 5,
                                                                 ),
                                                                 Text(
-                                                                  'Call',
+                                                                  'Call'.tr,
                                                                   style: TextStyle(
                                                                       color: Colors
                                                                           .white,
@@ -508,7 +508,7 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
                                                                   width: 5,
                                                                 ),
                                                                 Text(
-                                                                  'Message',
+                                                                  'Message'.tr,
                                                                   style: TextStyle(
                                                                       color:
                                                                           blueColor,
@@ -608,7 +608,7 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
                     height: height / 30,
                   ),
                   Text(
-                    'Send Message',
+                    'Send Message'.tr,
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(
@@ -644,7 +644,7 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
                                 left: 15, bottom: 11, top: 11, right: 15),
                             hintStyle:
                                 TextStyle(color: greyColor, fontSize: 12),
-                            hintText: "Enter message here"),
+                            hintText: "Enter message here".tr),
                       ),
                     ),
                   ),
@@ -673,7 +673,7 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
                         width: width / 2,
                         child: Center(
                           child: Text(
-                            'SEND',
+                            'SEND'.tr,
                             style: TextStyle(color: Colors.white),
                           ),
                         ),

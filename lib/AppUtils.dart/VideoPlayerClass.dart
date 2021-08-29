@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
+import 'package:get/get.dart';
 
 class VideoApp extends StatefulWidget {
   final double? spinSize;
@@ -50,11 +51,11 @@ class _VideoAppState extends State<VideoApp> {
   @override
   Widget build(BuildContext context) {
     return VisibilityDetector(
-      key: Key('my-widget-key'),
+      key: Key('my-widget-key'.tr),
       onVisibilityChanged: (visibilityInfo) {
         var visiblePercentage = visibilityInfo.visibleFraction * 100;
         debugPrint(
-            'onVisibilityChanged ${visibilityInfo.key} is ${visiblePercentage}% visible');
+            'onVisibilityChanged ${visibilityInfo.key} is ${visiblePercentage}% visible'.tr);
         if (visiblePercentage == 0.0) {
           setState(() {
             _controller!.pause();

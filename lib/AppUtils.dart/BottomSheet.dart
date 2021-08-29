@@ -6,6 +6,7 @@ import 'package:dail_box/Screens/bottomNav/Message/messages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:get/get.dart';
 
 class BottomSheetCustom extends StatefulWidget {
   const BottomSheetCustom({Key? key}) : super(key: key);
@@ -74,31 +75,31 @@ class _BottomSheetCustomState extends State<BottomSheetCustom> {
     return [
       PersistentBottomNavBarItem(
         icon: Icon(CupertinoIcons.home),
-        title: ("Home"),
+        title: ("Home".tr),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(CupertinoIcons.bubble_left_bubble_right_fill),
-        title: ("Discussion"),
+        title: ("Discussion".tr),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.list_alt),
-        title: ("Listings"),
+        title: ("Listings".tr),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(CupertinoIcons.chat_bubble_text),
-        title: ("Message"),
+        title: ("Message".tr),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.account_balance),
-        title: ("Government"),
+        title: ("Government".tr),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),

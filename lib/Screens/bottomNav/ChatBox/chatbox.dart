@@ -36,7 +36,7 @@ class _ChatBoxState extends State<ChatBox> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Discussion Forum',
+          'Discussion Forum'.tr,
           style: TextStyle(
             fontSize: 16,
           ),
@@ -188,7 +188,7 @@ class _ChatBoxState extends State<ChatBox> {
                                   left: 15, bottom: 11, top: 11, right: 15),
                               hintStyle:
                                   TextStyle(color: greyColor, fontSize: 14),
-                              hintText: "Search here"),
+                              hintText: "Search here".tr),
                         ),
                       ),
                     ),
@@ -221,7 +221,7 @@ class _ChatBoxState extends State<ChatBox> {
                                       ),
                                       Center(
                                         child: Text(
-                                          'Add new Discussion Post',
+                                          'Add new Discussion Post'.tr,
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold),
                                         ),
@@ -471,7 +471,7 @@ class _ChatBoxState extends State<ChatBox> {
                                       left: 15, bottom: 11, top: 11, right: 15),
                                   hintStyle:
                                       TextStyle(color: greyColor, fontSize: 12),
-                                  hintText: "Write something here"),
+                                  hintText: "Write something here".tr),
                             ),
                             SizedBox(
                               height: 2,
@@ -505,7 +505,7 @@ class _ChatBoxState extends State<ChatBox> {
                                       ),
                                       Center(
                                         child: Text(
-                                          'Add Pictures',
+                                          'Add Pictures'.tr,
                                           style: TextStyle(fontSize: 11),
                                         ),
                                       ),
@@ -543,12 +543,12 @@ class _ChatBoxState extends State<ChatBox> {
                                   onTap: () async {
                                     if (controller
                                             .listofIndustryHinttwo.value !=
-                                        'Select Industry') {
+                                        'Select Industry'.tr) {
                                       if (controller.listofCatHinttwo.value !=
-                                          'Category') {
+                                          'Category'.tr) {
                                         if (controller.listoflistofbuisnessHint
                                                 .value !=
-                                            'Business') {
+                                            'Business'.tr) {
                                           if (controller.writeCommentCon.value
                                               .text.isNotEmpty) {
                                             controller.loading.value = true;
@@ -590,7 +590,7 @@ class _ChatBoxState extends State<ChatBox> {
                                               blurRadius: 5)
                                         ]),
                                     child: Text(
-                                      'Publish Now',
+                                      'Publish Now'.tr,
                                       style: TextStyle(
                                           color: blueColor,
                                           fontSize: 12,
@@ -626,7 +626,7 @@ class _ChatBoxState extends State<ChatBox> {
                                 child: Container(
                                   height: height * 0.2,
                                   child: Center(
-                                    child: Text('Empty'),
+                                    child: Text('Empty'.tr),
                                   ),
                                 ),
                               )
@@ -731,7 +731,7 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
   @override
   void initState() {
     String text = '${widget.mapData!['discussionform_text']}';
-    // TODO: implement initState
+    
     if (text.length > 150) {
       firstHalf = text.substring(0, 150);
       secondHalf = text.substring(150, text.length);
@@ -820,11 +820,11 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
                             },
                             itemBuilder: (context) => [
                                   PopupMenuItem(
-                                    child: Text("Edit"),
+                                    child: Text("Edit".tr),
                                     value: 1,
                                   ),
                                   PopupMenuItem(
-                                    child: Text("Delete"),
+                                    child: Text("Delete".tr),
                                     value: 2,
                                   )
                                 ])
@@ -863,7 +863,7 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
                             new Text(
-                              flag ? "See more" : "See less",
+                              flag ? "See more".tr : "See less".tr,
                               style: new TextStyle(color: blueColor),
                             ),
                           ],
@@ -925,7 +925,7 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
                     ),
                     Text(
                       Likelist.isEmpty
-                          ? 'Likes'
+                          ? 'Likes'.tr
                           : '${Likelist[0]['total_likes']} Likes',
                       style: TextStyle(fontSize: 12),
                     )
@@ -946,7 +946,7 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
                     ),
                     Text(
                       commitList.isEmpty
-                          ? 'Comments'
+                          ? 'Comments'.tr
                           : '${commitList[0]['total_comments']} Comments',
                       style: TextStyle(fontSize: 12),
                     )
@@ -1074,11 +1074,11 @@ class _ChatBoxItem2State extends State<ChatBoxItem2> {
                             },
                             itemBuilder: (context) => [
                                   PopupMenuItem(
-                                    child: Text("Edit"),
+                                    child: Text("Edit".tr),
                                     value: 1,
                                   ),
                                   PopupMenuItem(
-                                    child: Text("Delete"),
+                                    child: Text("Delete".tr),
                                     value: 2,
                                   )
                                 ])
@@ -1117,7 +1117,7 @@ class _ChatBoxItem2State extends State<ChatBoxItem2> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
                             new Text(
-                              flag ? "See more" : "See less",
+                              flag ? "See more".tr : "See less".tr,
                               style: new TextStyle(color: blueColor),
                             ),
                           ],
@@ -1179,7 +1179,7 @@ class _ChatBoxItem2State extends State<ChatBoxItem2> {
                     ),
                     Text(
                       Likelist.isEmpty
-                          ? 'Likes'
+                          ? 'Likes'.tr
                           : '${Likelist[0]['total_likes']} Likes',
                       style: TextStyle(fontSize: 12),
                     )
@@ -1200,7 +1200,7 @@ class _ChatBoxItem2State extends State<ChatBoxItem2> {
                     ),
                     Text(
                       commitList.isEmpty
-                          ? 'Comments'
+                          ? 'Comments'.tr
                           : '${commitList[0]['total_comments']} Comments',
                       style: TextStyle(fontSize: 12),
                     )

@@ -61,7 +61,7 @@ class _SignUpState extends State<SignUp> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            'Skip',
+                            'Skip'.tr,
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w600),
                           ),
@@ -81,7 +81,7 @@ class _SignUpState extends State<SignUp> {
                             children: <Widget>[
                               RichText(
                                 text: new TextSpan(
-                                    text: 'Create your',
+                                    text: 'Create your'.tr,
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 20,
@@ -89,14 +89,14 @@ class _SignUpState extends State<SignUp> {
                                         fontWeight: FontWeight.w500),
                                     children: [
                                       new TextSpan(
-                                        text: ' account ',
+                                        text: ' account '.tr,
                                         style: TextStyle(color: blueColor),
                                         recognizer: new TapGestureRecognizer()
                                           ..onTap =
                                               () => print('Tap Here onTap'),
                                       ),
                                       new TextSpan(
-                                        text: 'for FREE right now',
+                                        text: 'for FREE right now'.tr,
                                         recognizer: new TapGestureRecognizer()
                                           ..onTap =
                                               () => print('Tap Here onTap'),
@@ -107,7 +107,7 @@ class _SignUpState extends State<SignUp> {
                                 height: 10,
                               ),
                               Text(
-                                'Register your bussiness with dialboxx to gain visibility in the marketplace.',
+                                'Register your bussiness with dialboxx to gain visibility in the marketplace.'.tr,
                                 style: TextStyle(
                                     fontSize: 13, fontWeight: FontWeight.w400),
                               ),
@@ -156,7 +156,7 @@ class _SignUpState extends State<SignUp> {
                                               hintStyle: TextStyle(
                                                   color: greyColor,
                                                   fontSize: 12),
-                                              hintText: "First Name"),
+                                              hintText: "First Name".tr),
                                         ),
                                       ),
                                     ),
@@ -204,7 +204,7 @@ class _SignUpState extends State<SignUp> {
                                               hintStyle: TextStyle(
                                                   color: greyColor,
                                                   fontSize: 12),
-                                              hintText: "Last Name"),
+                                              hintText: "Last Name".tr),
                                         ),
                                       ),
                                     ),
@@ -250,7 +250,7 @@ class _SignUpState extends State<SignUp> {
                                             right: 15),
                                         hintStyle: TextStyle(
                                             color: greyColor, fontSize: 12),
-                                        hintText: "Email"),
+                                        hintText: "Email".tr),
                                   ),
                                 ),
                               ),
@@ -293,7 +293,7 @@ class _SignUpState extends State<SignUp> {
                                             right: 15),
                                         hintStyle: TextStyle(
                                             color: greyColor, fontSize: 12),
-                                        hintText: "03 061234567"),
+                                        hintText: "03 061234567".tr),
                                   ),
                                 ),
                               ),
@@ -354,7 +354,7 @@ class _SignUpState extends State<SignUp> {
                                             right: 15),
                                         hintStyle: TextStyle(
                                             color: greyColor, fontSize: 12),
-                                        hintText: "Password"),
+                                        hintText: "Password".tr),
                                   ),
                                 ),
                               ),
@@ -416,7 +416,7 @@ class _SignUpState extends State<SignUp> {
                                             right: 15),
                                         hintStyle: TextStyle(
                                             color: greyColor, fontSize: 12),
-                                        hintText: "Confirm Password"),
+                                        hintText: "Confirm Password".tr),
                                   ),
                                 ),
                               ),
@@ -470,7 +470,7 @@ class _SignUpState extends State<SignUp> {
                                     // Get.to(PhoneVerification());
                                   },
                                   child: Text(
-                                    "CREATE ACCOUNT",
+                                    "CREATE ACCOUNT".tr,
                                     style: TextStyle(color: Colors.white),
                                   ),
                                 ),
@@ -489,7 +489,7 @@ class _SignUpState extends State<SignUp> {
                                     ),
                                   ),
                                   Text(
-                                    'Or Sign Up with',
+                                    'Or Sign Up with'.tr,
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w500),
@@ -553,14 +553,14 @@ class _SignUpState extends State<SignUp> {
                                 alignment: Alignment.center,
                                 child: RichText(
                                   text: new TextSpan(
-                                      text: 'Already have an account ?',
+                                      text: 'Already have an account ?'.tr,
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 16,
                                           fontWeight: FontWeight.w400),
                                       children: [
                                         new TextSpan(
-                                          text: ' Sign In ',
+                                          text: ' Sign In '.tr,
                                           style: TextStyle(
                                               color: blueColor,
                                               fontWeight: FontWeight.bold),

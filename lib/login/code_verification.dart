@@ -4,7 +4,7 @@ import 'package:dail_box/util/colors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:get/get.dart';
 class CodeVerification extends StatefulWidget {
   @override
   _CodeVerificationState createState() => _CodeVerificationState();
@@ -45,7 +45,7 @@ class _CodeVerificationState extends State<CodeVerification> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      'Skip',
+                      'Skip'.tr,
                       style:
                       TextStyle(fontSize: 18, fontWeight: FontWeight.w600,color: Colors.white),
                     ),
@@ -63,18 +63,18 @@ class _CodeVerificationState extends State<CodeVerification> {
                       SizedBox(
                         height: 10,
                       ),
-                      Text('Let\'s do your new habit',style: TextStyle(
+                      Text('Let\'s do your new habit'.tr,style: TextStyle(
                           color: Colors.black,
                           fontSize: 25,
                           fontWeight: FontWeight.w400)),
-                      Text('Verification Code',style: TextStyle(
+                      Text('Verification Code'.tr,style: TextStyle(
                           color: blueColor,
                           fontSize: 25,
                           fontWeight: FontWeight.w400)),
 
                       SizedBox(height: 10,),
                       Text(
-                        'Register your bussiness with dialboxx to gain visibility in the marketplace.',
+                        'Register your bussiness with dialboxx to gain visibility in the marketplace.'.tr,
                         style: TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w400),
                       ),
@@ -374,7 +374,7 @@ class _CodeVerificationState extends State<CodeVerification> {
                             Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
                           },
                           child: Text(
-                            "NEXT",
+                            "NEXT".tr,
                             style: TextStyle(color: Colors.white),
                           ),
                         ),

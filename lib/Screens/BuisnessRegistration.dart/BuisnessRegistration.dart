@@ -30,7 +30,7 @@ class _BuisnessRegistrationState extends State<BuisnessRegistration> {
       var width = size.maxWidth;
       return SafeArea(
         child: Scaffold(
-          appBar: appBarGlobal('Business Registration'),
+          appBar: appBarGlobal('Business Registration'.tr),
           body: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -43,7 +43,7 @@ class _BuisnessRegistrationState extends State<BuisnessRegistration> {
                   ),
                   RichText(
                     text: new TextSpan(
-                        text: 'Create your',
+                        text: 'Create your'.tr,
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 14,
@@ -51,13 +51,13 @@ class _BuisnessRegistrationState extends State<BuisnessRegistration> {
                             fontWeight: FontWeight.w500),
                         children: [
                           new TextSpan(
-                            text: ' Business ',
+                            text: ' Business '.tr,
                             style: TextStyle(color: blueColor),
                             recognizer: new TapGestureRecognizer()
                               ..onTap = () => print('Tap Here onTap'),
                           ),
                           new TextSpan(
-                            text: 'Account free and get Register your business',
+                            text: 'Account free and get Register your business'.tr,
                             recognizer: new TapGestureRecognizer()
                               ..onTap = () => print('Tap Here onTap'),
                           )
@@ -139,7 +139,7 @@ class _DropDownCustomState extends State<DropDownCustom> {
             items: widget.listofDropDown!.map((value) {
               return DropdownMenuItem<String>(
                 value: '$value',
-                child: Text('salc'),
+                child: Text('salc'.tr),
                 onTap: widget.ontap!(widget.listofDropDown!.indexOf(value)),
               );
             }).toList(),

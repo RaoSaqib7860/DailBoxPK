@@ -22,11 +22,11 @@ class MessageDetails extends StatefulWidget {
 
 class _MessageDetailsState extends State<MessageDetails> {
   List list = [
-    'Hey! How’s it all going?',
-    'It’s been an okay day… Lots of School work',
-    'Feeling quite overwhelmed today. Wish I had more time to myself.',
-    'It’s okay to be tired. Try to take some deep breaths when you have a quick minute to yourself. Remember you are worth it! Being kind to others is just as important as being kind to yourself. ',
-    'Hello brother'
+    'Hey! How’s it all going?'.tr,
+    'It’s been an okay day… Lots of School work'.tr,
+    'Feeling quite overwhelmed today. Wish I had more time to myself.'.tr,
+    'It’s okay to be tired. Try to take some deep breaths when you have a quick minute to yourself. Remember you are worth it! Being kind to others is just as important as being kind to yourself. '.tr,
+    'Hello brother'.tr
   ];
   List listbool = [true, false, true, false, true];
   List listboolanim = [true, true, true, true, true];
@@ -179,7 +179,7 @@ class _MessageDetailsState extends State<MessageDetails> {
                                                                           width /
                                                                               50),
                                                               child: Text(
-                                                                '3.30PM',
+                                                                '3.30PM'.tr,
                                                                 style:
                                                                     TextStyle(
                                                                   color: Colors
@@ -257,7 +257,7 @@ class _MessageDetailsState extends State<MessageDetails> {
                                                                       left: width /
                                                                           50),
                                                               child: Text(
-                                                                '3.30PM',
+                                                                '3.30PM'.tr,
                                                                 style:
                                                                     TextStyle(
                                                                   color: Colors
@@ -579,7 +579,7 @@ class _MessageDetailsState extends State<MessageDetails> {
                                     )),
                                 contentPadding:
                                     EdgeInsets.only(left: Get.width / 20),
-                                hintText: 'Say something …',
+                                hintText: 'Say something …'.tr,
                                 hintStyle: TextStyle(
                                     fontSize: 13,
                                     letterSpacing: 0.5,

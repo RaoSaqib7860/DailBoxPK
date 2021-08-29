@@ -120,21 +120,21 @@ class ChatBoxController extends GetxController {
 
   var listofIndustry = [].obs;
   var currentlistofIndustryIndex = 0.obs;
-  var listofIndustryHint = 'Select Industry'.obs;
+  var listofIndustryHint = 'Select Industry'.tr.obs;
 
   var listofCat = [].obs;
   var currentlistofCatIndex = 0.obs;
-  var listofCatHint = 'Category'.obs;
+  var listofCatHint = 'Category'.tr.obs;
 
   var listofIndustrytwo = [].obs;
   var currentlistofIndustryIndextwo = 0.obs;
-  var listofIndustryHinttwo = 'Select Industry'.obs;
+  var listofIndustryHinttwo = 'Select Industry'.tr.obs;
 
   var listofCattwo = [].obs;
   var currentlistofCatIndextwo = 0.obs;
-  var listofCatHinttwo = 'Category'.obs;
+  var listofCatHinttwo = 'Category'.tr.obs;
 
   var listofbuisness = [].obs;
   var currentlistofbuisnessIndex = 0.obs;
-  var listoflistofbuisnessHint = 'Business'.obs;
+  var listoflistofbuisnessHint = 'Business'.tr.obs;
 }

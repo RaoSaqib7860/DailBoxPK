@@ -67,7 +67,7 @@ class _ProfileState extends State<Profile> {
                   },
                 ),
                 Text(
-                  'Profile',
+                  'Profile'.tr,
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
@@ -187,7 +187,7 @@ class _ProfileState extends State<Profile> {
                                       height: 5,
                                     ),
                                     Text(
-                                      'My Activity',
+                                      'My Activity'.tr,
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w500,
@@ -214,7 +214,7 @@ class _ProfileState extends State<Profile> {
                                       height: 5,
                                     ),
                                     Text(
-                                      'My Interest',
+                                      'My Interest'.tr,
                                       style: TextStyle(
                                           color: Colors.grey, fontSize: 10),
                                     )
@@ -241,7 +241,7 @@ class _ProfileState extends State<Profile> {
                                         height: 5,
                                       ),
                                       Text(
-                                        'Edit',
+                                        'Edit'.tr,
                                         style: TextStyle(
                                             color: Colors.grey, fontSize: 10),
                                       )
@@ -267,7 +267,7 @@ class _ProfileState extends State<Profile> {
                                       height: 5,
                                     ),
                                     Text(
-                                      'More',
+                                      'More'.tr,
                                       style: TextStyle(
                                           color: Colors.grey, fontSize: 10),
                                     )
@@ -303,7 +303,7 @@ class _ProfileState extends State<Profile> {
                             child: Container(
                               height: height * 0.2,
                               child: Center(
-                                child: Text('Empty'),
+                                child: Text('Empty'.tr),
                               ),
                             ),
                           )

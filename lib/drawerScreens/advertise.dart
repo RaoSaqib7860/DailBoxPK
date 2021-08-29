@@ -1,6 +1,7 @@
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Advertise extends StatefulWidget {
   @override
@@ -27,7 +28,7 @@ class _AdvertiseState extends State<Advertise> {
             ),
             centerTitle: false,
             title: Text(
-              'Advertise',
+              'Advertise'.tr,
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -43,7 +44,7 @@ class _AdvertiseState extends State<Advertise> {
                 RichText(
                   textAlign: TextAlign.center,
                   text: new TextSpan(
-                      text: 'For',
+                      text: 'For'.tr,
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18,
@@ -51,13 +52,13 @@ class _AdvertiseState extends State<Advertise> {
                       ),
                       children: [
                         new TextSpan(
-                          text: ' Advertising ',
+                          text: ' Advertising '.tr,
                           style: TextStyle(color: blueColor),
                           recognizer: new TapGestureRecognizer()
                             ..onTap = () => print('Tap Here onTap'),
                         ),
                         new TextSpan(
-                          text: 'kindly contact us for further information ',
+                          text: 'kindly contact us for further information '.tr,
                           recognizer: new TapGestureRecognizer()
                             ..onTap = () => print('Tap Here onTap'),
                         )
@@ -72,7 +73,7 @@ class _AdvertiseState extends State<Advertise> {
                       padding: EdgeInsets.all(7),
                       decoration: BoxDecoration(color: blueColor),
                       child: Text(
-                        'advertise@dailboxx.pk',
+                        'advertise@dailboxx.pk'.tr,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,

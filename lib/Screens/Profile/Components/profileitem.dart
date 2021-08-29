@@ -2,6 +2,7 @@ import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProfileItem extends StatefulWidget {
   @override
@@ -10,7 +11,7 @@ class ProfileItem extends StatefulWidget {
 
 class _ProfileItemState extends State<ProfileItem> {
   String text =
-      'Arrive at your destination in the smoothest ride possible, by sailing through real-time trip planning to payment with a few clicks. We\'re never more than 5 minutes away with pick-up stations closer from and to your home, office or anywhere in between. Grabbing coffee along your way?';
+      'Arrive at your destination in the smoothest ride possible, by sailing through real-time trip planning to payment with a few clicks. We\'re never more than 5 minutes away with pick-up stations closer from and to your home, office or anywhere in between. Grabbing coffee along your way?'.tr;
 
   String? firstHalf;
   String? secondHalf;
@@ -18,7 +19,7 @@ class _ProfileItemState extends State<ProfileItem> {
 
   @override
   void initState() {
-    // TODO: implement initState
+   
     if (text.length > 150) {
       firstHalf = text.substring(0, 150);
       secondHalf = text.substring(150, text.length);
@@ -61,7 +62,7 @@ class _ProfileItemState extends State<ProfileItem> {
                       children: <Widget>[
                         Expanded(
                           child: Text(
-                            'Aaban Motors Cars',
+                            'Aaban Motors Cars'.tr,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w600,
@@ -84,7 +85,7 @@ class _ProfileItemState extends State<ProfileItem> {
                       ],
                     ),
                     Text(
-                      'Automobile > Bikes',
+                      'Automobile > Bikes'.tr,
                       style: TextStyle(color: greyColor, fontSize: 10),
                     ),
                   ],
@@ -115,7 +116,7 @@ class _ProfileItemState extends State<ProfileItem> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
                             new Text(
-                              flag ? "See more" : "See less",
+                              flag ? "See more".tr : "See less".tr,
                               style: new TextStyle(color: blueColor),
                             ),
                           ],
@@ -157,7 +158,7 @@ class _ProfileItemState extends State<ProfileItem> {
                       width: 5,
                     ),
                     Text(
-                      '25 Likes',
+                      '25 Likes'.tr,
                       style: TextStyle(fontSize: 12),
                     )
                   ],
@@ -176,7 +177,7 @@ class _ProfileItemState extends State<ProfileItem> {
                       width: 5,
                     ),
                     Text(
-                      '12 Comments',
+                      '12 Comments'.tr,
                       style: TextStyle(fontSize: 12),
                     )
                   ],
