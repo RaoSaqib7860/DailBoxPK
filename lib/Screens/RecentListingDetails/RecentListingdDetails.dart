@@ -758,8 +758,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                         width: width,
                                         child: Center(
                                           child: Text(
-                                            'Rate this Business'.tr
-                                            ,
+                                            'Rate this Business'.tr,
                                             style:
                                                 TextStyle(color: Colors.white),
                                           ),
@@ -1370,6 +1369,101 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
           border: Border.all(width: 1, color: blueColor),
           shape: BoxShape.circle),
     );
+  }
+
+  editFAQ({String? bussinies_id, String? to_msg}) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    TextEditingController textCon = TextEditingController();
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            insetPadding: EdgeInsets.symmetric(horizontal: width / 20),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0)), //this right here
+            child: Container(
+              height: height / 2.50,
+              width: width,
+              padding: EdgeInsets.symmetric(horizontal: width * 0.030),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Colors.grey[100],
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[400]!,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 6.0,
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        cursorColor: Colors.black,
+                        maxLines: 1,
+                        keyboardType: TextInputType.text,
+                        controller: textCon,
+                        textInputAction: TextInputAction.done,
+                        decoration: new InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            contentPadding: EdgeInsets.only(
+                                left: 15, bottom: 11, top: 11, right: 15),
+                            hintStyle:
+                                TextStyle(color: greyColor, fontSize: 12),
+                            hintText: "Enter message here".tr),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  Center(
+                    child: InkWell(
+                      onTap: () {
+                        if (textCon.text.isNotEmpty) {
+                          ApiUtilsForAll.getmessage(
+                              bussinies_id: '$bussinies_id',
+                              from_msg: storage.read('userId'),
+                              to_msg: '$to_msg',
+                              massages: textCon.text);
+                          Navigator.of(context).pop();
+                        } else {
+                          Navigator.of(context).pop();
+                          snackBarFailer('Please type message to receiver');
+                        }
+                      },
+                      child: Container(
+                        height: height * 0.055,
+                        width: width / 2,
+                        child: Center(
+                          child: Text(
+                            'Update'.tr,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                            color: blueColor,
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              decoration: BoxDecoration(color: Colors.white),
+            ),
+          );
+        });
   }
 
   sendMessage({String? bussinies_id, String? to_msg}) {
