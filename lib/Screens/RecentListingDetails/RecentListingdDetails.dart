@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dail_box/AppUtils.dart/APiUtilsForAuth.dart';
 import 'package:dail_box/AppUtils.dart/ApiUtilsForAll.dart';
 import 'package:dail_box/AppUtils.dart/AppBarGlobal.dart';
 import 'package:dail_box/AppUtils.dart/ShimmerEffect.dart';
@@ -49,6 +50,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
     await ApiUtilsForAll.getgetlistingservices(controller, widget.businessId!);
     await ApiUtilsForAll.getgetlistingrating(
         id: widget.businessId, controller: controller);
+    await ApiUtils.getgetFAQ(controller: controller, id: widget.businessId);
   }
 
   @override
@@ -205,7 +207,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                   width: width,
                                   child: Center(
                                     child: Text(
-                                      'Message'.tr,
+                                      'Message',
                                       style: TextStyle(color: Colors.white),
                                     ),
                                   ),
@@ -224,7 +226,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                 ),
                                 Center(
                                   child: Text(
-                                    'Rate this Business'.tr,
+                                    'Rate this Business',
                                     style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold),
@@ -265,7 +267,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                       size: 30,
                                     ),
                                     Text(
-                                      'Address'.tr,
+                                      'Address',
                                       style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.w500),
@@ -320,7 +322,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                 ),
                                 Row(
                                   children: [
-                                    Text('Social media'.tr,
+                                    Text('Social media',
                                         style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.bold,
@@ -391,7 +393,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                   height: height * 0.020,
                                 ),
                                 Text(
-                                  'Business Description'.tr,
+                                  'Business Description',
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold),
@@ -415,7 +417,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                   height: height * 0.020,
                                 ),
                                 Text(
-                                  'Popular products'.tr,
+                                  'Popular products',
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
@@ -460,7 +462,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                   height: height * 0.020,
                                 ),
                                 Text(
-                                  'Popular Services'.tr,
+                                  'Popular Services',
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold),
@@ -614,7 +616,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                           ],
                                         ),
                                         Text(
-                                          'View All'.tr,
+                                          'View All',
                                           style: TextStyle(
                                               fontSize: 13,
                                               fontWeight: FontWeight.bold,
@@ -728,7 +730,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                         width: width,
                                         child: Center(
                                           child: Text(
-                                            'Message'.tr,
+                                            'Message',
                                             style:
                                                 TextStyle(color: Colors.white),
                                           ),
@@ -758,7 +760,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                         width: width,
                                         child: Center(
                                           child: Text(
-                                            'Rate this Business'.tr,
+                                            'Rate this Business',
                                             style:
                                                 TextStyle(color: Colors.white),
                                           ),
@@ -785,7 +787,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                     size: 30,
                                   ),
                                   Text(
-                                    'Address'.tr,
+                                    'Address',
                                     style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w500),
@@ -829,10 +831,10 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                               ),
                               rowView(
                                   icon: Icons.warning_amber_sharp,
-                                  title: 'Hours & Services may differ'.tr),
+                                  title: 'Hours & Services may differ'),
                               rowView(
                                 icon: Icons.access_time,
-                                title: 'Monday - Saturday'.tr,
+                                title: 'Monday - Saturday',
                               ),
                               SizedBox(
                                 height: height * 0.010,
@@ -875,7 +877,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                               ),
                               Row(
                                 children: [
-                                  Text('Social media'.tr,
+                                  Text('Social media',
                                       style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold,
@@ -971,7 +973,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                 height: height * 0.020,
                               ),
                               Text(
-                                'Business Description'.tr,
+                                'Business Description',
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.bold),
                               ),
@@ -1001,7 +1003,94 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Products'.tr,
+                                    'FAQ',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: height * 0.010,
+                              ),
+                              Column(
+                                children: controller.listofFaq.map((element) {
+                                  int index =
+                                      controller.listofFaq.indexOf(element);
+                                  return Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                              child: Text(
+                                                '${element['faq_q']}',
+                                                style: TextStyle(
+                                                    fontSize: 13,
+                                                    color: blueColor),
+                                              ),
+                                              width: width,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          InkWell(
+                                            child: Icon(
+                                              Icons.edit,
+                                              color: Colors.black45,
+                                            ),
+                                            onTap: () {},
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          InkWell(
+                                            child: Icon(
+                                              Icons.delete,
+                                              color: Colors.red,
+                                            ),
+                                            onTap: () {
+                                              ApiUtils.getremoveFAQ(
+                                                      controller: controller,
+                                                      index: index,
+                                                      b_id: widget.businessId,
+                                                      faq_id:
+                                                          '${element['id']}')
+                                                  .then((value) {
+                                                setState(() {});
+                                              });
+                                            },
+                                          )
+                                        ],
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                      ),
+                                      SizedBox(
+                                        height: 2,
+                                      ),
+                                      Container(
+                                        child: Text(
+                                          '${element['faq_a']} ',
+                                          style: TextStyle(fontSize: 10),
+                                        ),
+                                        width: width,
+                                      ),
+                                    ],
+                                  );
+                                }).toList(),
+                              ),
+                              SizedBox(
+                                height: height * 0.020,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Products',
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold),
@@ -1078,7 +1167,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                                           Row(
                                                             children: [
                                                               Text(
-                                                                'Rs :'.tr,
+                                                                'Rs :',
                                                                 style: TextStyle(
                                                                     fontSize: 9,
                                                                     color: Colors
@@ -1177,7 +1266,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Services'.tr,
+                                    'Services',
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold),
@@ -1229,7 +1318,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                         Row(
                                           children: [
                                             Text(
-                                              'Rs :'.tr,
+                                              'Rs :',
                                               style: TextStyle(
                                                   fontSize: 9,
                                                   color: Colors.black26),
@@ -1371,101 +1460,6 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
     );
   }
 
-  editFAQ({String? bussinies_id, String? to_msg}) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
-    TextEditingController textCon = TextEditingController();
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Dialog(
-            insetPadding: EdgeInsets.symmetric(horizontal: width / 20),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0)), //this right here
-            child: Container(
-              height: height / 2.50,
-              width: width,
-              padding: EdgeInsets.symmetric(horizontal: width * 0.030),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: height / 30,
-                  ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(5.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        color: Colors.grey[100],
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey[400]!,
-                            offset: Offset(0.0, 1.0), //(x,y)
-                            blurRadius: 6.0,
-                          ),
-                        ],
-                      ),
-                      child: TextFormField(
-                        cursorColor: Colors.black,
-                        maxLines: 1,
-                        keyboardType: TextInputType.text,
-                        controller: textCon,
-                        textInputAction: TextInputAction.done,
-                        decoration: new InputDecoration(
-                            border: InputBorder.none,
-                            focusedBorder: InputBorder.none,
-                            enabledBorder: InputBorder.none,
-                            errorBorder: InputBorder.none,
-                            disabledBorder: InputBorder.none,
-                            contentPadding: EdgeInsets.only(
-                                left: 15, bottom: 11, top: 11, right: 15),
-                            hintStyle:
-                                TextStyle(color: greyColor, fontSize: 12),
-                            hintText: "Enter message here".tr),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: height / 30,
-                  ),
-                  Center(
-                    child: InkWell(
-                      onTap: () {
-                        if (textCon.text.isNotEmpty) {
-                          ApiUtilsForAll.getmessage(
-                              bussinies_id: '$bussinies_id',
-                              from_msg: storage.read('userId'),
-                              to_msg: '$to_msg',
-                              massages: textCon.text);
-                          Navigator.of(context).pop();
-                        } else {
-                          Navigator.of(context).pop();
-                          snackBarFailer('Please type message to receiver');
-                        }
-                      },
-                      child: Container(
-                        height: height * 0.055,
-                        width: width / 2,
-                        child: Center(
-                          child: Text(
-                            'Update'.tr,
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                        decoration: BoxDecoration(
-                            color: blueColor,
-                            borderRadius: BorderRadius.circular(10)),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              decoration: BoxDecoration(color: Colors.white),
-            ),
-          );
-        });
-  }
-
   sendMessage({String? bussinies_id, String? to_msg}) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
@@ -1487,7 +1481,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                     height: height / 30,
                   ),
                   Text(
-                    'Send Message'.tr,
+                    'Send Message',
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(
@@ -1523,7 +1517,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                 left: 15, bottom: 11, top: 11, right: 15),
                             hintStyle:
                                 TextStyle(color: greyColor, fontSize: 12),
-                            hintText: "Enter message here".tr),
+                            hintText: "Enter message here"),
                       ),
                     ),
                   ),
@@ -1550,7 +1544,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                         width: width / 2,
                         child: Center(
                           child: Text(
-                            'SEND'.tr,
+                            'SEND',
                             style: TextStyle(color: Colors.white),
                           ),
                         ),

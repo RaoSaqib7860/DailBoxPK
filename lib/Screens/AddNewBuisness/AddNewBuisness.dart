@@ -24,7 +24,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
             },
           ),
           title: Text(
-            'Add Business'.tr,
+            'Add Business',
             style: TextStyle(
               fontSize: 16,
             ),
@@ -43,11 +43,11 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                 ),
                 Container(
                   padding:
-                      EdgeInsets.only(top: 20, bottom: 20, left: 15, right: 15),
+                  EdgeInsets.only(top: 20, bottom: 20, left: 15, right: 15),
                   decoration: BoxDecoration(
                       color: blueColor, borderRadius: BorderRadius.circular(5)),
                   child: Text(
-                    'Register your bussiness with dialbox to gain visibility in the marketplace. Showcase your bussiness information, products + Services helping you increase your revenue by bringing you closer to your potential clients.'.tr,
+                    'Register your bussiness with dialbox to gain visibility in the marketplace. Showcase your bussiness information, products + Services helping you increase your revenue by bringing you closer to your potential clients.',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 13,
@@ -58,7 +58,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                   height: 20,
                 ),
                 Text(
-                  'Choose your plan today and \n1st MONTH FREE'.tr,
+                  'Choose your plan today and \n1st MONTH FREE',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
                 SizedBox(
@@ -84,13 +84,13 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                                 children: <Widget>[
                                   Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    CrossAxisAlignment.center,
                                     children: <Widget>[
                                       SizedBox(
                                         height: 20,
                                       ),
                                       Text(
-                                        'Basic Package'.tr,
+                                        'Basic Package',
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 16),
                                       ),
@@ -99,12 +99,12 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                                       ),
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                        MainAxisAlignment.center,
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.end,
+                                        CrossAxisAlignment.end,
                                         children: <Widget>[
                                           Text(
-                                            '1,000'.tr,
+                                            '1,000',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 25,
@@ -114,7 +114,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                                             width: 10,
                                           ),
                                           Text(
-                                            'PKR'.tr,
+                                            'PKR',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 16,
@@ -126,7 +126,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                                         height: 15,
                                       ),
                                       Text(
-                                        'Per Month'.tr,
+                                        'Per Month',
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.w500),
@@ -144,12 +144,12 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                                       padding: EdgeInsets.only(
                                           left: 5, right: 5, top: 8, bottom: 8),
                                       decoration:
-                                          BoxDecoration(color: Colors.white),
+                                      BoxDecoration(color: Colors.white),
                                       child: Stack(
                                         alignment: Alignment.center,
                                         children: <Widget>[
                                           Text(
-                                            '2,500 PKR'.tr,
+                                            '2,500 PKR',
                                             style: TextStyle(
                                                 color: blueColor, fontSize: 11),
                                           ),
@@ -178,10 +178,10 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                               ),
                               child: Center(
                                   child: Icon(
-                                Icons.arrow_forward_ios,
-                                color: Colors.white,
-                                size: 15,
-                              )),
+                                    Icons.arrow_forward_ios,
+                                    color: Colors.white,
+                                    size: 15,
+                                  )),
                             ),
                           )
                         ],
@@ -205,13 +205,13 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                                 children: <Widget>[
                                   Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    CrossAxisAlignment.center,
                                     children: <Widget>[
                                       SizedBox(
                                         height: 20,
                                       ),
                                       Text(
-                                        'Annual Package'.tr,
+                                        'Annual Package',
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 16),
                                       ),
@@ -220,12 +220,12 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                                       ),
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                        MainAxisAlignment.center,
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.end,
+                                        CrossAxisAlignment.end,
                                         children: <Widget>[
                                           Text(
-                                            '24,000'.tr,
+                                            '24,000',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 25,
@@ -235,7 +235,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                                             width: 10,
                                           ),
                                           Text(
-                                            'PKR'.tr,
+                                            'PKR',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 16,
@@ -247,7 +247,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                                         height: 15,
                                       ),
                                       Text(
-                                        'Per Month'.tr,
+                                        'Per Month',
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.w500),
@@ -265,12 +265,12 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                                       padding: EdgeInsets.only(
                                           left: 5, right: 5, top: 8, bottom: 8),
                                       decoration:
-                                          BoxDecoration(color: Colors.white),
+                                      BoxDecoration(color: Colors.white),
                                       child: Stack(
                                         alignment: Alignment.center,
                                         children: <Widget>[
                                           Text(
-                                            '30,000 PKR'.tr,
+                                            '30,000 PKR',
                                             style: TextStyle(
                                                 color: redColor, fontSize: 11),
                                           ),
@@ -299,10 +299,10 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                               ),
                               child: Center(
                                   child: Icon(
-                                Icons.arrow_forward_ios,
-                                color: Colors.white,
-                                size: 15,
-                              )),
+                                    Icons.arrow_forward_ios,
+                                    color: Colors.white,
+                                    size: 15,
+                                  )),
                             ),
                           )
                         ],
@@ -326,13 +326,13 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                                 children: <Widget>[
                                   Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    CrossAxisAlignment.center,
                                     children: <Widget>[
                                       SizedBox(
                                         height: 20,
                                       ),
                                       Text(
-                                        'Gold Package'.tr,
+                                        'Gold Package',
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 16),
                                       ),
@@ -341,12 +341,12 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                                       ),
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                        MainAxisAlignment.center,
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.end,
+                                        CrossAxisAlignment.end,
                                         children: <Widget>[
                                           Text(
-                                            '25,000'.tr,
+                                            '25,000',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 25,
@@ -356,7 +356,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                                             width: 10,
                                           ),
                                           Text(
-                                            'PKR'.tr,
+                                            'PKR',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 16,
@@ -368,7 +368,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                                         height: 15,
                                       ),
                                       Text(
-                                        'Per Month'.tr,
+                                        'Per Month',
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.w500),
@@ -386,12 +386,12 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                                       padding: EdgeInsets.only(
                                           left: 5, right: 5, top: 8, bottom: 8),
                                       decoration:
-                                          BoxDecoration(color: Colors.white),
+                                      BoxDecoration(color: Colors.white),
                                       child: Stack(
                                         alignment: Alignment.center,
                                         children: <Widget>[
                                           Text(
-                                            '33,000 PKR'.tr,
+                                            '33,000 PKR',
                                             style: TextStyle(
                                                 color: yellowColor,
                                                 fontSize: 11),
@@ -421,10 +421,10 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                               ),
                               child: Center(
                                   child: Icon(
-                                Icons.arrow_forward_ios,
-                                color: Colors.white,
-                                size: 15,
-                              )),
+                                    Icons.arrow_forward_ios,
+                                    color: Colors.white,
+                                    size: 15,
+                                  )),
                             ),
                           )
                         ],
@@ -436,7 +436,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                   height: 10,
                 ),
                 Text(
-                  'PLANS Benefits'.tr,
+                  'PLANS Benefits',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
                 SizedBox(
@@ -450,7 +450,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            'Basic Pakage'.tr,
+                            'Basic Pakage',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold),
@@ -459,7 +459,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                             height: 10,
                           ),
                           Text(
-                            'We\'re never more than 5 minutes away with pick-up stations closer from and to your home, office or anywhere in between. Grabbing coffee along your way? Grabbing coffee along your way? Grabbing coffee along your way?'.tr,
+                            'We\'re never more than 5 minutes away with pick-up stations closer from and to your home, office or anywhere in between. Grabbing coffee along your way? Grabbing coffee along your way? Grabbing coffee along your way?',
                             style: TextStyle(fontSize: 12),
                           ),
                         ],
@@ -471,7 +471,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            'Annual Pakage'.tr,
+                            'Annual Pakage',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold),
@@ -480,7 +480,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                             height: 10,
                           ),
                           Text(
-                            'We\'re never more than 5 minutes away with pick-up stations closer from and to your home, office or anywhere in between. Grabbing coffee along your way? Grabbing coffee along your way? Grabbing coffee along your way?'.tr,
+                            'We\'re never more than 5 minutes away with pick-up stations closer from and to your home, office or anywhere in between. Grabbing coffee along your way? Grabbing coffee along your way? Grabbing coffee along your way?',
                             style: TextStyle(fontSize: 12),
                           ),
                         ],
@@ -492,7 +492,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            'Gold Pakage'.tr,
+                            'Gold Pakage',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold),
@@ -501,7 +501,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                             height: 10,
                           ),
                           Text(
-                            'We\'re never more than 5 minutes away with pick-up stations closer from and to your home, office or anywhere in between. Grabbing coffee along your way? Grabbing coffee along your way? Grabbing coffee along your way?'.tr,
+                            'We\'re never more than 5 minutes away with pick-up stations closer from and to your home, office or anywhere in between. Grabbing coffee along your way? Grabbing coffee along your way? Grabbing coffee along your way?',
                             style: TextStyle(fontSize: 12),
                           ),
                         ],
@@ -515,5 +515,5 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
         ),
       ),
     );
-  } 
+  }
 }
