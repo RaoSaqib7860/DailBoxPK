@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Dial Box</string>
+	<string>Dialboxx</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -13,15 +13,40 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>dail_box</string>
+	<string>Dialboxx</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.520279645446-605r5vkr458v5m02bd4rqpv4k55r1k2b</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb1067522870443906</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAppID</key>
+	<string>1067522870443906</string>
+	<key>FacebookCodelessDebugLogEnabled</key>
+	<true/>
+	<key>FacebookDisplayName</key>
+	<string>Dialboxx</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -30,9 +55,9 @@
 		<true/>
 	</dict>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>SharingOut would like to access your Music</string>
+	<string>Dialboxx would like to access your Music</string>
 	<key>NSCalendarsUsageDescription</key>
-	<string>Modoose would like to access your calender.</string>
+	<string>Dialboxx would like to access your calender.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Your Camera is used to update your profile and add food images.</string>
 	<key>NSContactsUsageDescription</key>
@@ -42,13 +67,18 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your Location is used to provide directions to destination.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Modoose need to access your device microphone.</string>
+	<string>Dialboxx need to access your device microphone.</string>
 	<key>NSMotionUsageDescription</key>
-	<string>Modoose would like to access your motion.</string>
+	<string>Dialboxx would like to access your motion.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Your photo library is used to update food image and profile picture.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>The app uses speech recognition for dictating notes.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

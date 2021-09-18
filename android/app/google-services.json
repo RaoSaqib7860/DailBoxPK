@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "622338838565",
+    "project_id": "dialbox-94678",
+    "storage_bucket": "dialbox-94678.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:622338838565:android:435f50b9ab450f1c2c2fcc",
+        "android_client_info": {
+          "package_name": "com.dialbox.pk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "622338838565-pt7923e3hm1kuffu5c7m8futml7t0hg9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dialbox.pk",
+            "certificate_hash": "338b5571656b901d17fd8f2bf16478240723ae8d"
+          }
+        },
+        {
+          "client_id": "622338838565-per2kd8k4uic6bjpdfi8pl6prvj2j32h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOlQJTLj31pinG3Pshg51XeycwVyYWW-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "622338838565-per2kd8k4uic6bjpdfi8pl6prvj2j32h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
