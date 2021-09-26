@@ -1,10 +1,12 @@
 import 'package:dail_box/AppUtils.dart/ApiUtilsForAll.dart';
 import 'package:dail_box/AppUtils.dart/AppBarGlobal.dart';
+import 'package:dail_box/Screens/RecentListingDetails/RecentListingdDetails.dart';
+import 'package:dail_box/Screens/SearchDetail/SearchDetails.dart';
 import 'package:dail_box/Screens/SearchPage/SearchController.dart';
+import 'package:dail_box/Screens/bottomNav/Home/HomeController.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
 
 class SearchPage extends StatefulWidget {
@@ -15,94 +17,240 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  final serchController = Get.put(SearchController());
+  HomeController controller = Get.find<HomeController>();
+  bool showalert = false;
+
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(SearchController());
     return LayoutBuilder(builder: (context, size) {
       var height = size.maxHeight;
       var width = size.maxWidth;
       return SafeArea(
           child: Scaffold(
         appBar: appBarGlobal('Search'.tr),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(5.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5.0),
-                    color: Colors.grey[100],
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey[400]!,
-                        offset: Offset(0.0, 1.0), //(x,y)
-                        blurRadius: 6.0,
-                      ),
-                    ],
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: width * 0.030),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Container(
+                    height: height * 0.058,
+                    color: blueColor,
+                    margin: EdgeInsets.only(top: 3, bottom: 10),
+                    padding: EdgeInsets.symmetric(horizontal: width * 0.020),
+                    child: Icon(
+                      CupertinoIcons.location_solid,
+                      color: Colors.white,
+                    ),
                   ),
-                  child: TextFormField(
-                    cursorColor: Colors.black,
-                    controller: controller.searchCon,
-                    keyboardType: TextInputType.text,
-                    onChanged: (value) {
-                      if (value.length > 3) {
-                        ApiUtilsForAll.getsearchhome(controller);
-                      }
-                    },
-                    decoration: new InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: greyColor,
+                  Obx(
+                    () => Container(
+                      height: height * 0.058,
+                      width: width * 0.3,
+                      margin: EdgeInsets.only(top: 3, bottom: 10),
+                      color: blueColor,
+                      padding: EdgeInsets.symmetric(horizontal: width * 0.020),
+                      child: Theme(
+                          data: new ThemeData(
+                              canvasColor: blueColor,
+                              primaryColor: Colors.black,
+                              accentColor: Colors.black,
+                              hintColor: Colors.black),
+                          child: DropdownButton<String>(
+                            items: controller.listofIndustry.map((value) {
+                              return DropdownMenuItem<String>(
+                                value: '$value',
+                                child: Text('${value['city']}'),
+                                onTap: () {
+                                  controller.currentlistofIndustryIndex.value =
+                                      controller.listofIndustry.indexOf(value);
+                                  controller.listofIndustryHint.value =
+                                      value['city'];
+                                },
+                              );
+                            }).toList(),
+                            hint: Text(
+                              controller.listofIndustryHint.value,
+                              style:
+                                  TextStyle(fontSize: 10, color: Colors.white),
+                            ),
+                            icon: Icon(
+                              Icons.keyboard_arrow_down,
+                              color: Colors.white,
+                            ),
+                            underline: Container(
+                              color: Colors.transparent,
+                            ),
+                            isDense: false,
+                            style: TextStyle(color: Colors.white, fontSize: 10),
+                            isExpanded: true,
+                            onChanged: (_) {},
+                          )),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 3, bottom: 10),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(5.0),
+                        child: Container(
+                          height: height * 0.058,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: Colors.grey[100],
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey[400]!,
+                                offset: Offset(0.0, 1.0), //(x,y)
+                                blurRadius: 6.0,
+                              ),
+                            ],
+                          ),
+                          child: TextFormField(
+                            controller: serchController.searchCon,
+                            cursorColor: Colors.black,
+                            keyboardType: TextInputType.text,
+                            enabled: true,
+                            onChanged: (value) async {
+                              if (value.length < 1) {
+                                serchController.listofSearch.value = [];
+                              } else {
+                                await ApiUtilsForAll.getsearchhome(
+                                    serchController);
+                              }
+                              setState(() {});
+                            },
+                            decoration: new InputDecoration(
+                                prefixIcon: Icon(
+                                  Icons.search,
+                                  color: greyColor,
+                                ),
+                                border: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                contentPadding: EdgeInsets.only(
+                                    left: 10, bottom: 11, top: 11, right: 10),
+                                hintStyle:
+                                    TextStyle(color: greyColor, fontSize: 10),
+                                hintText: "Search here"),
+                          ),
                         ),
-                        border: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        errorBorder: InputBorder.none,
-                        disabledBorder: InputBorder.none,
-                        contentPadding: EdgeInsets.only(
-                            left: 15, bottom: 11, top: 11, right: 15),
-                        hintStyle: TextStyle(color: greyColor, fontSize: 12),
-                        hintText: "Search service or industry".tr),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: height * 0.030,
-            ),
-            Obx(
-              () => Expanded(
-                  child: ListView.builder(
-                itemBuilder: (c, i) {
-                  Map map = controller.listofSearch[i];
-                  return Padding(
-                    padding: EdgeInsets.only(top: height * 0.010),
-                    child: ListTile(
-                      leading: Container(
-                          height: height * 0.090,
-                          width: width * 0.180,
-                          child: Image.asset('assets/images/nature.jpg',fit: BoxFit.cover,)),
-                      title: Text(
-                        map.containsKey('s_name')
-                            ? '${controller.listofSearch[i]['s_name']}'
-                            : '${controller.listofSearch[i]['pname']}',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text(
-                        map.containsKey('s_name')
-                            ? '${controller.listofSearch[i]['s_details']}'
-                            : '${controller.listofSearch[i]['p_details']}',
-                        style: TextStyle(fontSize: 12),
                       ),
                     ),
-                  );
-                },
-                itemCount: controller.listofSearch.length,
-              )),
-            )
-          ],
+                  ),
+                ],
+              ),
+              Expanded(
+                  child: Obx(
+                () => serchController.listofSearch.isEmpty
+                    ? SizedBox()
+                    : ListView.builder(
+                        itemBuilder: (c, i) {
+                          Map map = serchController.listofSearch[i];
+                          return InkWell(
+                            onTap: () {
+                              if (map.containsKey('pname')) {
+                                Get.to(SearchDetails(
+                                  buisinessId: serchController.listofSearch[i]
+                                      ['id'],
+                                  fromApi: 'product',
+                                  b_ID: serchController.listofSearch[i]['b_id'],
+                                  name: serchController.listofSearch[i]
+                                      ['pname'],
+                                ));
+                              } else if (map.containsKey('s_name')) {
+                                Get.to(SearchDetails(
+                                  buisinessId: serchController.listofSearch[i]
+                                      ['id'],
+                                  fromApi: 'service',
+                                  b_ID: serchController.listofSearch[i]['b_id'],
+                                  name: serchController.listofSearch[i]
+                                      ['s_name'],
+                                ));
+                              } else {
+                                Get.to(RecentListingsDetails(
+                                  id: serchController.listofSearch[i]['id'],
+                                  businessId: serchController.listofSearch[i]
+                                      ['business_id'],
+                                  name: serchController.listofSearch[i]
+                                      ['business_name'],
+                                ));
+                              }
+                            },
+                            child: Column(
+                              children: [
+                                ListTile(
+                                  title: Row(
+                                    children: [
+                                      Text(
+                                        map.containsKey('s_name')
+                                            ? '${serchController.listofSearch[i]['s_name']}'
+                                            : map.containsKey('pname')
+                                                ? '${serchController.listofSearch[i]['pname']}'
+                                                : '${serchController.listofSearch[i]['business_name']}',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 12),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      SizedBox(
+                                        child: Icon(
+                                          Icons.arrow_forward,
+                                          size: 20,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          map.containsKey('s_name')
+                                              ? '${serchController.listofSearch[i]['business_name']}'
+                                              : map.containsKey('pname')
+                                                  ? '${serchController.listofSearch[i]['business_name']}'
+                                                  : '${serchController.listofSearch[i]['business_name']}',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: greyColor,
+                                              fontSize: 11),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  // subtitle: Text(
+                                  //   map.containsKey('s_name')
+                                  //       ? '${serchController.listofSearch[i]['s_details']}'
+                                  //       : map.containsKey('business_name')
+                                  //           ? '${serchController.listofSearch[i]['business_description']}'
+                                  //           : '${serchController.listofSearch[i]['p_details']}',
+                                  //   style: TextStyle(fontSize: 10),
+                                  // ),
+                                  trailing: Icon(
+                                    Icons.arrow_forward_ios_sharp,
+                                    size: 15,
+                                  ),
+                                ),
+                                Container(
+                                  height: 0.5,
+                                  width: width,
+                                  color: Colors.black12,
+                                )
+                              ],
+                            ),
+                          );
+                        },
+                        itemCount: serchController.listofSearch.length,
+                      ),
+              ))
+            ],
+          ),
         ),
       ));
     });

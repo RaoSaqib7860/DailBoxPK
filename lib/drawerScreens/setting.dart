@@ -1,3 +1,4 @@
+import 'package:dail_box/AppUtils.dart/AppBarGlobal.dart';
 import 'package:dail_box/Screens/ForgotPassword/forgot_password.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/cupertino.dart';
@@ -41,22 +42,25 @@ class _SettingsState extends State<Settings> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
-                      SizedBox(
-                        height: 20,
+                      Container(
+                        margin: EdgeInsets.only(bottom: 20),
+                        height: 0,
+                        width: MediaQuery.of(context).size.width,
+                        color: greyColorlight,
                       ),
                       InkWell(
                         onTap: () {
-                          Get.to(ForgotPassword());
+                          launchURL("https://dialboxx.pk/front/terms");
                         },
                         child: Row(
                           children: <Widget>[
-                            Icon(CupertinoIcons.padlock_solid),
+                            Icon(Icons.privacy_tip_outlined),
                             SizedBox(
                               width: 10,
                             ),
                             Expanded(
                                 child: Text(
-                              'Change Password'.tr,
+                              'Terms & Conditions'.tr,
                               style: TextStyle(fontSize: 14),
                             )),
                             Icon(
@@ -72,45 +76,27 @@ class _SettingsState extends State<Settings> {
                         width: MediaQuery.of(context).size.width,
                         color: greyColorlight,
                       ),
-                      Row(
-                        children: <Widget>[
-                          Icon(Icons.privacy_tip_outlined),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                              child: Text(
-                            'Terms & Conditions'.tr,
-                            style: TextStyle(fontSize: 14),
-                          )),
-                          Icon(
-                            Icons.arrow_forward_ios_sharp,
-                            size: 15,
-                          )
-                        ],
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 20, bottom: 20),
-                        height: 1,
-                        width: MediaQuery.of(context).size.width,
-                        color: greyColorlight,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Icon(Icons.privacy_tip),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                              child: Text(
-                            'Privacy Policy'.tr,
-                            style: TextStyle(fontSize: 14),
-                          )),
-                          Icon(
-                            Icons.arrow_forward_ios_sharp,
-                            size: 15,
-                          )
-                        ],
+                      InkWell(
+                        onTap: () {
+                          launchURL("https://dialboxx.pk/front/privacy");
+                        },
+                        child: Row(
+                          children: <Widget>[
+                            Icon(Icons.privacy_tip),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                                child: Text(
+                              'Privacy Policy'.tr,
+                              style: TextStyle(fontSize: 14),
+                            )),
+                            Icon(
+                              Icons.arrow_forward_ios_sharp,
+                              size: 15,
+                            )
+                          ],
+                        ),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 20, bottom: 20),

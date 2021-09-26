@@ -43,7 +43,7 @@ class _ViewLikeState extends State<ViewLike> {
           },
         ),
         title: Text(
-          'All Like',
+          'All Likes',
           style: TextStyle(
             fontSize: 16,
           ),
@@ -145,7 +145,7 @@ class _ViewLikeState extends State<ViewLike> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     CircularProfileAvatar(
-                                      'https://www.dailboxx.websitescare.com/upload/profile/${controller.listoflike[i]['profile_image']}',
+                                      '${controller.listoflike[i]['profile_image']}',
                                       borderColor: blueColor,
                                       borderWidth: 1,
                                       elevation: 5,

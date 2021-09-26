@@ -53,17 +53,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         Navigator.pop(context);
                       },
                     ),
-                    InkWell(
-                      onTap: () {
-                        Get.offAll(HomeScreen);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Skip'.tr,
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Skip'.tr,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600),
                       ),
                     )
                   ],
@@ -100,19 +97,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                       recognizer: new TapGestureRecognizer()
                                         ..onTap = () => print('Tap Here onTap'),
                                     ),
-                                    new TextSpan(
-                                      style: TextStyle(color: Colors.black),
-                                      text: 'so Try again..'.tr,
-                                      recognizer: new TapGestureRecognizer()
-                                        ..onTap = () => print('Tap Here onTap'),
-                                    )
                                   ]),
                             ),
                             SizedBox(
                               height: height / 50,
                             ),
                             Text(
-                              'Register your bussiness with dialboxx to gain visibility in the marketplace.'.tr,
+                              'Enter your email or number below and we will send you a link to reset your password.'
+                                  .tr,
                               style: TextStyle(
                                   fontSize: 13, fontWeight: FontWeight.w400),
                             ),
@@ -150,11 +142,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                       contentPadding: EdgeInsets.only(
                                           left: 15,
                                           bottom: 11,
-                                          top: 11,
+                                          top: 15,
                                           right: 15),
                                       hintStyle: TextStyle(
                                           color: greyColor, fontSize: 14),
-                                      hintText: "Email".tr),
+                                      hintText: "Email or Number".tr),
                                 ),
                               ),
                             ),
@@ -177,7 +169,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                   }
                                 },
                                 child: Text(
-                                  "SUBMIT".tr,
+                                  "Submit".tr,
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),

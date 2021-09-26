@@ -6,6 +6,7 @@ import 'package:dail_box/Screens/ForgotPassword/ForgotPasswordController.dart';
 import 'package:dail_box/Screens/MessageDetails/MessageDetailsController.dart';
 import 'package:dail_box/Screens/OtpCodeVarification/PhoneVarificationController.dart';
 import 'package:dail_box/Screens/OtpCodeVarification/phone_verification.dart';
+import 'package:dail_box/Screens/Profile/AnotherProfileController.dart';
 import 'package:dail_box/Screens/Profile/EditProfileController.dart';
 import 'package:dail_box/Screens/Profile/ProfileController.dart';
 import 'package:dail_box/Screens/Profile/profile.dart';
@@ -16,6 +17,7 @@ import 'package:dail_box/Screens/SignUp/SignUpController.dart';
 import 'package:dail_box/Screens/HomeScreen/home_screen.dart';
 import 'package:dail_box/Screens/CreatePassword/create_password.dart';
 import 'package:dail_box/Screens/SignIn/sign_in.dart';
+import 'package:dail_box/Screens/ViewAllRating/ViewAllRatingsController.dart';
 import 'package:dail_box/Screens/bottomNav/ChatBox/ChatBoxController.dart';
 import 'package:dail_box/Screens/bottomNav/Gourment/GovernmentController.dart';
 import 'package:dail_box/Screens/bottomNav/Message/MessageController.dart';
@@ -27,9 +29,12 @@ import 'package:http/http.dart' as http;
 import 'BaseUtils.dart';
 import 'SnackBarUtils.dart';
 
+String firebaseToken = 'empty';
+
 class ApiUtils {
   static final String regsiter = '/regsiter';
   static final String login = '/login';
+  static final String sociallogin = '/sociallogin';
   static final String verifyotp = '/verifyotp';
   static final String verifyotpphone = '/verifyotpphone';
   static final String forgetpassword = '/forgetpassword';
@@ -58,17 +63,44 @@ class ApiUtils {
   static final String searchDiscussionform = '/searchDiscussionform';
   static final String getFAQ = '/getFAQ';
   static final String removeFAQ = '/removeFAQ';
+  static final String updateFAQ = '/updateFAQ';
+  static final String getbussniesname = '/getbussniesname';
+  static final String getlistingallrating = '/getlistingallrating';
+  static final String userprofile = '/getuserprofiledetails';
+  static final String userActivity = '/userActivity';
+  static final String getUserbusinesslist = '/getUserbusinesslist';
+  static final String userAccomplishments = '/userAccomplishments';
+  static final String userAccomplishmentsEdit = '/userAccomplishmentsEdit';
+  static final String userAccomplishmentsRemove = '/userAccomplishmentsRemove';
+  static final String userSkills = '/userSkills';
+  static final String userSkillsEdit = '/userSkillsEdit';
+  static final String userSkillsRemove = '/userSkillsRemove';
+  static final String userVolunteering = '/userVolunteering';
+  static final String userVolunteeringEdit = '/userVolunteeringEdit';
+  static final String userVolunteeringRemove = '/userVolunteeringRemove';
+  static final String userEducation = '/userEducation';
+  static final String userEducationEdit = '/userVolunteeringEdit';
+  static final String userEducationRemove = '/userEducationRemove';
+  static final String userExperience = '/userExperience';
+  static final String userExperienceEdit = '/userExperienceEdit';
+  static final String userExperienceRemove = '/userExperienceRemove';
+  static final String reportListing = '/reportListing';
+  static final String forgetpasswordmobile = '/forgetpasswordmobile';
+  static final String checkmynumber = '/checkmynumber';
+  static final String editMySocialProfile = '/editMySocialProfile';
 
   static Future loginApi(SignInController controller) async {
     //http://dailboxx.websitescare.com/Alphaapis/login?code=DAILBOXX-03448567673
     var url = Uri.parse('$baseUrl$login$secretCodeString');
+    printlog('$firebaseToken');
+    printlog('$device_type');
     try {
       var responce = await http.post(
         url,
         body: {
-          'userinfo': controller.emailCon.text,
-          'password': controller.passwordCon.text,
-          'device_token': '123456',
+          'userinfo': controller.emailCon.text.trim(),
+          'password': controller.passwordCon.text.trim(),
+          'device_token': firebaseToken,
           'device_type': device_type
         },
       );
@@ -88,6 +120,49 @@ class ApiUtils {
         storage.write('f_name', '${data['data']['f_name']}');
         storage.write('l_name', '${data['data']['l_name']}');
         storage.write('profile_image', '${data['data']['profile_image']}');
+        storage.write('social', 'false');
+        Future.delayed(Duration(seconds: 2), () {
+          Get.offAll(HomeScreen());
+        });
+      } else {
+        if (data['message'] == 'Please verify your account') {
+          snackBarFailer(data['message']);
+          Future.delayed(Duration(seconds: 2), () {
+            Get.to(PhoneVerification(
+              email: controller.emailCon.text,
+            ));
+          });
+        } else {
+          snackBarFailer(data['message']);
+        }
+      }
+    } catch (e) {}
+  }
+
+  static Future socialloginApi(
+      {SignInController? controller, Map? mapData}) async {
+    //http://dailboxx.websitescare.com/Alphaapis/login?code=DAILBOXX-03448567673
+    var url = Uri.parse('$baseUrl$sociallogin$secretCodeString');
+    try {
+      var responce = await http.post(
+        url,
+        body: mapData,
+      );
+      var data = jsonDecode(responce.body);
+      printlog('socialloginApi is = $data');
+      printlog('data is = ${responce.statusCode}');
+      controller!.loading.value = false;
+      if (data['result'] == 'success') {
+        printlog('user id is = ${'${data['data']['userId']}'}');
+        GetStorage storage = GetStorage();
+        snackBarSuccess(data['message']);
+        storage.write('userId', '${data['data']['userId']}');
+        storage.write('email', '${data['data']['email']}');
+        storage.write('name', '${data['data']['name']}');
+        storage.write('f_name', '${data['data']['f_name']}');
+        storage.write('l_name', '${data['data']['l_name']}');
+        storage.write('profile_image', '${data['data']['profile_image']}');
+        storage.write('social', 'true');
         Future.delayed(Duration(seconds: 2), () {
           Get.offAll(HomeScreen());
         });
@@ -103,11 +178,13 @@ class ApiUtils {
       var responce = await http.post(
         url,
         body: {
-          'f_name': controller.fNameCon.text,
-          'l_name': controller.lNameCon.text,
-          'email': controller.emailCon.text,
-          'mobile': controller.phoneCon.text,
-          'password': controller.phoneCon.text,
+          'f_name': controller.fNameCon.text.trim(),
+          'l_name': controller.lNameCon.text.trim(),
+          'email': controller.emailCon.text.isEmpty
+              ? '${controller.phoneCon.text}@dialboxx.pk'
+              : controller.emailCon.text.trim(),
+          'mobile': controller.phoneCon.text.trim(),
+          'password': controller.passwordCon.text.trim(),
         },
       );
       var data = jsonDecode(responce.body);
@@ -117,7 +194,9 @@ class ApiUtils {
       if (data['result'] == 'success') {
         snackBarSuccess(data['message']);
         Future.delayed(Duration(seconds: 2), () {
-          Get.to(PhoneVerification());
+          Get.to(PhoneVerification(
+            email: controller.phoneCon.text,
+          ));
         });
       } else {
         snackBarFailer(data['message']);
@@ -125,16 +204,13 @@ class ApiUtils {
     } catch (e) {}
   }
 
-
-  
-
-  static Future verifyotpApi(PhoneVarificationController controller) async {
-    SignUpController c = Get.find();
+  static Future verifyotpApi(
+      PhoneVarificationController controller, String userinfo) async {
     var url = Uri.parse('$baseUrl$verifyotpphone$secretCodeString');
     try {
       var responce = await http.post(
         url,
-        body: {'userinfo': c.phoneCon.text, 'userotp': controller.codeCon.text},
+        body: {'userinfo': userinfo, 'userotp': controller.codeCon.text},
       );
       var data = jsonDecode(responce.body);
       printlog('data is = $data');
@@ -152,8 +228,8 @@ class ApiUtils {
   }
 
   static Future forgetpasswordApi(ForgotPasswordController controller) async {
-    //http://dailboxx.websitescare.com/Alphaapis/forgetpassword?code=DAILBOXX-03448567673
-    var url = Uri.parse('$baseUrl$forgetpassword$secretCodeString');
+    var url = Uri.parse(
+        '$baseUrl${controller.emailCon.text.isEmail ? forgetpassword : forgetpasswordmobile}$secretCodeString');
     try {
       var responce = await http.post(
         url,
@@ -166,7 +242,9 @@ class ApiUtils {
       if (data['result'] == 'success') {
         snackBarSuccess(data['message']);
         Future.delayed(Duration(seconds: 2), () {
-          Get.to(CreatePassword());
+          Get.to(CreatePassword(
+            fromPhone: controller.emailCon.text.isEmail ? false : true,
+          ));
         });
       } else {
         snackBarFailer(data['message']);
@@ -174,19 +252,22 @@ class ApiUtils {
     } catch (e) {}
   }
 
-  static Future getverifyotp({CreatePasswordController? controller}) async {
+//https://dialboxx.pk/Alphaapis/verifyotpphone?code=DAILBOXX-03448567673
+  static Future getverifyotp(
+      {CreatePasswordController? controller, bool? fromPhone}) async {
     //http://dailboxx.websitescare.com/Alphaapis/forgetpassword?code=DAILBOXX-03448567673
     CreatePasswordController c = Get.find<CreatePasswordController>();
     ForgotPasswordController c2 = Get.find<ForgotPasswordController>();
-    var url = Uri.parse('$baseUrl$verifyotp$secretCodeString');
+    var url = Uri.parse(
+        '$baseUrl${fromPhone! ? verifyotpphone : verifyotp}$secretCodeString');
     print('${c2.emailCon.text}${c.otpCon.text}${c.p1Con.text}');
     try {
       var responce = await http.post(
         url,
         body: {
-          'userinfo': c2.emailCon.text,
-          'userotp': c.otpCon.text,
-          'password': c.p1Con.text
+          'userinfo': c2.emailCon.text.trim(),
+          'userotp': c.otpCon.text.trim(),
+          'password': c.p1Con.text.trim()
         },
       );
       c.loading.value = false;
@@ -196,7 +277,9 @@ class ApiUtils {
       controller!.loading.value = false;
       if (data['result'] == 'success') {
         snackBarSuccess(data['message']);
-        Get.offAll(SignIn());
+        Future.delayed(Duration(seconds: 2), () {
+          Get.offAll(SignIn());
+        });
       } else {
         snackBarFailer(data['message']);
       }
@@ -242,6 +325,7 @@ class ApiUtils {
       } else {
         snackBarFailer(data['message']);
       }
+      controller!.loading.value = true;
     } catch (e) {}
   }
 
@@ -256,7 +340,7 @@ class ApiUtils {
       printlog('data is = ${responce.statusCode}');
       controller!.loadmainList.value = true;
       if (data['result'] == 'success') {
-        controller.listofChatBox.clear();
+        controller.listofChatBox.value = [];
         controller.listofChatBox.value = data['data'] ?? [];
         controller.loadmainList.value = true;
         print('list data = ${controller.listofChatBox}');
@@ -368,6 +452,7 @@ class ApiUtils {
     var url = Uri.parse('$baseUrl$getAllMyMessages$secretCodeString');
     var controller = Get.find<MessageController>();
     GetStorage storage = GetStorage();
+    print('${storage.read('userId')}');
     try {
       var responce =
           await http.post(url, body: {'userid': storage.read('userId')});
@@ -385,13 +470,17 @@ class ApiUtils {
 
   //http://dailboxx.websitescare.com/Alphaapis/getChatOneToOne?code=DAILBOXX-03448567673
 
-  static Future getgetChatOneToOne(String incommingId) async {
+  static Future getgetChatOneToOne(
+      String incommingId, String businessID) async {
     var url = Uri.parse('$baseUrl$getChatOneToOne$secretCodeString');
     var controller = Get.find<MessageDetailsController>();
     GetStorage storage = GetStorage();
     try {
-      var responce = await http.post(url,
-          body: {'userid': storage.read('userId'), 'incoming_id': incommingId});
+      var responce = await http.post(url, body: {
+        'userid': storage.read('userId'),
+        'incoming_id': incommingId,
+        'post_id': "$businessID"
+      });
       var data = jsonDecode(responce.body);
       printlog('getgetChatOneToOne list is  = $data');
       printlog('data is = ${responce.statusCode}');
@@ -407,14 +496,15 @@ class ApiUtils {
   //http://dailboxx.websitescare.com/Alphaapis/totalLikeform?code=DAILBOXX-03448567673
 
   static Future getgetChatOneToOneSave(
-      {String? incommingId, String? message}) async {
+      {String? incommingId, String? message, String? post_id}) async {
     var url = Uri.parse('$baseUrl$getChatOneToOneSave$secretCodeString');
     GetStorage storage = GetStorage();
     try {
       var responce = await http.post(url, body: {
         'userid': storage.read('userId'),
-        'incoming_id': incommingId,
-        'message': message
+        'incoming_id': '$incommingId',
+        'message': message,
+        'post_id': '$post_id'
       });
       var data = jsonDecode(responce.body);
       printlog('getgetChatOneToOne list is  = $data');
@@ -433,10 +523,10 @@ class ApiUtils {
       var data = jsonDecode(responce.body);
       printlog('data is = $data');
       printlog('data is = ${responce.statusCode}');
+      controller!.loadmainList.value = true;
       if (data['result'] == 'success') {
-        controller!.listofChatBox.clear();
+        controller.listofChatBox.clear();
         controller.listofChatBox.value = data['data'] ?? [];
-        controller.loadmainList.value = true;
         print('list data = ${controller.listofChatBox}');
       } else {
         snackBarFailer(data['message']);
@@ -449,21 +539,49 @@ class ApiUtils {
   static Future geteditMyProfile({EditProfileController? controller}) async {
     var url = Uri.parse('$baseUrl$editMyProfile$secretCodeString');
     GetStorage storage = GetStorage();
-    print('call api');
+    print('call api${storage.read('email')}');
     try {
       var responce = await http.post(url, body: {
         'userId': storage.read('userId'),
         'mobile': controller!.phoneCon.text,
         'password': controller.p2Con.text,
-        'email': storage.read('email'),
+        'email': storage.read('email') ?? '',
       });
       var data = jsonDecode(responce.body);
       printlog('data is = $data');
       printlog('data is = ${responce.statusCode}');
-      snackBarSuccess('User information Updated Success!');
+      controller.loading.value = false;
       if ('result' == 'success') {
         Navigator.of(navigatorKey.currentContext!).pop();
         callProfile();
+        snackBarSuccess('${data['message']}');
+      } else {
+        snackBarFailer('${data['message']}');
+      }
+    } catch (e) {}
+  }
+
+  static Future geteditMySocialProfile(
+      {EditProfileController? controller}) async {
+    var url = Uri.parse('$baseUrl$editMySocialProfile$secretCodeString');
+    GetStorage storage = GetStorage();
+    print('call api${storage.read('email')}');
+    try {
+      var responce = await http.post(url, body: {
+        'userId': storage.read('userId'),
+        'mobile': controller!.phoneCon.text,
+        'email': storage.read('email') ?? '',
+      });
+      var data = jsonDecode(responce.body);
+      printlog('data is = $data');
+      printlog('data is = ${responce.statusCode}');
+      controller.loading.value = false;
+      if ('result' == 'success') {
+        Navigator.of(navigatorKey.currentContext!).pop();
+        callProfile();
+        snackBarSuccess('${data['message']}');
+      } else {
+        snackBarFailer('${data['message']}');
       }
     } catch (e) {}
   }
@@ -478,7 +596,7 @@ class ApiUtils {
         'productid': id,
       });
       var data = jsonDecode(responce.body);
-      printlog('data is = $data');
+      printlog('getgetproduct data is = $data');
       printlog('data is = ${responce.statusCode}');
       controller!.listofData.value = data['data'] ?? [];
     } catch (e) {}
@@ -595,14 +713,13 @@ class ApiUtils {
         'sub_cat_id': '$sub_cat_id',
       });
       var data = jsonDecode(responce.body);
-      printlog('data is = $data');
+      printlog('getsortDiscussionform is = $data');
       printlog('data is = ${responce.statusCode}');
-      controller!.loadmainList.value = false;
       if (data['result'] == 'success') {
-        controller.listofChatBox.clear();
+        controller!.listofChatBox.clear();
         controller.listofChatBox.value = data['data'] ?? [];
       } else {
-        controller.listofChatBox.value = [];
+        controller!.listofChatBox.value = [];
       }
       controller.loadmainList.value = true;
     } catch (e) {}
@@ -612,20 +729,20 @@ class ApiUtils {
       {ChatBoxController? controller, String? search}) async {
     GetStorage storage = GetStorage();
     var url = Uri.parse('$baseUrl$searchDiscussionform$secretCodeString');
+    print('search keyword = $search');
     try {
       var responce = await http.post(url, body: {
         'search': '$search',
         'user_id': storage.read('userId'),
       });
       var data = jsonDecode(responce.body);
-      printlog('data is = $data');
+      printlog('getsearchDiscussionform is = $data');
       printlog('data is = ${responce.statusCode}');
-      controller!.loadmainList.value = false;
       if (data['result'] == 'success') {
-        controller.listofChatBox.clear();
+        controller!.listofChatBox.value = [];
         controller.listofChatBox.value = data['data'] ?? [];
       } else {
-        controller.listofChatBox.value = [];
+        controller!.listofChatBox.value = [];
       }
       controller.loadmainList.value = true;
     } catch (e) {}
@@ -665,5 +782,487 @@ class ApiUtils {
         controller!.listofFaq.removeAt(index!);
       }
     } catch (e) {}
+  }
+
+  static Future getupdateFAQ({
+    RecentListnigsController? controller,
+    String? b_id,
+    List? faq_id,
+    int? index,
+  }) async {
+    var url = Uri.parse('$baseUrl$updateFAQ$secretCodeString');
+    try {
+      var responce = await http
+          .post(url, body: {'faqs_id': jsonEncode(b_id), 'b_id': b_id});
+      var data = jsonDecode(responce.body);
+      printlog('getgetFAQ is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {}
+    } catch (e) {}
+  }
+
+  //http://dailboxx.websitescare.com/Alphaapis/getbussniesname?code=DAILBOXX-03448567673
+  static Future getgetbussniesname({
+    SearchDetailsController? controller,
+    String? b_id,
+  }) async {
+    print('b_id = $b_id');
+    var url = Uri.parse('$baseUrl$getbussniesname$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {'b_id': b_id});
+      var data = jsonDecode(responce.body);
+      printlog('getgetbussniesname is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.nameofBuiseness.value = data['data'][0]['business_name'];
+        controller.userId.value = data['data'][0]['user_id'];
+        controller.listAllData.value = data['data'];
+      }
+    } catch (e) {}
+  }
+
+//http://dailboxx.websitescare.com/Alphaapis/getlistingallrating?code=DAILBOXX-03448567673
+  static Future getgetlistingallrating({
+    ViewAllRatingsController? controller,
+    String? b_id,
+  }) async {
+    print('b_id = $b_id');
+    var url = Uri.parse('$baseUrl$getlistingallrating$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {'listingallrate': b_id});
+      var data = jsonDecode(responce.body);
+      printlog('getgetlistingallrating is = $data');
+      printlog('data is = ${responce.statusCode}');
+      controller!.isloadings.value = true;
+      if (data['result'] == 'success') {
+        controller.listofAllRatings.value = data['data'];
+      }
+    } catch (e) {}
+  }
+
+  static Future getuserprofile({
+    AnotherProfileController? controller,
+    String? user_id,
+  }) async {
+    print('b_id = $user_id');
+    var url = Uri.parse('$baseUrl$userprofile$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {'user_id': user_id});
+      var data = jsonDecode(responce.body);
+      printlog('getuserprofile is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.profileData.value = data['data'];
+      }
+    } catch (e) {}
+  }
+
+  static Future getmyuserprofile({
+    ProfileController? controller,
+    String? user_id,
+  }) async {
+    print('b_id = $user_id');
+    var url = Uri.parse('$baseUrl$userprofile$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {'user_id': user_id});
+      var data = jsonDecode(responce.body);
+      printlog('getuserprofile is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.profileData.value = data['data'];
+        controller.experience.value = data['data']['experience'] ?? [];
+        controller.listofAccomplishment.value =
+            data['data']['accomplishments'] ?? [];
+        controller.Skills.value = data['data']['skills'] ?? [];
+        controller.experience.value = data['data']['experience'] ?? [];
+        controller.education.value = data['data']['education'] ?? [];
+        controller.userVolunteering.value = data['data']['volunteering'] ?? [];
+      }
+    } catch (e) {}
+  }
+
+  static Future getuserActivity({
+    AnotherProfileController? controller,
+    String? user_id,
+  }) async {
+    print('b_id = $user_id');
+    var url = Uri.parse('$baseUrl$userActivity$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {'user_id': user_id});
+      var data = jsonDecode(responce.body);
+      printlog('userActivity is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.userActivity.value = data['data'] ?? [];
+      }
+    } catch (e) {}
+  }
+
+  //http://dailboxx.websitescare.com/Alphaapis/getUserbusinesslist?code=DAILBOXX-03448567673
+  static Future getgetUserbusinesslist({
+    AnotherProfileController? controller,
+    String? user_id,
+  }) async {
+    print('b_id = $user_id');
+    GetStorage storage = GetStorage();
+    var url = Uri.parse('$baseUrl$getUserbusinesslist$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        'user_id': '${storage.read('userId')}',
+        'post_id': '$user_id'
+      });
+      var data = jsonDecode(responce.body);
+      printlog('getUserbusinesslist is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.listofListings.value = data['data'] ?? [];
+      }
+    } catch (e) {}
+  }
+
+  static Future getuserAccomplishments({
+    ProfileController? controller,
+    String? detail,
+  }) async {
+    GetStorage storage = GetStorage();
+    var url = Uri.parse('$baseUrl$userAccomplishments$secretCodeString');
+    try {
+      var responce = await http.post(url,
+          body: {'user_id': '${storage.read('userId')}', 'details': '$detail'});
+      var data = jsonDecode(responce.body);
+      printlog('getUserbusinesslist is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.listofAccomplishment
+            .add({'details': '$detail', 'id': '$data'});
+      }
+    } catch (e) {}
+  }
+
+  static Future getuserAccomplishmentsEdit(
+      {ProfileController? controller,
+      String? detail,
+      String? id,
+      int? index}) async {
+    GetStorage storage = GetStorage();
+    var url = Uri.parse('$baseUrl$userAccomplishmentsEdit$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        'user_id': '${storage.read('userId')}',
+        'details': '$detail',
+        'accomplishments_id': '$id'
+      });
+      var data = jsonDecode(responce.body);
+      printlog('getUserbusinesslist is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.listofAccomplishment[index!] = {
+          'details': '$detail',
+          'id': '$id'
+        };
+      }
+    } catch (e) {}
+  }
+
+  static Future getuserAccomplishmentsRemove({
+    ProfileController? controller,
+    String? id,
+  }) async {
+    var url = Uri.parse('$baseUrl$userAccomplishmentsRemove$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {'accomplishments_id': '$id'});
+      var data = jsonDecode(responce.body);
+      printlog('getUserbusinesslist is = $data');
+      printlog('data is = ${responce.statusCode}');
+    } catch (e) {}
+  }
+
+  static Future getuserSkills({
+    ProfileController? controller,
+    String? detail,
+  }) async {
+    GetStorage storage = GetStorage();
+    var url = Uri.parse('$baseUrl$userSkills$secretCodeString');
+    try {
+      var responce = await http.post(url,
+          body: {'user_id': '${storage.read('userId')}', 'skills': '$detail'});
+      var data = jsonDecode(responce.body);
+      printlog('getUserbusinesslist is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.Skills.add({'skills': '$detail', 'id': '$data'});
+      }
+    } catch (e) {}
+  }
+
+  static Future getuserSkillsEdit(
+      {ProfileController? controller,
+      String? detail,
+      String? id,
+      int? index}) async {
+    GetStorage storage = GetStorage();
+    var url = Uri.parse('$baseUrl$userSkillsEdit$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        'user_id': '${storage.read('userId')}',
+        'skills': '$detail',
+        'skl_id': '$id'
+      });
+      var data = jsonDecode(responce.body);
+      printlog('getUserbusinesslist is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.Skills[index!] = {'skills': '$detail', 'id': '$id'};
+      }
+    } catch (e) {}
+  }
+
+  static Future getuserSkillsRemove({
+    ProfileController? controller,
+    String? id,
+  }) async {
+    var url = Uri.parse('$baseUrl$userSkillsRemove$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {'skl_id': '$id'});
+      var data = jsonDecode(responce.body);
+      printlog('getUserbusinesslist is = $data');
+      printlog('data is = ${responce.statusCode}');
+    } catch (e) {}
+  }
+
+  static Future getuserVolunteering({
+    ProfileController? controller,
+    String? detail,
+  }) async {
+    GetStorage storage = GetStorage();
+    var url = Uri.parse('$baseUrl$userVolunteering$secretCodeString');
+    try {
+      var responce = await http.post(url,
+          body: {'user_id': '${storage.read('userId')}', 'details': '$detail'});
+      var data = jsonDecode(responce.body);
+      printlog('getUserbusinesslist is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.userVolunteering.add({'details': '$detail', 'id': '$data'});
+      }
+    } catch (e) {}
+  }
+
+  static Future getuserVolunteeringEdit(
+      {ProfileController? controller,
+      String? detail,
+      String? id,
+      int? index}) async {
+    GetStorage storage = GetStorage();
+    var url = Uri.parse('$baseUrl$userVolunteeringEdit$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        'user_id': '${storage.read('userId')}',
+        'details': '$detail',
+        'vlt_id': '$id'
+      });
+      var data = jsonDecode(responce.body);
+      printlog('getUserbusinesslist is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.userVolunteering[index!] = {
+          'details': '$detail',
+          'id': '$id'
+        };
+      }
+    } catch (e) {}
+  }
+
+  static Future getuserVolunteeringRemove({
+    ProfileController? controller,
+    String? id,
+  }) async {
+    var url = Uri.parse('$baseUrl$userVolunteeringRemove$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {'vlt_id': '$id'});
+      var data = jsonDecode(responce.body);
+      printlog('getUserbusinesslist is = $data');
+      printlog('data is = ${responce.statusCode}');
+    } catch (e) {}
+  }
+
+  static Future getuserExperience(
+      {ProfileController? controller,
+      String? school_name,
+      String? degree_type,
+      String? start_end}) async {
+    GetStorage storage = GetStorage();
+    var url = Uri.parse('$baseUrl$userExperience$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        'user_id': '${storage.read('userId')}',
+        'position': '$school_name',
+        'company_name': '$degree_type',
+        'time_duration': '$start_end'
+      });
+      var data = jsonDecode(responce.body);
+      printlog('getUserbusinesslist is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.experience.add({
+          "id": "${data['data']}",
+          "position": '$school_name',
+          "company_name": '$degree_type',
+          "time_duration": '$start_end'
+        });
+      }
+    } catch (e) {}
+  }
+
+  static Future getuserExperienceEdit(
+      {ProfileController? controller,
+      String? school_name,
+      String? degree_type,
+      String? start_end,
+      String? id,
+      int? index}) async {
+    GetStorage storage = GetStorage();
+    var url = Uri.parse('$baseUrl$userExperienceEdit$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        'user_id': '${storage.read('userId')}',
+        'position': '$school_name',
+        'company_name': '$degree_type',
+        'time_duration': '$start_end',
+        'exp_id': '$id'
+      });
+      var data = jsonDecode(responce.body);
+      printlog('getUserbusinesslist is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.experience[index!] = {
+          "id": "$id",
+          "position": '$school_name',
+          "company_name": '$degree_type',
+          "time_duration": '$start_end'
+        };
+      }
+    } catch (e) {}
+  }
+
+  static Future getuserExperienceRemove({
+    ProfileController? controller,
+    String? id,
+  }) async {
+    var url = Uri.parse('$baseUrl$userExperienceRemove$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {'exp_id': '$id'});
+      var data = jsonDecode(responce.body);
+      printlog('getUserbusinesslist is = $data');
+      printlog('data is = ${responce.statusCode}');
+    } catch (e) {}
+  }
+
+  static Future getuserEducation(
+      {ProfileController? controller,
+      String? school_name,
+      String? degree_type,
+      String? start_end}) async {
+    GetStorage storage = GetStorage();
+    var url = Uri.parse('$baseUrl$userEducation$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        'user_id': '${storage.read('userId')}',
+        'school_name': '$school_name',
+        'degree_type': '$degree_type',
+        'start_end': '$start_end'
+      });
+      var data = jsonDecode(responce.body);
+      printlog('getUserbusinesslist is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.education.add({
+          "id": "${data['data']}",
+          "school_name": '$school_name',
+          "degree_type": '$degree_type',
+          "start_end": '$start_end'
+        });
+      }
+    } catch (e) {}
+  }
+
+  static Future getuserEducationEdit(
+      {ProfileController? controller,
+      String? school_name,
+      String? degree_type,
+      String? start_end,
+      String? id,
+      int? index}) async {
+    GetStorage storage = GetStorage();
+    var url = Uri.parse('$baseUrl$userEducationEdit$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        'user_id': '${storage.read('userId')}',
+        'school_name': '$school_name',
+        'degree_type': '$degree_type',
+        'start_end': '$start_end',
+        'exp_id': '$id'
+      });
+      var data = jsonDecode(responce.body);
+      printlog('getUserbusinesslist is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.education[index!] = {
+          "id": "$id",
+          "school_name": '$school_name',
+          "degree_type": '$degree_type',
+          "start_end": '$start_end'
+        };
+      }
+    } catch (e) {}
+  }
+
+  static Future getuserEducationRemove({
+    ProfileController? controller,
+    String? id,
+  }) async {
+    var url = Uri.parse('$baseUrl$userEducationRemove$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {'edu_id': '$id'});
+      var data = jsonDecode(responce.body);
+      printlog('getUserbusinesslist is = $data');
+      printlog('data is = ${responce.statusCode}');
+    } catch (e) {}
+  }
+
+  static Future getreportListing({String? b_id, String? message}) async {
+    var url = Uri.parse('$baseUrl$reportListing$secretCodeString');
+    GetStorage storage = GetStorage();
+    try {
+      var responce = await http.post(url, body: {
+        'user_id': '${storage.read('userId')}',
+        'b_id': '$b_id',
+        'report_comments': '$message'
+      });
+      var data = jsonDecode(responce.body);
+      printlog('getUserbusinesslist is = $data');
+      printlog('data is = ${responce.statusCode}');
+      snackBarSuccess('${data['message']}');
+    } catch (e) {}
+  }
+
+//https://dialboxx.pk/Alphaapis/reportListing?code=DAILBOXX-03448567673
+
+  static Future<bool> getcheckmynumber({String? number}) async {
+    var url = Uri.parse('$baseUrl$checkmynumber$secretCodeString');
+    bool? result;
+    try {
+      var responce = await http.post(url, body: {'mobile': '$number'});
+      var data = jsonDecode(responce.body);
+      printlog('getcheckmynumber is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        result = true;
+      } else {
+        snackBarFailer('${data['message']}');
+        result = false;
+      }
+    } catch (e) {}
+    return result!;
   }
 }

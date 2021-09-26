@@ -1,6 +1,7 @@
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:dail_box/AppUtils.dart/APiUtilsForAuth.dart';
 import 'package:dail_box/AppUtils.dart/SizedConfig.dart';
+import 'package:dail_box/Screens/HomeScreen/home_screen.dart';
 import 'package:dail_box/Screens/Profile/ProfileController.dart';
 import 'package:dail_box/Screens/bottomNav/ChatBox/chatbox.dart';
 import 'package:dail_box/util/colors.dart';
@@ -9,7 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'EditProfile.dart';
-
+caltoHome(){
+  Future.delayed(Duration(seconds: 2), () {
+    Get.offAll(HomeScreen());
+  });
+}
 callProfile() {
   final controller = Get.find<ProfileController>();
   controller.loadmainList.value = false;
@@ -29,8 +34,16 @@ class _ProfileState extends State<Profile> {
   void initState() {
     print('${storage.read('profile_image')}');
     controller.callApiData(controller);
+    getProfileData();
     super.initState();
   }
+
+  getProfileData() async {
+    await ApiUtils.getmyuserprofile(
+        controller: controller, user_id: '${storage.read('userId')}');
+  }
+
+  int currentTab = 1;
 
   @override
   void dispose() {
@@ -115,7 +128,7 @@ class _ProfileState extends State<Profile> {
                                       radius: 50,
                                     )
                                   : CircularProfileAvatar(
-                                      'https://www.dailboxx.websitescare.com/upload/profile/${storage.read('profile_image')}',
+                                      '${storage.read('profile_image')}',
                                       borderColor: Colors.black,
                                       borderWidth: 0.5,
                                       elevation: 3,
@@ -169,72 +182,121 @@ class _ProfileState extends State<Profile> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
-                                Column(
-                                  children: <Widget>[
-                                    Container(
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: blueColor,
-                                            border:
-                                                Border.all(color: blueColor)),
-                                        padding: EdgeInsets.all(10),
-                                        child: Icon(
-                                          CupertinoIcons.rectangle_grid_2x2,
-                                          color: Colors.white,
-                                          size: 22,
-                                        )),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      'My Activity'.tr,
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 10),
-                                    )
-                                  ],
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.white,
-                                          border: Border.all(color: greyColor)),
-                                      padding: EdgeInsets.all(10),
-                                      child: Image(
-                                        image: AssetImage(
-                                            'assets/icons/interest.png'),
-                                        color: greyColor,
-                                        height: 20,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      'My Interest'.tr,
-                                      style: TextStyle(
-                                          color: Colors.grey, fontSize: 10),
-                                    )
-                                  ],
-                                ),
                                 InkWell(
                                   onTap: () {
-                                    Get.to(EditProfile());
+                                    setState(() {
+                                      currentTab = 1;
+                                    });
                                   },
                                   child: Column(
                                     children: <Widget>[
                                       Container(
                                           decoration: BoxDecoration(
                                               shape: BoxShape.circle,
-                                              border:
-                                                  Border.all(color: greyColor)),
+                                              color: currentTab == 1
+                                                  ? blueColor
+                                                  : Colors.white,
+                                              border: Border.all(
+                                                  color: currentTab == 1
+                                                      ? blueColor
+                                                      : greyColor)),
+                                          padding: EdgeInsets.all(10),
+                                          child: Icon(
+                                            CupertinoIcons.rectangle_grid_2x2,
+                                            color: currentTab != 1
+                                                ? greyColor
+                                                : Colors.white,
+                                            size: 22,
+                                          )),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        'Activities'.tr,
+                                        style: TextStyle(
+                                            color: currentTab == 1
+                                                ? Colors.black
+                                                : greyColor,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 10),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      currentTab = 2;
+                                    });
+                                  },
+                                  child: Column(
+                                    children: <Widget>[
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: currentTab == 2
+                                                ? blueColor
+                                                : Colors.white,
+                                            border: Border.all(
+                                                color: currentTab == 2
+                                                    ? blueColor
+                                                    : greyColor)),
+                                        padding: EdgeInsets.all(10),
+                                        child: Image(
+                                          image: AssetImage(
+                                              'assets/icons/interest.png'),
+                                          color: currentTab == 2
+                                              ? Colors.white
+                                              : greyColor,
+                                          height: 20,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        'Information'.tr,
+                                        style: TextStyle(
+                                            color: currentTab == 2
+                                                ? Colors.black
+                                                : Colors.grey,
+                                            fontSize: 10),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      currentTab = 3;
+                                    });
+                                    Future.delayed(Duration(milliseconds: 500),
+                                        () {
+                                      // Get.to(EditProfile());
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (c) => EditProfile()));
+                                    });
+                                  },
+                                  child: Column(
+                                    children: <Widget>[
+                                      Container(
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: currentTab == 3
+                                                  ? blueColor
+                                                  : Colors.white,
+                                              border: Border.all(
+                                                  color: currentTab == 3
+                                                      ? blueColor
+                                                      : greyColor)),
                                           padding: EdgeInsets.all(10),
                                           child: Icon(
                                             CupertinoIcons.person,
-                                            color: greyColor,
+                                            color: currentTab == 3
+                                                ? Colors.white
+                                                : greyColor,
                                             size: 22,
                                           )),
                                       SizedBox(
@@ -243,36 +305,14 @@ class _ProfileState extends State<Profile> {
                                       Text(
                                         'Edit'.tr,
                                         style: TextStyle(
-                                            color: Colors.grey, fontSize: 10),
+                                            color: currentTab == 3
+                                                ? Colors.black
+                                                : Colors.grey,
+                                            fontSize: 10),
                                       )
                                     ],
                                   ),
                                 ),
-                                Column(
-                                  children: <Widget>[
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.white,
-                                          border: Border.all(color: greyColor)),
-                                      padding: EdgeInsets.all(10),
-                                      child: Image(
-                                        image:
-                                            AssetImage('assets/icons/more.png'),
-                                        color: greyColor,
-                                        height: 20,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      'More'.tr,
-                                      style: TextStyle(
-                                          color: Colors.grey, fontSize: 10),
-                                    )
-                                  ],
-                                )
                               ],
                             ),
                             SizedBox(
@@ -287,44 +327,518 @@ class _ProfileState extends State<Profile> {
                     ],
                   ),
                 ),
-                Obx(() => !controller.loadmainList.value
+                Obx(() => currentTab == 2
                     ? SliverToBoxAdapter(
-                        child: Container(
-                          height: height * 0.2,
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              color: Colors.blue,
-                            ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: width * 0.030,
+                              vertical: width * 0.030),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Experience',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                  InkWell(
+                                    child: Icon(Icons.add),
+                                    onTap: () {
+                                      experince(controller: controller);
+                                    },
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: height * 0.010,
+                              ),
+                              Column(
+                                children: controller.experience.map((element) {
+                                  int index =
+                                      controller.experience.indexOf(element);
+                                  return Container(
+                                    margin: EdgeInsets.only(top: 3),
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                          color: Colors.blueGrey[50]),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Expanded(
+                                                  child: Text(
+                                                      'Company Name : ${element['company_name']}')),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              InkWell(
+                                                onTap: () {
+                                                  experinceEdit(
+                                                      controller: controller,
+                                                      id: '${element['id']}',
+                                                      companyName:
+                                                          '${element['company_name']}',
+                                                      duration:
+                                                          '${element['time_duration']}',
+                                                      positions:
+                                                          '${element['position']}',
+                                                      index: index);
+                                                },
+                                                child: Icon(
+                                                  Icons.edit,
+                                                  size: 17,
+                                                  color: Colors.black
+                                                      .withOpacity(0.5),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 7,
+                                              ),
+                                              InkWell(
+                                                onTap: () {
+                                                  controller.experience
+                                                      .removeAt(index);
+                                                  setState(() {});
+                                                  ApiUtils
+                                                      .getuserExperienceRemove(
+                                                          controller:
+                                                              controller,
+                                                          id: '${element['id']}');
+                                                },
+                                                child: Icon(
+                                                  Icons.delete,
+                                                  color: Colors.red[300],
+                                                  size: 17,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          Text(
+                                              'Position : ${element['position']}'),
+                                          Text(
+                                              'Time Duration : ${element['time_duration']}')
+                                        ],
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                              SizedBox(
+                                height: height * 0.010,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Education',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                  InkWell(
+                                    child: Icon(Icons.add),
+                                    onTap: () {
+                                      experince(
+                                          controller: controller,
+                                          from: 'Education');
+                                    },
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: height * 0.010,
+                              ),
+                              Column(
+                                children: controller.education.map((element) {
+                                  int index =
+                                      controller.education.indexOf(element);
+                                  return Container(
+                                    margin: EdgeInsets.only(top: 3),
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                          color: Colors.blueGrey[50]),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Expanded(
+                                                  child: Text(
+                                                      'School Name : ${element['school_name']}')),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              InkWell(
+                                                onTap: () {
+                                                  experinceEdit(
+                                                      controller: controller,
+                                                      id: '${element['id']}',
+                                                      companyName:
+                                                          '${element['school_name']}',
+                                                      duration:
+                                                          '${element['start_end']}',
+                                                      positions:
+                                                          '${element['degree_type']}',
+                                                      from: 'Education',
+                                                      index: index);
+                                                },
+                                                child: Icon(
+                                                  Icons.edit,
+                                                  size: 17,
+                                                  color: Colors.black
+                                                      .withOpacity(0.5),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 7,
+                                              ),
+                                              InkWell(
+                                                onTap: () {
+                                                  controller.education
+                                                      .removeAt(index);
+                                                  setState(() {});
+                                                  ApiUtils.getuserEducationRemove(
+                                                      controller: controller,
+                                                      id: '${element['id']}');
+                                                },
+                                                child: Icon(
+                                                  Icons.delete,
+                                                  color: Colors.red[300],
+                                                  size: 17,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          Text(
+                                              'Degree Type : ${element['degree_type']}'),
+                                          Text(
+                                              'Time Duration : ${element['start_end']}')
+                                        ],
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                              SizedBox(
+                                height: height * 0.010,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Accomplishments',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                  InkWell(
+                                    child: Icon(Icons.add),
+                                    onTap: () {
+                                      accomplishments(controller: controller);
+                                    },
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: height * 0.010,
+                              ),
+                              Column(
+                                children: controller.listofAccomplishment
+                                    .map((element) {
+                                  int index = controller.listofAccomplishment
+                                      .indexOf(element);
+                                  return Container(
+                                    margin: EdgeInsets.only(top: 3),
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                          color: Colors.blueGrey[50]),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                              child: Text(
+                                                  '${element['details']}')),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              accomplishmentsEdit(
+                                                  controller: controller,
+                                                  id: '${element['id']}',
+                                                  text: '${element['details']}',
+                                                  index: index);
+                                            },
+                                            child: Icon(
+                                              Icons.edit,
+                                              size: 17,
+                                              color:
+                                                  Colors.black.withOpacity(0.5),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 7,
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              controller.listofAccomplishment
+                                                  .removeAt(index);
+                                              setState(() {});
+                                              ApiUtils
+                                                  .getuserAccomplishmentsRemove(
+                                                      controller: controller,
+                                                      id: '${element['id']}');
+                                            },
+                                            child: Icon(
+                                              Icons.delete,
+                                              color: Colors.red[300],
+                                              size: 17,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                              SizedBox(
+                                height: height * 0.010,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Skills',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                  InkWell(
+                                    child: Icon(Icons.add),
+                                    onTap: () {
+                                      accomplishments(
+                                          controller: controller,
+                                          isupdate: 'skill');
+                                    },
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: height * 0.010,
+                              ),
+                              Column(
+                                children: controller.Skills.map((element) {
+                                  int index =
+                                      controller.Skills.indexOf(element);
+                                  return Container(
+                                    margin: EdgeInsets.only(top: 3),
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                          color: Colors.blueGrey[50]),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                              child:
+                                                  Text('${element['skills']}')),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              accomplishmentsEdit(
+                                                  controller: controller,
+                                                  id: '${element['id']}',
+                                                  text: '${element['skills']}',
+                                                  index: index,
+                                                  from: 'skill');
+                                            },
+                                            child: Icon(
+                                              Icons.edit,
+                                              size: 17,
+                                              color:
+                                                  Colors.black.withOpacity(0.5),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 7,
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              controller.Skills.removeAt(index);
+                                              setState(() {});
+                                              ApiUtils.getuserSkillsRemove(
+                                                  controller: controller,
+                                                  id: '${element['id']}');
+                                            },
+                                            child: Icon(
+                                              Icons.delete,
+                                              color: Colors.red[300],
+                                              size: 17,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                              SizedBox(
+                                height: height * 0.010,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Volunteering',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                  InkWell(
+                                    child: Icon(Icons.add),
+                                    onTap: () {
+                                      accomplishments(
+                                          controller: controller,
+                                          isupdate: 'Volunteering');
+                                    },
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: height * 0.010,
+                              ),
+                              Column(
+                                children:
+                                    controller.userVolunteering.map((element) {
+                                  int index = controller.userVolunteering
+                                      .indexOf(element);
+                                  return Container(
+                                    margin: EdgeInsets.only(top: 3),
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                          color: Colors.blueGrey[50]),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                              child: Text(
+                                                  '${element['details']}')),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              accomplishmentsEdit(
+                                                  controller: controller,
+                                                  id: '${element['id']}',
+                                                  text: '${element['details']}',
+                                                  index: index,
+                                                  from: 'Volunteering');
+                                            },
+                                            child: Icon(
+                                              Icons.edit,
+                                              size: 17,
+                                              color:
+                                                  Colors.black.withOpacity(0.5),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 7,
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              controller.userVolunteering
+                                                  .removeAt(index);
+                                              setState(() {});
+                                              ApiUtils
+                                                  .getuserVolunteeringRemove(
+                                                      controller: controller,
+                                                      id: '${element['id']}');
+                                            },
+                                            child: Icon(
+                                              Icons.delete,
+                                              color: Colors.red[300],
+                                              size: 17,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                              SizedBox(
+                                height: 50,
+                              )
+                            ],
                           ),
                         ),
                       )
-                    : controller.listofChatBox.isEmpty
+                    : !controller.loadmainList.value
                         ? SliverToBoxAdapter(
                             child: Container(
-                              height: height * 0.2,
+                              height: height * 0.4,
                               child: Center(
-                                child: Text('Empty'.tr),
+                                child: CircularProgressIndicator(
+                                  color: Colors.blue,
+                                ),
                               ),
                             ),
                           )
-                        : SliverList(
-                            delegate: SliverChildBuilderDelegate(
-                              (BuildContext context, int index) {
-                                return Column(
-                                  children: [
-                                    ChatBoxItem(
-                                      mapData: controller.listofChatBox[index],
-                                      index: index,
-                                    ),
-                                    Divider(
-                                      thickness: 15,
-                                    ),
-                                  ],
-                                );
-                              },
-                              childCount: controller.listofChatBox.length,
-                            ),
-                          )),
+                        : controller.listofChatBox.isEmpty
+                            ? SliverToBoxAdapter(
+                                child: Container(
+                                  height: height * 0.4,
+                                  child: Center(
+                                    child: Text('Empty'.tr),
+                                  ),
+                                ),
+                              )
+                            : SliverList(
+                                delegate: SliverChildBuilderDelegate(
+                                  (BuildContext context, int index) {
+                                    return Column(
+                                      children: [
+                                        ChatBoxItem(
+                                          mapData:
+                                              controller.listofChatBox[index],
+                                          index: index,
+                                        ),
+                                        Divider(
+                                          thickness: 15,
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                  childCount: controller.listofChatBox.length,
+                                ),
+                              )),
               ],
               physics: BouncingScrollPhysics(),
             ),
@@ -332,5 +846,643 @@ class _ProfileState extends State<Profile> {
         ],
       ),
     );
+  }
+
+  accomplishments(
+      {ProfileController? controller, String isupdate = 'acconplish'}) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    TextEditingController textCon = TextEditingController();
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            insetPadding: EdgeInsets.symmetric(horizontal: width / 20),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0)), //this right here
+            child: Container(
+              height: height / 2.50,
+              width: width,
+              padding: EdgeInsets.symmetric(horizontal: width * 0.030),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  Text(
+                    isupdate == 'acconplish'
+                        ? 'Add accomplishments'
+                        : isupdate == 'Volunteering'
+                            ? 'Add Volunteering'
+                            : 'Add Skills',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Colors.grey[100],
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[400]!,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 6.0,
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        cursorColor: Colors.black,
+                        maxLines: 6,
+                        keyboardType: TextInputType.text,
+                        controller: textCon,
+                        textInputAction: TextInputAction.done,
+                        decoration: new InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            contentPadding: EdgeInsets.only(
+                                left: 15, bottom: 11, top: 11, right: 15),
+                            hintStyle:
+                                TextStyle(color: greyColor, fontSize: 12),
+                            hintText: isupdate == 'acconplish'
+                                ? "Write your accomplishments here"
+                                : isupdate == 'Volunteering'
+                                    ? 'Write your Volunteering here'
+                                    : "Write your skill here"),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  Center(
+                    child: InkWell(
+                      onTap: () async {
+                        Navigator.of(context).pop();
+                        if (isupdate == 'acconplish') {
+                          await ApiUtils.getuserAccomplishments(
+                              controller: controller, detail: textCon.text);
+                          setState(() {});
+                        } else if (isupdate == 'Volunteering') {
+                          await ApiUtils.getuserVolunteering(
+                              controller: controller, detail: textCon.text);
+                          setState(() {});
+                        } else {
+                          await ApiUtils.getuserSkills(
+                              controller: controller, detail: textCon.text);
+                          setState(() {});
+                        }
+                      },
+                      child: Container(
+                        height: height * 0.055,
+                        width: width / 2,
+                        child: Center(
+                          child: Text(
+                            'Add',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                            color: blueColor,
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              decoration: BoxDecoration(color: Colors.white),
+            ),
+          );
+        });
+  }
+
+  accomplishmentsEdit(
+      {ProfileController? controller,
+      String? text,
+      String? id,
+      int? index,
+      String? from = 'Acomplish'}) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    TextEditingController textCon = TextEditingController();
+    textCon.text = text!;
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            insetPadding: EdgeInsets.symmetric(horizontal: width / 20),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0)), //this right here
+            child: Container(
+              height: height / 2.50,
+              width: width,
+              padding: EdgeInsets.symmetric(horizontal: width * 0.030),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  Text(
+                    from == 'Acomplish'
+                        ? 'Update accomplishments'
+                        : from == 'Volunteering'
+                            ? 'Update Volunteering'
+                            : 'Update Skills',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Colors.grey[100],
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[400]!,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 6.0,
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        cursorColor: Colors.black,
+                        maxLines: 6,
+                        keyboardType: TextInputType.text,
+                        controller: textCon,
+                        textInputAction: TextInputAction.done,
+                        decoration: new InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            contentPadding: EdgeInsets.only(
+                                left: 15, bottom: 11, top: 11, right: 15),
+                            hintStyle:
+                                TextStyle(color: greyColor, fontSize: 12),
+                            hintText: from == 'Acomplish'
+                                ? "Write your accomplishments here"
+                                : from == 'Volunteering'
+                                    ? 'Write your Volunteering here'
+                                    : "Write your skills here"),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  Center(
+                    child: InkWell(
+                      onTap: () async {
+                        Navigator.of(context).pop();
+                        if (from == 'Acomplish') {
+                          await ApiUtils.getuserAccomplishmentsEdit(
+                              controller: controller,
+                              detail: textCon.text,
+                              id: id,
+                              index: index);
+                          setState(() {});
+                        } else if (from == 'Volunteering') {
+                          await ApiUtils.getuserVolunteeringEdit(
+                              controller: controller,
+                              detail: textCon.text,
+                              id: id,
+                              index: index);
+                          setState(() {});
+                        } else {
+                          await ApiUtils.getuserSkillsEdit(
+                              controller: controller,
+                              detail: textCon.text,
+                              id: id,
+                              index: index);
+                          setState(() {});
+                        }
+                      },
+                      child: Container(
+                        height: height * 0.055,
+                        width: width / 2,
+                        child: Center(
+                          child: Text(
+                            'Update',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                            color: blueColor,
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              decoration: BoxDecoration(color: Colors.white),
+            ),
+          );
+        });
+  }
+
+  experince({ProfileController? controller, String from = 'experince'}) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    TextEditingController position = TextEditingController();
+    TextEditingController company_name = TextEditingController();
+    TextEditingController time_duration = TextEditingController();
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            insetPadding: EdgeInsets.symmetric(horizontal: width / 20),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0)), //this right here
+            child: Container(
+              height: height / 2,
+              width: width,
+              padding: EdgeInsets.symmetric(horizontal: width * 0.030),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  Text(
+                    from == 'Education' ? 'Add Education' : 'Add Experience',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Colors.grey[100],
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[400]!,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 6.0,
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        cursorColor: Colors.black,
+                        maxLines: 1,
+                        keyboardType: TextInputType.text,
+                        controller: position,
+                        textInputAction: TextInputAction.done,
+                        decoration: new InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            contentPadding: EdgeInsets.only(
+                                left: 15, bottom: 11, top: 11, right: 15),
+                            hintStyle:
+                                TextStyle(color: greyColor, fontSize: 12),
+                            hintText: from == 'Education'
+                                ? "Write your School name"
+                                : "Write your position here"),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Colors.grey[100],
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[400]!,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 6.0,
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        cursorColor: Colors.black,
+                        maxLines: 1,
+                        keyboardType: TextInputType.text,
+                        controller: company_name,
+                        textInputAction: TextInputAction.done,
+                        decoration: new InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            contentPadding: EdgeInsets.only(
+                                left: 15, bottom: 11, top: 11, right: 15),
+                            hintStyle:
+                                TextStyle(color: greyColor, fontSize: 12),
+                            hintText: from == 'Education'
+                                ? "Write your degree type"
+                                : "Write your company name"),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Colors.grey[100],
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[400]!,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 6.0,
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        cursorColor: Colors.black,
+                        maxLines: 1,
+                        keyboardType: TextInputType.text,
+                        controller: time_duration,
+                        textInputAction: TextInputAction.done,
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            contentPadding: EdgeInsets.only(
+                                left: 15, bottom: 11, top: 11, right: 15),
+                            hintStyle:
+                                TextStyle(color: greyColor, fontSize: 12),
+                            hintText: from == 'Education'
+                                ? "Time Duration"
+                                : "Write your time duration"),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  Center(
+                    child: InkWell(
+                      onTap: () async {
+                        Navigator.of(context).pop();
+                        if (from == 'Education') {
+                          await ApiUtils.getuserEducation(
+                              controller: controller,
+                              degree_type: position.text,
+                              school_name: company_name.text,
+                              start_end: time_duration.text);
+                          setState(() {});
+                        } else {
+                          await ApiUtils.getuserExperience(
+                              controller: controller,
+                              degree_type: position.text,
+                              school_name: company_name.text,
+                              start_end: time_duration.text);
+                          setState(() {});
+                        }
+                      },
+                      child: Container(
+                        height: height * 0.055,
+                        width: width / 2,
+                        child: Center(
+                          child: Text(
+                            'Add',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                            color: blueColor,
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              decoration: BoxDecoration(color: Colors.white),
+            ),
+          );
+        });
+  }
+
+  experinceEdit(
+      {ProfileController? controller,
+      String from = 'experince',
+      String? positions,
+      String? companyName,
+      String? duration,
+      String? id,
+      int? index}) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    TextEditingController position = TextEditingController();
+    TextEditingController company_name = TextEditingController();
+    TextEditingController time_duration = TextEditingController();
+    position.text = positions!;
+    company_name.text = companyName!;
+    time_duration.text = duration!;
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            insetPadding: EdgeInsets.symmetric(horizontal: width / 20),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0)), //this right here
+            child: Container(
+              height: height / 2,
+              width: width,
+              padding: EdgeInsets.symmetric(horizontal: width * 0.030),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  Text(
+                    from == 'Education'
+                        ? 'Update Education'
+                        : 'Update Experience',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Colors.grey[100],
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[400]!,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 6.0,
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        cursorColor: Colors.black,
+                        maxLines: 1,
+                        keyboardType: TextInputType.text,
+                        controller: position,
+                        textInputAction: TextInputAction.done,
+                        decoration: new InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            contentPadding: EdgeInsets.only(
+                                left: 15, bottom: 11, top: 11, right: 15),
+                            hintStyle:
+                                TextStyle(color: greyColor, fontSize: 12),
+                            hintText: from == 'Education'
+                                ? "Write your Education here"
+                                : "Write your position here"),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Colors.grey[100],
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[400]!,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 6.0,
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        cursorColor: Colors.black,
+                        maxLines: 1,
+                        keyboardType: TextInputType.text,
+                        controller: company_name,
+                        textInputAction: TextInputAction.done,
+                        decoration: new InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            contentPadding: EdgeInsets.only(
+                                left: 15, bottom: 11, top: 11, right: 15),
+                            hintStyle:
+                                TextStyle(color: greyColor, fontSize: 12),
+                            hintText: from == 'Education'
+                                ? "Write your Education here"
+                                : "Write your company name"),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Colors.grey[100],
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[400]!,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 6.0,
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        cursorColor: Colors.black,
+                        maxLines: 1,
+                        keyboardType: TextInputType.text,
+                        controller: time_duration,
+                        textInputAction: TextInputAction.done,
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            contentPadding: EdgeInsets.only(
+                                left: 15, bottom: 11, top: 11, right: 15),
+                            hintStyle:
+                                TextStyle(color: greyColor, fontSize: 12),
+                            hintText: from == 'Education'
+                                ? "Write your Education here"
+                                : "Write your time duration"),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  Center(
+                    child: InkWell(
+                      onTap: () async {
+                        Navigator.of(context).pop();
+                        if (from == 'Education') {
+                          await ApiUtils.getuserEducationEdit(
+                              controller: controller,
+                              degree_type: position.text,
+                              school_name: company_name.text,
+                              start_end: time_duration.text,
+                              id: id,
+                              index: index);
+                          setState(() {});
+                        } else {
+                          await ApiUtils.getuserExperienceEdit(
+                              controller: controller,
+                              degree_type: position.text,
+                              school_name: company_name.text,
+                              start_end: time_duration.text,
+                              id: id,
+                              index: index);
+                          setState(() {});
+                        }
+                      },
+                      child: Container(
+                        height: height * 0.055,
+                        width: width / 2,
+                        child: Center(
+                          child: Text(
+                            'Update',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                            color: blueColor,
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              decoration: BoxDecoration(color: Colors.white),
+            ),
+          );
+        });
   }
 }

@@ -5,6 +5,8 @@ import 'package:dail_box/AppUtils.dart/ApiUtilsForAll.dart';
 import 'package:dail_box/AppUtils.dart/ApiUtisAllFiles.dart';
 import 'package:dail_box/AppUtils.dart/SizedConfig.dart';
 import 'package:dail_box/AppUtils.dart/SnackBarUtils.dart';
+import 'package:dail_box/Screens/ImagePreview/ImagePreview.dart';
+import 'package:dail_box/Screens/Profile/AnotherProfile.dart';
 import 'package:dail_box/Screens/Profile/EditPost/EditPost.dart';
 import 'package:dail_box/Screens/Profile/ViewAllLike/ViewAllLike.dart';
 import 'package:dail_box/Screens/Profile/ViewComments/ViewComments.dart';
@@ -13,6 +15,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'ChatBoxController.dart';
 import 'Comment/Comment.dart';
@@ -85,6 +88,15 @@ class _ChatBoxState extends State<ChatBox> {
                                               value['industry_name'];
                                           ApiUtils.getgetMainCatapp(
                                               value['id']);
+                                          controller.loadmainList.value = false;
+                                          ApiUtils.getsortDiscussionform(
+                                              main_cat_id: controller
+                                                      .listofIndustry[
+                                                  controller
+                                                      .currentlistofIndustryIndex
+                                                      .value]['id'],
+                                              sub_cat_id: '',
+                                              controller: controller);
                                         },
                                       );
                                     }).toList(),
@@ -134,6 +146,7 @@ class _ChatBoxState extends State<ChatBox> {
                                                   .indexOf(value);
                                           controller.listofCatHint.value =
                                               value['main_cat_name'];
+                                          controller.loadmainList.value = false;
                                           ApiUtils.getsortDiscussionform(
                                               main_cat_id: controller
                                                       .listofIndustry[
@@ -173,46 +186,75 @@ class _ChatBoxState extends State<ChatBox> {
                     SizedBox(
                       height: 10,
                     ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(5.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.0),
-                          color: Colors.grey[100],
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey[400]!,
-                              offset: Offset(0.0, 1.0), //(x,y)
-                              blurRadius: 6.0,
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(5.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5.0),
+                                color: Colors.grey[100],
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey[400]!,
+                                    offset: Offset(0.0, 1.0), //(x,y)
+                                    blurRadius: 6.0,
+                                  ),
+                                ],
+                              ),
+                              child: TextFormField(
+                                cursorColor: Colors.black,
+                                enabled: true,
+                                keyboardType: TextInputType.text,
+                                onChanged: (value) {
+                                  controller.loadmainList.value = false;
+                                  ApiUtils.getsearchDiscussionform(
+                                      controller: controller, search: value);
+                                },
+                                decoration: new InputDecoration(
+                                    border: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    errorBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                    contentPadding: EdgeInsets.only(
+                                        left: 15,
+                                        bottom: 11,
+                                        top: 11,
+                                        right: 15),
+                                    hintStyle: TextStyle(
+                                        color: greyColor, fontSize: 14),
+                                    hintText: "Search here".tr),
+                              ),
                             ),
-                          ],
+                          ),
                         ),
-                        child: TextFormField(
-                          cursorColor: Colors.black,
-                          enabled: true,
-                          keyboardType: TextInputType.text,
-                          onChanged: (value) {
-                            if (value.length >= 3) {
-                              ApiUtils.getsearchDiscussionform(
-                                  controller: controller, search: value);
-                            } else {
-                              ApiUtils.getgetDiscussionform(
-                                  controller: controller);
-                            }
+                        InkWell(
+                          onTap: () {
+                            controller.loadmainList.value = false;
+
+                            controller.currentlistofIndustryIndex.value = 0;
+                            controller.listofIndustryHint.value = 'Industry';
+                            controller.currentlistofCatIndex.value = 0;
+                            controller.listofCatHint.value = 'Category';
+
+                            ApiUtils.getgetDiscussionform(
+                                controller: controller);
                           },
-                          decoration: new InputDecoration(
-                              border: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              errorBorder: InputBorder.none,
-                              disabledBorder: InputBorder.none,
-                              contentPadding: EdgeInsets.only(
-                                  left: 15, bottom: 11, top: 11, right: 15),
-                              hintStyle:
-                                  TextStyle(color: greyColor, fontSize: 14),
-                              hintText: "Search here".tr),
-                        ),
-                      ),
+                          child: Container(
+                            width: width * 0.2,
+                            height: height * 0.060,
+                            child: Center(
+                              child: Text(
+                                'Reset',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            decoration: BoxDecoration(color: blueColor),
+                          ),
+                        )
+                      ],
                     ),
                     SizedBox(
                       height: height * 0.020,
@@ -222,382 +264,417 @@ class _ChatBoxState extends State<ChatBox> {
               ),
               Expanded(
                   child: Obx(
-                () => CustomScrollView(
-                  physics: BouncingScrollPhysics(),
-                  slivers: [
-                    SliverToBoxAdapter(
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: width * 0.030),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Center(
-                                        child: Text(
-                                          'Add new Discussion Post'.tr,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
+                () => RefreshIndicator(
+                  onRefresh: () async {
+                    controller.loadmainList.value = false;
+                    controller.currentlistofIndustryIndex.value = 0;
+                    controller.listofIndustryHint.value = 'Industry';
+                    controller.currentlistofCatIndex.value = 0;
+                    controller.listofCatHint.value = 'Category';
+                    await ApiUtils.getgetDiscussionform(controller: controller);
+                  },
+                  child: CustomScrollView(
+                    physics: BouncingScrollPhysics(),
+                    slivers: [
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: width * 0.030),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        SizedBox(
+                                          height: 5,
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Container(
-                                              height: 25,
-                                              padding: EdgeInsets.only(left: 3),
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      width: 1,
-                                                      color: Colors.black26)),
-                                              child: Theme(
-                                                  data: new ThemeData(
-                                                      canvasColor:
-                                                          Colors.red[900],
-                                                      primaryColor:
-                                                          Colors.black,
-                                                      accentColor: Colors.black,
-                                                      hintColor: Colors.black),
-                                                  child: DropdownButton<String>(
-                                                    items: controller
-                                                        .listofIndustrytwo
-                                                        .map((value) {
-                                                      return DropdownMenuItem<
-                                                          String>(
-                                                        value: '$value',
-                                                        child: Text(
-                                                          '${value['industry_name']}',
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 10),
-                                                        ),
-                                                        onTap: () {
-                                                          controller
-                                                                  .currentlistofIndustryIndextwo
-                                                                  .value =
-                                                              controller
-                                                                  .listofIndustrytwo
-                                                                  .indexOf(
-                                                                      value);
-                                                          controller
-                                                                  .listofIndustryHinttwo
-                                                                  .value =
-                                                              value[
-                                                                  'industry_name'];
-                                                          ApiUtils
-                                                              .getgetMainCatapptwo(
-                                                                  value['id']);
-                                                        },
-                                                      );
-                                                    }).toList(),
-                                                    hint: Text(
-                                                      controller
-                                                          .listofIndustryHinttwo
-                                                          .value,
+                                        Center(
+                                          child: Text(
+                                            'Add new discussion post'.tr,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: Container(
+                                                height: 25,
+                                                padding:
+                                                    EdgeInsets.only(left: 3),
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        width: 1,
+                                                        color: Colors.black26)),
+                                                child: Theme(
+                                                    data: new ThemeData(
+                                                        canvasColor:
+                                                            Colors.red[900],
+                                                        primaryColor:
+                                                            Colors.black,
+                                                        accentColor:
+                                                            Colors.black,
+                                                        hintColor:
+                                                            Colors.black),
+                                                    child:
+                                                        DropdownButton<String>(
+                                                      items: controller
+                                                          .listofIndustrytwo
+                                                          .map((value) {
+                                                        return DropdownMenuItem<
+                                                            String>(
+                                                          value: '$value',
+                                                          child: Text(
+                                                            '${value['industry_name']}',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 10),
+                                                          ),
+                                                          onTap: () {
+                                                            controller
+                                                                    .currentlistofIndustryIndextwo
+                                                                    .value =
+                                                                controller
+                                                                    .listofIndustrytwo
+                                                                    .indexOf(
+                                                                        value);
+                                                            controller
+                                                                    .listofIndustryHinttwo
+                                                                    .value =
+                                                                value[
+                                                                    'industry_name'];
+                                                            ApiUtils
+                                                                .getgetMainCatapptwo(
+                                                                    value[
+                                                                        'id']);
+                                                          },
+                                                        );
+                                                      }).toList(),
+                                                      hint: Text(
+                                                        controller
+                                                            .listofIndustryHinttwo
+                                                            .value,
+                                                        style: TextStyle(
+                                                            fontSize: 8,
+                                                            color:
+                                                                Colors.black),
+                                                      ),
+                                                      icon: Icon(
+                                                        Icons
+                                                            .keyboard_arrow_down,
+                                                        color: Colors.black26,
+                                                        size: 20,
+                                                      ),
+                                                      underline: Container(
+                                                        color:
+                                                            Colors.transparent,
+                                                      ),
                                                       style: TextStyle(
-                                                          fontSize: 8,
-                                                          color: Colors.black),
-                                                    ),
-                                                    icon: Icon(
-                                                      Icons.keyboard_arrow_down,
-                                                      color: Colors.black26,
-                                                      size: 20,
-                                                    ),
-                                                    underline: Container(
-                                                      color: Colors.transparent,
-                                                    ),
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 10),
-                                                    isExpanded: true,
-                                                    onChanged: (_) {},
-                                                  )),
+                                                          color: Colors.white,
+                                                          fontSize: 10),
+                                                      isExpanded: true,
+                                                      onChanged: (_) {},
+                                                    )),
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(
-                                            width: width * 0.050,
-                                          ),
-                                          Expanded(
-                                            child: Container(
-                                              height: 25,
-                                              padding: EdgeInsets.only(left: 3),
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      width: 1,
-                                                      color: Colors.black26)),
-                                              child: Theme(
-                                                  data: new ThemeData(
-                                                      canvasColor:
-                                                          Colors.red[900],
-                                                      primaryColor:
-                                                          Colors.black,
-                                                      accentColor: Colors.black,
-                                                      hintColor: Colors.black),
-                                                  child: DropdownButton<String>(
-                                                    items: controller
-                                                        .listofCattwo
-                                                        .map((value) {
-                                                      return DropdownMenuItem<
-                                                          String>(
-                                                        value: '$value',
-                                                        child: Text(
-                                                          '${value['main_cat_name']}',
-                                                          style: TextStyle(
-                                                              fontSize: 10,
-                                                              color:
-                                                                  Colors.white),
-                                                        ),
-                                                        onTap: () {
-                                                          controller
-                                                                  .currentlistofCatIndextwo
-                                                                  .value =
-                                                              controller
-                                                                  .listofCattwo
-                                                                  .indexOf(
-                                                                      value);
-                                                          controller
-                                                                  .listofCatHinttwo
-                                                                  .value =
-                                                              value[
-                                                                  'main_cat_name'];
-                                                        },
-                                                      );
-                                                    }).toList(),
-                                                    hint: Text(
-                                                      controller
-                                                          .listofCatHinttwo
-                                                          .value,
+                                            SizedBox(
+                                              width: width * 0.050,
+                                            ),
+                                            Expanded(
+                                              child: Container(
+                                                height: 25,
+                                                padding:
+                                                    EdgeInsets.only(left: 3),
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        width: 1,
+                                                        color: Colors.black26)),
+                                                child: Theme(
+                                                    data: new ThemeData(
+                                                        canvasColor:
+                                                            Colors.red[900],
+                                                        primaryColor:
+                                                            Colors.black,
+                                                        accentColor:
+                                                            Colors.black,
+                                                        hintColor:
+                                                            Colors.black),
+                                                    child:
+                                                        DropdownButton<String>(
+                                                      items: controller
+                                                          .listofCattwo
+                                                          .map((value) {
+                                                        return DropdownMenuItem<
+                                                            String>(
+                                                          value: '$value',
+                                                          child: Text(
+                                                            '${value['main_cat_name']}',
+                                                            style: TextStyle(
+                                                                fontSize: 10,
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                          onTap: () {
+                                                            controller
+                                                                    .currentlistofCatIndextwo
+                                                                    .value =
+                                                                controller
+                                                                    .listofCattwo
+                                                                    .indexOf(
+                                                                        value);
+                                                            controller
+                                                                    .listofCatHinttwo
+                                                                    .value =
+                                                                value[
+                                                                    'main_cat_name'];
+                                                          },
+                                                        );
+                                                      }).toList(),
+                                                      hint: Text(
+                                                        controller
+                                                            .listofCatHinttwo
+                                                            .value,
+                                                        style: TextStyle(
+                                                            fontSize: 8,
+                                                            color:
+                                                                Colors.black),
+                                                      ),
+                                                      icon: Icon(
+                                                        Icons
+                                                            .keyboard_arrow_down,
+                                                        color: Colors.black26,
+                                                        size: 20,
+                                                      ),
+                                                      underline: Container(
+                                                        color:
+                                                            Colors.transparent,
+                                                      ),
                                                       style: TextStyle(
-                                                          fontSize: 8,
-                                                          color: Colors.black),
-                                                    ),
-                                                    icon: Icon(
-                                                      Icons.keyboard_arrow_down,
-                                                      color: Colors.black26,
-                                                      size: 20,
-                                                    ),
-                                                    underline: Container(
-                                                      color: Colors.transparent,
-                                                    ),
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 10),
-                                                    isExpanded: true,
-                                                    onChanged: (_) {},
-                                                  )),
+                                                          color: Colors.white,
+                                                          fontSize: 10),
+                                                      isExpanded: true,
+                                                      onChanged: (_) {},
+                                                    )),
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            TextFormField(
-                              cursorColor: Colors.black,
-                              controller: controller.writeCommentCon.value,
-                              keyboardType: TextInputType.text,
-                              decoration: new InputDecoration(
-                                  border: InputBorder.none,
-                                  focusedBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  errorBorder: InputBorder.none,
-                                  disabledBorder: InputBorder.none,
-                                  contentPadding: EdgeInsets.only(
-                                      left: 15, bottom: 11, top: 11, right: 15),
-                                  hintStyle:
-                                      TextStyle(color: greyColor, fontSize: 12),
-                                  hintText: "Write something here".tr),
-                            ),
-                            SizedBox(
-                              height: 2,
-                            ),
-                            Container(
-                              color: greyColor,
-                              width: MediaQuery.of(context).size.width,
-                              height: 0.5,
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Center(
-                              child: InkWell(
-                                onTap: () {
-                                  controller.displayBottomSheet();
-                                },
-                                child: Container(
-                                  height: height * 0.030,
-                                  width: width * 0.3,
-                                  child: Row(
-                                    children: [
-                                      Center(
-                                        child: Icon(
-                                          Icons.image,
-                                          color: Colors.black26,
+                                ],
+                              ),
+                              TextFormField(
+                                cursorColor: Colors.black,
+                                controller: controller.writeCommentCon.value,
+                                keyboardType: TextInputType.text,
+                                decoration: new InputDecoration(
+                                    border: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    errorBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                    contentPadding: EdgeInsets.only(
+                                        left: 15,
+                                        bottom: 11,
+                                        top: 11,
+                                        right: 15),
+                                    hintStyle: TextStyle(
+                                        color: greyColor, fontSize: 12),
+                                    hintText: "Write something here".tr),
+                              ),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              Container(
+                                color: greyColor,
+                                width: MediaQuery.of(context).size.width,
+                                height: 0.5,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Center(
+                                child: InkWell(
+                                  onTap: () {
+                                    controller.displayBottomSheet();
+                                  },
+                                  child: Container(
+                                    height: height * 0.10,
+                                    width: width * 0.3,
+                                    child: Row(
+                                      children: [
+                                        Center(
+                                          child: Icon(
+                                            Icons.image,
+                                            size: 30,
+                                            color: Colors.black26,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: 3,
-                                      ),
-                                      Center(
-                                        child: Text(
-                                          'Add Pictures'.tr,
-                                          style: TextStyle(fontSize: 11),
+                                        SizedBox(
+                                          width: 3,
                                         ),
-                                      ),
-                                    ],
+                                        Center(
+                                          child: Text(
+                                            'Upload Picture'.tr,
+                                            style: TextStyle(fontSize: 11),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            !controller.isf1.value
-                                ? SizedBox()
-                                : Column(
-                                    children: [
-                                      SizedBox(
-                                        height: height * 0.010,
-                                      ),
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(5),
-                                        child: Container(
-                                            height: height * 0.2,
-                                            width: width,
-                                            child: Image.file(
-                                              controller.f1.value,
-                                              fit: BoxFit.cover,
-                                            )),
-                                      ),
-                                    ],
-                                  ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                InkWell(
-                                    onTap: () async {
-                                      if (controller
-                                              .listofIndustryHinttwo.value !=
-                                          'Select Industry'.tr) {
-                                        if (controller.listofCatHinttwo.value !=
-                                            'Category'.tr) {
-                                          if (controller.writeCommentCon.value
-                                              .text.isNotEmpty) {
-                                            controller.loading.value = true;
-                                            await ApiUtilsAllFiles
-                                                .getpostDiscussionform(
-                                                    controller);
-                                            controller.writeCommentCon.value
-                                                .text = '';
-                                            controller.isf1.value = false;
-                                            controller.f1.value = File('path');
-                                            controller.loadmainList.value =
-                                                false;
-                                            ApiUtils.getgetDiscussionform(
-                                                controller: controller);
+                              !controller.isf1.value
+                                  ? SizedBox()
+                                  : Column(
+                                      children: [
+                                        SizedBox(
+                                          height: height * 0.010,
+                                        ),
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          child: Container(
+                                              height: height * 0.2,
+                                              width: width,
+                                              child: Image.file(
+                                                controller.f1.value,
+                                                fit: BoxFit.cover,
+                                              )),
+                                        ),
+                                      ],
+                                    ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  InkWell(
+                                      onTap: () async {
+                                        if (controller
+                                                .listofIndustryHinttwo.value !=
+                                            'Select Industry'.tr) {
+                                          if (controller
+                                                  .listofCatHinttwo.value !=
+                                              'Category'.tr) {
+                                            if (controller.writeCommentCon.value
+                                                .text.isNotEmpty) {
+                                              controller.loading.value = true;
+                                              await ApiUtilsAllFiles
+                                                  .getpostDiscussionform(
+                                                      controller);
+                                              controller.writeCommentCon.value
+                                                  .text = '';
+                                              controller.isf1.value = false;
+                                              controller.f1.value =
+                                                  File('path');
+                                              controller.loadmainList.value =
+                                                  false;
+                                              ApiUtils.getgetDiscussionform(
+                                                  controller: controller);
+                                            } else {
+                                              snackBarFailer(
+                                                  'Please enter text');
+                                            }
                                           } else {
-                                            snackBarFailer('Please enter text');
+                                            snackBarFailer(
+                                                'Please select Category');
                                           }
                                         } else {
                                           snackBarFailer(
-                                              'Please select Category');
+                                              'Please select industry');
                                         }
-                                      } else {
-                                        snackBarFailer(
-                                            'Please select industry');
-                                      }
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 15, vertical: 8),
-                                      decoration: BoxDecoration(
-                                          color: Colors.blueGrey[100],
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Colors.black
-                                                    .withOpacity(0.1),
-                                                offset: Offset(2, 2),
-                                                blurRadius: 5)
-                                          ]),
-                                      child: Text(
-                                        'Publish Now'.tr,
-                                        style: TextStyle(
-                                            color: blueColor,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ))
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Divider(
-                              thickness: 10,
-                            ),
-                          ],
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 15, vertical: 8),
+                                        decoration: BoxDecoration(
+                                            color: Colors.blueGrey[100],
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: Colors.black
+                                                      .withOpacity(0.1),
+                                                  offset: Offset(2, 2),
+                                                  blurRadius: 5)
+                                            ]),
+                                        child: Text(
+                                          'Publish'.tr,
+                                          style: TextStyle(
+                                              color: blueColor,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ))
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Divider(
+                                thickness: 10,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    !controller.loadmainList.value
-                        ? SliverToBoxAdapter(
-                            child: Container(
-                              height: height * 0.2,
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  color: Colors.blue,
-                                ),
-                              ),
-                            ),
-                          )
-                        : controller.listofChatBox.isEmpty
-                            ? SliverToBoxAdapter(
-                                child: Container(
-                                  height: height * 0.2,
-                                  child: Center(
-                                    child: Text('Empty'.tr),
+                      !controller.loadmainList.value
+                          ? SliverToBoxAdapter(
+                              child: Container(
+                                height: height * 0.2,
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    color: Colors.blue,
                                   ),
                                 ),
-                              )
-                            : SliverList(
-                                delegate: SliverChildBuilderDelegate(
-                                  (BuildContext context, int index) {
-                                    return Column(
-                                      children: [
-                                        ChatBoxItem2(
-                                          mapData:
-                                              controller.listofChatBox[index],
-                                          controller: controller,
-                                          index: index,
-                                        ),
-                                        Divider(
-                                          thickness: 15,
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                  childCount: controller.listofChatBox.length,
-                                ),
-                              )
-                  ],
-                  keyboardDismissBehavior:
-                      ScrollViewKeyboardDismissBehavior.onDrag,
+                              ),
+                            )
+                          : controller.listofChatBox.isEmpty
+                              ? SliverToBoxAdapter(
+                                  child: Container(
+                                    height: height * 0.2,
+                                    child: Center(
+                                      child: Text('Empty'.tr),
+                                    ),
+                                  ),
+                                )
+                              : SliverList(
+                                  delegate: SliverChildBuilderDelegate(
+                                    (BuildContext context, int index) {
+                                      print(
+                                          'total length = ${controller.listofChatBox.length}');
+                                      return Column(
+                                        children: [
+                                          ChatBoxItem2(
+                                            mapData:
+                                                controller.listofChatBox[index],
+                                            controller: controller,
+                                            index: index,
+                                          ),
+                                          Divider(
+                                            thickness: 15,
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                    childCount: controller.listofChatBox.length,
+                                  ),
+                                )
+                    ],
+                    keyboardDismissBehavior:
+                        ScrollViewKeyboardDismissBehavior.onDrag,
+                  ),
                 ),
               )),
             ],
@@ -643,7 +720,7 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
   String? firstHalf;
   String? secondHalf;
   bool flag = true;
-
+  GetStorage storage = GetStorage();
   List commitList = [];
   List Likelist = [];
 
@@ -690,13 +767,35 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
         children: <Widget>[
           Row(
             children: <Widget>[
+              Container(
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image:
+                            NetworkImage('${storage.read('profile_image')}'))),
+              ),
+              SizedBox(
+                width: 10,
+              ),
               Expanded(
-                child: Text(
-                  '${widget.mapData!['industy_name']}',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      storage.read('name'),
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14),
+                    ),
+                    Text(
+                      '${widget.mapData!['industy_name']} > ${widget.mapData!['industy_sub_name']}',
+                      style: TextStyle(color: greyColor, fontSize: 10),
+                    ),
+                  ],
                 ),
               ),
               Text(
@@ -728,10 +827,6 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
                         )
                       ])
             ],
-          ),
-          Text(
-            '${widget.mapData!['industy_name']} > ${widget.mapData!['industy_sub_name']}',
-            style: TextStyle(color: greyColor, fontSize: 10),
           ),
           SizedBox(
             height: 20,
@@ -785,13 +880,13 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
                     child: CachedNetworkImage(
                       height: double.infinity,
                       fit: BoxFit.contain,
-                      imageUrl:
-                          "https://www.dailboxx.websitescare.com/upload/discussionform/${widget.mapData!['fourm_image']}",
+                      imageUrl: "${widget.mapData!['fourm_image']}",
                       placeholder: (context, url) => SpinKitWave(
                         color: Colors.blue,
                         size: 12.0,
                       ),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
+                      errorWidget: (context, url, error) => Image.network(
+                          'http://dailboxx.websitescare.com/upload/appnoimage.png'),
                     ),
                   ),
                 ),
@@ -807,24 +902,6 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Icon(
-                      CupertinoIcons.hand_thumbsup,
-                      color: blueColor,
-                      size: 20,
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      Likelist.isEmpty
-                          ? 'Likes'.tr
-                          : '${Likelist[0]['total_likes']} Likes',
-                      style: TextStyle(fontSize: 12),
-                    )
-                  ],
-                ),
                 InkWell(
                   onTap: () {
                     Get.to(ViewLike(
@@ -850,24 +927,6 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
                 ),
                 SizedBox(
                   width: 30,
-                ),
-                Row(
-                  children: <Widget>[
-                    Icon(
-                      CupertinoIcons.chat_bubble,
-                      color: blueColor,
-                      size: 20,
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      commitList.isEmpty
-                          ? 'Comments'.tr
-                          : '${commitList[0]['total_comments']} Comments',
-                      style: TextStyle(fontSize: 12),
-                    )
-                  ],
                 ),
                 InkWell(
                   onTap: () {
@@ -950,15 +1009,22 @@ class _ChatBoxItem2State extends State<ChatBoxItem2> {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(
-                            'https://www.dailboxx.websitescare.com/upload/profile/${widget.mapData!['profile_image']}'))),
+              InkWell(
+                onTap: () {
+                  Get.to(AnotherProfile(
+                    userId: '${widget.mapData!['user_id']}',
+                  ));
+                },
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                              '${widget.mapData!['profile_image']}'))),
+                ),
               ),
               SizedBox(
                 width: 15,
@@ -971,7 +1037,7 @@ class _ChatBoxItem2State extends State<ChatBoxItem2> {
                       children: <Widget>[
                         Expanded(
                           child: Text(
-                            '${widget.mapData!['industry_name']}',
+                            '${widget.mapData!['name']}',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w600,
@@ -986,31 +1052,31 @@ class _ChatBoxItem2State extends State<ChatBoxItem2> {
                         SizedBox(
                           width: 10,
                         ),
-                        PopupMenuButton(
-                            child: Icon(Icons.more_horiz),
-                            onSelected: (v) {
-                              if (v == 1) {
-                                Get.to(EditPost(mapdata: widget.mapData!));
-                              } else {
-                                ApiUtilsForAll.getremoveDiscussionform(
-                                    index: widget.index,
-                                    id: widget.mapData!['discussion_id']);
-                              }
-                            },
-                            itemBuilder: (context) => [
-                                  PopupMenuItem(
-                                    child: Text("Edit".tr),
-                                    value: 1,
-                                  ),
-                                  PopupMenuItem(
-                                    child: Text("Delete".tr),
-                                    value: 2,
-                                  )
-                                ])
+                        // PopupMenuButton(
+                        //     child: Icon(Icons.more_horiz),
+                        //     onSelected: (v) {
+                        //       if (v == 1) {
+                        //         Get.to(EditPost(mapdata: widget.mapData!));
+                        //       } else {
+                        //         ApiUtilsForAll.getremoveDiscussionform(
+                        //             index: widget.index,
+                        //             id: widget.mapData!['discussion_id']);
+                        //       }
+                        //     },
+                        //     itemBuilder: (context) => [
+                        //           PopupMenuItem(
+                        //             child: Text("Edit".tr),
+                        //             value: 1,
+                        //           ),
+                        //           PopupMenuItem(
+                        //             child: Text("Delete".tr),
+                        //             value: 2,
+                        //           )
+                        //         ])
                       ],
                     ),
                     Text(
-                      '${widget.mapData!['main_cat_name'] ?? ''} > ${widget.mapData!['business_name']}',
+                      '${widget.mapData!['industry_name'] ?? ''} > ${widget.mapData!['main_cat_name']}',
                       style: TextStyle(color: greyColor, fontSize: 10),
                     ),
                   ],
@@ -1062,21 +1128,28 @@ class _ChatBoxItem2State extends State<ChatBoxItem2> {
           ),
           widget.mapData!['fourm_image'] == ''
               ? SizedBox()
-              : ClipRRect(
-                  borderRadius: BorderRadius.circular(5),
-                  child: Container(
-                    height: height * 0.2,
-                    width: width,
-                    child: CachedNetworkImage(
-                      height: double.infinity,
-                      fit: BoxFit.contain,
-                      imageUrl:
-                          "https://www.dailboxx.websitescare.com/upload/discussionform/${widget.mapData!['fourm_image']}",
-                      placeholder: (context, url) => SpinKitWave(
-                        color: Colors.blue,
-                        size: 12.0,
+              : InkWell(
+                  onTap: () {
+                    Get.to(SingleImagePreview(
+                      url: "${widget.mapData!['fourm_image']}",
+                    ));
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: Container(
+                      height: height * 0.2,
+                      width: width,
+                      child: CachedNetworkImage(
+                        height: double.infinity,
+                        fit: BoxFit.contain,
+                        imageUrl: "${widget.mapData!['fourm_image']}",
+                        placeholder: (context, url) => SpinKitWave(
+                          color: Colors.blue,
+                          size: 12.0,
+                        ),
+                        errorWidget: (context, url, error) => Image.network(
+                            'http://dailboxx.websitescare.com/upload/appnoimage.png'),
                       ),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
                   ),
                 ),

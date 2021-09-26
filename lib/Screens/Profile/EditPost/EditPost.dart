@@ -146,7 +146,7 @@ class _EditPostState extends State<EditPost> {
                             )
                           : widget.mapdata!['fourm_image'] != ''
                               ? Image.network(
-                                  "https://www.dailboxx.websitescare.com/upload/discussionform/${widget.mapdata!['fourm_image']}",
+                                  "${widget.mapdata!['fourm_image']}",
                                 )
                               : Center(
                                   child: Icon(

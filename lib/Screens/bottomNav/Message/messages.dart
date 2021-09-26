@@ -40,93 +40,6 @@ class _MessagesState extends State<Messages> {
       ),
       body: Column(
         children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(15),
-            child: Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 10,
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(5.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                      color: Colors.grey[100],
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey[400]!,
-                          offset: Offset(0.0, 1.0), //(x,y)
-                          blurRadius: 6.0,
-                        ),
-                      ],
-                    ),
-                    child: TextFormField(
-                      cursorColor: Colors.black,
-                      // controller: controller.nameCon,
-                      enabled: false,
-                      keyboardType: TextInputType.text,
-                      decoration: new InputDecoration(
-                          border: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          enabledBorder: InputBorder.none,
-                          errorBorder: InputBorder.none,
-                          disabledBorder: InputBorder.none,
-                          contentPadding: EdgeInsets.only(
-                              left: 15, bottom: 11, top: 11, right: 15),
-                          hintStyle: TextStyle(color: greyColor, fontSize: 14),
-                          hintText: "Search here".tr),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          // Container(
-          //   padding: EdgeInsets.all(15),
-          //   child: Column(
-          //     children: <Widget>[
-          //       SizedBox(
-          //         height: 10,
-          //       ),
-          //       ClipRRect(
-          //         borderRadius: BorderRadius.circular(5.0),
-          //         child: Container(
-          //           decoration: BoxDecoration(
-          //             borderRadius: BorderRadius.circular(5.0),
-          //             color: Colors.grey[100],
-          //             boxShadow: [
-          //               BoxShadow(
-          //                 color: Colors.grey[400]!,
-          //                 offset: Offset(0.0, 1.0), //(x,y)
-          //                 blurRadius: 6.0,
-          //               ),
-          //             ],
-          //           ),
-          //           child: TextFormField(
-          //             cursorColor: Colors.black,
-          //             // controller: controller.nameCon,
-          //             enabled: false,
-          //             keyboardType: TextInputType.text,
-          //             decoration: new InputDecoration(
-          //                 border: InputBorder.none,
-          //                 focusedBorder: InputBorder.none,
-          //                 enabledBorder: InputBorder.none,
-          //                 errorBorder: InputBorder.none,
-          //                 disabledBorder: InputBorder.none,
-          //                 contentPadding: EdgeInsets.only(
-          //                     left: 15, bottom: 11, top: 11, right: 15),
-          //                 hintStyle: TextStyle(color: greyColor, fontSize: 14),
-          //                 hintText: "Search here"),
-          //           ),
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
-          Divider(
-            thickness: 10,
-          ),
           Obx(
             () => Expanded(
               child: Padding(
@@ -245,7 +158,11 @@ class _MessagesState extends State<Messages> {
                                     incommingId: controller
                                         .listofMessages[index]['incoming_id'],
                                     IncommingName:
-                                        '${controller.listofMessages[index]['name']}',
+                                        '${controller.listofMessages[index]['business_name']}',
+                                    incomingProfile:
+                                        '${controller.listofMessages[index]['listing_image']}',
+                                    businessId:
+                                        '${controller.listofMessages[index]['post_id']}',
                                   ),
                                   withNavBar: true,
                                   // OPTIONAL VALUE. True by default.
@@ -257,7 +174,7 @@ class _MessagesState extends State<Messages> {
                                 child: Row(
                                   children: <Widget>[
                                     CircularProfileAvatar(
-                                      'https://www.dailboxx.websitescare.com/upload/profile/${controller.listofMessages[index]['profileimage']}',
+                                      '${controller.listofMessages[index]['listing_image']}',
                                       elevation: 5,
                                       radius: 25,
                                     ),
@@ -273,7 +190,7 @@ class _MessagesState extends State<Messages> {
                                             children: <Widget>[
                                               Expanded(
                                                 child: Text(
-                                                  '${controller.listofMessages[index]['name']}',
+                                                  '${controller.listofMessages[index]['business_name']}',
                                                   style: TextStyle(
                                                       color: blueColor,
                                                       fontWeight:

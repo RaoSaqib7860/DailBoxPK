@@ -25,66 +25,116 @@ class _BRTwoState extends State<BRTwo> {
     var width = widget.width;
     return Obx(
       () => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             height: height * 0.020,
           ),
           TextFromFieldsCustom(
-            hint: 'City* / Area**'.tr,
+            hint: controller.listofSV[controller.currentSVIndex.value] ==
+                    'Virtual'
+                ? 'Area*'
+                : 'Business Address*'.tr,
             controller: controller.businessArea,
           ),
           SizedBox(
             height: height * 0.020,
           ),
           TextFromFieldsCustom(
-            hint: 'Website URL'.tr,
+            hint: 'Website link'.tr,
             controller: controller.businessWebsiteUrl,
           ),
           SizedBox(
             height: height * 0.020,
           ),
+          // Text(
+          //   'Number of Employees (can we have dropdown with 3 options: 1-10,10-49,50+',
+          //   style: TextStyle(fontSize: 12),
+          // ),
+          // SizedBox(
+          //   height: height * 0.010,
+          // ),
+          // Container(
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(5.0),
+          //     color: Colors.grey[200],
+          //     boxShadow: [
+          //       BoxShadow(
+          //         color: Colors.black.withOpacity(0.1),
+          //         offset: Offset(0.0, 3),
+          //         //(x,y)
+          //         blurRadius: 5.0,
+          //       ),
+          //     ],
+          //   ),
+          //   height: height * 0.060,
+          //   width: width,
+          //   padding: EdgeInsets.symmetric(horizontal: width * 0.030),
+          //   child: DropdownButtonHideUnderline(
+          //     child: DropdownButton<dynamic>(
+          //         items: controller.listofEmployee.map((value) {
+          //           return DropdownMenuItem<String>(
+          //             value: '$value',
+          //             child: Text('$value'),
+          //             onTap: () {
+          //               controller.currentlistofEmployeeIndex.value =
+          //                   controller.listofEmployee.indexOf(value);
+          //               controller.listofEmployeeHint.value = value;
+          //             },
+          //           );
+          //         }).toList(),
+          //         hint: Text(
+          //           controller.listofEmployeeHint.value,
+          //           style: TextStyle(fontSize: 14),
+          //         ),
+          //         onChanged: (_) {},
+          //         isExpanded: true),
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: height * 0.020,
+          // ),
           TextFromFieldsCustom(
-            hint: 'Number of Employs'.tr,
-            isNumber: true,
-            controller: controller.businessNoOfEmployess,
-          ),
-          SizedBox(
-            height: height * 0.020,
-          ),
-          TextFromFieldsCustom(
-            hint: 'FaceBook URL'.tr,
+            hint: 'Facebook Link'.tr,
             controller: controller.businessFb,
           ),
           SizedBox(
             height: height * 0.020,
           ),
           TextFromFieldsCustom(
-            hint: 'Instagram URL'.tr,
+            hint: 'Instagram Link'.tr,
             controller: controller.businessInsta,
           ),
           SizedBox(
             height: height * 0.020,
           ),
+          // TextFromFieldsCustom(
+          //   hint: 'Twitter Link'.tr,
+          //   controller: controller.businessTwitter,
+          // ),
+          // SizedBox(
+          //   height: height * 0.020,
+          // ),
           TextFromFieldsCustom(
-            hint: 'Twitter URL'.tr,
-            controller: controller.businessTwitter,
-          ),
-          SizedBox(
-            height: height * 0.020,
-          ),
-          TextFromFieldsCustom(
-            hint: 'Youtube URl'.tr,
+            hint: 'YouTube Link'.tr,
             controller: controller.businessNoOfYoutube,
           ),
           SizedBox(
             height: height * 0.020,
           ),
           TextFromFieldsCustom(
-            hint: 'Service Area'.tr,
+            hint: 'Service Areas'.tr,
             controller: controller.businessServiceArea,
           ),
           SizedBox(
             height: height * 0.020,
+          ),
+          Text(
+            'Delivery Available*',
+            style: TextStyle(fontSize: 12),
+          ),
+          SizedBox(
+            height: 3,
           ),
           Container(
             decoration: BoxDecoration(
@@ -110,7 +160,7 @@ class _BRTwoState extends State<BRTwo> {
                       child: Text('$value'),
                       onTap: () {
                         controller.currentListOfDeliveryAvailableIndex.value =
-                            controller.listofSV.indexOf(value);
+                            controller.listOfDeliveryAvailable.indexOf(value);
                         controller.listOfDeliveryAvailableHint.value = value;
                       },
                     );
@@ -125,6 +175,13 @@ class _BRTwoState extends State<BRTwo> {
           ),
           SizedBox(
             height: height * 0.020,
+          ),
+          Text(
+            'Booking Available*',
+            style: TextStyle(fontSize: 12),
+          ),
+          SizedBox(
+            height: 3,
           ),
           Container(
             decoration: BoxDecoration(
@@ -150,7 +207,7 @@ class _BRTwoState extends State<BRTwo> {
                       child: Text('$value'),
                       onTap: () {
                         controller.currentlistOfBookingIndex.value =
-                            controller.listofSV.indexOf(value);
+                            controller.listOfBooking.indexOf(value);
                         controller.listOfBookingHint.value = value;
                       },
                     );
@@ -165,6 +222,13 @@ class _BRTwoState extends State<BRTwo> {
           ),
           SizedBox(
             height: height * 0.020,
+          ),
+          Text(
+            'Take Away/Pick up',
+            style: TextStyle(fontSize: 12),
+          ),
+          SizedBox(
+            height: 3,
           ),
           Container(
             decoration: BoxDecoration(
@@ -190,7 +254,7 @@ class _BRTwoState extends State<BRTwo> {
                       child: Text('$value'),
                       onTap: () {
                         controller.currentpick_upIndex.value =
-                            controller.listofSV.indexOf(value);
+                            controller.listpick_up.indexOf(value);
                         controller.pick_upHint.value = value;
                       },
                     );
@@ -205,6 +269,13 @@ class _BRTwoState extends State<BRTwo> {
           ),
           SizedBox(
             height: height * 0.020,
+          ),
+          Text(
+            'By Appointment',
+            style: TextStyle(fontSize: 12),
+          ),
+          SizedBox(
+            height: 3,
           ),
           Container(
             decoration: BoxDecoration(
@@ -230,7 +301,7 @@ class _BRTwoState extends State<BRTwo> {
                       child: Text('$value'),
                       onTap: () {
                         controller.currentby_appointmentIndex.value =
-                            controller.listofSV.indexOf(value);
+                            controller.listby_appointment.indexOf(value);
                         controller.by_appointmentHint.value = value;
                       },
                     );
@@ -249,63 +320,25 @@ class _BRTwoState extends State<BRTwo> {
           FadeInUpBig(
             child: InkWell(
               onTap: () {
-                if (controller.businessArea.text.isNotEmpty) {
-                  if (controller.businessWebsiteUrl.text.isNotEmpty) {
-                    if (controller.businessNoOfEmployess.text.isNotEmpty) {
-                      if (controller.businessFb.text.isNotEmpty) {
-                        if (controller.businessInsta.text.isNotEmpty) {
-                          if (controller.businessTwitter.text.isNotEmpty) {
-                            if (controller
-                                .businessNoOfYoutube.text.isNotEmpty) {
-                              if (controller
-                                  .businessServiceArea.text.isNotEmpty) {
-                                if (controller
-                                        .listOfDeliveryAvailableHint.value !=
-                                    'Delivery Available'.tr) {
-                                  if (controller.pick_upHint.value !=
-                                      'PickUp'.tr) {
-                                    if (controller.listOfBookingHint.value !=
-                                        'PickUp'.tr) {
-                                      if (controller.by_appointmentHint.value !=
-                                          'By Appointment'.tr) {
-                                        controller.currentIndex.value = 3;
-                                      } else {
-                                        snackBarSuccess(
-                                            'Select By AppointmentHint first');
-                                      }
-                                    } else {
-                                      snackBarSuccess('Select Booking first');
-                                    }
-                                  } else {
-                                    snackBarSuccess('Select PickUp first');
-                                  }
-                                } else {
-                                  snackBarSuccess(
-                                      'Select Delivery Available first');
-                                }
-                              } else {
-                                snackBarSuccess('Add Service Area URL  first');
-                              }
-                            } else {
-                              snackBarSuccess('Add Youtube URL  first');
-                            }
-                          } else {
-                            snackBarSuccess('Add Twitter URL  first');
-                          }
-                        } else {
-                          snackBarSuccess('Add Instagram URL  first');
-                        }
-                      } else {
-                        snackBarSuccess('Add FB URL  first');
-                      }
+                if (controller.businessArea.text.trim().isNotEmpty) {
+                  if (controller.listOfDeliveryAvailableHint.value !=
+                      'Delivery Available*'.tr) {
+                    if (controller.listOfBookingHint.value !=
+                        'Booking Available*'.tr) {
+                      controller.currentIndex.value = 3;
+                      scrollController.animateTo(
+                        scrollController.position.minScrollExtent,
+                        duration: Duration(seconds: 1),
+                        curve: Curves.fastOutSlowIn,
+                      );
                     } else {
-                      snackBarSuccess('Select No Of Employees  first');
+                      snackBarFailer('Select Delivery Available first');
                     }
                   } else {
-                    snackBarSuccess('Select Website URL first');
+                    snackBarFailer('Select Delivery Available first');
                   }
                 } else {
-                  snackBarSuccess('Select City/Area first');
+                  snackBarFailer('Select business address first');
                 }
               },
               child: Container(

@@ -81,7 +81,8 @@ class _IndustryDetailsState extends State<IndustryDetails> {
                                                 CircularProgressIndicator(),
                                             errorWidget:
                                                 (context, url, error) =>
-                                                    Icon(Icons.error),
+                                                    Image.network(
+                                                        'http://dailboxx.websitescare.com/upload/appnoimage.png'),
                                           ),
                                           radius: height * 0.030,
                                         ),
@@ -114,7 +115,7 @@ class _IndustryDetailsState extends State<IndustryDetails> {
                                                 height: double.infinity,
                                                 fit: BoxFit.contain,
                                                 imageUrl:
-                                                    "https://dailboxx.websitescare.com/upload/industry/${controller.listofindustryDetails[index]['icons']}",
+                                                    "${controller.listofindustryDetails[index]['icons']}",
                                                 placeholder: (context, url) =>
                                                     SpinKitWave(
                                                   color: Colors.blue,
@@ -122,7 +123,8 @@ class _IndustryDetailsState extends State<IndustryDetails> {
                                                 ),
                                                 errorWidget:
                                                     (context, url, error) =>
-                                                        Icon(Icons.error),
+                                                        Image.network(
+                                                            'http://dailboxx.websitescare.com/upload/appnoimage.png'),
                                               ),
                                             ),
                                             duration:

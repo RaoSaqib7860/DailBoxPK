@@ -2,6 +2,7 @@ import 'package:dail_box/AppUtils.dart/APiUtilsForAuth.dart';
 import 'package:dail_box/AppUtils.dart/SizedConfig.dart';
 import 'package:dail_box/AppUtils.dart/SnackBarUtils.dart';
 import 'package:dail_box/Screens/OtpCodeVarification/PhoneVarificationController.dart';
+import 'package:dail_box/Screens/SignUp/SignUpController.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,11 @@ import 'package:get/get.dart';
 
 class PhoneVerification extends StatefulWidget {
   final bool? fromreset;
-  const PhoneVerification({Key? key, this.fromreset = false}) : super(key: key);
+  final String? email;
+
+  const PhoneVerification({Key? key, this.fromreset = false, this.email})
+      : super(key: key);
+
   @override
   _PhoneVerificationState createState() => _PhoneVerificationState();
 }
@@ -47,17 +52,14 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                         image: AssetImage('assets/icons/logo_red.png'),
                         height: 50,
                       ),
-                      InkWell(
-                        onTap: () {},
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Skip'.tr,
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white),
-                          ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Skip'.tr,
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white),
                         ),
                       )
                     ],
@@ -72,7 +74,7 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                             SizedBox(
                               height: height / 30,
                             ),
-                            Text('Phone verification'.tr,
+                            Text('Number verification'.tr,
                                 style: TextStyle(
                                     color: blueColor,
                                     fontSize: 20,
@@ -81,7 +83,8 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                               height: 10,
                             ),
                             Text(
-                              'Register your bussiness with dialboxx to gain visibility in the marketplace.'.tr,
+                              'Verify your account by entering 4 digit code you receive from Dialboxx'
+                                  .tr,
                               style: TextStyle(
                                   fontSize: 13, fontWeight: FontWeight.w400),
                             ),
@@ -139,13 +142,14 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                                 onPressed: () {
                                   if (controller.codeCon.text.isNotEmpty) {
                                     controller.loading.value = true;
-                                    ApiUtils.verifyotpApi(controller);
+                                    ApiUtils.verifyotpApi(
+                                        controller, widget.email!);
                                   } else {
                                     snackBarFailer('Please enter otp code');
                                   }
                                 },
                                 child: Text(
-                                  "NEXT".tr,
+                                  "Submit".tr,
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),

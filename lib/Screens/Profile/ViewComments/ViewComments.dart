@@ -143,7 +143,7 @@ class _ViewCommentsState extends State<ViewComments> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     CircularProfileAvatar(
-                                      'https://www.dailboxx.websitescare.com/upload/profile/${controller.listofComment[i]['profile_image']}',
+                                      '${controller.listofComment[i]['profile_image']}',
                                       borderColor: blueColor,
                                       borderWidth: 1,
                                       elevation: 5,

@@ -21,6 +21,10 @@ class AddProductController extends GetxController {
   var selectserviceHint = 'Select Business'.tr.obs;
   var selectserviceid = 'Select Business'.tr.obs;
 
+  var listofCity = [].obs;
+  var currentlistofCityIndex = 0.obs;
+  var listofCityHint = 'Select City'.tr.obs;
+
   var loading = false.obs;
   var firstTab = true.obs;
 
@@ -119,7 +123,7 @@ class AddProductController extends GetxController {
                           ),
                         ),
                         Text(
-                          'Gallary'.tr,
+                          'Photos'.tr,
                           style: TextStyle(
                               fontSize: 12,
                               fontFamily: 'Comfortaa',

@@ -1,10 +1,10 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:dail_box/AppUtils.dart/APiUtilsForAuth.dart';
+import 'package:dail_box/AppUtils.dart/AppBarGlobal.dart';
 import 'package:dail_box/AppUtils.dart/LogsUtils.dart';
 import 'package:dail_box/AppUtils.dart/SizedConfig.dart';
 import 'package:dail_box/AppUtils.dart/SnackBarUtils.dart';
 import 'package:dail_box/Screens/SignUp/SignUpController.dart';
-import 'package:dail_box/Screens/HomeScreen/home_screen.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -13,11 +13,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class SignUp extends StatefulWidget {
+
   @override
   _SignUpState createState() => _SignUpState();
 }
 
 class _SignUpState extends State<SignUp> {
+  bool istermsCheck = false;
+
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SignUpController());
@@ -54,22 +57,21 @@ class _SignUpState extends State<SignUp> {
                           Navigator.pop(context);
                         },
                       ),
-                      InkWell(
-                        onTap: () {
-                          Get.offAll(HomeScreen);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Skip'.tr,
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w600),
-                          ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Skip'.tr,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600),
                         ),
                       )
                     ],
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
@@ -96,7 +98,7 @@ class _SignUpState extends State<SignUp> {
                                               () => print('Tap Here onTap'),
                                       ),
                                       new TextSpan(
-                                        text: 'for FREE right now'.tr,
+                                        text: 'for FREE today'.tr,
                                         recognizer: new TapGestureRecognizer()
                                           ..onTap =
                                               () => print('Tap Here onTap'),
@@ -107,7 +109,8 @@ class _SignUpState extends State<SignUp> {
                                 height: 10,
                               ),
                               Text(
-                                'Register your bussiness with dialboxx to gain visibility in the marketplace.'.tr,
+                                'You can start listing your businesses after\n registration.'
+                                    .tr,
                                 style: TextStyle(
                                     fontSize: 13, fontWeight: FontWeight.w400),
                               ),
@@ -151,7 +154,7 @@ class _SignUpState extends State<SignUp> {
                                               contentPadding: EdgeInsets.only(
                                                 left: 15,
                                                 bottom: 11,
-                                                top: 11,
+                                                top: 15,
                                               ),
                                               hintStyle: TextStyle(
                                                   color: greyColor,
@@ -199,7 +202,7 @@ class _SignUpState extends State<SignUp> {
                                               contentPadding: EdgeInsets.only(
                                                 left: 15,
                                                 bottom: 11,
-                                                top: 11,
+                                                top: 15,
                                               ),
                                               hintStyle: TextStyle(
                                                   color: greyColor,
@@ -210,49 +213,6 @@ class _SignUpState extends State<SignUp> {
                                     ),
                                   )
                                 ],
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(5.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    color: Colors.grey[100],
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey[400]!,
-                                        offset: Offset(0.0, 1.0), //(x,y)
-                                        blurRadius: 6.0,
-                                      ),
-                                    ],
-                                  ),
-                                  child: TextFormField(
-                                    cursorColor: Colors.black,
-                                    controller: controller.emailCon,
-                                    keyboardType: TextInputType.text,
-                                    textInputAction: TextInputAction.next,
-                                    decoration: new InputDecoration(
-                                        prefixIcon: Icon(
-                                          Icons.email,
-                                          color: greyColor,
-                                        ),
-                                        border: InputBorder.none,
-                                        focusedBorder: InputBorder.none,
-                                        enabledBorder: InputBorder.none,
-                                        errorBorder: InputBorder.none,
-                                        disabledBorder: InputBorder.none,
-                                        contentPadding: EdgeInsets.only(
-                                            left: 15,
-                                            bottom: 11,
-                                            top: 11,
-                                            right: 15),
-                                        hintStyle: TextStyle(
-                                            color: greyColor, fontSize: 12),
-                                        hintText: "Email".tr),
-                                  ),
-                                ),
                               ),
                               SizedBox(
                                 height: 10,
@@ -289,11 +249,54 @@ class _SignUpState extends State<SignUp> {
                                         contentPadding: EdgeInsets.only(
                                             left: 15,
                                             bottom: 11,
-                                            top: 11,
+                                            top: 15,
                                             right: 15),
                                         hintStyle: TextStyle(
                                             color: greyColor, fontSize: 12),
-                                        hintText: "03 061234567".tr),
+                                        hintText: "03001234567".tr),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(5.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    color: Colors.grey[100],
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey[400]!,
+                                        offset: Offset(0.0, 1.0), //(x,y)
+                                        blurRadius: 6.0,
+                                      ),
+                                    ],
+                                  ),
+                                  child: TextFormField(
+                                    cursorColor: Colors.black,
+                                    controller: controller.emailCon,
+                                    keyboardType: TextInputType.text,
+                                    textInputAction: TextInputAction.next,
+                                    decoration: new InputDecoration(
+                                        prefixIcon: Icon(
+                                          Icons.email,
+                                          color: greyColor,
+                                        ),
+                                        border: InputBorder.none,
+                                        focusedBorder: InputBorder.none,
+                                        enabledBorder: InputBorder.none,
+                                        errorBorder: InputBorder.none,
+                                        disabledBorder: InputBorder.none,
+                                        contentPadding: EdgeInsets.only(
+                                            left: 15,
+                                            bottom: 11,
+                                            top: 15,
+                                            right: 15),
+                                        hintStyle: TextStyle(
+                                            color: greyColor, fontSize: 12),
+                                        hintText: "Email".tr),
                                   ),
                                 ),
                               ),
@@ -350,7 +353,7 @@ class _SignUpState extends State<SignUp> {
                                         contentPadding: EdgeInsets.only(
                                             left: 15,
                                             bottom: 11,
-                                            top: 11,
+                                            top: 15,
                                             right: 15),
                                         hintStyle: TextStyle(
                                             color: greyColor, fontSize: 12),
@@ -412,7 +415,7 @@ class _SignUpState extends State<SignUp> {
                                         contentPadding: EdgeInsets.only(
                                             left: 15,
                                             bottom: 11,
-                                            top: 11,
+                                            top: 15,
                                             right: 15),
                                         hintStyle: TextStyle(
                                             color: greyColor, fontSize: 12),
@@ -421,7 +424,31 @@ class _SignUpState extends State<SignUp> {
                                 ),
                               ),
                               SizedBox(
-                                height: 30,
+                                height: 10,
+                              ),
+                              Row(
+                                children: [
+                                  Checkbox(
+                                    value: istermsCheck,
+                                    onChanged: (v) {
+                                      setState(() {
+                                        istermsCheck = v!;
+                                      });
+                                    },
+                                    activeColor: blueColor,
+                                    visualDensity: VisualDensity.comfortable,
+                                  ),
+                                  SizedBox(
+                                    width: width * 0.030,
+                                  ),
+                                  Text(
+                                    'I agree to Dialboxx Terms & Conditions',
+                                    style: TextStyle(fontSize: 12),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
                               ),
                               Container(
                                 // margin: EdgeInsets.only(left: 30,right: 30),
@@ -433,32 +460,31 @@ class _SignUpState extends State<SignUp> {
                                     if (controller.fNameCon.text.isNotEmpty) {
                                       if (controller.lNameCon.text.isNotEmpty) {
                                         if (controller
-                                            .emailCon.text.isNotEmpty) {
+                                            .phoneCon.text.isNotEmpty) {
                                           if (controller
-                                              .phoneCon.text.isNotEmpty) {
-                                            if (controller
-                                                .passwordCon.text.isNotEmpty) {
-                                              if (controller.passwordCon.text ==
-                                                  controller.confirmPasswordCon
-                                                      .text) {
+                                              .passwordCon.text.isNotEmpty) {
+                                            if (controller.passwordCon.text ==
+                                                controller
+                                                    .confirmPasswordCon.text) {
+                                              if (istermsCheck) {
                                                 printlog('button clicked');
                                                 controller.loading.value = true;
                                                 ApiUtils.signUpApi(controller);
                                               } else {
                                                 snackBarFailer(
-                                                    'Please did\'t match');
+                                                    'Please confirm Terms and Condition');
                                               }
                                             } else {
                                               snackBarFailer(
-                                                  'Please enter password first');
+                                                  'Password didn\'t match');
                                             }
                                           } else {
                                             snackBarFailer(
-                                                'Please enter phone number first');
+                                                'Please enter password first');
                                           }
                                         } else {
                                           snackBarFailer(
-                                              'Please enter email first');
+                                              'Please enter phone number first');
                                         }
                                       } else {
                                         snackBarFailer(
@@ -470,10 +496,57 @@ class _SignUpState extends State<SignUp> {
                                     // Get.to(PhoneVerification());
                                   },
                                   child: Text(
-                                    "CREATE ACCOUNT".tr,
+                                    "Create Account".tr,
                                     style: TextStyle(color: Colors.white),
                                   ),
                                 ),
+                              ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      launchURL(
+                                          "https://dialboxx.pk/front/terms");
+                                    },
+                                    child: Text(
+                                      'Terms ',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: blueColor,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    '&',
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: blueColor,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      launchURL(
+                                          "https://dialboxx.pk/front/privacy");
+                                    },
+                                    child: Text(
+                                      ' Privacy Policy',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: blueColor,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
                               ),
                               SizedBox(
                                 height: 30,
@@ -489,7 +562,7 @@ class _SignUpState extends State<SignUp> {
                                     ),
                                   ),
                                   Text(
-                                    'Or Sign Up with'.tr,
+                                    'Or Sign up with'.tr,
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w500),
@@ -508,8 +581,7 @@ class _SignUpState extends State<SignUp> {
                                 height: 30,
                               ),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Card(
                                     elevation: 3,
@@ -522,6 +594,9 @@ class _SignUpState extends State<SignUp> {
                                       ),
                                     ),
                                   ),
+                                  SizedBox(
+                                    width: width * 0.1,
+                                  ),
                                   Card(
                                     elevation: 3,
                                     child: Padding(
@@ -533,17 +608,6 @@ class _SignUpState extends State<SignUp> {
                                       ),
                                     ),
                                   ),
-                                  Card(
-                                    elevation: 3,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Image(
-                                        height: height / 30,
-                                        image: AssetImage(
-                                            'assets/icons/twitter.png'),
-                                      ),
-                                    ),
-                                  )
                                 ],
                               ),
                               SizedBox(

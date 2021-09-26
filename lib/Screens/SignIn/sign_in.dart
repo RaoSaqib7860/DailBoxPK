@@ -1,16 +1,25 @@
+import 'dart:convert';
+import 'dart:developer';
 import 'package:animate_do/animate_do.dart';
 import 'package:dail_box/AppUtils.dart/APiUtilsForAuth.dart';
+import 'package:dail_box/AppUtils.dart/BaseUtils.dart';
+import 'package:dail_box/AppUtils.dart/LocationData.dart';
+import 'package:dail_box/AppUtils.dart/LogsUtils.dart';
 import 'package:dail_box/AppUtils.dart/SizedConfig.dart';
 import 'package:dail_box/AppUtils.dart/SnackBarUtils.dart';
 import 'package:dail_box/Screens/ForgotPassword/forgot_password.dart';
-import 'package:dail_box/Screens/HomeScreen/home_screen.dart';
 import 'package:dail_box/Screens/SignUp/sign_up.dart';
 import 'package:dail_box/util/colors.dart';
+import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'SignInController.dart';
 
 class SignIn extends StatefulWidget {
@@ -19,9 +28,18 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  final controller = Get.put(SignInController());
+
+  @override
+  void initState() {
+    GetStorage storage = GetStorage();
+    storage.write('isFirst', 'true');
+    getLocation();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(SignInController());
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -53,17 +71,14 @@ class _SignInState extends State<SignIn> {
                       ),
                       onPressed: () {},
                     ),
-                    InkWell(
-                      onTap: () {
-                        Get.offAll(HomeScreen);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Skip'.tr,
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Skip'.tr,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600),
                       ),
                     )
                   ],
@@ -79,14 +94,14 @@ class _SignInState extends State<SignIn> {
                             height: height / 40,
                           ),
                           Text(
-                            'SIGN IN'.tr,
+                            'Sign in'.tr,
                             style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.w600,
                                 letterSpacing: 2),
                           ),
                           SizedBox(
-                            height: height / 20,
+                            height: height / 30,
                           ),
                           ClipRRect(
                             borderRadius: BorderRadius.circular(5.0),
@@ -109,7 +124,7 @@ class _SignInState extends State<SignIn> {
                                 textInputAction: TextInputAction.next,
                                 decoration: new InputDecoration(
                                     prefixIcon: Icon(
-                                      Icons.email,
+                                      Icons.phone,
                                       color: greyColor,
                                     ),
                                     border: InputBorder.none,
@@ -120,11 +135,11 @@ class _SignInState extends State<SignIn> {
                                     contentPadding: EdgeInsets.only(
                                         left: 15,
                                         bottom: 11,
-                                        top: 11,
+                                        top: 15,
                                         right: 15),
                                     hintStyle: TextStyle(
                                         color: greyColor, fontSize: 12),
-                                    hintText: "Email or phone".tr),
+                                    hintText: "Email or Phone".tr),
                               ),
                             ),
                           ),
@@ -178,7 +193,7 @@ class _SignInState extends State<SignIn> {
                                       contentPadding: EdgeInsets.only(
                                           left: 15,
                                           bottom: 11,
-                                          top: 11,
+                                          top: 15,
                                           right: 15),
                                       hintStyle: TextStyle(
                                           color: greyColor, fontSize: 12),
@@ -197,7 +212,7 @@ class _SignInState extends State<SignIn> {
                                 Get.to(ForgotPassword());
                               },
                               child: Text(
-                                'Forgot Password ?'.tr,
+                                'Forgot Password'.tr,
                                 style: TextStyle(
                                     color: redColor,
                                     fontWeight: FontWeight.w600,
@@ -249,7 +264,7 @@ class _SignInState extends State<SignIn> {
                                 ),
                               ),
                               Text(
-                                'Or Sign in with'.tr,
+                                'or Sign in with'.tr,
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.w500),
@@ -268,41 +283,54 @@ class _SignInState extends State<SignIn> {
                             height: 30,
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Card(
-                                elevation: 3,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Image(
-                                    height: height / 30,
-                                    image:
-                                        AssetImage('assets/icons/google.png'),
+                              InkWell(
+                                onTap: () {
+                                  signInWithGoogle();
+                                },
+                                child: Card(
+                                  elevation: 3,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Image(
+                                      height: height / 30,
+                                      image:
+                                          AssetImage('assets/icons/google.png'),
+                                    ),
                                   ),
                                 ),
                               ),
-                              Card(
-                                elevation: 3,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Image(
-                                    height: height / 30,
-                                    image:
-                                        AssetImage('assets/icons/facebook.png'),
+                              SizedBox(
+                                width: width * 0.1,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  _fblogin();
+                                },
+                                child: Card(
+                                  elevation: 3,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Image(
+                                      height: height / 30,
+                                      image: AssetImage(
+                                          'assets/icons/facebook.png'),
+                                    ),
                                   ),
                                 ),
                               ),
-                              Card(
-                                elevation: 3,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Image(
-                                    height: height / 30,
-                                    image:
-                                        AssetImage('assets/icons/twitter.png'),
-                                  ),
-                                ),
-                              )
+                              // Card(
+                              //   elevation: 3,
+                              //   child: Padding(
+                              //     padding: const EdgeInsets.all(10.0),
+                              //     child: Image(
+                              //       height: height / 30,
+                              //       image:
+                              //           AssetImage('assets/icons/twitter.png'),
+                              //     ),
+                              //   ),
+                              // )
                             ],
                           ),
                           SizedBox(
@@ -312,14 +340,14 @@ class _SignInState extends State<SignIn> {
                             alignment: Alignment.center,
                             child: RichText(
                               text: new TextSpan(
-                                  text: 'Don\'t have an account ? '.tr,
+                                  text: 'Donʼt have an account ? '.tr,
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 16,
                                       fontWeight: FontWeight.w400),
                                   children: [
                                     new TextSpan(
-                                      text: ' Sign Up '.tr,
+                                      text: ' Sign up '.tr,
                                       style: TextStyle(
                                           color: blueColor,
                                           fontWeight: FontWeight.bold),
@@ -361,5 +389,70 @@ class _SignInState extends State<SignIn> {
         ),
       ),
     );
+  }
+
+  Future signInWithGoogle({String? type}) async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleSignInAccount =
+        await googleSignIn.signIn();
+    final googleSignInAuthentication =
+        await googleSignInAccount!.authentication;
+    printlog(
+        'googleSignInAuthentication = ${googleSignInAuthentication.accessToken}');
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
+
+    final UserCredential authResult =
+        await _auth.signInWithCredential(credential);
+    final User? user = authResult.user;
+    printlog(
+        'email = > ${user!.email} name = > ${user.displayName} unique id = > ${user.uid} unique id = > ${user.photoURL} phone number = > ${user.phoneNumber}}');
+    Map map = {
+      'email_id': '${user.email}',
+      'social_id': '${user.uid}',
+      'fullname': '${user.displayName}',
+      'f_name': '${user.displayName}'.split(' ')[0],
+      'l_name': '${user.displayName}'.split(' ')[1],
+      'picture': '${user.photoURL}',
+      'login_type': 'google',
+      'device_type': device_type,
+      'device_token': firebaseToken,
+    };
+    controller.loading.value = true;
+    ApiUtils.socialloginApi(controller: controller, mapData: map);
+  }
+
+  Future<void> signOutGoogle() async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    await googleSignIn.signOut();
+
+    print("User Signed Out");
+  }
+
+  Future<Null> _fblogin() async {
+    final LoginResult result = await FacebookAuth.instance.login();
+    if (result.status == LoginStatus.success) {
+      final response = await Dio().get(
+          'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,picture,email&access_token=${result.accessToken!.token}');
+      log('fb responce = ${response.data}');
+      Map map = json.decode(response.data);
+      log('fb responce = $map');
+      Map mapdata = {
+        'email_id': '${map['email']}',
+        'social_id': '${map['id']}',
+        'fullname': '${map['name']}',
+        'f_name': '${map['first_name']}',
+        'l_name': '${map['last_name']}',
+        'picture': '${map['picture']['data']['url']}',
+        'login_type': 'fb',
+        'device_type': device_type,
+        'device_token': firebaseToken,
+      };
+      controller.loading.value = true;
+      ApiUtils.socialloginApi(controller: controller, mapData: mapdata);
+    }
   }
 }

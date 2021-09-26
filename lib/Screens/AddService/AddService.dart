@@ -1,9 +1,11 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:dail_box/AppUtils.dart/ApiUtilsForAll.dart';
 import 'package:dail_box/AppUtils.dart/AppBarGlobal.dart';
+import 'package:dail_box/AppUtils.dart/LogsUtils.dart';
 import 'package:dail_box/AppUtils.dart/SnackBarUtils.dart';
 import 'package:dail_box/Screens/AddProduct.dart/AddProductController.dart';
 import 'package:dail_box/Screens/BuisnessRegistration.dart/BuisnessRegistration.dart';
+import 'package:dail_box/Screens/bottomNav/Home/HomeController.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +13,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 class AddService extends StatefulWidget {
-  const AddService({Key? key}) : super(key: key);
+  final Map? mapData;
+
+  const AddService({Key? key, this.mapData = const {}}) : super(key: key);
 
   @override
   _AddServiceState createState() => _AddServiceState();
@@ -19,16 +23,26 @@ class AddService extends StatefulWidget {
 
 class _AddServiceState extends State<AddService> {
   final controller = Get.put(AddProductController());
+  HomeController homecontroller = Get.find<HomeController>();
 
   @override
   void initState() {
+    printlog('Data for update = ${widget.mapData}');
+    if (widget.mapData!.isNotEmpty) {
+      controller.sNameCon.text = widget.mapData!['s_name'];
+      controller.sDetailsCon.text = widget.mapData!['s_details'];
+      controller.sPriceCon.text = widget.mapData!['s_cost'];
+    }
+    controller.listofCity.value = homecontroller.listofIndustry;
     getApiData();
     super.initState();
   }
+
   getApiData() async {
     List list = await ApiUtilsForAll.getgetmybusinesslist();
     controller.listofBuisness.value = list;
   }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, size) {
@@ -95,6 +109,50 @@ class _AddServiceState extends State<AddService> {
                             ),
                           ),
                           SizedBox(
+                            height: height * 0.020,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: Colors.grey[200],
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  offset: Offset(0.0, 3),
+                                  //(x,y)
+                                  blurRadius: 5.0,
+                                ),
+                              ],
+                            ),
+                            height: height * 0.060,
+                            width: width,
+                            padding:
+                                EdgeInsets.symmetric(horizontal: width * 0.030),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton<dynamic>(
+                                  items: controller.listofCity.map((value) {
+                                    return DropdownMenuItem<String>(
+                                      value: '$value',
+                                      child: Text('${value['city']}'),
+                                      onTap: () {
+                                        controller
+                                                .currentlistofCityIndex.value =
+                                            controller.listofCity
+                                                .indexOf(value);
+                                        controller.listofCityHint.value =
+                                            value['city'];
+                                      },
+                                    );
+                                  }).toList(),
+                                  hint: Text(
+                                    controller.listofCityHint.value,
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                  onChanged: (_) {},
+                                  isExpanded: true),
+                            ),
+                          ),
+                          SizedBox(
                             height: height * 0.030,
                           ),
                           TextFromFieldsCustom(
@@ -106,7 +164,7 @@ class _AddServiceState extends State<AddService> {
                           ),
                           TextFromFieldsCustom(
                             controller: controller.sPriceCon,
-                            hint: 'Service Cost'.tr,
+                            hint: 'Service Starting Cost'.tr,
                             isNumber: true,
                           ),
                           SizedBox(
@@ -121,7 +179,7 @@ class _AddServiceState extends State<AddService> {
                           ),
                           FadeInUpBig(
                             child: InkWell(
-                              onTap: () {
+                              onTap: () async {
                                 if (controller.selectserviceHint.value !=
                                     'Select Business'.tr) {
                                   if (controller.sNameCon.text.isNotEmpty) {
@@ -129,11 +187,22 @@ class _AddServiceState extends State<AddService> {
                                       if (controller
                                           .sDetailsCon.text.isNotEmpty) {
                                         controller.loading.value = true;
-                                        ApiUtilsForAll.getaddservice(
-                                            controller,
-                                            controller.listofBuisness[controller
-                                                .buisnessIDforservice
-                                                .value]['business_id']);
+                                        if (widget.mapData!.isNotEmpty) {
+                                          ApiUtilsForAll.getupdateServices(
+                                              controller,
+                                              controller.listofBuisness[
+                                                  controller
+                                                      .buisnessIDforservice
+                                                      .value]['business_id'],
+                                              '${widget.mapData!['id']}');
+                                        } else {
+                                          ApiUtilsForAll.getaddservice(
+                                              controller,
+                                              controller.listofBuisness[
+                                                  controller
+                                                      .buisnessIDforservice
+                                                      .value]['business_id']);
+                                        }
                                       } else {
                                         snackBarFailer(
                                             'Please select product details first');
@@ -155,7 +224,9 @@ class _AddServiceState extends State<AddService> {
                                 width: width,
                                 child: Center(
                                   child: Text(
-                                    'Add Service'.tr,
+                                    widget.mapData!.isNotEmpty
+                                        ? 'Update Service'.tr
+                                        : 'Add Service'.tr,
                                     style: TextStyle(
                                         color: Colors.white,
                                         letterSpacing: 0.5),

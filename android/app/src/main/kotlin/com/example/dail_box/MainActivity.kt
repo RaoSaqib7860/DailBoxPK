@@ -1,4 +1,4 @@
-package com.example.dail_box
+package com.dialbox.pk
 
 import io.flutter.embedding.android.FlutterActivity
 

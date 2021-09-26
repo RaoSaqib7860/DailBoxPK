@@ -67,13 +67,13 @@ class _AdvertiseState extends State<Advertise> {
                 SizedBox(
                   height: height * 0.030,
                 ),
-                Expanded(
-                  child: Center(
+                Center(
+                  child: InkWell(
                     child: Container(
                       padding: EdgeInsets.all(7),
                       decoration: BoxDecoration(color: blueColor),
                       child: Text(
-                        'advertise@dailboxx.pk'.tr,
+                        'advertise@dialboxx.pk'.tr,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
@@ -82,7 +82,7 @@ class _AdvertiseState extends State<Advertise> {
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

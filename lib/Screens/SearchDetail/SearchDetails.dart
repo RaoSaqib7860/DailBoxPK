@@ -2,12 +2,18 @@ import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:dail_box/AppUtils.dart/APiUtilsForAuth.dart';
+import 'package:dail_box/AppUtils.dart/ApiUtilsForAll.dart';
+import 'package:dail_box/AppUtils.dart/LogsUtils.dart';
 import 'package:dail_box/AppUtils.dart/ShimmerEffect.dart';
 import 'package:dail_box/AppUtils.dart/SnackBarUtils.dart';
+import 'package:dail_box/Screens/AddProduct.dart/AddProduct.dart';
+import 'package:dail_box/Screens/AddService/AddService.dart';
 import 'package:dail_box/Screens/ImagePreview/ImagePreview.dart';
+import 'package:dail_box/Screens/RecentListingDetails/RecentListingdDetails.dart';
 import 'package:dail_box/Screens/SearchDetail/SearchDetailsController.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -15,9 +21,17 @@ class SearchDetails extends StatefulWidget {
   final String? buisinessId;
   final String? fromApi;
   final String? name;
+  final String? b_ID;
+  final Map? userId;
 
-  const SearchDetails({Key? key, this.buisinessId, this.fromApi, this.name})
-      : super(key: key);
+  const SearchDetails({
+    Key? key,
+    this.buisinessId,
+    this.fromApi,
+    this.name,
+    this.b_ID,
+    this.userId,
+  }) : super(key: key);
 
   @override
   _SearchDetailsState createState() => _SearchDetailsState();
@@ -31,6 +45,7 @@ class _SearchDetailsState extends State<SearchDetails> {
   void initState() {
     controller.listofData.clear();
     controller.listofReview.clear();
+    ApiUtils.getgetbussniesname(controller: controller, b_id: widget.b_ID);
     if (widget.fromApi == 'product'.tr) {
       ApiUtils.getgetproduct(controller: controller, id: widget.buisinessId);
       ApiUtils.getgetproductallreview(
@@ -58,535 +73,846 @@ class _SearchDetailsState extends State<SearchDetails> {
             },
           ),
           title: Text(
-            'Details'.tr,
+            widget.fromApi == 'service'
+                ? 'Service Details'
+                : 'Product Details'.tr,
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
+          actions: [
+            Obx(() => storage.read('userId') != controller.userId.value
+                ? SizedBox()
+                : Row(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          if (widget.fromApi == 'service') {
+                            Get.to(AddService(
+                              mapData: controller.listofData[0],
+                            ));
+                          } else {
+                            Get.to(AddProduct(
+                              mapData: controller.listofData[0],
+                              buisinessID: widget.buisinessId,
+                              ProductID: widget.buisinessId,
+                            ));
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Center(child: Text('Update')),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          controller.loading.value = true;
+                          if (widget.fromApi == 'service') {
+                            ApiUtilsForAll.getserviceRemove(
+                                controller: controller,
+                                b_id: '${controller.listofData[0]['id']}');
+                          } else {
+                            ApiUtilsForAll.getproductRemove(
+                                controller: controller,
+                                b_id: '${controller.listofData[0]['id']}');
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ))
+          ],
           centerTitle: false,
           backgroundColor: blueColor,
         ),
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: width * 0.030),
-          child: Obx(
-            () => controller.listofData.isEmpty
-                ? SizedBox(
-                    height: height,
-                    width: width,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: blueColor,
+        body: Stack(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: width * 0.030),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 15,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Obx(() => Text(
+                                '${controller.nameofBuiseness}',
+                                overflow: TextOverflow.ellipsis,
+                              )),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 5),
+                            child: Icon(
+                              Icons.arrow_forward_ios,
+                              size: 17,
+                              color: blueColor,
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              '${widget.name}',
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                  )
-                : widget.fromApi == 'service'.tr
-                    ? SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: height * 0.020,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '${controller.listofData[0]['s_name']}',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
+                    Obx(
+                      () => controller.listofData.isEmpty
+                          ? SizedBox(
+                              height: height,
+                              width: width,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  color: blueColor,
                                 ),
-                                storage.read('userId') ==
-                                        '${controller.listofData[0]['user_id']}'
-                                    ? SizedBox()
-                                    : InkWell(
-                                        onTap: () {
-                                          ratingDailog(
-                                              productId: widget.buisinessId);
-                                        },
-                                        child: Container(
-                                          height: height * 0.040,
-                                          width: width * 0.350,
-                                          child: Center(
-                                            child: Text(
-                                              'Rating this item'.tr,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 12),
-                                            ),
-                                          ),
-                                          decoration: BoxDecoration(
-                                              color: blueColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(5)),
-                                        ),
-                                      ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: height * 0.010,
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  '${controller.listofData[0]['rating'] ?? 0.0}',
-                                  style:
-                                      TextStyle(fontSize: 12, color: blueColor),
-                                ),
-                                SizedBox(
-                                  width: width * 0.020,
-                                ),
-                                Row(
-                                  children: [1, 2, 3, 4, 5].map((e) {
-                                    int value = double.parse(
-                                            '${controller.listofData[0]['rating'] ?? '0.0'}')
-                                        .toInt();
-                                    return value >= e
-                                        ? InkWell(
-                                            child: Icon(
-                                              Icons.star,
-                                              size: 16,
-                                              color: Colors.yellow[700],
-                                            ),
-                                          )
-                                        : InkWell(
-                                            child: Icon(
-                                              Icons.star_border,
-                                              size: 16,
-                                              color: Colors.yellow[700],
-                                            ),
-                                          );
-                                  }).toList(),
-                                ),
-                                SizedBox(
-                                  width: width * 0.020,
-                                ),
-                                Text(
-                                  'reviews ${controller.listofData[0]['total_review']}',
-                                  style: TextStyle(
-                                      fontSize: 12, color: Colors.black26),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: height * 0.010,
-                            ),
-                            Text(
-                              '${controller.listofData[0]['s_details']}',
-                              style: TextStyle(
-                                fontSize: 11,
                               ),
-                            ),
-                            SizedBox(
-                              height: height * 0.010,
-                            ),
-                            Text(
-                              'Price : ${controller.listofData[0]['s_cost']}/-',
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: blueColor),
-                            ),
-                            SizedBox(
-                              height: height * 0.020,
-                            ),
-                            Text(
-                              'Rating and Reviews'.tr,
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: height * 0.010,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: controller.listofReview.map((element) {
-                                return Padding(
-                                  padding: EdgeInsets.only(bottom: 10),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
+                            )
+                          : widget.fromApi == 'service'
+                              ? SingleChildScrollView(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      CircularProfileAvatar(
-                                        'https://www.dailboxx.websitescare.com/upload/profile/${element['user_profile']}',
-                                        elevation: 2,
-                                        radius: 20,
-                                      ),
                                       SizedBox(
-                                        width: width * 0.040,
+                                        height: height * 0.020,
                                       ),
-                                      Expanded(
-                                        child: Column(
-                                          children: [
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                            Text(
-                                              '${element['user_name']}',
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              '${controller.listofData[0]['s_name']}',
+                                              overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
-                                                  fontSize: 12,
+                                                  fontSize: 16,
                                                   fontWeight: FontWeight.bold),
                                             ),
-                                            Row(
-                                              children:
-                                                  [1, 2, 3, 4, 5].map((e) {
-                                                int value = int.parse(
-                                                    '${element['service_rating'] ?? '0'}');
-                                                return value >= e
-                                                    ? InkWell(
-                                                        child: Icon(
-                                                          Icons.star,
-                                                          size: 16,
-                                                          color: Colors
-                                                              .yellow[700],
-                                                        ),
-                                                      )
-                                                    : InkWell(
-                                                        child: Icon(
-                                                          Icons.star_border,
-                                                          size: 16,
-                                                          color: Colors
-                                                              .yellow[700],
-                                                        ),
-                                                      );
-                                              }).toList(),
-                                            ),
-                                            Text(
-                                              '${element['service_rview']}',
-                                              style: TextStyle(
-                                                fontSize: 10,
+                                          ),
+                                          storage.read('userId') ==
+                                                  '${controller.listofData[0]['user_id']}'
+                                              ? SizedBox()
+                                              : InkWell(
+                                                  onTap: () {
+                                                    ratingDailog(
+                                                        productId:
+                                                            widget.buisinessId);
+                                                  },
+                                                  child: Container(
+                                                    height: height * 0.040,
+                                                    width: width * 0.350,
+                                                    child: Center(
+                                                      child: Text(
+                                                        'Rate Service'.tr,
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 12),
+                                                      ),
+                                                    ),
+                                                    decoration: BoxDecoration(
+                                                        color: blueColor,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5)),
+                                                  ),
+                                                ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.010,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            '${controller.listofData[0]['rating'] ?? 0.0}',
+                                            style: TextStyle(
+                                                fontSize: 12, color: blueColor),
+                                          ),
+                                          SizedBox(
+                                            width: width * 0.020,
+                                          ),
+                                          Row(
+                                            children: [1, 2, 3, 4, 5].map((e) {
+                                              int value = double.parse(
+                                                      '${controller.listofData[0]['rating'] ?? '0.0'}')
+                                                  .toInt();
+                                              return value >= e
+                                                  ? InkWell(
+                                                      child: Icon(
+                                                        Icons.star,
+                                                        size: 16,
+                                                        color:
+                                                            Colors.yellow[700],
+                                                      ),
+                                                    )
+                                                  : InkWell(
+                                                      child: Icon(
+                                                        Icons.star_border,
+                                                        size: 16,
+                                                        color:
+                                                            Colors.yellow[700],
+                                                      ),
+                                                    );
+                                            }).toList(),
+                                          ),
+                                          SizedBox(
+                                            width: width * 0.020,
+                                          ),
+                                          Text(
+                                            'Reviews ${controller.listofData[0]['total_review']}',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.black26),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.010,
+                                      ),
+                                      Text(
+                                        '${controller.listofData[0]['s_details']}',
+                                        style: TextStyle(
+                                          fontSize: 11,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.010,
+                                      ),
+                                      Text(
+                                        'Starting Cost : ${controller.listofData[0]['s_cost']} RS/-',
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            color: blueColor),
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.010,
+                                      ),
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'City :',
+                                            style: TextStyle(color: blueColor),
+                                          ),
+                                          Expanded(
+                                            child: Text(controller
+                                                    .listofData.isEmpty
+                                                ? ''
+                                                : ' ${controller.listofData[0]['service_cities']}'),
+                                          )
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.010,
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          // Get.to(RecentListingsDetails(
+                                          //   id: controller
+                                          //       .listofmostrecentlisting[
+                                          //   i]['id'],
+                                          //   businessId: controller
+                                          //       .listofmostrecentlisting[
+                                          //   i]['business_id'],
+                                          //   name: controller
+                                          //       .listofmostrecentlisting[
+                                          //   i]['business_name'],
+                                          // ));
+                                          printlog(
+                                              '${controller.listAllData[0]['id']}');
+                                          printlog(
+                                              '${controller.listAllData[0]['business_id']}');
+                                          printlog('${widget.name}');
+                                          Get.to(RecentListingsDetails(
+                                            id: controller.listAllData[0]['id'],
+                                            businessId: controller
+                                                .listAllData[0]['business_id'],
+                                            name: controller.listAllData[0]
+                                                ['business_name'],
+                                          ));
+                                        },
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.all(10),
+                                              child: Center(
+                                                child: Text(
+                                                  'Go to Business'.tr,
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 12),
+                                                ),
                                               ),
+                                              decoration: BoxDecoration(
+                                                  color: blueColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(5)),
                                             ),
                                           ],
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
                                         ),
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.020,
+                                      ),
+                                      Text(
+                                        'Rating & Reviews'.tr,
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.010,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: controller.listofReview
+                                            .map((element) {
+                                          return Padding(
+                                            padding:
+                                                EdgeInsets.only(bottom: 10),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                CircularProfileAvatar(
+                                                  '${element['user_profile']}',
+                                                  elevation: 2,
+                                                  radius: 20,
+                                                ),
+                                                SizedBox(
+                                                  width: width * 0.040,
+                                                ),
+                                                Expanded(
+                                                  child: Column(
+                                                    children: [
+                                                      SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      Text(
+                                                        '${element['user_name']}',
+                                                        style: TextStyle(
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          1,
+                                                          2,
+                                                          3,
+                                                          4,
+                                                          5
+                                                        ].map((e) {
+                                                          int value = int.parse(
+                                                              '${element['service_rating'] ?? '0'}');
+                                                          return value >= e
+                                                              ? InkWell(
+                                                                  child: Icon(
+                                                                    Icons.star,
+                                                                    size: 16,
+                                                                    color: Colors
+                                                                            .yellow[
+                                                                        700],
+                                                                  ),
+                                                                )
+                                                              : InkWell(
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .star_border,
+                                                                    size: 16,
+                                                                    color: Colors
+                                                                            .yellow[
+                                                                        700],
+                                                                  ),
+                                                                );
+                                                        }).toList(),
+                                                      ),
+                                                      Text(
+                                                        '${element['service_rview']}',
+                                                        style: TextStyle(
+                                                          fontSize: 10,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        }).toList(),
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.040,
                                       ),
                                     ],
                                   ),
-                                );
-                              }).toList(),
-                            ),
-                            SizedBox(
-                              height: height * 0.040,
-                            ),
-                          ],
-                        ),
-                      )
-                    : SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: height * 0.020,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Get.to(ImagePreview(
-                                  imagePath:
-                                      'https://dailboxx.websitescare.com/upload/products/${controller.listofData[0]['pimage1']}',
-                                ));
-                              },
-                              child: Container(
-                                height: height * 0.3,
-                                width: width,
-                                decoration: BoxDecoration(
-                                    border:
-                                        Border.all(width: 1, color: blueColor),
-                                    borderRadius: BorderRadius.circular(8)),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: CachedNetworkImage(
-                                    height: double.infinity,
-                                    width: width * 0.360,
-                                    fit: BoxFit.cover,
-                                    imageUrl:
-                                        'https://dailboxx.websitescare.com/upload/products/${controller.listofData[0]['pimage1']}',
-                                    placeholder: (context, url) => ShimerEffect(
-                                      child: SizedBox(
-                                        height: double.infinity,
-                                        width: double.infinity,
+                                )
+                              : SingleChildScrollView(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: height * 0.020,
                                       ),
-                                    ),
-                                    errorWidget: (context, url, error) =>
-                                        Icon(Icons.error),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: height * 0.020,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Get.to(ImagePreview(
-                                      imagePath:
-                                          'https://dailboxx.websitescare.com/upload/products/${controller.listofData[0]['pimage2']}',
-                                    ));
-                                  },
-                                  child: Container(
-                                    height: height * 0.1,
-                                    width: width * 0.3,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 1, color: blueColor),
-                                        borderRadius: BorderRadius.circular(8)),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8),
-                                      child: CachedNetworkImage(
-                                        height: double.infinity,
-                                        width: width * 0.360,
-                                        fit: BoxFit.cover,
-                                        imageUrl:
-                                            'https://dailboxx.websitescare.com/upload/products/${controller.listofData[0]['pimage2']}',
-                                        placeholder: (context, url) =>
-                                            ShimerEffect(
-                                          child: SizedBox(
-                                            height: double.infinity,
-                                            width: double.infinity,
-                                          ),
-                                        ),
-                                        errorWidget: (context, url, error) =>
-                                            Icon(Icons.error),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: width * 0.030,
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Get.to(ImagePreview(
-                                      imagePath:
-                                          'https://dailboxx.websitescare.com/upload/products/${controller.listofData[0]['pimage3']}',
-                                    ));
-                                  },
-                                  child: Container(
-                                    height: height * 0.1,
-                                    width: width * 0.3,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 1, color: blueColor),
-                                        borderRadius: BorderRadius.circular(8)),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8),
-                                      child: CachedNetworkImage(
-                                        height: double.infinity,
-                                        width: width * 0.360,
-                                        fit: BoxFit.cover,
-                                        imageUrl:
-                                            'https://dailboxx.websitescare.com/upload/products/${controller.listofData[0]['pimage3']}',
-                                        placeholder: (context, url) =>
-                                            ShimerEffect(
-                                          child: SizedBox(
-                                            height: double.infinity,
-                                            width: double.infinity,
-                                          ),
-                                        ),
-                                        errorWidget: (context, url, error) =>
-                                            Icon(Icons.error),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: height * 0.020,
-                            ),
-                            SizedBox(
-                              height: height * 0.020,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '${controller.listofData[0]['pname']}',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                storage.read('userId') ==
-                                        '${controller.listofData[0]['user_id']}'
-                                    ? SizedBox()
-                                    : InkWell(
+                                      InkWell(
                                         onTap: () {
-                                          ratingDailog(
-                                              productId: widget.buisinessId);
+                                          Get.to(ImagePreview(
+                                            listofImage: [
+                                              '${controller.listofData[0]['pimage1']}',
+                                              '${controller.listofData[0]['pimage2']}',
+                                              '${controller.listofData[0]['pimage3']}'
+                                            ],
+                                          ));
                                         },
                                         child: Container(
-                                          height: height * 0.040,
-                                          width: width * 0.350,
-                                          child: Center(
-                                            child: Text(
-                                              'Rating this item'.tr,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 12),
+                                          height: height * 0.3,
+                                          width: width,
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  width: 1, color: blueColor),
+                                              borderRadius:
+                                                  BorderRadius.circular(8)),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            child: CachedNetworkImage(
+                                              height: double.infinity,
+                                              width: width * 0.360,
+                                              fit: BoxFit.cover,
+                                              imageUrl:
+                                                  '${controller.listofData[0]['pimage1']}',
+                                              placeholder: (context, url) =>
+                                                  ShimerEffect(
+                                                child: SizedBox(
+                                                  height: double.infinity,
+                                                  width: double.infinity,
+                                                ),
+                                              ),
+                                              errorWidget: (context, url,
+                                                      error) =>
+                                                  Image.network(
+                                                      'http://dailboxx.websitescare.com/upload/appnoimage.png'),
                                             ),
                                           ),
-                                          decoration: BoxDecoration(
-                                              color: blueColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(5)),
                                         ),
-                                      ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: height * 0.010,
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  '${controller.listofData[0]['rating'] ?? 0.0}',
-                                  style:
-                                      TextStyle(fontSize: 12, color: blueColor),
-                                ),
-                                SizedBox(
-                                  width: width * 0.020,
-                                ),
-                                Row(
-                                  children: [1, 2, 3, 4, 5].map((e) {
-                                    int value = double.parse(
-                                            '${controller.listofData[0]['rating'] ?? '0.0'}')
-                                        .toInt();
-                                    return value >= e
-                                        ? InkWell(
-                                            child: Icon(
-                                              Icons.star,
-                                              size: 16,
-                                              color: Colors.yellow[700],
-                                            ),
-                                          )
-                                        : InkWell(
-                                            child: Icon(
-                                              Icons.star_border,
-                                              size: 16,
-                                              color: Colors.yellow[700],
-                                            ),
-                                          );
-                                  }).toList(),
-                                ),
-                                SizedBox(
-                                  width: width * 0.020,
-                                ),
-                                Text(
-                                  'reviews ${controller.listofData[0]['total_review']}',
-                                  style: TextStyle(
-                                      fontSize: 12, color: Colors.black26),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: height * 0.010,
-                            ),
-                            Text(
-                              '${controller.listofData[0]['p_details']}',
-                              style: TextStyle(
-                                fontSize: 11,
-                              ),
-                            ),
-                            SizedBox(
-                              height: height * 0.010,
-                            ),
-                            Text(
-                              'Price : ${controller.listofData[0]['pprice']}/-',
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: blueColor),
-                            ),
-                            SizedBox(
-                              height: height * 0.020,
-                            ),
-                            Text(
-                              'Rating and Reviews'.tr,
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: height * 0.010,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: controller.listofReview.map((element) {
-                                return Padding(
-                                  padding: EdgeInsets.only(bottom: 10),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      CircularProfileAvatar(
-                                        'https://www.dailboxx.websitescare.com/upload/profile/${element['user_profile']}',
-                                        elevation: 2,
-                                        radius: 20,
                                       ),
                                       SizedBox(
-                                        width: width * 0.040,
+                                        height: height * 0.020,
                                       ),
-                                      Expanded(
-                                        child: Column(
-                                          children: [
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                            Text(
-                                              '${element['user_name']}',
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Row(
-                                              children:
-                                                  [1, 2, 3, 4, 5].map((e) {
-                                                int value = int.parse(
-                                                    '${element['product_rating'] ?? '0'}');
-                                                return value >= e
-                                                    ? InkWell(
-                                                        child: Icon(
-                                                          Icons.star,
-                                                          size: 16,
-                                                          color: Colors
-                                                              .yellow[700],
-                                                        ),
-                                                      )
-                                                    : InkWell(
-                                                        child: Icon(
-                                                          Icons.star_border,
-                                                          size: 16,
-                                                          color: Colors
-                                                              .yellow[700],
-                                                        ),
-                                                      );
-                                              }).toList(),
-                                            ),
-                                            Text(
-                                              '${element['product_rview']}',
-                                              style: TextStyle(
-                                                fontSize: 10,
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              Get.to(ImagePreview(
+                                                listofImage: [
+                                                  '${controller.listofData[0]['pimage1']}',
+                                                  '${controller.listofData[0]['pimage2']}',
+                                                  '${controller.listofData[0]['pimage3']}'
+                                                ],
+                                              ));
+                                            },
+                                            child: Container(
+                                              height: height * 0.1,
+                                              width: width * 0.3,
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      width: 1,
+                                                      color: blueColor),
+                                                  borderRadius:
+                                                      BorderRadius.circular(8)),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                child: CachedNetworkImage(
+                                                  height: double.infinity,
+                                                  width: width * 0.360,
+                                                  fit: BoxFit.cover,
+                                                  imageUrl:
+                                                      '${controller.listofData[0]['pimage2']}',
+                                                  placeholder: (context, url) =>
+                                                      ShimerEffect(
+                                                    child: SizedBox(
+                                                      height: double.infinity,
+                                                      width: double.infinity,
+                                                    ),
+                                                  ),
+                                                  errorWidget: (context, url,
+                                                          error) =>
+                                                      Image.network(
+                                                          'http://dailboxx.websitescare.com/upload/appnoimage.png'),
+                                                ),
                                               ),
                                             ),
-                                          ],
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          ),
+                                          SizedBox(
+                                            width: width * 0.030,
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              Get.to(ImagePreview(
+                                                listofImage: [
+                                                  '${controller.listofData[0]['pimage1']}',
+                                                  '${controller.listofData[0]['pimage2']}',
+                                                  '${controller.listofData[0]['pimage3']}'
+                                                ],
+                                              ));
+                                            },
+                                            child: Container(
+                                              height: height * 0.1,
+                                              width: width * 0.3,
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      width: 1,
+                                                      color: blueColor),
+                                                  borderRadius:
+                                                      BorderRadius.circular(8)),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                child: CachedNetworkImage(
+                                                  height: double.infinity,
+                                                  width: width * 0.360,
+                                                  fit: BoxFit.cover,
+                                                  imageUrl:
+                                                      '${controller.listofData[0]['pimage3']}',
+                                                  placeholder: (context, url) =>
+                                                      ShimerEffect(
+                                                    child: SizedBox(
+                                                      height: double.infinity,
+                                                      width: double.infinity,
+                                                    ),
+                                                  ),
+                                                  errorWidget: (context, url,
+                                                          error) =>
+                                                      Image.network(
+                                                          'http://dailboxx.websitescare.com/upload/appnoimage.png'),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.020,
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.020,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              '${controller.listofData[0]['pname']}',
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          storage.read('userId') ==
+                                                  '${controller.listofData[0]['user_id']}'
+                                              ? SizedBox()
+                                              : InkWell(
+                                                  onTap: () {
+                                                    ratingDailog(
+                                                        productId:
+                                                            widget.buisinessId);
+                                                  },
+                                                  child: Container(
+                                                    height: height * 0.040,
+                                                    width: width * 0.350,
+                                                    child: Center(
+                                                      child: Text(
+                                                        'Rate & Reviews'.tr,
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 12),
+                                                      ),
+                                                    ),
+                                                    decoration: BoxDecoration(
+                                                        color: blueColor,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5)),
+                                                  ),
+                                                ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.010,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            '${controller.listofData[0]['rating'] ?? 0.0}',
+                                            style: TextStyle(
+                                                fontSize: 12, color: blueColor),
+                                          ),
+                                          SizedBox(
+                                            width: width * 0.020,
+                                          ),
+                                          Row(
+                                            children: [1, 2, 3, 4, 5].map((e) {
+                                              int value = double.parse(
+                                                      '${controller.listofData[0]['rating'] ?? '0.0'}')
+                                                  .toInt();
+                                              return value >= e
+                                                  ? InkWell(
+                                                      child: Icon(
+                                                        Icons.star,
+                                                        size: 16,
+                                                        color:
+                                                            Colors.yellow[700],
+                                                      ),
+                                                    )
+                                                  : InkWell(
+                                                      child: Icon(
+                                                        Icons.star_border,
+                                                        size: 16,
+                                                        color:
+                                                            Colors.yellow[700],
+                                                      ),
+                                                    );
+                                            }).toList(),
+                                          ),
+                                          SizedBox(
+                                            width: width * 0.020,
+                                          ),
+                                          Text(
+                                            'Reviews ${controller.listofData[0]['total_review']}',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.black26),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.010,
+                                      ),
+                                      Text(
+                                        '${controller.listofData[0]['p_details']}',
+                                        style: TextStyle(
+                                          fontSize: 11,
                                         ),
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.010,
+                                      ),
+                                      Text(
+                                        'Starting Cost : ${controller.listofData[0]['pprice']} Rs/-',
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            color: blueColor),
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.010,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'City :',
+                                            style: TextStyle(color: blueColor),
+                                          ),
+                                          Text(controller.listofData.isEmpty
+                                              ? ''
+                                              : ' ${controller.listofData[0]['product_cities']}')
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.010,
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          printlog(
+                                              '${controller.listAllData[0]['id']}');
+                                          printlog(
+                                              '${controller.listAllData[0]['business_id']}');
+                                          printlog('${widget.name}');
+                                          Get.to(RecentListingsDetails(
+                                            id: controller.listAllData[0]['id'],
+                                            businessId: controller
+                                                .listAllData[0]['business_id'],
+                                            name: controller.listAllData[0]
+                                                ['business_name'],
+                                          ));
+                                        },
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              child: Center(
+                                                child: Text(
+                                                  'Go to Business'.tr,
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 12),
+                                                ),
+                                              ),
+                                              decoration: BoxDecoration(
+                                                  color: blueColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(5)),
+                                              padding: EdgeInsets.all(10),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.020,
+                                      ),
+                                      Text(
+                                        'Rate and Reviews'.tr,
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.010,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: controller.listofReview
+                                            .map((element) {
+                                          return Padding(
+                                            padding:
+                                                EdgeInsets.only(bottom: 10),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                CircularProfileAvatar(
+                                                  '${element['user_profile']}',
+                                                  elevation: 2,
+                                                  radius: 20,
+                                                ),
+                                                SizedBox(
+                                                  width: width * 0.040,
+                                                ),
+                                                Expanded(
+                                                  child: Column(
+                                                    children: [
+                                                      SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      Text(
+                                                        '${element['user_name']}',
+                                                        style: TextStyle(
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          1,
+                                                          2,
+                                                          3,
+                                                          4,
+                                                          5
+                                                        ].map((e) {
+                                                          int value = int.parse(
+                                                              '${element['product_rating'] ?? '0'}');
+                                                          return value >= e
+                                                              ? InkWell(
+                                                                  child: Icon(
+                                                                    Icons.star,
+                                                                    size: 16,
+                                                                    color: Colors
+                                                                            .yellow[
+                                                                        700],
+                                                                  ),
+                                                                )
+                                                              : InkWell(
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .star_border,
+                                                                    size: 16,
+                                                                    color: Colors
+                                                                            .yellow[
+                                                                        700],
+                                                                  ),
+                                                                );
+                                                        }).toList(),
+                                                      ),
+                                                      Text(
+                                                        '${element['product_rview']}',
+                                                        style: TextStyle(
+                                                          fontSize: 10,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        }).toList(),
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.040,
                                       ),
                                     ],
                                   ),
-                                );
-                              }).toList(),
-                            ),
-                            SizedBox(
-                              height: height * 0.040,
-                            ),
-                          ],
+                                  physics: BouncingScrollPhysics(),
+                                ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Obx(() => controller.loading.value == true
+                ? InkWell(
+                    onTap: () {
+                      controller.loading.value = false;
+                    },
+                    child: Container(
+                      height: height,
+                      width: width,
+                      child: Center(
+                        child: SpinKitPulse(
+                          color: Colors.white,
+                          size: 80.0,
                         ),
-                        physics: BouncingScrollPhysics(),
                       ),
-          ),
+                      decoration:
+                          BoxDecoration(color: Colors.black.withOpacity(0.5)),
+                    ),
+                  )
+                : SizedBox())
+          ],
         ),
       ));
     });
@@ -609,16 +935,16 @@ class _SearchDetailsState extends State<SearchDetails> {
                 insetPadding:
                     EdgeInsets.only(left: width / 20, right: width / 20),
                 child: Container(
-                  height: height / 2.5,
+                  height: height / 2.2,
                   width: width,
-                  child: ListView(
+                  child: Column(
                     children: [
                       SizedBox(
                         height: height / 30,
                       ),
                       Center(
                           child: Text(
-                        'Rate your Experience here'.tr,
+                        'Rate your experience'.tr,
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -756,7 +1082,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                               width: width * 0.3,
                               child: Center(
                                 child: Text(
-                                  'Ok'.tr,
+                                  'Rate'.tr,
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 12),
                                 ),
@@ -768,6 +1094,9 @@ class _SearchDetailsState extends State<SearchDetails> {
                           ),
                         ],
                         mainAxisAlignment: MainAxisAlignment.center,
+                      ),
+                      SizedBox(
+                        height: height / 30,
                       ),
                     ],
                   ),

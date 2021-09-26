@@ -95,7 +95,7 @@ class ChatBoxController extends GetxController {
                           ),
                         ),
                         Text(
-                          'Gallary'.tr,
+                          'Photos'.tr,
                           style: TextStyle(
                               fontSize: 12,
                               fontFamily: 'Comfortaa',
@@ -120,7 +120,7 @@ class ChatBoxController extends GetxController {
 
   var listofIndustry = [].obs;
   var currentlistofIndustryIndex = 0.obs;
-  var listofIndustryHint = 'Select Industry'.tr.obs;
+  var listofIndustryHint = 'Industry'.tr.obs;
 
   var listofCat = [].obs;
   var currentlistofCatIndex = 0.obs;

@@ -1,14 +1,17 @@
 import 'dart:convert';
+import 'package:dail_box/Screens/AddNewBuisness/AddnewBuisenessController.dart';
 import 'package:dail_box/Screens/AddProduct.dart/AddProductController.dart';
 import 'package:dail_box/Screens/BuisnessRegistration.dart/BuisnessRegistrationController.dart';
+import 'package:dail_box/Screens/FAQs/FAQsController.dart';
 import 'package:dail_box/Screens/IndustryDetails/IndustryDetailsController.dart';
 import 'package:dail_box/Screens/IndustryDetails/IndustrySubDetails/IndustrySubDetailsController.dart';
-import 'package:dail_box/Screens/Profile/EditPost/EditPostController.dart';
 import 'package:dail_box/Screens/Profile/ProfileController.dart';
 import 'package:dail_box/Screens/Profile/ViewAllLike/ViewAllLikeController.dart';
 import 'package:dail_box/Screens/Profile/ViewComments/ViewCommentController.dart';
 import 'package:dail_box/Screens/RecentListingDetails/RecentListingsController.dart';
+import 'package:dail_box/Screens/SearchDetail/SearchDetailsController.dart';
 import 'package:dail_box/Screens/SearchPage/SearchController.dart';
+import 'package:dail_box/Screens/SignIn/sign_in.dart';
 import 'package:dail_box/Screens/bottomNav/ChatBox/ChatBoxController.dart';
 import 'package:dail_box/Screens/bottomNav/ChatBox/Comment/CommentPageController.dart';
 import 'package:dail_box/Screens/bottomNav/Home/HomeController.dart';
@@ -48,6 +51,7 @@ class ApiUtilsForAll {
   static final String getMainCatapp = '/getMainCatapp';
   static final String getMainSubCatapp = '/getMainSubCatapp';
   static final String addlisting = '/addlisting';
+  static final String editBusiness = '/editBusiness';
   static final String getmybusinesslistforListings = '/getmybusinesslist';
   static final String getbusinesslistbysubid = '/getbusinesslistbysubid';
   static final String like = '/like';
@@ -63,10 +67,40 @@ class ApiUtilsForAll {
   static final String likeDiscussionform = '/likeDiscussionform';
   static final String dislikeDiscussionform = '/dislikeDiscussionform';
   static final String postCommentform = '/postCommentform';
-
-  //http://dailboxx.websitescare.com/Alphaapis/postCommentform?code=DAILBOXX-03448567673
+  static final String getCities = '/getCities';
+  static final String getbusinesslistbysubidcity =
+      '/getbusinesslistbysubidcity';
+  static final String getbusinesssort = '/getbusinesssort';
+  static final String reportListing = '/reportListing';
+  static final String postFAQ = '/postFAQ';
+  static final String updateServices = '/updateServices';
+  static final String updateProduct = '/updateProduct';
+  static final String productRemove = '/productRemove';
+  static final String serviceRemove = '/serviceRemove';
+  static final String checkuser = '/checkuser';
 
   GetStorage storage = GetStorage();
+
+  static Future getcheckuser() async {
+    var url = Uri.parse('$baseUrl$checkuser$secretCodeString');
+    GetStorage storage = GetStorage();
+    try {
+      var responce =
+          await http.post(url, body: {'userid': '${storage.read('userId')}'});
+      var data = jsonDecode(responce.body);
+      printlog('getcheckuser is = ${data['data']}');
+      printlog('data is = ${responce.statusCode}');
+      if (data['data'] == null) {
+        storage.erase();
+        timer!.cancel();
+        snackBarFailer(
+            'Your account has been suspended . Please contact customer support');
+        Future.delayed(Duration(seconds: 2), () {
+          Get.offAll(SignIn());
+        });
+      }
+    } catch (e) {}
+  }
 
   static Future gethomeproducts(HomeController controller) async {
     var url = Uri.parse('$baseUrl$homeproducts$secretCodeString');
@@ -172,21 +206,26 @@ class ApiUtilsForAll {
 
   static Future getsearchhome(SearchController controller) async {
     var url = Uri.parse('$baseUrl$searchhome$secretCodeString');
+    HomeController homecontroller = Get.find<HomeController>();
     try {
-      var responce =
-          await http.post(url, body: {'search': controller.searchCon.text});
+      var responce = await http.post(url, body: {
+        'search': controller.searchCon.text,
+        'city': homecontroller.listofIndustryHint.value == 'Select City'
+            ? ''
+            : '${homecontroller.listofIndustry[homecontroller.currentlistofIndustryIndex.value]['city']}'
+      });
       var data = jsonDecode(responce.body);
-      printlog('getgethomecats is = ${data['data']}');
+      printlog('getgethomecats is = $data');
       printlog('data is = ${responce.statusCode}');
       if (data['result'] == 'success') {
-        controller.listofSearch.clear();
+        controller.listofSearch.value = [];
         List list = data['data'];
-        list.forEach((element) {
-          controller.listofSearch.addAll(element);
-        });
+        controller.listofSearch.addAll(list[0]['products'] ?? []);
+        controller.listofSearch.addAll(list[0]['services'] ?? []);
+        controller.listofSearch.addAll(list[0]['listing'] ?? []);
         printlog('listofSearch = ${controller.listofSearch}');
       } else {
-        // snackBarFailer(data['message']);
+        controller.listofSearch.value = [];
       }
     } catch (e) {}
   }
@@ -247,6 +286,7 @@ class ApiUtilsForAll {
   static Future getgetlistingservices(
       RecentListnigsController controller, String id) async {
     var url = Uri.parse('$baseUrl$getlistingservices$secretCodeString');
+    print('listing is = $id');
     try {
       var responce = await http.post(url, body: {'listingid': id});
       var data = jsonDecode(responce.body);
@@ -256,6 +296,25 @@ class ApiUtilsForAll {
         controller.listofProductServices.value = data['data'] ?? [];
       } else {
         controller.listofProductServices.clear();
+        // snackBarFailer(data['message']);
+      }
+    } catch (e) {}
+  }
+
+  //https://dialboxx.pk/Alphaapis/getlisting?code=DAILBOXX-03448567673
+  static Future getAPigetlisting(
+      {RecentListnigsController? controller, String? id}) async {
+    var url = Uri.parse('$baseUrl$getlisting$secretCodeString');
+    print('listing is = $id');
+    try {
+      var responce = await http.post(url, body: {'listingid': id});
+      var data = jsonDecode(responce.body);
+      printlog('getgetlistingservices data  is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.listofallSubCat.value = data['data'] ?? [];
+      } else {
+        controller!.listofallSubCat.clear();
         // snackBarFailer(data['message']);
       }
     } catch (e) {}
@@ -295,9 +354,11 @@ class ApiUtilsForAll {
       var responce = await http.post(url, body: {
         'b_id': id,
         's_name': controller.sNameCon.text,
+        'city':
+            '${controller.listofCity[controller.currentlistofCityIndex.value]['city']}',
         'userid': storage.read('userId'),
         's_cost': controller.sPriceCon.text,
-        's_details': controller.sDetailsCon.text
+        's_details': controller.sDetailsCon.text,
       });
       var data = jsonDecode(responce.body);
       printlog('listing product services data  is = $data');
@@ -306,7 +367,37 @@ class ApiUtilsForAll {
       if (data['result'] == 'success') {
         Navigator.of(navigatorKey.currentContext!).pop();
         callHome();
-        snackBarSuccess('Your Service has been submitted for approval');
+        snackBarSuccess('Service has been added Successfully');
+      } else {
+        snackBarFailer(data['message']);
+      }
+    } catch (e) {}
+  }
+
+  static Future getupdateServices(
+      AddProductController controller, String id, String serviceID) async {
+    GetStorage storage = GetStorage();
+    var url = Uri.parse('$baseUrl$updateServices$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        'b_id': id,
+        's_name': controller.sNameCon.text,
+        'city':
+            '${controller.listofCity[controller.currentlistofCityIndex.value]['city']}',
+        'userid': storage.read('userId'),
+        's_cost': controller.sPriceCon.text,
+        's_details': controller.sDetailsCon.text,
+        'service_id': serviceID
+      });
+      var data = jsonDecode(responce.body);
+      printlog('listing product services data  is = $data');
+      printlog('data is = ${responce.statusCode}');
+      controller.loading.value = false;
+      if (data['result'] == 'success') {
+        Navigator.of(navigatorKey.currentContext!).pop();
+        Navigator.of(navigatorKey.currentContext!).pop();
+        callHome();
+        snackBarSuccess('Service has been Updated Successfully');
       } else {
         snackBarFailer(data['message']);
       }
@@ -334,7 +425,7 @@ class ApiUtilsForAll {
     return [];
   }
 
-  static Future getgetpackges() async {
+  static Future getgetpackges({int? currentPackage}) async {
     var url = Uri.parse('$baseUrl$getpackges$secretCodeString');
     var controller = Get.find<BuisnessRegistrationController>();
     try {
@@ -342,6 +433,24 @@ class ApiUtilsForAll {
       var data = jsonDecode(responce.body);
       printlog('getgetpackges list is  = $data');
       printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller.listofPackage.value = data['data'];
+        controller.currentPackageIndex.value = controller.currentPackage.value;
+        controller.packageHint.value = controller
+            .listofPackage[controller.currentPackage.value]['package_name'];
+      } else {}
+    } catch (e) {}
+  }
+
+  static Future getgetpackgesForAddBusiness(
+      {AddNewBusinessController? controller}) async {
+    var url = Uri.parse('$baseUrl$getpackges$secretCodeString');
+    try {
+      var responce = await http.get(url);
+      var data = jsonDecode(responce.body);
+      printlog('getgetpackges list is  = $data');
+      printlog('data is = ${responce.statusCode}');
+      controller!.loading.value = true;
       if (data['result'] == 'success') {
         controller.listofPackage.value = data['data'];
       } else {}
@@ -420,7 +529,6 @@ class ApiUtilsForAll {
     String? subid,
     IndustrySubDetailsController? controller,
   }) async {
-    GetStorage storage = GetStorage();
     printlog('main id =$subid');
     var url = Uri.parse('$baseUrl$getbusinesslistbysubid$secretCodeString');
     try {
@@ -473,10 +581,10 @@ class ApiUtilsForAll {
     var url = Uri.parse('$baseUrl$message$secretCodeString');
     try {
       var responce = await http.post(url, body: {
-        'to_msg': to_msg,
-        'from_msg': from_msg,
+        'to_msg': from_msg,
+        'listing_id': '$bussinies_id',
+        'from_msg': to_msg,
         'massages': massages,
-        'listing_id': bussinies_id
       });
       var data = jsonDecode(responce.body);
       printlog('getmessage list is  = $data');
@@ -630,4 +738,146 @@ class ApiUtilsForAll {
     } catch (e) {}
   }
 
+  static Future getAllCites({HomeController? controller}) async {
+    print('getAllCites call now');
+    var url = Uri.parse('$baseUrl$getCities$secretCodeString');
+    try {
+      var responce = await http.get(url);
+      var data = jsonDecode(responce.body);
+      printlog('getAllCites list is  = $data');
+      printlog('getAllCites data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.listofIndustry.value = data['data'];
+      }
+    } catch (e) {}
+  }
+
+  //http://dailboxx.websitescare.com/Alphaapis/getbusinesslistbysubidcity?code=DAILBOXX-03448567673
+  static Future getgetbusinesslistbysubidcity(
+      {IndustrySubDetailsController? controller,
+      String? sub_cat_id,
+      String? city}) async {
+    GetStorage storage = GetStorage();
+    print('getAllCites call now');
+    var url = Uri.parse('$baseUrl$getbusinesslistbysubidcity$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        'sub_cat_id': '$sub_cat_id',
+        'city': '$city',
+        'user_id': storage.read('userId')
+      });
+      var data = jsonDecode(responce.body);
+      printlog('getAllCites list is  = $data');
+      printlog('getAllCites data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.listofListings.value = data['data'] ?? [];
+      } else {
+        controller!.listofListings.value = [];
+      }
+    } catch (e) {}
+  }
+
+  static Future getgetbusinesssort(
+      {IndustrySubDetailsController? controller,
+      String? sub_cat_id,
+      String? sort,
+      String? city}) async {
+    GetStorage storage = GetStorage();
+    print('getAllCites call now');
+    var url = Uri.parse('$baseUrl$getbusinesssort$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        'sub_cat_id': '$sub_cat_id',
+        'sort': '$sort',
+        'city': '$city',
+        'user_id': storage.read('userId')
+      });
+      var data = jsonDecode(responce.body);
+      printlog('getAllCites list is  = $data');
+      printlog('getAllCites data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        controller!.listofListings.value = data['data'] ?? [];
+      } else {
+        controller!.listofListings.value = [];
+      }
+    } catch (e) {}
+  }
+
+  static Future reportlistings(
+      {String? post_id, String? report_comments, String? user_id}) async {
+    print('getAllCites call now');
+    var url = Uri.parse('$baseUrl$reportListing$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        'report_comments': '$report_comments',
+        'post_id': '$post_id',
+        'user_id': '$user_id'
+      });
+      var data = jsonDecode(responce.body);
+      printlog('report is  = $data');
+      printlog('report data is = ${responce.statusCode}');
+      snackBarSuccess('Report has been submitted');
+    } catch (e) {}
+  }
+
+  static Future getpostFAQ(
+      {String? b_id, String? faqs_id, FAQsController? controller}) async {
+    print('getAllCites call now');
+    var url = Uri.parse('$baseUrl$postFAQ$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        'faqs_id': faqs_id,
+        'b_id': '$b_id',
+      });
+      var data = jsonDecode(responce.body);
+      printlog('report is  = $data');
+      printlog('report data is = ${responce.statusCode}');
+      controller!.loading.value = false;
+      if (data['result'] == 'success') {
+        snackBarSuccess('${data['message']}');
+      }
+    } catch (e) {}
+  }
+
+  static Future getproductRemove(
+      {String? b_id, SearchDetailsController? controller}) async {
+    print('getAllCites call now');
+    var url = Uri.parse('$baseUrl$productRemove$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        'p_id': b_id,
+      });
+      var data = jsonDecode(responce.body);
+      printlog('report is  = $data');
+      printlog('report data is = ${responce.statusCode}');
+      controller!.loading.value = false;
+      if (data['result'] == 'success') {
+        Get.back();
+        Get.back();
+        snackBarSuccess('${data['message']}');
+        callHome();
+      }
+    } catch (e) {}
+  }
+
+  static Future getserviceRemove(
+      {String? b_id, SearchDetailsController? controller}) async {
+    print('getAllCites call now');
+    var url = Uri.parse('$baseUrl$serviceRemove$secretCodeString');
+    try {
+      var responce = await http.post(url, body: {
+        's_id': b_id,
+      });
+      var data = jsonDecode(responce.body);
+      printlog('report is  = $data');
+      printlog('report data is = ${responce.statusCode}');
+      controller!.loading.value = false;
+      if (data['result'] == 'success') {
+        Get.back();
+        Get.back();
+        snackBarSuccess('${data['message']}');
+        callHome();
+      }
+    } catch (e) {}
+  }
 }

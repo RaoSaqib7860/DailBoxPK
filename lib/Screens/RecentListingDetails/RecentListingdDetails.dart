@@ -4,11 +4,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dail_box/AppUtils.dart/APiUtilsForAuth.dart';
 import 'package:dail_box/AppUtils.dart/ApiUtilsForAll.dart';
 import 'package:dail_box/AppUtils.dart/AppBarGlobal.dart';
+import 'package:dail_box/AppUtils.dart/LocationData.dart';
 import 'package:dail_box/AppUtils.dart/ShimmerEffect.dart';
 import 'package:dail_box/AppUtils.dart/SizedConfig.dart';
 import 'package:dail_box/AppUtils.dart/SnackBarUtils.dart';
+import 'package:dail_box/Screens/BuisnessRegistration.dart/BuisnessRegistration.dart';
+import 'package:dail_box/Screens/ImagePreview/ImagePreview.dart';
 import 'package:dail_box/Screens/RecentListingDetails/RecentListingsController.dart';
 import 'package:dail_box/Screens/SearchDetail/SearchDetails.dart';
+import 'package:dail_box/Screens/ViewAllRating/ViewAllRatings.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +64,47 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
       var width = size.maxWidth;
       return SafeArea(
         child: Scaffold(
-          appBar: appBarGlobal('${widget.name}'),
+          appBar: AppBar(
+            backgroundColor: blueColor,
+            elevation: 0,
+            title: Text(
+              '${widget.name}',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+            ),
+            centerTitle: true,
+            leading: IconButton(
+                onPressed: () {
+                  Get.back();
+                },
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                )),
+            actions: [
+              Obx(() => controller.listofrecentListings.isEmpty
+                  ? SizedBox()
+                  : controller.listofrecentListings[0]['user_id'] !=
+                          storage.read('userId')
+                      ? SizedBox()
+                      : InkWell(
+                          onTap: () {
+                            Get.to(BuisnessRegistration(
+                              currentPackage: 0,
+                              mapData: controller.listofrecentListings[0],
+                            ));
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.only(right: width * 0.030),
+                            child: Center(
+                              child: Text(
+                                'Update',
+                                style: TextStyle(),
+                              ),
+                            ),
+                          ),
+                        ))
+            ],
+          ),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: width * 0.030),
             child: CustomScrollView(
@@ -480,49 +524,119 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                               SizedBox(
                                 height: height * 0.020,
                               ),
-                              Center(
-                                child: Text(
-                                  '${controller.listofrecentListings[0]['business_name']}',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      letterSpacing: 0.5),
-                                ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.home_work,
+                                    color: Colors.black38,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    '${controller.listofrecentListings[0]['industry_name']}',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        letterSpacing: 0.5),
+                                  ),
+                                ],
                               ),
                               SizedBox(
                                 height: height * 0.020,
                               ),
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(5),
-                                child: Container(
-                                  width: width,
-                                  height: height * 0.2,
-                                  child: CachedNetworkImage(
+                                child: InkWell(
+                                  onTap: () {
+                                    Get.to(ImagePreview(
+                                      listofImage: [
+                                        '${controller.listofrecentListings[0]['listing_image']}',
+                                      ],
+                                    ));
+                                  },
+                                  child: Container(
                                     width: width,
                                     height: height * 0.2,
-                                    fit: BoxFit.cover,
-                                    imageUrl:
-                                        'https://dailboxx.websitescare.com/upload/listing/${controller.listofrecentListings[0]['listing_image']}',
-                                    placeholder: (context, url) =>
-                                        SpinKitSquareCircle(
-                                      color: Colors.blue,
-                                      size: 20.0,
+                                    child: CachedNetworkImage(
+                                      width: width,
+                                      height: height * 0.2,
+                                      fit: BoxFit.cover,
+                                      imageUrl:
+                                          '${controller.listofrecentListings[0]['listing_image']}',
+                                      placeholder: (context, url) =>
+                                          SpinKitSquareCircle(
+                                        color: Colors.blue,
+                                        size: 20.0,
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          Image.network(
+                                              'http://dailboxx.websitescare.com/upload/appnoimage.png'),
                                     ),
-                                    errorWidget: (context, url, error) =>
-                                        Icon(Icons.error),
                                   ),
                                 ),
                               ),
                               SizedBox(
                                 height: height * 0.010,
                               ),
-                              Text(
-                                '${controller.listofrecentListings[0]['area']} ${controller.listofrecentListings[0]['business_address']} ${controller.listofrecentListings[0]['city']}',
-                                style: TextStyle(
-                                    fontSize: 13, fontWeight: FontWeight.bold),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      '${controller.listofrecentListings[0]['business_address']}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
                               ),
                               SizedBox(
                                 height: height * 0.010,
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Business Area : ',
+                                    style: TextStyle(
+                                        color: blueColor, fontSize: 12),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      '${controller.listofrecentListings[0]['area']}',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  )
+                                ],
+                              ),
+
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Business in Other Cities : ',
+                                    style: TextStyle(
+                                        color: blueColor, fontSize: 12),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      '${controller.listofrecentListings[0]['city']}',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              SizedBox(
+                                height: 5,
                               ),
                               controller.listgetlistingrating.isEmpty
                                   ? ShimerEffect(
@@ -615,17 +729,24 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                             ),
                                           ],
                                         ),
-                                        Text(
-                                          'View All',
-                                          style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
+                                        InkWell(
+                                          onTap: () {
+                                            Get.to(ViewAllRatings(
+                                              business_id: widget.businessId,
+                                            ));
+                                          },
+                                          child: Text(
+                                            'View All',
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.bold,
+                                                color: blueColor),
+                                          ),
                                         ),
                                       ],
                                     ),
                               SizedBox(
-                                height: height * 0.020,
+                                height: 5,
                               ),
                               Container(
                                 height: 0.5,
@@ -650,9 +771,9 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                       },
                                     ),
                                     InkWell(
-                                      onTap: () {
+                                      onTap: () async {
                                         launchURL(
-                                            "whatsapp://send?phone=${controller.listofrecentListings[0]['whatsapp_number']}");
+                                            "whatsapp://send?phone=${controller.listofrecentListings[0]['cell_number']}");
                                       },
                                       child: Container(
                                         height: height * 0.060,
@@ -673,7 +794,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                     InkWell(
                                       onTap: () {
                                         String url =
-                                            'https://www.google.com/maps/dir/?api=1&origin=${controller.lat},${controller.lng}';
+                                            'https://www.google.com/maps/dir/?api=1&origin=$lat,$long&destination=${controller.lat},${controller.lng}&travelmode=driving&dir_action=navigate';
                                         launchURL(url);
                                       },
                                       child: buildIcon(
@@ -717,6 +838,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                   ? SizedBox()
                                   : InkWell(
                                       onTap: () {
+                                        print('${controller.listofrecentListings[0]['user_id']}');
                                         sendMessage(
                                             to_msg:
                                                 '${controller.listofrecentListings[0]['user_id']}',
@@ -749,7 +871,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                       onTap: () {
                                         ratingDailog(
                                             listing_id:
-                                                '${controller.listofrecentListings[0]['id']}',
+                                                '${controller.listofrecentListings[0]['business_id']}',
                                             businessName:
                                                 '${controller.listofrecentListings[0]['business_name']}');
                                       },
@@ -791,7 +913,45 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                     style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w500),
-                                  )
+                                  ),
+                                  Expanded(
+                                      child: Row(
+                                    children: [
+                                      controller.listofrecentListings[0]
+                                                  ['user_id'] ==
+                                              storage.read('userId')
+                                          ? SizedBox(
+                                              height: height * 0.040,
+                                              width: width * 0.2,
+                                            )
+                                          : InkWell(
+                                              onTap: () {
+                                                report(
+                                                    bussinies_id: controller
+                                                            .listofrecentListings[
+                                                        0]['business_id']);
+                                              },
+                                              child: Container(
+                                                height: height * 0.040,
+                                                width: width * 0.2,
+                                                decoration: BoxDecoration(
+                                                    color: blueColor,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5)),
+                                                child: Center(
+                                                  child: Text(
+                                                    'Report',
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 13),
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                    ],
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                  ))
                                 ],
                               ),
                               SizedBox(
@@ -834,50 +994,174 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                   title: 'Hours & Services may differ'),
                               rowView(
                                 icon: Icons.access_time,
-                                title: 'Monday - Saturday',
+                                title: 'Monday - Sunday',
                               ),
                               SizedBox(
                                 height: height * 0.010,
                               ),
-                              Text(
-                                '${controller.listofrecentListings[0]['timings']}',
-                                style: TextStyle(
-                                    fontSize: 11, color: Colors.black26),
+                              Padding(
+                                  padding: EdgeInsets.only(left: 30),
+                                  child: Column(
+                                    children:
+                                        '${controller.listofrecentListings[0]['timings']}'
+                                            .split('\n')
+                                            .map((e) {
+                                      String v = e.toString().trim();
+                                      if (v.length == 4) {
+                                        return SizedBox();
+                                      } else {
+                                        return Text(
+                                          '$e',
+                                          style: TextStyle(
+                                              fontSize: 11,
+                                              color: Colors.black26),
+                                        );
+                                      }
+                                    }).toList(),
+                                  )),
+                              Container(
+                                height: 0.1,
+                                width: width,
+                                color: Colors.black38,
                               ),
-                              SizedBox(
-                                height: height * 0.010,
-                              ),
+                              controller.listofrecentListings[0]
+                                              ['cell_number'] ==
+                                          '' ||
+                                      controller.listofrecentListings[0]
+                                              ['cell_number'] ==
+                                          null
+                                  ? SizedBox()
+                                  : InkWell(
+                                      onTap: () {
+                                        launchURL(
+                                            "tel://${controller.listofrecentListings[0]['cell_number']}");
+                                      },
+                                      child: rowView(
+                                        icon: Icons.call,
+                                        title:
+                                            '${controller.listofrecentListings[0]['cell_number']}',
+                                      ),
+                                    ),
                               Container(
                                 height: 0.5,
                                 width: width,
                                 color: Colors.black38,
                               ),
                               rowView(
-                                icon: Icons.call,
+                                icon: Icons.perm_identity,
                                 title:
-                                    '${controller.listofrecentListings[0]['cell_number']}',
+                                    'Business ID : ${controller.listofrecentListings[0]['business_id']}',
                               ),
-                              rowView(
-                                icon: Icons.mail_outline,
-                                title:
-                                    'Business Email : ${controller.listofrecentListings[0]['business_email']}',
-                              ),
-                              rowView(
-                                icon: Icons.design_services,
-                                title:
-                                    'Service Area : ${controller.listofrecentListings[0]['service_areas']}',
-                              ),
-                              rowView(
-                                icon: Icons.person_add,
-                                title:
-                                    'Number of Employees : ${controller.listofrecentListings[0]['num_employees']}',
-                              ),
+                              controller.listofrecentListings[0]
+                                              ['business_email'] ==
+                                          '' ||
+                                      controller.listofrecentListings[0]
+                                              ['business_email'] ==
+                                          null
+                                  ? SizedBox()
+                                  : InkWell(
+                                      onTap: () {
+                                        launchURL(
+                                            'mailto:${controller.listofrecentListings[0]['business_email']}');
+                                      },
+                                      child: rowView(
+                                        icon: Icons.mail_outline,
+                                        title:
+                                            '${controller.listofrecentListings[0]['business_email']}',
+                                      ),
+                                    ),
+                              controller.listofrecentListings[0]
+                                              ['service_areas'] ==
+                                          '' ||
+                                      controller.listofrecentListings[0]
+                                              ['service_areas'] ==
+                                          null
+                                  ? SizedBox()
+                                  : rowView(
+                                      icon: Icons.design_services,
+                                      title:
+                                          'Service Area(s) : ${controller.listofrecentListings[0]['service_areas']}',
+                                    ),
+                              // rowView(
+                              //   icon: Icons.person_add,
+                              //   title:
+                              //       'Number of Employees : ${controller.listofrecentListings[0]['num_employees']}',
+                              // ),
+                              controller.listofrecentListings[0]['p_v_store'] ==
+                                          '' ||
+                                      controller.listofrecentListings[0]
+                                              ['p_v_store'] ==
+                                          null
+                                  ? SizedBox()
+                                  : rowView(
+                                      icon: Icons.shopping_basket_outlined,
+                                      title:
+                                          'Physical Location or Virtual : ${controller.listofrecentListings[0]['p_v_store']}',
+                                    ),
+                              controller.listofrecentListings[0]['booking'] ==
+                                          '' ||
+                                      controller.listofrecentListings[0]
+                                              ['booking'] ==
+                                          null
+                                  ? SizedBox()
+                                  : rowView(
+                                      icon: Icons.book,
+                                      title:
+                                          'Booking Facility : ${controller.listofrecentListings[0]['booking']}',
+                                    ),
+                              controller.listofrecentListings[0]
+                                              ['by_appointment'] ==
+                                          '' ||
+                                      controller.listofrecentListings[0]
+                                              ['by_appointment'] ==
+                                          null
+                                  ? SizedBox()
+                                  : rowView(
+                                      icon: Icons.apps_outlined,
+                                      title:
+                                          'By Appointment : ${controller.listofrecentListings[0]['by_appointment']}',
+                                    ),
+                              controller.listofrecentListings[0]['pick_up'] ==
+                                          '' ||
+                                      controller.listofrecentListings[0]
+                                              ['pick_up'] ==
+                                          null
+                                  ? SizedBox()
+                                  : rowView(
+                                      icon: Icons.directions_walk,
+                                      title:
+                                          'Takeaway : ${controller.listofrecentListings[0]['pick_up']}',
+                                    ),
+                              controller.listofrecentListings[0]
+                                              ['delivery_available'] ==
+                                          '' ||
+                                      controller.listofrecentListings[0]
+                                              ['delivery_available'] ==
+                                          null
+                                  ? SizedBox()
+                                  : rowView(
+                                      icon: Icons.delivery_dining,
+                                      title:
+                                          'Delivery : ${controller.listofrecentListings[0]['delivery_available']}',
+                                    ),
+                              controller.listofrecentListings[0]
+                                              ['payment_mod'] ==
+                                          '' ||
+                                      controller.listofrecentListings[0]
+                                              ['payment_mod'] ==
+                                          null
+                                  ? SizedBox()
+                                  : rowView(
+                                      icon: Icons.payment_outlined,
+                                      title:
+                                          'Mode of Payment :  ${controller.listofrecentListings[0]['payment_mod']}',
+                                    ),
                               SizedBox(
                                 height: height * 0.030,
                               ),
                               Row(
                                 children: [
-                                  Text('Social media',
+                                  Text('Social Media',
                                       style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold,
@@ -889,63 +1173,84 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: <Widget>[
-                                      InkWell(
-                                        child: Card(
-                                          elevation: 3,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(10.0),
-                                            child: Image(
-                                              height: height / 30,
-                                              image: AssetImage(
-                                                  'assets/icons/insta.png'),
+                                      controller.listofrecentListings[0]
+                                                  ['insta']
+                                              .toString()
+                                              .trim()
+                                              .isEmpty
+                                          ? SizedBox()
+                                          : InkWell(
+                                              child: Card(
+                                                elevation: 3,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      10.0),
+                                                  child: Image(
+                                                    height: height / 30,
+                                                    image: AssetImage(
+                                                        'assets/icons/insta.png'),
+                                                  ),
+                                                ),
+                                              ),
+                                              onTap: () {
+                                                launchURL(
+                                                    '${controller.listofrecentListings[0]['insta']}');
+                                              },
                                             ),
-                                          ),
-                                        ),
-                                        onTap: () {
-                                          launchURL(
-                                              '${controller.listofrecentListings[0]['insta']}');
-                                        },
-                                      ),
                                       SizedBox(
                                         width: width * 0.010,
                                       ),
-                                      InkWell(
-                                        onTap: () {
-                                          launchURL(
-                                              '${controller.listofrecentListings[0]['facebook']}');
-                                        },
-                                        child: Card(
-                                          elevation: 3,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(10.0),
-                                            child: Image(
-                                              height: height / 30,
-                                              image: AssetImage(
-                                                  'assets/icons/facebook.png'),
+                                      controller.listofrecentListings[0]
+                                                  ['facebook']
+                                              .toString()
+                                              .trim()
+                                              .isEmpty
+                                          ? SizedBox()
+                                          : InkWell(
+                                              onTap: () {
+                                                launchURL(
+                                                    '${controller.listofrecentListings[0]['facebook']}');
+                                              },
+                                              child: Card(
+                                                elevation: 3,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      10.0),
+                                                  child: Image(
+                                                    height: height / 30,
+                                                    image: AssetImage(
+                                                        'assets/icons/facebook.png'),
+                                                  ),
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                      ),
                                       SizedBox(
                                         width: width * 0.010,
                                       ),
-                                      InkWell(
-                                        onTap: () {
-                                          launchURL(
-                                              '${controller.listofrecentListings[0]['twitter']}');
-                                        },
-                                        child: Card(
-                                          elevation: 3,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(10.0),
-                                            child: Image(
-                                              height: height / 30,
-                                              image: AssetImage(
-                                                  'assets/icons/twitter.png'),
-                                            ),
-                                          ),
-                                        ),
-                                      )
+                                      controller.listofrecentListings[0]
+                                                  ['youtube']
+                                              .toString()
+                                              .trim()
+                                              .isEmpty
+                                          ? SizedBox()
+                                          : InkWell(
+                                              onTap: () {
+                                                launchURL(
+                                                    '${controller.listofrecentListings[0]['youtube']}');
+                                              },
+                                              child: Card(
+                                                elevation: 3,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      10.0),
+                                                  child: Image(
+                                                    height: height / 30,
+                                                    image: AssetImage(
+                                                        'assets/images/youtube.png'),
+                                                  ),
+                                                ),
+                                              ),
+                                            )
                                     ],
                                   ),
                                 ],
@@ -1003,7 +1308,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'FAQ',
+                                    'FAQs',
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold),
@@ -1032,44 +1337,51 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                               width: width,
                                             ),
                                           ),
+                                          // SizedBox(
+                                          //   width: 5,
+                                          // ),
+                                          // InkWell(
+                                          //   child: Icon(
+                                          //     Icons.edit,
+                                          //     color: Colors.black45,
+                                          //   ),
+                                          //   onTap: () {
+                                          //     editFAQ(
+                                          //         mapdate: element,
+                                          //         index: index);
+                                          //   },
+                                          // ),
                                           SizedBox(
                                             width: 5,
                                           ),
-                                          InkWell(
-                                            child: Icon(
-                                              Icons.edit,
-                                              color: Colors.black45,
-                                            ),
-                                            onTap: () {},
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          InkWell(
-                                            child: Icon(
-                                              Icons.delete,
-                                              color: Colors.red,
-                                            ),
-                                            onTap: () {
-                                              ApiUtils.getremoveFAQ(
-                                                      controller: controller,
-                                                      index: index,
-                                                      b_id: widget.businessId,
-                                                      faq_id:
-                                                          '${element['id']}')
-                                                  .then((value) {
-                                                setState(() {});
-                                              });
-                                            },
-                                          )
+                                          controller.listofrecentListings[0]
+                                                      ['user_id'] !=
+                                                  storage.read('userId')
+                                              ? SizedBox()
+                                              : InkWell(
+                                                  child: Icon(
+                                                    Icons.delete,
+                                                    color: Colors.red,
+                                                  ),
+                                                  onTap: () {
+                                                    ApiUtils.getremoveFAQ(
+                                                            controller:
+                                                                controller,
+                                                            index: index,
+                                                            b_id: widget
+                                                                .businessId,
+                                                            faq_id:
+                                                                '${element['id']}')
+                                                        .then((value) {
+                                                      setState(() {});
+                                                    });
+                                                  },
+                                                )
                                         ],
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
-                                      ),
-                                      SizedBox(
-                                        height: 2,
                                       ),
                                       Container(
                                         child: Text(
@@ -1077,6 +1389,9 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                           style: TextStyle(fontSize: 10),
                                         ),
                                         width: width,
+                                      ),
+                                      SizedBox(
+                                        height: 7,
                                       ),
                                     ],
                                   );
@@ -1100,7 +1415,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                               controller.listoflistingsProduct.isEmpty
                                   ? SizedBox()
                                   : Container(
-                                      height: height * 0.180,
+                                      height: height * 0.2,
                                       width: width,
                                       child: ListView.builder(
                                         itemBuilder: (c, i) {
@@ -1113,6 +1428,9 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                                         .listoflistingsProduct[
                                                     i]['product_id'],
                                                 fromApi: 'product',
+                                                b_ID: controller
+                                                        .listoflistingsProduct[
+                                                    i]['b_id'],
                                                 name:
                                                     '${controller.listoflistingsProduct[i]['pname']}',
                                               ));
@@ -1120,7 +1438,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                             child: Container(
                                               margin: EdgeInsets.only(
                                                   left: width * 0.030),
-                                              width: width * 0.420,
+                                              width: width * 0.450,
                                               height: double.infinity,
                                               child: Card(
                                                 elevation: 2,
@@ -1134,7 +1452,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                                         width: double.infinity,
                                                         fit: BoxFit.cover,
                                                         imageUrl:
-                                                            "https://dailboxx.websitescare.com/upload/products/${controller.listoflistingsProduct[i]['image_1'] ?? controller.listoflistingsProduct[i]['image_2'] ?? controller.listoflistingsProduct[i]['image_3']}",
+                                                            "${controller.listoflistingsProduct[i]['image_1'] ?? controller.listoflistingsProduct[i]['image_2'] ?? controller.listoflistingsProduct[i]['image_3']}",
                                                         placeholder: (context,
                                                                 url) =>
                                                             CircularProgressIndicator(),
@@ -1293,6 +1611,8 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                         controller.listofProductServices[index]
                                             ['service_id'],
                                     fromApi: 'service',
+                                    b_ID: controller
+                                        .listofProductServices[index]['b_id'],
                                     name:
                                         '${controller.listofProductServices[index]['s_name']}',
                                   ));
@@ -1395,6 +1715,35 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                 ),
                 SliverToBoxAdapter(
                   child: SizedBox(
+                    height: height * 0.020,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Categories',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: height * 0.010,
+                      ),
+                    ],
+                  ),
+                ),
+                Obx(
+                  () => controller.listofrecentListings.isEmpty
+                      ? SliverToBoxAdapter()
+                      : gridData(),
+                ),
+                SliverToBoxAdapter(
+                  child: SizedBox(
                     height: height * 0.030,
                   ),
                 )
@@ -1405,6 +1754,31 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
         ),
       );
     });
+  }
+
+  Widget gridData() {
+    List list = controller.listofrecentListings[0]['industry_sub_name'] ?? [];
+    return SliverGrid(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4, childAspectRatio: 1.250, mainAxisSpacing: 8),
+        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+          return Column(
+            children: [
+              Container(
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(color: Colors.blueGrey[100]),
+                child: Text(
+                  "${list[index]['main_cat_name']}",
+                  style: TextStyle(fontSize: 9),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                ),
+                width: width * 0.150,
+              )
+            ],
+          );
+        }, childCount: list.length));
   }
 
   Widget rowView({String? title, IconData? icon}) {
@@ -1458,6 +1832,145 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
           border: Border.all(width: 1, color: blueColor),
           shape: BoxShape.circle),
     );
+  }
+
+  editFAQ({String? mapdate, int? index}) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    TextEditingController textCon = TextEditingController();
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            insetPadding: EdgeInsets.symmetric(horizontal: width / 20),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0)), //this right here
+            child: Container(
+              height: height / 2.50,
+              width: width,
+              padding: EdgeInsets.symmetric(horizontal: width * 0.030),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  Text(
+                    'Edit',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Colors.grey[100],
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[400]!,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 6.0,
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        cursorColor: Colors.black,
+                        maxLines: 1,
+                        keyboardType: TextInputType.text,
+                        controller: textCon,
+                        textInputAction: TextInputAction.done,
+                        decoration: new InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            contentPadding: EdgeInsets.only(
+                                left: 15, bottom: 11, top: 11, right: 15),
+                            hintStyle:
+                                TextStyle(color: greyColor, fontSize: 12),
+                            hintText: "Enter message here"),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Colors.grey[100],
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[400]!,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 6.0,
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        cursorColor: Colors.black,
+                        maxLines: 1,
+                        keyboardType: TextInputType.text,
+                        controller: textCon,
+                        textInputAction: TextInputAction.done,
+                        decoration: new InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            contentPadding: EdgeInsets.only(
+                                left: 15, bottom: 11, top: 11, right: 15),
+                            hintStyle:
+                                TextStyle(color: greyColor, fontSize: 12),
+                            hintText: "Enter message here"),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  Center(
+                    child: InkWell(
+                      onTap: () {
+                        // if (textCon.text.isNotEmpty) {
+                        //   ApiUtilsForAll.getmessage(
+                        //       bussinies_id: '$bussinies_id',
+                        //       from_msg: storage.read('userId'),
+                        //       to_msg: '$to_msg',
+                        //       massages: textCon.text);
+                        //   Navigator.of(context).pop();
+                        // } else {
+                        //   Navigator.of(context).pop();
+                        //   snackBarFailer('Please type message to receiver');
+                        // }
+                      },
+                      child: Container(
+                        height: height * 0.055,
+                        width: width / 2,
+                        child: Center(
+                          child: Text(
+                            'Update',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                            color: blueColor,
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              decoration: BoxDecoration(color: Colors.white),
+            ),
+          );
+        });
   }
 
   sendMessage({String? bussinies_id, String? to_msg}) {
@@ -1527,6 +2040,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                   Center(
                     child: InkWell(
                       onTap: () {
+                        print('$bussinies_id');
                         if (textCon.text.isNotEmpty) {
                           ApiUtilsForAll.getmessage(
                               bussinies_id: '$bussinies_id',
@@ -1545,6 +2059,105 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                         child: Center(
                           child: Text(
                             'SEND',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                            color: blueColor,
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              decoration: BoxDecoration(color: Colors.white),
+            ),
+          );
+        });
+  }
+
+  report({String? bussinies_id}) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    TextEditingController textCon = TextEditingController();
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            insetPadding: EdgeInsets.symmetric(horizontal: width / 20),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0)), //this right here
+            child: Container(
+              height: height / 2.50,
+              width: width,
+              padding: EdgeInsets.symmetric(horizontal: width * 0.030),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  Text(
+                    'Send Report',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Colors.grey[100],
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[400]!,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 6.0,
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        cursorColor: Colors.black,
+                        maxLines: 6,
+                        keyboardType: TextInputType.text,
+                        controller: textCon,
+                        textInputAction: TextInputAction.done,
+                        decoration: new InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            contentPadding: EdgeInsets.only(
+                                left: 15, bottom: 11, top: 11, right: 15),
+                            hintStyle:
+                                TextStyle(color: greyColor, fontSize: 12),
+                            hintText: "Enter message here"),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  Center(
+                    child: InkWell(
+                      onTap: () {
+                        if (textCon.text.isNotEmpty) {
+                          ApiUtils.getreportListing(
+                              b_id: bussinies_id, message: textCon.text);
+                          Navigator.of(context).pop();
+                        } else {
+                          Navigator.of(context).pop();
+                          snackBarFailer('Please type message to receiver');
+                        }
+                      },
+                      child: Container(
+                        height: height * 0.055,
+                        width: width / 2,
+                        child: Center(
+                          child: Text(
+                            'Report',
                             style: TextStyle(color: Colors.white),
                           ),
                         ),

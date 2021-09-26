@@ -8,6 +8,7 @@ class RecentListnigsController extends GetxController {
   final listofrecentListings = [].obs;
   final listoflistingsProduct = [].obs;
   final listofProductServices = [].obs;
+  final listofallSubCat = [].obs;
   final listofFaq = [].obs;
 
   var lat = 0.0.obs;
@@ -23,7 +24,7 @@ class RecentListnigsController extends GetxController {
 
   getLocationData() async {
     List<Location> locations = await locationFromAddress(
-        "${listofrecentListings[0]['business_address']} ${listofrecentListings[0]['city']} ${listofrecentListings[0]['area']}");
+        "${listofrecentListings[0]['business_address']} ${listofrecentListings[0]['area']}");
     locations.forEach((element) {
       Location location = element;
       lat.value = location.latitude;

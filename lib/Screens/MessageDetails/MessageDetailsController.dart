@@ -8,9 +8,10 @@ class MessageDetailsController extends GetxController {
   var loadData = false.obs;
 
   Timer? timer;
-  callBackgroundSms(String id) {
+
+  callBackgroundSms(String id, String businessID) {
     timer = Timer.periodic(Duration(seconds: 3), (timer) {
-      ApiUtils.getgetChatOneToOne(id);
+      ApiUtils.getgetChatOneToOne(id, businessID);
     });
   }
 }

@@ -9,7 +9,14 @@ import 'package:image_picker/image_picker.dart';
 
 class ProfileController extends GetxController {
   var listofChatBox = [].obs;
+  var listofAccomplishment = [].obs;
+  var Skills = [].obs;
+  var userVolunteering = [].obs;
+  var experience = [].obs;
+  var education = [].obs;
+
   var loadmainList = false.obs;
+  var profileData = {}.obs;
 
   var f1 = File('path'.tr).obs;
   var isf1 = false.obs;
@@ -95,7 +102,7 @@ class ProfileController extends GetxController {
                           ),
                         ),
                         Text(
-                          'Gallary'.tr,
+                          'Photos'.tr,
                           style: TextStyle(
                               fontSize: 12,
                               fontFamily: 'Comfortaa',
@@ -114,7 +121,8 @@ class ProfileController extends GetxController {
           );
         });
   }
-  callApiData(ProfileController controller){
+
+  callApiData(ProfileController controller) {
     ApiUtils.getgetDiscussionformprofile(controller: controller);
   }
 }

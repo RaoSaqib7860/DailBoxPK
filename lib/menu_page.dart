@@ -66,7 +66,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 24.0, left: 20.0),
                     child: CircularProfileAvatar(
-                      'https://www.dailboxx.websitescare.com/upload/profile/${storage!.read('profile_image')}',
+                      '${storage!.read('profile_image')}',
                       elevation: 10,
                       radius: 40,
                     ),

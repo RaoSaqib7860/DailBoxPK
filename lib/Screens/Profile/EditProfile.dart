@@ -21,7 +21,7 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   void initState() {
-    controller.phoneCon.text = storage.read('mobile');
+    controller.phoneCon.text = storage.read('mobile') ?? '';
     super.initState();
   }
 
@@ -58,138 +58,164 @@ class _EditProfileState extends State<EditProfile> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Text(
-                      'Previous password'.tr,
-                      style: TextStyle(fontSize: 12, color: greyColor),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Obx(
-                      () => ClipRRect(
-                        borderRadius: BorderRadius.circular(5.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.0),
-                            color: Colors.grey[100],
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey[400]!,
-                                offset: Offset(0.0, 1.0),
-                                blurRadius: 6.0,
+                    storage.read('social') == 'true'
+                        ? SizedBox()
+                        : Column(
+                            children: [
+                              SizedBox(
+                                height: 30,
                               ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            controller: controller.p1Con,
-                            cursorColor: Colors.black,
-                            keyboardType: TextInputType.text,
-                            obscureText:
-                                controller.absecuretextOne.value ? false : true,
-                            decoration: new InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.lock_outline,
-                                  color: greyColor,
-                                ),
-                                suffixIcon: IconButton(
-                                  onPressed: () {
-                                    print('Click');
-                                    if (controller.absecuretextOne.value) {
-                                      controller.absecuretextOne.value = false;
-                                    } else {
-                                      controller.absecuretextOne.value = true;
-                                    }
-                                  },
-                                  icon: Icon(
-                                    Icons.remove_red_eye,
-                                    color: controller.absecuretextOne.value
-                                        ? Colors.blue
-                                        : greyColor,
+                              Text(
+                                'Previous password'.tr,
+                                style:
+                                    TextStyle(fontSize: 12, color: greyColor),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Obx(
+                                () => ClipRRect(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      color: Colors.grey[100],
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey[400]!,
+                                          offset: Offset(0.0, 1.0),
+                                          blurRadius: 6.0,
+                                        ),
+                                      ],
+                                    ),
+                                    child: TextFormField(
+                                      controller: controller.p1Con,
+                                      cursorColor: Colors.black,
+                                      keyboardType: TextInputType.text,
+                                      obscureText:
+                                          controller.absecuretextOne.value
+                                              ? false
+                                              : true,
+                                      decoration: new InputDecoration(
+                                          prefixIcon: Icon(
+                                            Icons.lock_outline,
+                                            color: greyColor,
+                                          ),
+                                          suffixIcon: IconButton(
+                                            onPressed: () {
+                                              print('Click');
+                                              if (controller
+                                                  .absecuretextOne.value) {
+                                                controller.absecuretextOne
+                                                    .value = false;
+                                              } else {
+                                                controller.absecuretextOne
+                                                    .value = true;
+                                              }
+                                            },
+                                            icon: Icon(
+                                              Icons.remove_red_eye,
+                                              color: controller
+                                                      .absecuretextOne.value
+                                                  ? Colors.blue
+                                                  : greyColor,
+                                            ),
+                                          ),
+                                          border: InputBorder.none,
+                                          focusedBorder: InputBorder.none,
+                                          enabledBorder: InputBorder.none,
+                                          errorBorder: InputBorder.none,
+                                          disabledBorder: InputBorder.none,
+                                          contentPadding: EdgeInsets.only(
+                                              left: 15,
+                                              bottom: 11,
+                                              top: 11,
+                                              right: 15),
+                                          hintStyle: TextStyle(
+                                              color: greyColor, fontSize: 12),
+                                          hintText: "New Password".tr),
+                                    ),
                                   ),
                                 ),
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none,
-                                contentPadding: EdgeInsets.only(
-                                    left: 15, bottom: 11, top: 11, right: 15),
-                                hintStyle:
-                                    TextStyle(color: greyColor, fontSize: 12),
-                                hintText: "New Password".tr),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      'New password'.tr,
-                      style: TextStyle(fontSize: 12, color: greyColor),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Obx(
-                      () => ClipRRect(
-                        borderRadius: BorderRadius.circular(5.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.0),
-                            color: Colors.grey[100],
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey[400]!,
-                                offset: Offset(0.0, 1.0),
-                                blurRadius: 6.0,
                               ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            controller: controller.p2Con,
-                            cursorColor: Colors.black,
-                            keyboardType: TextInputType.text,
-                            obscureText: !controller.absecuretextTwo.value
-                                ? true
-                                : false,
-                            decoration: new InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.lock_outline,
-                                  color: greyColor,
-                                ),
-                                suffixIcon: IconButton(
-                                  onPressed: () {
-                                    if (controller.absecuretextTwo.value) {
-                                      controller.absecuretextTwo.value = false;
-                                    } else {
-                                      controller.absecuretextTwo.value = true;
-                                    }
-                                  },
-                                  icon: Icon(
-                                    Icons.remove_red_eye,
-                                    color: controller.absecuretextTwo.value
-                                        ? Colors.blue
-                                        : greyColor,
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'New password'.tr,
+                                style:
+                                    TextStyle(fontSize: 12, color: greyColor),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Obx(
+                                () => ClipRRect(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      color: Colors.grey[100],
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey[400]!,
+                                          offset: Offset(0.0, 1.0),
+                                          blurRadius: 6.0,
+                                        ),
+                                      ],
+                                    ),
+                                    child: TextFormField(
+                                      controller: controller.p2Con,
+                                      cursorColor: Colors.black,
+                                      keyboardType: TextInputType.text,
+                                      obscureText:
+                                          !controller.absecuretextTwo.value
+                                              ? true
+                                              : false,
+                                      decoration: new InputDecoration(
+                                          prefixIcon: Icon(
+                                            Icons.lock_outline,
+                                            color: greyColor,
+                                          ),
+                                          suffixIcon: IconButton(
+                                            onPressed: () {
+                                              if (controller
+                                                  .absecuretextTwo.value) {
+                                                controller.absecuretextTwo
+                                                    .value = false;
+                                              } else {
+                                                controller.absecuretextTwo
+                                                    .value = true;
+                                              }
+                                            },
+                                            icon: Icon(
+                                              Icons.remove_red_eye,
+                                              color: controller
+                                                      .absecuretextTwo.value
+                                                  ? Colors.blue
+                                                  : greyColor,
+                                            ),
+                                          ),
+                                          border: InputBorder.none,
+                                          focusedBorder: InputBorder.none,
+                                          enabledBorder: InputBorder.none,
+                                          errorBorder: InputBorder.none,
+                                          disabledBorder: InputBorder.none,
+                                          contentPadding: EdgeInsets.only(
+                                              left: 15,
+                                              bottom: 11,
+                                              top: 11,
+                                              right: 15),
+                                          hintStyle: TextStyle(
+                                              color: greyColor, fontSize: 14),
+                                          hintText: "Confirm Password".tr),
+                                    ),
                                   ),
                                 ),
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none,
-                                contentPadding: EdgeInsets.only(
-                                    left: 15, bottom: 11, top: 11, right: 15),
-                                hintStyle:
-                                    TextStyle(color: greyColor, fontSize: 14),
-                                hintText: "Confirm Password".tr),
+                              ),
+                            ],
+                            crossAxisAlignment: CrossAxisAlignment.start,
                           ),
-                        ),
-                      ),
-                    ),
                     SizedBox(
                       height: 10,
                     ),
@@ -220,7 +246,7 @@ class _EditProfileState extends State<EditProfile> {
                           keyboardType: TextInputType.text,
                           decoration: new InputDecoration(
                               prefixIcon: Icon(
-                                Icons.lock_outline,
+                                Icons.phone,
                                 color: greyColor,
                               ),
                               border: InputBorder.none,
@@ -229,10 +255,10 @@ class _EditProfileState extends State<EditProfile> {
                               errorBorder: InputBorder.none,
                               disabledBorder: InputBorder.none,
                               contentPadding: EdgeInsets.only(
-                                  left: 15, bottom: 11, top: 11, right: 15),
+                                  left: 15, bottom: 11, top: 15, right: 15),
                               hintStyle:
                                   TextStyle(color: greyColor, fontSize: 14),
-                              hintText: "OTP"),
+                              hintText: "Enter your mobile number"),
                         ),
                       ),
                     ),
@@ -246,22 +272,41 @@ class _EditProfileState extends State<EditProfile> {
                       child: RaisedButton(
                         color: blueColor,
                         onPressed: () async {
-                          if (controller.p1Con.text.isNotEmpty) {
-                            if (controller.p2Con.text.isNotEmpty) {
-                              if (controller.phoneCon.text.isNotEmpty) {
-                                controller.loading.value = true;
-                                ApiUtils.geteditMyProfile(
+                          if (storage.read('social') == 'true') {
+                            if (controller.phoneCon.text.isNotEmpty) {
+                              controller.loading.value = true;
+                              bool result = await ApiUtils.getcheckmynumber(
+                                  number: controller.phoneCon.text);
+                              if (result) {
+                                print('Call for update');
+                                ApiUtils.geteditMySocialProfile(
                                     controller: controller);
                               } else {
+                                controller.loading.value = true;
+                              }
+                            } else {
+                              snackBarFailer(
+                                  'Phone number fields should not is empty');
+                            }
+                          } else {
+                            if (controller.p1Con.text.isNotEmpty) {
+                              if (controller.p2Con.text.isNotEmpty) {
+                                if (controller.phoneCon.text.isNotEmpty) {
+                                  controller.loading.value = true;
+                                  ApiUtils.geteditMyProfile(
+                                      controller: controller);
+                                } else {
+                                  snackBarFailer(
+                                      'Phone number fields should not is empty');
+                                }
+                              } else {
                                 snackBarFailer(
-                                    'Phone number fields should not is empty');
+                                    'Please fields should not is empty');
                               }
                             } else {
                               snackBarFailer(
                                   'Please fields should not is empty');
                             }
-                          } else {
-                            snackBarFailer('Please fields should not is empty');
                           }
                         },
                         child: Text(

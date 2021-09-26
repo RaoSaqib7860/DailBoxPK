@@ -23,21 +23,13 @@ class _GovernmentState extends State<Government> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
         title: Text(
           'Government Directory'.tr,
           style: TextStyle(
             fontSize: 16,
           ),
         ),
+        centerTitle: true,
         elevation: 0,
         backgroundColor: blueColor,
       ),
@@ -45,229 +37,233 @@ class _GovernmentState extends State<Government> {
         padding: EdgeInsets.all(width * 0.030),
         child: Column(
           children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(5.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.0),
-                  color: Colors.grey[100],
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey[400]!,
-                      offset: Offset(0.0, 1.0), //(x,y)
-                      blurRadius: 6.0,
-                    ),
-                  ],
-                ),
-                child: TextFormField(
-                  cursorColor: Colors.black,
-                  // controller: controller.nameCon,
-                  enabled: false,
-                  keyboardType: TextInputType.text,
-                  decoration: new InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.search,
-                        color: greyColor,
-                      ),
-                      border: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      errorBorder: InputBorder.none,
-                      disabledBorder: InputBorder.none,
-                      contentPadding: EdgeInsets.only(
-                          left: 15, bottom: 11, top: 11, right: 15),
-                      hintStyle: TextStyle(color: greyColor, fontSize: 14),
-                      hintText: "Search here".tr),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
             Obx(
               () => Expanded(
-                child: controller.listGovernment.isEmpty
+                child: !controller.loading.value
                     ? Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.white,
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
                         ),
                       )
-                    : ListView.separated(
-                        itemCount: controller.listGovernment.length,
-                        itemBuilder: (BuildContext ctxt, int index) {
-                          return Container(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: <Widget>[
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text(
-                                        '${controller.listGovernment[index]['name']}',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14),
+                    : controller.listGovernment.isEmpty
+                        ? Center(
+                            child: Text('Empty'),
+                          )
+                        : ListView.separated(
+                            itemCount: controller.listGovernment.length,
+                            itemBuilder: (BuildContext ctxt, int index) {
+                              return Container(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            '${controller.listGovernment[index]['name']}',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            '${controller.listGovernment[index]['address']}',
+                                            style: TextStyle(
+                                                color: greyColor, fontSize: 12),
+                                          ),
+                                        ],
                                       ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        '${controller.listGovernment[index]['address']}',
-                                        style: TextStyle(
-                                            color: greyColor, fontSize: 12),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return StatefulBuilder(
-                                              builder: (context, setState) {
-                                            return AlertDialog(
-                                              contentPadding: EdgeInsets.only(
-                                                  left: 1, right: 1),
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              10.0))),
-                                              content: SingleChildScrollView(
-                                                child: Container(
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  padding: EdgeInsets.all(15),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: <Widget>[
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return StatefulBuilder(
+                                                  builder: (context, setState) {
+                                                return AlertDialog(
+                                                  contentPadding:
+                                                      EdgeInsets.only(
+                                                          left: 1, right: 1),
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  10.0))),
+                                                  content:
+                                                      SingleChildScrollView(
+                                                    child: Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                              .size
+                                                              .width,
+                                                      padding:
+                                                          EdgeInsets.all(15),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
                                                         children: <Widget>[
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: <Widget>[
+                                                              Text(
+                                                                'Department Name'
+                                                                    .tr,
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        16),
+                                                              ),
+                                                              IconButton(
+                                                                icon: Icon(Icons
+                                                                    .clear),
+                                                                onPressed: () {
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                              )
+                                                            ],
+                                                          ),
+                                                          //SizedBox(height: 10,),
                                                           Text(
-                                                            'Business Name'.tr,
+                                                            '${controller.listGovernment[index]['name']}',
+                                                            style: TextStyle(
+                                                                color:
+                                                                    greyColor,
+                                                                fontSize: 14),
+                                                          ),
+                                                          Divider(),
+                                                          Text(
+                                                            'Contact info'.tr,
                                                             style: TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
                                                                 fontSize: 16),
                                                           ),
-                                                          IconButton(
-                                                            icon: Icon(
-                                                                Icons.clear),
-                                                            onPressed: () {
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                          )
+                                                          SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Text(
+                                                            '${controller.listGovernment[index]['cont_num_a']}',
+                                                            style: TextStyle(
+                                                                color:
+                                                                    greyColor,
+                                                                fontSize: 14),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Divider(),
+                                                          Text(
+                                                            'Department Overview'
+                                                                .tr,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 16),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Text(
+                                                            '${controller.listGovernment[index]['b_overview']}',
+                                                            style: TextStyle(
+                                                                color:
+                                                                    greyColor,
+                                                                fontSize: 14),
+                                                          ),
+                                                          Divider(),
+                                                          Text(
+                                                            'Services'.tr,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 16),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Text(
+                                                            '${controller.listGovernment[index]['s_offered']}',
+                                                            style: TextStyle(
+                                                                color:
+                                                                    greyColor,
+                                                                fontSize: 14),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Divider(),
+                                                          Text(
+                                                            'Timings'.tr,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 16),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Text(
+                                                            '${controller.listGovernment[index]['timing']}',
+                                                            style: TextStyle(
+                                                                color:
+                                                                    greyColor,
+                                                                fontSize: 14),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 10,
+                                                          ),
                                                         ],
                                                       ),
-                                                      //SizedBox(height: 10,),
-                                                      Text(
-                                                        '${controller.listGovernment[index]['name']}',
-                                                        style: TextStyle(
-                                                            color: greyColor,
-                                                            fontSize: 14),
-                                                      ),
-                                                      Divider(),
-                                                      Text(
-                                                        'Contact info'.tr,
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 16),
-                                                      ),
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Text(
-                                                        '${controller.listGovernment[index]['cont_num_a']}',
-                                                        style: TextStyle(
-                                                            color: greyColor,
-                                                            fontSize: 14),
-                                                      ),
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Divider(),
-                                                      Text(
-                                                        'Business Overview'.tr,
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 16),
-                                                      ),
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Text(
-                                                        '${controller.listGovernment[index]['b_overview']}',
-                                                        style: TextStyle(
-                                                            color: greyColor,
-                                                            fontSize: 14),
-                                                      ),
-
-                                                      Divider(),
-                                                      Text(
-                                                        'Business Offered'.tr,
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 16),
-                                                      ),
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Text(
-                                                        '${controller.listGovernment[index]['s_offered']}',
-                                                        style: TextStyle(
-                                                            color: greyColor,
-                                                            fontSize: 14),
-                                                      ),
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                    ],
+                                                    ),
                                                   ),
-                                                ),
-                                              ),
-                                            );
-                                          });
-                                        });
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.only(
-                                        left: 15,
-                                        right: 15,
-                                        top: 10,
-                                        bottom: 10),
-                                    child: Text(
-                                      'Contact'.tr,
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 12),
-                                    ),
-                                    decoration: BoxDecoration(
-                                        color: blueColor,
-                                        borderRadius: BorderRadius.circular(3)),
-                                  ),
-                                )
-                              ],
-                            ),
-                            padding: EdgeInsets.all(10),
-                          );
-                        },
-                        separatorBuilder: (BuildContext ctxt, int index) {
-                          return Divider();
-                        },
-                      ),
+                                                );
+                                              });
+                                            });
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.only(
+                                            left: 15,
+                                            right: 15,
+                                            top: 10,
+                                            bottom: 10),
+                                        child: Text(
+                                          'View Details'.tr,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12),
+                                        ),
+                                        decoration: BoxDecoration(
+                                            color: blueColor,
+                                            borderRadius:
+                                                BorderRadius.circular(3)),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                padding: EdgeInsets.all(10),
+                              );
+                            },
+                            separatorBuilder: (BuildContext ctxt, int index) {
+                              return Divider();
+                            },
+                          ),
               ),
             )
           ],

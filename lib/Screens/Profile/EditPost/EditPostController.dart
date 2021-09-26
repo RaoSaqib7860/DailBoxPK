@@ -90,7 +90,7 @@ class EditPostController extends GetxController {
                           ),
                         ),
                         Text(
-                          'Gallary'.tr,
+                          'Photos'.tr,
                           style: TextStyle(
                               fontSize: 12,
                               fontFamily: 'Comfortaa',

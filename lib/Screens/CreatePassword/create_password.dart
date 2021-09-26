@@ -11,6 +11,10 @@ import 'package:get/get.dart';
 import 'CreatePasswordController.dart';
 
 class CreatePassword extends StatefulWidget {
+  final bool? fromPhone;
+
+  const CreatePassword({Key? key, this.fromPhone}) : super(key: key);
+
   @override
   _CreatePasswordState createState() => _CreatePasswordState();
 }
@@ -58,18 +62,14 @@ class _CreatePasswordState extends State<CreatePassword> {
                                   Navigator.pop(context);
                                 },
                               ),
-                              InkWell(
-                                onTap: () {
-                                  Get.offAll(HomeScreen);
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'Skip'.tr,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600),
-                                  ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Skip'.tr,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600),
                                 ),
                               )
                             ],
@@ -108,7 +108,8 @@ class _CreatePasswordState extends State<CreatePassword> {
                             height: 10,
                           ),
                           Text(
-                            'Register your bussiness with dialboxx to gain visibility in the marketplace.'.tr,
+                            'Register your business with dialboxx to gain visibility in the marketplace.'
+                                .tr,
                             style: TextStyle(
                                 fontSize: 13, fontWeight: FontWeight.w400),
                           ),
@@ -300,7 +301,8 @@ class _CreatePasswordState extends State<CreatePassword> {
                                           controller.p2Con.text) {
                                         controller.loading.value = true;
                                         await ApiUtils.getverifyotp(
-                                            controller: controller);
+                                            controller: controller,
+                                            fromPhone: widget.fromPhone);
                                       } else {
                                         snackBarFailer(
                                             'Otp fields should not is empty');

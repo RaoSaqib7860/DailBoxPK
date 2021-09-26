@@ -1,4 +1,5 @@
 import 'package:dail_box/AppUtils.dart/APiUtilsForAuth.dart';
+import 'package:dail_box/AppUtils.dart/AppBarGlobal.dart';
 import 'package:dail_box/AppUtils.dart/SizedConfig.dart';
 import 'package:dail_box/AppUtils.dart/SnackBarUtils.dart';
 import 'package:dail_box/Screens/ContactUs/ContactUsController.dart';
@@ -20,9 +21,9 @@ class _ContactUsState extends State<ContactUs> {
   @override
   void initState() {
     storage = GetStorage();
-    controller.nameCon.text = storage!.read('name');
-    controller.emailCon.text = storage!.read('email');
-    controller.phoneCon.text = storage!.read('mobile');
+    controller.nameCon.text = storage!.read('name')??'';
+    controller.emailCon.text = storage!.read('email')??'';
+    controller.phoneCon.text = storage!.read('mobile')??'';
     controller.messageCon.clear();
     super.initState();
   }
@@ -65,107 +66,88 @@ class _ContactUsState extends State<ContactUs> {
                             height: 15,
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Card(
-                                elevation: 5,
-                                child: Container(
-                                  height: 90,
-                                  width: 90,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Container(
-                                          padding: EdgeInsets.all(10),
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: blueColor),
-                                          child: Icon(
-                                            Icons.phone,
-                                            color: Colors.white,
-                                            size: 20,
-                                          )),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        'Call Us'.tr,
-                                        style: TextStyle(
-                                            color: blueColor,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 12),
-                                      )
-                                    ],
+                              InkWell(
+                                child: Card(
+                                  elevation: 5,
+                                  child: Container(
+                                    height: 90,
+                                    width: 90,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Container(
+                                            padding: EdgeInsets.all(10),
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: blueColor),
+                                            child: Icon(
+                                              Icons.phone,
+                                              color: Colors.white,
+                                              size: 20,
+                                            )),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text(
+                                          'Call Us'.tr,
+                                          style: TextStyle(
+                                              color: blueColor,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 12),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
+                                onTap: () {
+                                  launchURL("tel://02137133232");
+                                },
                               ),
-                              Card(
-                                elevation: 5,
-                                child: Container(
-                                  height: 90,
-                                  width: 90,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Container(
-                                          padding: EdgeInsets.all(10),
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Colors.orange),
-                                          child: Icon(
-                                            Icons.email,
-                                            color: Colors.white,
-                                            size: 20,
-                                          )),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        'Email Us'.tr,
-                                        style: TextStyle(
-                                            color: Colors.orange,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 12),
-                                      )
-                                    ],
-                                  ),
-                                ),
+                              SizedBox(
+                                width: 20,
                               ),
-                              Card(
-                                elevation: 5,
-                                child: Container(
-                                  height: 90,
-                                  width: 90,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Container(
-                                          padding: EdgeInsets.all(10),
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Colors.black),
-                                          child: Icon(
-                                            Icons.phone,
-                                            color: Colors.white,
-                                            size: 20,
-                                          )),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        'Chat with Us'.tr,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 12),
-                                      )
-                                    ],
+                              InkWell(
+                                onTap: () {
+                                  launchURL('mailto:support@dialboxx.pk');
+                                },
+                                child: Card(
+                                  elevation: 5,
+                                  child: Container(
+                                    height: 90,
+                                    width: 90,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Container(
+                                            padding: EdgeInsets.all(10),
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: Colors.orange),
+                                            child: Icon(
+                                              Icons.email,
+                                              color: Colors.white,
+                                              size: 20,
+                                            )),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text(
+                                          'Email Us'.tr,
+                                          style: TextStyle(
+                                              color: Colors.orange,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 12),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -409,5 +391,102 @@ class _ContactUsState extends State<ContactUs> {
         ),
       ),
     );
+  }
+
+  sendMessage({String? bussinies_id, String? to_msg}) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    TextEditingController textCon = TextEditingController();
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            insetPadding: EdgeInsets.symmetric(horizontal: width / 20),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0)), //this right here
+            child: Container(
+              height: height / 2.50,
+              width: width,
+              padding: EdgeInsets.symmetric(horizontal: width * 0.030),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  Text(
+                    'Send Message',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Colors.grey[100],
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[400]!,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 6.0,
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        cursorColor: Colors.black,
+                        maxLines: 6,
+                        keyboardType: TextInputType.text,
+                        controller: textCon,
+                        textInputAction: TextInputAction.done,
+                        decoration: new InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            contentPadding: EdgeInsets.only(
+                                left: 15, bottom: 11, top: 11, right: 15),
+                            hintStyle:
+                                TextStyle(color: greyColor, fontSize: 12),
+                            hintText: "Enter message here"),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height / 30,
+                  ),
+                  Center(
+                    child: InkWell(
+                      onTap: () {
+                        if (textCon.text.isNotEmpty) {
+                          Navigator.of(context).pop();
+                        } else {
+                          Navigator.of(context).pop();
+                          snackBarFailer('Please type message to receiver');
+                        }
+                      },
+                      child: Container(
+                        height: height * 0.055,
+                        width: width / 2,
+                        child: Center(
+                          child: Text(
+                            'Update',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                            color: blueColor,
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              decoration: BoxDecoration(color: Colors.white),
+            ),
+          );
+        });
   }
 }

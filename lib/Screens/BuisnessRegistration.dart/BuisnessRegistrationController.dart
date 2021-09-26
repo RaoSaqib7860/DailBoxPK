@@ -10,27 +10,27 @@ class BuisnessRegistrationController extends GetxController {
 
   var listofPackage = [].obs;
   var currentPackageIndex = 0.obs;
-  var packageHint = 'Select Package'.tr.obs;
+  var packageHint = 'Select Package'.obs;
 
   var listofIndustry = [].obs;
   var currentlistofIndustryIndex = 0.obs;
-  var listofIndustryHint = 'Select Industry'.tr.obs;
+  var listofIndustryHint = 'Select Industry*'.tr.obs;
 
-  var listofSV = ['Yes'.tr, 'No'.tr].obs;
+  var listofSV = ['Physical Location'.tr, 'Virtual'.tr].obs;
   var currentSVIndex = 0.obs;
-  var SVHint = 'Physical store* / Virtual store*'.tr.obs;
+  var SVHint = 'Physical Location/Virtual*'.tr.obs;
 
   var listOfDeliveryAvailable = ['Yes'.tr, 'No'.tr].obs;
   var currentListOfDeliveryAvailableIndex = 0.obs;
-  var listOfDeliveryAvailableHint = 'Delivery Available'.tr.obs;
+  var listOfDeliveryAvailableHint = 'Delivery Available*'.tr.obs;
 
   var listOfBooking = ['Yes'.tr, 'No'.tr].obs;
   var currentlistOfBookingIndex = 0.obs;
-  var listOfBookingHint = 'Booking'.tr.obs;
+  var listOfBookingHint = 'Booking Available*'.tr.obs;
 
   var listpick_up = ['Yes'.tr, 'No'.tr].obs;
   var currentpick_upIndex = 0.obs;
-  var pick_upHint = 'PickUp'.tr.obs;
+  var pick_upHint = 'Take Away/Pick up'.tr.obs;
 
   var listby_appointment = ['Yes'.tr, 'No'.tr].obs;
   var currentby_appointmentIndex = 0.obs;
@@ -38,12 +38,27 @@ class BuisnessRegistrationController extends GetxController {
 
   var listofCat = [].obs;
   var currentlistofCatIndex = 0.obs;
-  var listofCatHint = 'Category'.tr.obs;
+  var listofCatHint = 'Select Suitable Categories'.tr.obs;
 
   var listofSubCat = [].obs;
   var currentlistofSubCatIndex = 0.obs;
   var listofSubCatHint = 'Sub Category'.tr.obs;
 
+  var listofCity = [].obs;
+  var currentlistofCityIndex = 0.obs;
+  var listofCityHint = 'Select City'.tr.obs;
+
+  var listofEmployee = ['1-10', '10-49', '50+'].obs;
+  var currentlistofEmployeeIndex = 0.obs;
+  var listofEmployeeHint = 'Number of Employee'.tr.obs;
+
+  var listofHearAbout =
+      ['Agent', 'Social Media', 'Event', 'Referral', 'Banner'].obs;
+  var currentlistofHearAboutIndex = 0.obs;
+  var listofHearAboutHint = 'How did you hear about us?'.tr.obs;
+
+  var herarAbout = ''.obs;
+  var agentID = ''.obs;
   TextEditingController businessName = TextEditingController();
   TextEditingController businessEmail = TextEditingController();
   TextEditingController businessPhone = TextEditingController();
@@ -56,12 +71,14 @@ class BuisnessRegistrationController extends GetxController {
   TextEditingController businessWebsiteUrl = TextEditingController();
   TextEditingController businessNoOfEmployess = TextEditingController();
   TextEditingController businessFb = TextEditingController();
+  TextEditingController agentId = TextEditingController();
   TextEditingController businessInsta = TextEditingController();
   TextEditingController businessTwitter = TextEditingController();
   TextEditingController businessNoOfYoutube = TextEditingController();
   TextEditingController businessServiceArea = TextEditingController();
   TextEditingController keyWordController = TextEditingController();
   TextEditingController hearAboutController = TextEditingController();
+  TextEditingController cashController = TextEditingController();
   var listOfKeyWord = [].obs;
   var mon = 'Select time'.tr.obs;
   var tue = 'Select time'.tr.obs;
@@ -155,7 +172,7 @@ class BuisnessRegistrationController extends GetxController {
                           ),
                         ),
                         Text(
-                          'Gallary'.tr,
+                          'Photos'.tr,
                           style: TextStyle(
                               fontSize: 12,
                               fontFamily: 'Comfortaa',
@@ -174,4 +191,11 @@ class BuisnessRegistrationController extends GetxController {
           );
         });
   }
+
+  var currentPackage = 0.obs;
+  var listselectedofSubCatids = [].obs;
+  var listselectedofSubname = [].obs;
+  var loading = false.obs;
+  var listing_image = ''.obs;
+  var business_id = ''.obs;
 }

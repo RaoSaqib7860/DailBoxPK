@@ -12,8 +12,15 @@ import 'package:intl/intl.dart';
 class MessageDetails extends StatefulWidget {
   final String? incommingId;
   final String? IncommingName;
+  final String? incomingProfile;
+  final String? businessId;
 
-  MessageDetails({Key? key, this.incommingId, this.IncommingName})
+  MessageDetails(
+      {Key? key,
+      this.incommingId,
+      this.IncommingName,
+      this.incomingProfile,
+      this.businessId})
       : super(key: key);
 
   @override
@@ -25,7 +32,8 @@ class _MessageDetailsState extends State<MessageDetails> {
     'Hey! How’s it all going?'.tr,
     'It’s been an okay day… Lots of School work'.tr,
     'Feeling quite overwhelmed today. Wish I had more time to myself.'.tr,
-    'It’s okay to be tired. Try to take some deep breaths when you have a quick minute to yourself. Remember you are worth it! Being kind to others is just as important as being kind to yourself. '.tr,
+    'It’s okay to be tired. Try to take some deep breaths when you have a quick minute to yourself. Remember you are worth it! Being kind to others is just as important as being kind to yourself. '
+        .tr,
     'Hello brother'.tr
   ];
   List listbool = [true, false, true, false, true];
@@ -40,8 +48,8 @@ class _MessageDetailsState extends State<MessageDetails> {
   void initState() {
     userId = storage.read('userId');
     con.loadData.value = false;
-    ApiUtils.getgetChatOneToOne(widget.incommingId!);
-    con.callBackgroundSms(widget.incommingId!);
+    ApiUtils.getgetChatOneToOne(widget.incommingId!, widget.businessId!);
+    con.callBackgroundSms(widget.incommingId!, widget.businessId!);
     super.initState();
   }
 
@@ -104,22 +112,22 @@ class _MessageDetailsState extends State<MessageDetails> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: <Widget>[
-                                              Container(
-                                                margin: EdgeInsets.only(
-                                                    bottom: height / 60),
-                                                child: CircularProfileAvatar(
-                                                  '',
-                                                  child: Center(
-                                                      child: Icon(
-                                                    Icons.person,
-                                                    color: Colors.black45,
-                                                    size: 35,
-                                                  )),
-                                                  borderColor: Colors.black,
-                                                  borderWidth: 0.5,
-                                                  radius: height / 40,
-                                                ),
-                                              ),
+                                              // Container(
+                                              //   margin: EdgeInsets.only(
+                                              //       bottom: height / 60),
+                                              //   child: CircularProfileAvatar(
+                                              //     '',
+                                              //     child: Center(
+                                              //         child: Icon(
+                                              //       Icons.person,
+                                              //       color: Colors.black45,
+                                              //       size: 35,
+                                              //     )),
+                                              //     borderColor: Colors.black,
+                                              //     borderWidth: 0.5,
+                                              //     radius: height / 40,
+                                              //   ),
+                                              // ),
                                               SizedBox(
                                                 width: width / 40,
                                               ),
@@ -289,22 +297,22 @@ class _MessageDetailsState extends State<MessageDetails> {
                                               SizedBox(
                                                 width: width / 40,
                                               ),
-                                              Container(
-                                                margin: EdgeInsets.only(
-                                                    bottom: height / 60),
-                                                child: CircularProfileAvatar(
-                                                  '',
-                                                  child: Center(
-                                                      child: Icon(
-                                                    Icons.person,
-                                                    color: Colors.black45,
-                                                    size: 35,
-                                                  )),
-                                                  borderColor: Colors.black,
-                                                  borderWidth: 0.5,
-                                                  radius: height / 40,
-                                                ),
-                                              ),
+                                              // Container(
+                                              //   margin: EdgeInsets.only(
+                                              //       bottom: height / 60),
+                                              //   child: CircularProfileAvatar(
+                                              //     '',
+                                              //     child: Center(
+                                              //         child: Icon(
+                                              //       Icons.person,
+                                              //       color: Colors.black45,
+                                              //       size: 35,
+                                              //     )),
+                                              //     borderColor: Colors.black,
+                                              //     borderWidth: 0.5,
+                                              //     radius: height / 40,
+                                              //   ),
+                                              // ),
                                             ],
                                           ),
                                         ],
@@ -328,7 +336,7 @@ class _MessageDetailsState extends State<MessageDetails> {
                                       .split(' ')[1];
                               var time =
                                   DateFormat.jm().format(DateTime.parse(value));
-                              return userId ==
+                              return userId !=
                                       '${con.listofDealssms[i]['to_msg']}'
                                   ? Column(
                                       crossAxisAlignment:
@@ -343,17 +351,17 @@ class _MessageDetailsState extends State<MessageDetails> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: <Widget>[
-                                            Container(
-                                              margin: EdgeInsets.only(
-                                                  bottom: height / 60),
-                                              child: CircularProfileAvatar(
-                                                'https://www.dailboxx.websitescare.com/upload/profile/${con.listofDealssms[i]['profile_image']}',
-                                                borderColor: Colors.black,
-                                                borderWidth: 0.5,
-                                                elevation: 3,
-                                                radius: height / 40,
-                                              ),
-                                            ),
+                                            // Container(
+                                            //   margin: EdgeInsets.only(
+                                            //       bottom: height / 60),
+                                            //   child: CircularProfileAvatar(
+                                            //     '${widget.incomingProfile}',
+                                            //     borderColor: Colors.black,
+                                            //     borderWidth: 0.5,
+                                            //     elevation: 3,
+                                            //     radius: height / 40,
+                                            //   ),
+                                            // ),
                                             SizedBox(
                                               width: width / 40,
                                             ),
@@ -515,17 +523,6 @@ class _MessageDetailsState extends State<MessageDetails> {
                                             SizedBox(
                                               width: width / 40,
                                             ),
-                                            Container(
-                                              margin: EdgeInsets.only(
-                                                  bottom: height / 60),
-                                              child: CircularProfileAvatar(
-                                                'https://www.dailboxx.websitescare.com/upload/profile/${con.listofDealssms[i]['profile_image']}',
-                                                borderColor: Colors.black,
-                                                borderWidth: 0.5,
-                                                elevation: 3,
-                                                radius: height / 40,
-                                              ),
-                                            ),
                                           ],
                                         ),
                                       ],
@@ -589,11 +586,15 @@ class _MessageDetailsState extends State<MessageDetails> {
                         ),
                         InkWell(
                           onTap: () {
-                            ApiUtils.getgetChatOneToOneSave(
-                                incommingId: widget.incommingId,
-                                message: controller.text);
-                            ApiUtils.getgetChatOneToOne(widget.incommingId!);
-                            controller.clear();
+                            if (controller.text.trim().isNotEmpty) {
+                              ApiUtils.getgetChatOneToOneSave(
+                                  incommingId: widget.incommingId,
+                                  post_id: '${widget.businessId}',
+                                  message: controller.text);
+                              ApiUtils.getgetChatOneToOne(
+                                  widget.incommingId!, widget.businessId!);
+                              controller.clear();
+                            }
                           },
                           child: Container(
                             height: height / 18,
