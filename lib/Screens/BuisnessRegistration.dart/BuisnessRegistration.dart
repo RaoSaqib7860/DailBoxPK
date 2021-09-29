@@ -3,6 +3,7 @@ import 'package:dail_box/AppUtils.dart/LogsUtils.dart';
 import 'package:dail_box/AppUtils.dart/SizedConfig.dart';
 import 'package:dail_box/Screens/BuisnessRegistration.dart/BROne.dart';
 import 'package:dail_box/Screens/BuisnessRegistration.dart/BuisnessRegistrationController.dart';
+import 'package:dail_box/main.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -204,27 +205,29 @@ class _BuisnessRegistrationState extends State<BuisnessRegistration> {
                       () => controller.currentIndex.value == 1
                           ? RichText(
                               text: new TextSpan(
-                                  text: 'Fill in the'.tr,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      letterSpacing: 0.5,
-                                      fontWeight: FontWeight.w500),
-                                  children: [
-                                    new TextSpan(
-                                      text: ' business '.tr,
-                                      style: TextStyle(color: blueColor),
-                                      recognizer: new TapGestureRecognizer()
-                                        ..onTap = () => print('Tap Here onTap'),
-                                    ),
-                                    new TextSpan(
-                                      text:
-                                          'form and submit listing. Once approved, you can start listing products & services.'
-                                              .tr,
-                                      recognizer: new TapGestureRecognizer()
-                                        ..onTap = () => print('Tap Here onTap'),
-                                    )
-                                  ]),
+                                text: 'Fill in the'.tr,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    letterSpacing: 0.5,
+                                    fontWeight: FontWeight.w500),
+                                children: [
+                                  new TextSpan(
+                                    text: ' business '.tr,
+                                    style: TextStyle(color: blueColor),
+                                    recognizer: new TapGestureRecognizer()
+                                      ..onTap = () => print('Tap Here onTap'),
+                                  ),
+                                  new TextSpan(
+                                    text:
+                                        'form and submit listing. Once approved, you can start listing products & services.'
+                                            .tr,
+                                    recognizer: new TapGestureRecognizer()
+                                      ..onTap = () => print('Tap Here onTap'),
+                                  )
+                                ],
+                              ),
+                              textAlign: findLanguageController.isEnglishLocale.value? TextAlign.left:TextAlign.right,
                             )
                           : SizedBox(),
                     ),
@@ -380,6 +383,7 @@ class _TextFromFieldsCustomState extends State<TextFromFieldsCustom> {
           ],
         ),
         child: TextFormField(
+          textAlign:widget.isNumber?TextAlign.left: findLanguageController.isEnglishLocale.value? TextAlign.left:TextAlign.right,
           cursorColor: Colors.black,
           controller: widget.controller,
           textInputAction: TextInputAction.next,

@@ -250,7 +250,7 @@ class _BRThreeState extends State<BRThree> {
                         ),
                         Row(
                           children: [
-                            Text('Thur:'.tr),
+                            Text('Thursday:'.tr),
                             InkWell(
                               onTap: () async {
                                 TimeRange result = await showTimeRangePicker(

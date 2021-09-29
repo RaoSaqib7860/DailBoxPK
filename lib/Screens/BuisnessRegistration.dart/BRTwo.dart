@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:dail_box/AppUtils.dart/SnackBarUtils.dart';
+import 'package:dail_box/main.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,7 +26,9 @@ class _BRTwoState extends State<BRTwo> {
     var width = widget.width;
     return Obx(
       () => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: findLanguageController.isEnglishLocale.value
+            ? CrossAxisAlignment.start
+            : CrossAxisAlignment.end,
         children: [
           SizedBox(
             height: height * 0.020,
@@ -335,7 +338,9 @@ class _BRTwoState extends State<BRTwo> {
                     snackBarFailer('Select Delivery Available first'.tr);
                   }
                 } else {
-                  snackBarFailer('Enter Physical business address or Virtual city area'.tr);
+                  snackBarFailer(
+                      'Enter Physical business address or Virtual city area'
+                          .tr);
                 }
               },
               child: Container(

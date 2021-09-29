@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import '../../main.dart';
 import 'EditProfile.dart';
 
 caltoHome() {
@@ -85,7 +86,8 @@ class _ProfileState extends State<Profile> {
                   'Profile'.tr,
                   style: TextStyle(
                       color: Colors.white,
-                      fontWeight: FontWeight.w600,letterSpacing: 1,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 1,
                       fontSize: 20),
                 ),
                 IconButton(
@@ -339,24 +341,43 @@ class _ProfileState extends State<Profile> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Experience'.tr,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15),
-                                  ),
-                                  InkWell(
-                                    child: Icon(Icons.add),
-                                    onTap: () {
-                                      experince(controller: controller);
-                                    },
-                                  )
-                                ],
-                              ),
+                              findLanguageController.isEnglishLocale.value
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Experience'.tr,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15),
+                                        ),
+                                        InkWell(
+                                          child: Icon(Icons.add),
+                                          onTap: () {
+                                            experince(controller: controller);
+                                          },
+                                        )
+                                      ],
+                                    )
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        InkWell(
+                                          child: Icon(Icons.add),
+                                          onTap: () {
+                                            experince(controller: controller);
+                                          },
+                                        ),
+                                        Text(
+                                          'Experience'.tr,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15),
+                                        ),
+                                      ],
+                                    ),
                               SizedBox(
                                 height: height * 0.010,
                               ),
@@ -479,7 +500,7 @@ class _ProfileState extends State<Profile> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Expanded(
-                                                //school_name
+                                                  //school_name
                                                   child: Text(
                                                       'School Name : ${element['degree_type']}')),
                                               SizedBox(
@@ -527,7 +548,7 @@ class _ProfileState extends State<Profile> {
                                             ],
                                           ),
                                           Text(
-                                            //degree_type
+                                              //degree_type
                                               'Degree Type : ${element['school_name']}'),
                                           Text(
                                               'Time Duration : ${element['start_end']}')
@@ -1118,7 +1139,9 @@ class _ProfileState extends State<Profile> {
                     height: height / 30,
                   ),
                   Text(
-                    from == 'Education' ? 'Add Education'.tr : 'Add Experience'.tr,
+                    from == 'Education'
+                        ? 'Add Education'.tr
+                        : 'Add Experience'.tr,
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(
@@ -1140,6 +1163,9 @@ class _ProfileState extends State<Profile> {
                       ),
                       child: TextFormField(
                         cursorColor: Colors.black,
+                        textAlign: findLanguageController.isEnglishLocale.value
+                            ? TextAlign.left
+                            : TextAlign.right,
                         maxLines: 1,
                         keyboardType: TextInputType.text,
                         controller: position,
@@ -1179,6 +1205,9 @@ class _ProfileState extends State<Profile> {
                       ),
                       child: TextFormField(
                         cursorColor: Colors.black,
+                        textAlign: findLanguageController.isEnglishLocale.value
+                            ? TextAlign.left
+                            : TextAlign.right,
                         maxLines: 1,
                         keyboardType: TextInputType.text,
                         controller: company_name,
@@ -1218,6 +1247,9 @@ class _ProfileState extends State<Profile> {
                       ),
                       child: TextFormField(
                         cursorColor: Colors.black,
+                        textAlign: findLanguageController.isEnglishLocale.value
+                            ? TextAlign.left
+                            : TextAlign.right,
                         maxLines: 1,
                         keyboardType: TextInputType.text,
                         controller: time_duration,

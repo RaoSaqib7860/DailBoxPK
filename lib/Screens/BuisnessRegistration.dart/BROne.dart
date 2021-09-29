@@ -7,6 +7,7 @@ import 'package:dail_box/util/colors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../main.dart';
 import 'BuisnessRegistration.dart';
 
 class BROne extends StatefulWidget {
@@ -37,7 +38,7 @@ class _BROneState extends State<BROne> {
     var width = widget.width;
     return Obx(
       () => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: findLanguageController.isEnglishLocale.value? CrossAxisAlignment.start:CrossAxisAlignment.end,
         children: [
           SizedBox(
             height: height * 0.020,
@@ -272,6 +273,7 @@ class _BROneState extends State<BROne> {
           ),
           TextFromFieldsCustom(
             hint: 'Business Name*'.tr,
+
             enable: isEditBusiness ? false : true,
             controller: controller.businessName,
           ),

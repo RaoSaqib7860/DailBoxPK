@@ -6,6 +6,7 @@ import 'package:dail_box/util/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../main.dart';
 import 'AddnewBuisenessController.dart';
 
 class AddNewBuiseness extends StatefulWidget {
@@ -36,6 +37,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                 Navigator.of(context).pop();
               },
             ),
+            centerTitle: true,
             title: Text(
               'Add Business'.tr,
               style: TextStyle(
@@ -54,7 +56,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: findLanguageController.isEnglishLocale.value? CrossAxisAlignment.start: CrossAxisAlignment.end,
                         children: <Widget>[
                           SizedBox(
                             height: 10,
@@ -66,7 +68,12 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                                 color: blueColor,
                                 borderRadius: BorderRadius.circular(5)),
                             child: Text(
-                              'Register your business with dialboxx and go online today! Help potential buyers get in touch with you using Dialboxx search engine.'.tr,
+                              'Register your business with dialboxx and go online today! Help potential buyers get in touch with you using Dialboxx search engine.'
+                                  .tr,
+                              textAlign:
+                                  findLanguageController.isEnglishLocale.value
+                                      ? TextAlign.left
+                                      : TextAlign.right,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 13,
@@ -77,7 +84,12 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                             height: 20,
                           ),
                           Text(
-                            'Choose the best subscription package for your business:'.tr,
+                            'Choose the best subscription package for your business:'
+                                .tr,
+                            textAlign:
+                                findLanguageController.isEnglishLocale.value
+                                    ? TextAlign.left
+                                    : TextAlign.right,
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w600),
                           ),
@@ -85,6 +97,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                             height: 10,
                           ),
                           Column(
+                        
                             children: <Widget>[
                               Container(
                                 margin: EdgeInsets.only(top: 5, bottom: 5),
@@ -477,6 +490,10 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                           ),
                           Text(
                             'Package Benefits'.tr,
+                            textAlign:
+                                findLanguageController.isEnglishLocale.value
+                                    ? TextAlign.left
+                                    : TextAlign.right,
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w600),
                           ),
