@@ -8,11 +8,14 @@ import 'package:dail_box/AppUtils.dart/ApiUtilsForAll.dart';
 import 'package:dail_box/AppUtils.dart/LocationData.dart';
 import 'package:dail_box/AppUtils.dart/ShimmerEffect.dart';
 import 'package:dail_box/AppUtils.dart/SizedConfig.dart';
+import 'package:dail_box/LocalizationFile/SharedPreferenceClass.dart';
+import 'package:dail_box/Screens/HomeScreen/home_screen.dart';
 import 'package:dail_box/Screens/IndustryDetails/IndustryDetails.dart';
 import 'package:dail_box/Screens/RecentListingDetails/RecentListingdDetails.dart';
 import 'package:dail_box/Screens/SearchDetail/SearchDetails.dart';
 import 'package:dail_box/Screens/SearchPage/SearchPage.dart';
 import 'package:dail_box/Screens/bottomNav/Home/HomeController.dart';
+import 'package:dail_box/main.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +42,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   HomeController controller = Get.put(HomeController());
+  SharedPreferenceClass sharedPreferenceClass = SharedPreferenceClass();
 
+  int _value = 1;
   @override
   void initState() {
     getLocation();
@@ -54,6 +59,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     var height = Get.height;
     var width = Get.width;
+
     return SafeArea(
       child: Scaffold(
           resizeToAvoidBottomInset: false,
@@ -68,13 +74,198 @@ class _HomeState extends State<Home> {
             ),
             centerTitle: true,
             leading: IconButton(
-                onPressed: () {
-                  ZoomDrawer.of(context)!.toggle();
-                },
-                icon: Icon(
-                  Icons.dehaze,
-                  color: Colors.white,
-                )),
+              onPressed: () {
+                ZoomDrawer.of(context)!.toggle();
+              },
+              icon: Icon(
+                Icons.dehaze,
+                color: Colors.white,
+              ),
+            ),
+            actions: [
+              Align(
+                alignment: Alignment.centerRight,
+                child: Container(
+                  width: width * 0.2,
+                  color: Colors.transparent,
+                  child: DropdownButton(
+                    alignment: Alignment.centerRight,
+                    underline: SizedBox(),
+                    dropdownColor: blueColor,
+                    icon: Icon(
+                      CupertinoIcons.chevron_down_circle_fill,
+                      color: Colors.white,
+                    ),
+                    value: _value,
+                    items: [
+                      DropdownMenuItem(
+                        child: Text(
+                          "English ",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        value: 1,
+                        onTap: () {
+                          findLanguageController.isEnglishLocale.value = true;
+                          Get.updateLocale(engLocale);
+                          sharedPreferenceClass.addLocale(en: 'en', dd: 'US');
+                          print(
+                              ' is english locale ==  ${findLanguageController.isEnglishLocale.value}');
+                         // Get.offAll(HomeScreen());
+                        },
+                      ),
+                      DropdownMenuItem(
+                        child: Text(
+                          "Urdu ",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        value: 2,
+                        onTap: () {
+                          findLanguageController.isEnglishLocale.value = false;
+                          Get.updateLocale(urduLocale);
+                          sharedPreferenceClass.addLocale(en: 'de', dd: 'DE');
+                          print(
+                              ' is english locale ==  ${findLanguageController.isEnglishLocale.value}');
+                          // Get.offAll(HomeScreen());
+                        },
+                      ),
+                    ],
+                    onChanged: (int? value) {
+                      setState(() {
+                        _value = value!;
+                      });
+                    },
+                  ),
+
+                  // child: Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     InkWell(
+                  //       onTap: (){
+                  //         findLanguageController.isEnglishLocale.value = true;
+                  //         Get.updateLocale(engLocale);
+                  //         sharedPreferenceClass.addLocale(
+                  //           en: 'en',
+                  //           dd: 'US'
+                  //         );
+                  //
+                  //         print( ' is english locale ==  ${ findLanguageController.isEnglishLocale.value}');
+                  //
+                  //       },
+                  //       child: Container(
+                  //         height: height * 0.025,
+                  //         width: width * 0.12,
+                  //         color: findLanguageController.isEnglishLocale.value? Colors.blue : Colors.black12,
+                  //         child: Center(
+                  //           child: Text(
+                  //             'Eng',
+                  //
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     SizedBox(
+                  //       width: width * 0.025,
+                  //     ),
+                  //     InkWell(
+                  //       onTap: () {
+                  //         findLanguageController.isEnglishLocale.value = false;
+                  //         Get.updateLocale(urduLocale);
+                  //         sharedPreferenceClass.addLocale(
+                  //           en: 'de',
+                  //           dd: 'DE'
+                  //         );
+                  //         print( ' is english locale ==  ${ findLanguageController.isEnglishLocale.value}');
+                  //       },
+                  //       child: Container(
+                  //         height: height * 0.025,
+                  //         width: width * 0.12,
+                  //         color: findLanguageController.isEnglishLocale.value? Colors.black12: Colors.blue,
+                  //         child: Center(
+                  //           child: Text(
+                  //             'Urdu'.tr,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                ),
+              ),
+              // Container(
+              //   height: 10,
+              //   width: 1,
+              //   child: Obx(
+              //         () => Row(
+              //       children: [
+              //         InkWell(
+              //           // onTap: () {
+              //           //   findLanguageController
+              //           //       .isEnglishLocale.value = true;
+              //           //   Get.updateLocale(engLocale);
+              //           //   sharedPreferenceCalss.addLocale(
+              //           //       en: 'en', dd: 'US');
+              //           //   Get.back();
+              //           // },
+              //           child: Container(
+              //             height: 10,
+              //             width: 10,
+              //             child: Center(
+              //               child: Text(
+              //                 'ENG',
+              //                 // style: TextStyle(
+              //                 //     color:
+              //                 //     findLanguageController
+              //                 //         .isEnglishLocale
+              //                 //         .value
+              //                 //         ? Colors.white
+              //                 //         : Colors.black38,
+              //                 //     fontSize: 12),
+              //               ),
+              //             ),
+              //             // decoration: BoxDecoration(
+              //             //     color: findLanguageController
+              //             //         .isEnglishLocale.value
+              //             //         ? AppColors.blueColor
+              //             //         : AppColors.offskyblue),
+              //           ),
+              //         ),
+              //         InkWell(
+              //           // onTap: () {
+              //           //   findLanguageController
+              //           //       .isEnglishLocale.value = false;
+              //           //   Get.updateLocale(arabLocale);
+              //           //   sharedPreferenceCalss.addLocale(
+              //           //       en: 'de', dd: 'DE');
+              //           //   Get.back();
+              //           // },
+              //           child: Container(
+              //             height: 10,
+              //             width: 10,
+              //             child: Center(
+              //               child: Text(
+              //                 'العربية',
+              //                 // style: TextStyle(
+              //                 //     color:
+              //                 //     findLanguageController
+              //                 //         .isEnglishLocale
+              //                 //         .value
+              //                 //         ? Colors.black38
+              //                 //         : Colors.white,
+              //                 //     fontSize: 12),
+              //               ),
+              //             ),
+              //             // decoration: BoxDecoration(
+              //             //     color: findLanguageController
+              //             //         .isEnglishLocale.value
+              //             //         ? AppColors.offskyblue
+              //             //         : AppColors.blueColor),
+              //           ),
+              //         )
+              //       ],
+              //     ),
+              //   ),
+              // )
+            ],
           ),
           body: Stack(
             children: [
@@ -131,7 +322,8 @@ class _HomeState extends State<Home> {
                                       hintStyle: TextStyle(
                                           color: greyColor, fontSize: 10),
                                       hintText:
-                                          "Search for service, product or business"),
+                                          "Search for service, product or business"
+                                              .tr),
                                 ),
                               ),
                             ),
@@ -151,12 +343,12 @@ class _HomeState extends State<Home> {
                                 SliverToBoxAdapter(
                                   child: Padding(
                                     padding: const EdgeInsets.all(10.0),
-                                    child: Row(
+                                    child: findLanguageController.isEnglishLocale.value? Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Text(
-                                          'Industries',
+                                          'Industries'.tr,
                                           style: TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 16),
@@ -166,7 +358,7 @@ class _HomeState extends State<Home> {
                                           child: Row(
                                             children: [
                                               Text(
-                                                'View All ',
+                                                'View All '.tr,
                                                 style: TextStyle(
                                                     color: blueColor,
                                                     fontSize: 12),
@@ -202,6 +394,59 @@ class _HomeState extends State<Home> {
                                             ],
                                           ),
                                         )
+                                      ],
+                                    ):Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+
+                                        InkWell(
+                                          onTap: () {},
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'View All '.tr,
+                                                style: TextStyle(
+                                                    color: blueColor,
+                                                    fontSize: 12),
+                                              ),
+                                              SizedBox(
+                                                width: width * 0.010,
+                                              ),
+                                              !controller.isOpenIndustry.value
+                                                  ? InkWell(
+                                                onTap: () {
+                                                  controller
+                                                      .isOpenIndustry
+                                                      .value = true;
+                                                },
+                                                child: Icon(
+                                                  CupertinoIcons
+                                                      .chevron_down_circle_fill,
+                                                  color: blueColor,
+                                                ),
+                                              )
+                                                  : InkWell(
+                                                onTap: () {
+                                                  controller
+                                                      .isOpenIndustry
+                                                      .value = false;
+                                                },
+                                                child: Icon(
+                                                  CupertinoIcons
+                                                      .arrow_up_circle_fill,
+                                                  color: blueColor,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        Text(
+                                          'Industries'.tr,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -319,10 +564,10 @@ class _HomeState extends State<Home> {
                                     padding: const EdgeInsets.all(10.0),
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                          findLanguageController.isEnglishLocale.value? MainAxisAlignment.start: MainAxisAlignment.end,
                                       children: <Widget>[
                                         Text(
-                                          'Trending',
+                                          'Trending'.tr,
                                           style: TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 16),
@@ -456,10 +701,10 @@ class _HomeState extends State<Home> {
                                     padding: const EdgeInsets.all(10.0),
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                          findLanguageController.isEnglishLocale.value? MainAxisAlignment.start:MainAxisAlignment.end,
                                       children: <Widget>[
                                         Text(
-                                          'Recent Listings',
+                                          'Recent Listings'.tr,
                                           style: TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 16),
@@ -547,16 +792,17 @@ class _HomeState extends State<Home> {
                                     padding: const EdgeInsets.all(10.0),
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                          findLanguageController.isEnglishLocale.value? MainAxisAlignment.start: MainAxisAlignment.end,
                                       children: <Widget>[
                                         Text(
-                                          'Popular Products',
+                                          'Popular Products'.tr,
                                           style: TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 16),
                                         ),
                                         SizedBox(
                                           height: height * 0.030,
+                                          width: findLanguageController.isEnglishLocale.value? 0:10,
                                         ),
                                       ],
                                     ),
@@ -599,7 +845,7 @@ class _HomeState extends State<Home> {
                                                           height: 2,
                                                         ),
                                                         Text(
-                                                          'price : ${controller.listofMostPopular[i]['pprice']}/-',
+                                                          'price : ${controller.listofMostPopular[i]['pprice']} Rs/-',
                                                           style: TextStyle(
                                                               fontSize: 10,
                                                               color: blueColor),
@@ -622,16 +868,17 @@ class _HomeState extends State<Home> {
                                     padding: const EdgeInsets.all(10.0),
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                         findLanguageController.isEnglishLocale.value? MainAxisAlignment.start: MainAxisAlignment.end,
                                       children: <Widget>[
                                         Text(
-                                          'Popular Services',
+                                          'Popular Services'.tr,
                                           style: TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 16),
                                         ),
                                         SizedBox(
                                           height: height * 0.030,
+                                          width: findLanguageController.isEnglishLocale.value? 0:10,
                                         ),
                                       ],
                                     ),
@@ -665,7 +912,7 @@ class _HomeState extends State<Home> {
                                                 },
                                                 child: Card(
                                                   child: Container(
-                                                    width: width * 0.330,
+                                                    width: width * 0.390,
                                                     child: Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
@@ -705,7 +952,7 @@ class _HomeState extends State<Home> {
                                                                   horizontal:
                                                                       3),
                                                           child: Text(
-                                                            'Starting price : ${controller.listofMostPopularServices[i]['s_cost']}/-',
+                                                            'Starting price : ${controller.listofMostPopularServices[i]['s_cost']} Rs/-',
                                                             maxLines: 2,
                                                             style: TextStyle(
                                                                 fontSize: 10,

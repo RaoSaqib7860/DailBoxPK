@@ -88,6 +88,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                       ? SizedBox()
                       : InkWell(
                           onTap: () {
+                            isEditBusiness = true;
                             Get.to(BuisnessRegistration(
                               currentPackage: 0,
                               mapData: controller.listofrecentListings[0],
@@ -97,7 +98,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                             padding: EdgeInsets.only(right: width * 0.030),
                             child: Center(
                               child: Text(
-                                'Update',
+                                'Update'.tr,
                                 style: TextStyle(),
                               ),
                             ),
@@ -251,7 +252,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                   width: width,
                                   child: Center(
                                     child: Text(
-                                      'Message',
+                                      'Message'.tr,
                                       style: TextStyle(color: Colors.white),
                                     ),
                                   ),
@@ -270,7 +271,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                 ),
                                 Center(
                                   child: Text(
-                                    'Rate this Business',
+                                    'Rate this Business'.tr,
                                     style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold),
@@ -311,7 +312,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                       size: 30,
                                     ),
                                     Text(
-                                      'Address',
+                                      'Address'.tr,
                                       style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.w500),
@@ -366,7 +367,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                 ),
                                 Row(
                                   children: [
-                                    Text('Social media',
+                                    Text('Social media'.tr,
                                         style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.bold,
@@ -437,7 +438,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                   height: height * 0.020,
                                 ),
                                 Text(
-                                  'Business Description',
+                                  'Business Description'.tr,
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold),
@@ -461,7 +462,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                   height: height * 0.020,
                                 ),
                                 Text(
-                                  'Popular products',
+                                  'Popular products'.tr,
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
@@ -506,7 +507,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                   height: height * 0.020,
                                 ),
                                 Text(
-                                  'Popular Services',
+                                  'Popular Services'.tr,
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold),
@@ -527,13 +528,6 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(
-                                    Icons.home_work,
-                                    color: Colors.black38,
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
                                   Text(
                                     '${controller.listofrecentListings[0]['industry_name']}',
                                     style: TextStyle(
@@ -586,33 +580,33 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      '${controller.listofrecentListings[0]['business_address']}',
+                                      '${controller.listofrecentListings[0]['business_address']} ${controller.listofrecentListings[0]['area']}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontSize: 13,
+                                          fontSize: 15,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                 ],
                               ),
-                              SizedBox(
-                                height: height * 0.010,
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    'Business Area : ',
-                                    style: TextStyle(
-                                        color: blueColor, fontSize: 12),
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      '${controller.listofrecentListings[0]['area']}',
-                                      style: TextStyle(fontSize: 12),
-                                    ),
-                                  )
-                                ],
-                              ),
+                              // SizedBox(
+                              //   height: height * 0.010,
+                              // ),
+                              // Row(
+                              //   children: [
+                              //     Text(
+                              //       'Business Area : ',
+                              //       style: TextStyle(
+                              //           color: blueColor, fontSize: 12),
+                              //     ),
+                              //     Expanded(
+                              //       child: Text(
+                              //         '${controller.listofrecentListings[0]['area']}',
+                              //         style: TextStyle(fontSize: 12),
+                              //       ),
+                              //     )
+                              //   ],
+                              // ),
 
                               SizedBox(
                                 height: 5,
@@ -620,7 +614,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                               Row(
                                 children: [
                                   Text(
-                                    'Business in Other Cities : ',
+                                    'Business City(s) : '.tr,
                                     style: TextStyle(
                                         color: blueColor, fontSize: 12),
                                   ),
@@ -736,7 +730,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                             ));
                                           },
                                           child: Text(
-                                            'View All',
+                                            'View All'.tr,
                                             style: TextStyle(
                                                 fontSize: 13,
                                                 fontWeight: FontWeight.bold,
@@ -814,7 +808,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                     InkWell(
                                       onTap: () {
                                         launchURL(
-                                            "sms:${controller.listofrecentListings[0]['whatsapp_number']}");
+                                            "sms:${controller.listofrecentListings[0]['cell_number']}");
                                       },
                                       child: buildIcon(
                                           icon: Icons.ad_units_outlined),
@@ -838,7 +832,8 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                   ? SizedBox()
                                   : InkWell(
                                       onTap: () {
-                                        print('${controller.listofrecentListings[0]['user_id']}');
+                                        print(
+                                            '${controller.listofrecentListings[0]['user_id']}');
                                         sendMessage(
                                             to_msg:
                                                 '${controller.listofrecentListings[0]['user_id']}',
@@ -852,7 +847,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                         width: width,
                                         child: Center(
                                           child: Text(
-                                            'Message',
+                                            'Message'.tr,
                                             style:
                                                 TextStyle(color: Colors.white),
                                           ),
@@ -882,7 +877,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                         width: width,
                                         child: Center(
                                           child: Text(
-                                            'Rate this Business',
+                                            'Rate this Business'.tr,
                                             style:
                                                 TextStyle(color: Colors.white),
                                           ),
@@ -909,7 +904,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                     size: 30,
                                   ),
                                   Text(
-                                    'Address',
+                                    'Address'.tr,
                                     style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w500),
@@ -941,7 +936,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                                             5)),
                                                 child: Center(
                                                   child: Text(
-                                                    'Report',
+                                                    'Report'.tr,
                                                     style: TextStyle(
                                                         color: Colors.white,
                                                         fontSize: 13),
@@ -991,13 +986,10 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                               ),
                               rowView(
                                   icon: Icons.warning_amber_sharp,
-                                  title: 'Hours & Services may differ'),
+                                  title: 'Hours & Services may differ'.tr),
                               rowView(
                                 icon: Icons.access_time,
-                                title: 'Monday - Sunday',
-                              ),
-                              SizedBox(
-                                height: height * 0.010,
+                                title: 'Monday - Sunday'.tr,
                               ),
                               Padding(
                                   padding: EdgeInsets.only(left: 30),
@@ -1019,8 +1011,11 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                       }
                                     }).toList(),
                                   )),
+                              SizedBox(
+                                height: 8,
+                              ),
                               Container(
-                                height: 0.1,
+                                height: 0.5,
                                 width: width,
                                 color: Colors.black38,
                               ),
@@ -1042,11 +1037,6 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                             '${controller.listofrecentListings[0]['cell_number']}',
                                       ),
                                     ),
-                              Container(
-                                height: 0.5,
-                                width: width,
-                                color: Colors.black38,
-                              ),
                               rowView(
                                 icon: Icons.perm_identity,
                                 title:
@@ -1161,7 +1151,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                               ),
                               Row(
                                 children: [
-                                  Text('Social Media',
+                                  Text('Social Media'.tr,
                                       style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold,
@@ -1278,7 +1268,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                 height: height * 0.020,
                               ),
                               Text(
-                                'Business Description',
+                                'Business Description'.tr,
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.bold),
                               ),
@@ -1308,7 +1298,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'FAQs',
+                                    'FAQs'.tr,
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold),
@@ -1405,7 +1395,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Products',
+                                    'Products'.tr,
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold),
@@ -1584,7 +1574,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Services',
+                                    'Services'.tr,
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold),
@@ -1725,7 +1715,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Categories',
+                            'Categories'.tr,
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
@@ -1811,11 +1801,13 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
         SizedBox(
           height: height * 0.020,
         ),
-        Container(
-          height: 0.5,
-          width: width,
-          color: Colors.black38,
-        ),
+        title == 'Monday - Sunday'.tr
+            ? SizedBox()
+            : Container(
+                height: 0.5,
+                width: width,
+                color: Colors.black38,
+              ),
       ],
     );
   }
@@ -1855,7 +1847,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                     height: height / 30,
                   ),
                   Text(
-                    'Edit',
+                    'Edit'.tr,
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(
@@ -1891,7 +1883,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                 left: 15, bottom: 11, top: 11, right: 15),
                             hintStyle:
                                 TextStyle(color: greyColor, fontSize: 12),
-                            hintText: "Enter message here"),
+                            hintText: "Enter message here".tr),
                       ),
                     ),
                   ),
@@ -1928,7 +1920,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                 left: 15, bottom: 11, top: 11, right: 15),
                             hintStyle:
                                 TextStyle(color: greyColor, fontSize: 12),
-                            hintText: "Enter message here"),
+                            hintText: "Enter message here".tr),
                       ),
                     ),
                   ),
@@ -1955,7 +1947,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                         width: width / 2,
                         child: Center(
                           child: Text(
-                            'Update',
+                            'Update'.tr,
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -1994,7 +1986,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                     height: height / 30,
                   ),
                   Text(
-                    'Send Message',
+                    'Send Message'.tr,
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(
@@ -2030,7 +2022,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                 left: 15, bottom: 11, top: 11, right: 15),
                             hintStyle:
                                 TextStyle(color: greyColor, fontSize: 12),
-                            hintText: "Enter message here"),
+                            hintText: "Enter message here".tr),
                       ),
                     ),
                   ),
@@ -2050,7 +2042,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                           Navigator.of(context).pop();
                         } else {
                           Navigator.of(context).pop();
-                          snackBarFailer('Please type message to receiver');
+                          snackBarFailer('Please type message'.tr);
                         }
                       },
                       child: Container(
@@ -2058,7 +2050,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                         width: width / 2,
                         child: Center(
                           child: Text(
-                            'SEND',
+                            'SEND'.tr,
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -2097,7 +2089,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                     height: height / 30,
                   ),
                   Text(
-                    'Send Report',
+                    'Send Report'.tr,
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(
@@ -2133,7 +2125,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                 left: 15, bottom: 11, top: 11, right: 15),
                             hintStyle:
                                 TextStyle(color: greyColor, fontSize: 12),
-                            hintText: "Enter message here"),
+                            hintText: "Enter message here".tr),
                       ),
                     ),
                   ),
@@ -2149,7 +2141,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                           Navigator.of(context).pop();
                         } else {
                           Navigator.of(context).pop();
-                          snackBarFailer('Please type message to receiver');
+                          snackBarFailer('Please enter report!'.tr);
                         }
                       },
                       child: Container(
@@ -2157,7 +2149,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                         width: width / 2,
                         child: Center(
                           child: Text(
-                            'Report',
+                            'Report'.tr,
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -2304,11 +2296,11 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                       rating_review: tecCon.text);
                                 } else {
                                   Navigator.of(context).pop();
-                                  snackBarFailer('Please enter feed back'.tr);
+                                  snackBarFailer('Please enter review!'.tr);
                                 }
                               } else {
                                 Navigator.of(context).pop();
-                                snackBarFailer('Please rate to Driver'.tr);
+                                snackBarFailer('Please select rating!'.tr);
                               }
                             },
                             child: Container(
@@ -2316,7 +2308,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                               width: width * 0.3,
                               child: Center(
                                 child: Text(
-                                  'Ok'.tr,
+                                  'Rate'.tr,
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 12),
                                 ),

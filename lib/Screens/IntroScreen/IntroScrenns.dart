@@ -90,7 +90,7 @@ class _IntroScreensState extends State<IntroScreens> {
                       child: Row(
                         children: [
                           Text(
-                            'Next',
+                            'Next'.tr,
                             style: TextStyle(
                               color: blueColor,
                               letterSpacing: 1,

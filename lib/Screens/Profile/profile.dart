@@ -10,11 +10,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'EditProfile.dart';
-caltoHome(){
+
+caltoHome() {
   Future.delayed(Duration(seconds: 2), () {
     Get.offAll(HomeScreen());
   });
 }
+
 callProfile() {
   final controller = Get.find<ProfileController>();
   controller.loadmainList.value = false;
@@ -83,7 +85,7 @@ class _ProfileState extends State<Profile> {
                   'Profile'.tr,
                   style: TextStyle(
                       color: Colors.white,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w600,letterSpacing: 1,
                       fontSize: 20),
                 ),
                 IconButton(
@@ -342,7 +344,7 @@ class _ProfileState extends State<Profile> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Experience',
+                                    'Experience'.tr,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15),
@@ -376,7 +378,7 @@ class _ProfileState extends State<Profile> {
                                             children: [
                                               Expanded(
                                                   child: Text(
-                                                      'Company Name : ${element['company_name']}')),
+                                                      'Company Name : ${element['position']}')),
                                               SizedBox(
                                                 width: 5,
                                               ),
@@ -423,7 +425,7 @@ class _ProfileState extends State<Profile> {
                                             ],
                                           ),
                                           Text(
-                                              'Position : ${element['position']}'),
+                                              'Position : ${element['company_name']}'),
                                           Text(
                                               'Time Duration : ${element['time_duration']}')
                                         ],
@@ -442,7 +444,7 @@ class _ProfileState extends State<Profile> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Education',
+                                    'Education'.tr,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15),
@@ -477,8 +479,9 @@ class _ProfileState extends State<Profile> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Expanded(
+                                                //school_name
                                                   child: Text(
-                                                      'School Name : ${element['school_name']}')),
+                                                      'School Name : ${element['degree_type']}')),
                                               SizedBox(
                                                 width: 5,
                                               ),
@@ -524,7 +527,8 @@ class _ProfileState extends State<Profile> {
                                             ],
                                           ),
                                           Text(
-                                              'Degree Type : ${element['degree_type']}'),
+                                            //degree_type
+                                              'Degree Type : ${element['school_name']}'),
                                           Text(
                                               'Time Duration : ${element['start_end']}')
                                         ],
@@ -543,7 +547,7 @@ class _ProfileState extends State<Profile> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Accomplishments',
+                                    'Accomplishments'.tr,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15),
@@ -628,7 +632,7 @@ class _ProfileState extends State<Profile> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Skills',
+                                    'Skills'.tr,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15),
@@ -713,7 +717,7 @@ class _ProfileState extends State<Profile> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Volunteering',
+                                    'Volunteering'.tr,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15),
@@ -871,10 +875,10 @@ class _ProfileState extends State<Profile> {
                   ),
                   Text(
                     isupdate == 'acconplish'
-                        ? 'Add accomplishments'
+                        ? 'Add accomplishments'.tr
                         : isupdate == 'Volunteering'
-                            ? 'Add Volunteering'
-                            : 'Add Skills',
+                            ? 'Add Volunteering'.tr
+                            : 'Add Skills'.tr,
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(
@@ -911,10 +915,10 @@ class _ProfileState extends State<Profile> {
                             hintStyle:
                                 TextStyle(color: greyColor, fontSize: 12),
                             hintText: isupdate == 'acconplish'
-                                ? "Write your accomplishments here"
+                                ? "Write your accomplishments here".tr
                                 : isupdate == 'Volunteering'
-                                    ? 'Write your Volunteering here'
-                                    : "Write your skill here"),
+                                    ? 'Write your Volunteering here'.tr
+                                    : "Write your skill here".tr),
                       ),
                     ),
                   ),
@@ -944,7 +948,7 @@ class _ProfileState extends State<Profile> {
                         width: width / 2,
                         child: Center(
                           child: Text(
-                            'Add',
+                            'Add'.tr,
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -990,10 +994,10 @@ class _ProfileState extends State<Profile> {
                   ),
                   Text(
                     from == 'Acomplish'
-                        ? 'Update accomplishments'
+                        ? 'Update accomplishments'.tr
                         : from == 'Volunteering'
-                            ? 'Update Volunteering'
-                            : 'Update Skills',
+                            ? 'Update Volunteering'.tr
+                            : 'Update Skills'.tr,
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(
@@ -1030,10 +1034,10 @@ class _ProfileState extends State<Profile> {
                             hintStyle:
                                 TextStyle(color: greyColor, fontSize: 12),
                             hintText: from == 'Acomplish'
-                                ? "Write your accomplishments here"
+                                ? "Write your accomplishments here".tr
                                 : from == 'Volunteering'
-                                    ? 'Write your Volunteering here'
-                                    : "Write your skills here"),
+                                    ? 'Write your Volunteering here'.tr
+                                    : "Write your skills here".tr),
                       ),
                     ),
                   ),
@@ -1072,7 +1076,7 @@ class _ProfileState extends State<Profile> {
                         width: width / 2,
                         child: Center(
                           child: Text(
-                            'Update',
+                            'Update'.tr,
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -1114,7 +1118,7 @@ class _ProfileState extends State<Profile> {
                     height: height / 30,
                   ),
                   Text(
-                    from == 'Education' ? 'Add Education' : 'Add Experience',
+                    from == 'Education' ? 'Add Education'.tr : 'Add Experience'.tr,
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(
@@ -1151,8 +1155,8 @@ class _ProfileState extends State<Profile> {
                             hintStyle:
                                 TextStyle(color: greyColor, fontSize: 12),
                             hintText: from == 'Education'
-                                ? "Write your School name"
-                                : "Write your position here"),
+                                ? "Write your School name".tr
+                                : "Write your position here".tr),
                       ),
                     ),
                   ),
@@ -1190,8 +1194,8 @@ class _ProfileState extends State<Profile> {
                             hintStyle:
                                 TextStyle(color: greyColor, fontSize: 12),
                             hintText: from == 'Education'
-                                ? "Write your degree type"
-                                : "Write your company name"),
+                                ? "Write your degree type".tr
+                                : "Write your company name".tr),
                       ),
                     ),
                   ),
@@ -1229,8 +1233,8 @@ class _ProfileState extends State<Profile> {
                             hintStyle:
                                 TextStyle(color: greyColor, fontSize: 12),
                             hintText: from == 'Education'
-                                ? "Time Duration"
-                                : "Write your time duration"),
+                                ? "Time Duration".tr
+                                : "Write your time duration".tr),
                       ),
                     ),
                   ),
@@ -1262,7 +1266,7 @@ class _ProfileState extends State<Profile> {
                         width: width / 2,
                         child: Center(
                           child: Text(
-                            'Add',
+                            'Add'.tr,
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -1315,8 +1319,8 @@ class _ProfileState extends State<Profile> {
                   ),
                   Text(
                     from == 'Education'
-                        ? 'Update Education'
-                        : 'Update Experience',
+                        ? 'Update Education'.tr
+                        : 'Update Experience'.tr,
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(
@@ -1353,8 +1357,8 @@ class _ProfileState extends State<Profile> {
                             hintStyle:
                                 TextStyle(color: greyColor, fontSize: 12),
                             hintText: from == 'Education'
-                                ? "Write your Education here"
-                                : "Write your position here"),
+                                ? "Write your Education here".tr
+                                : "Write your position here".tr),
                       ),
                     ),
                   ),
@@ -1392,8 +1396,8 @@ class _ProfileState extends State<Profile> {
                             hintStyle:
                                 TextStyle(color: greyColor, fontSize: 12),
                             hintText: from == 'Education'
-                                ? "Write your Education here"
-                                : "Write your company name"),
+                                ? "Write your Education here".tr
+                                : "Write your company name".tr),
                       ),
                     ),
                   ),
@@ -1431,8 +1435,8 @@ class _ProfileState extends State<Profile> {
                             hintStyle:
                                 TextStyle(color: greyColor, fontSize: 12),
                             hintText: from == 'Education'
-                                ? "Write your Education here"
-                                : "Write your time duration"),
+                                ? "Write your Education here".tr
+                                : "Write your time duration".tr),
                       ),
                     ),
                   ),
@@ -1468,7 +1472,7 @@ class _ProfileState extends State<Profile> {
                         width: width / 2,
                         child: Center(
                           child: Text(
-                            'Update',
+                            'Update'.tr,
                             style: TextStyle(color: Colors.white),
                           ),
                         ),

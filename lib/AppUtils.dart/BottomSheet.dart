@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:get/get.dart';
 
+import 'APiUtilsForAuth.dart';
+
 class BottomSheetCustom extends StatefulWidget {
   const BottomSheetCustom({Key? key}) : super(key: key);
 
@@ -42,7 +44,11 @@ class _BottomSheetCustomState extends State<BottomSheetCustom> {
       // Default is true.
       hideNavigationBarWhenKeyboardShows: true,
       // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
-
+      onItemSelected: (v) {
+        if (v == 3 && isopenMessage) {
+          ApiUtils.getgetAllMyMessages();
+        }
+      },
       popAllScreensOnTapOfSelectedTab: true,
       popActionScreens: PopActionScreensType.all,
       itemAnimationProperties: ItemAnimationProperties(
@@ -91,8 +97,22 @@ class _BottomSheetCustomState extends State<BottomSheetCustom> {
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
+      //chat_bubble_text
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.chat_bubble_text),
+        icon:
+            // Stack(
+            //   children: <Widget>[
+            //     Icon(CupertinoIcons.chat_bubble_text),
+            //     Positioned(
+            //       // draw a red marble
+            //       top: 0.0,
+            //       right: 0.0,
+            //       child: new Icon(Icons.brightness_1,
+            //           size: 10.0, color: Colors.redAccent),
+            //     ),
+            //   ],
+            // ),
+            Icon(CupertinoIcons.chat_bubble_text),
         title: ("Message".tr),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,

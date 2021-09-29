@@ -73,6 +73,7 @@ class _MessageDetailsState extends State<MessageDetails> {
             ),
             onPressed: () {
               Navigator.of(context).pop();
+              ApiUtils.getgetAllMyMessages();
             },
           ),
           title: Text(
@@ -139,8 +140,8 @@ class _MessageDetailsState extends State<MessageDetails> {
                                                   margin: EdgeInsets.only(
                                                       bottom: height / 60),
                                                   child: CustomPaint(
-                                                    size: Size(
-                                                        width / 8, height / 16),
+                                                    size: Size(width / 8,
+                                                        height / 16),
                                                     painter: SmsPainter(),
                                                   ),
                                                 ),
@@ -156,7 +157,8 @@ class _MessageDetailsState extends State<MessageDetails> {
                                                               EdgeInsets.all(
                                                                   width / 30),
                                                           decoration: BoxDecoration(
-                                                              color: blueColor,
+                                                              color:
+                                                                  blueColor,
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
@@ -173,7 +175,8 @@ class _MessageDetailsState extends State<MessageDetails> {
                                                           ),
                                                         ),
                                                         SizedBox(
-                                                          height: height / 200,
+                                                          height:
+                                                              height / 200,
                                                         ),
                                                         Row(
                                                           mainAxisAlignment:
@@ -181,11 +184,10 @@ class _MessageDetailsState extends State<MessageDetails> {
                                                                   .end,
                                                           children: <Widget>[
                                                             Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      right:
-                                                                          width /
-                                                                              50),
+                                                              padding: EdgeInsets.only(
+                                                                  right:
+                                                                      width /
+                                                                          50),
                                                               child: Text(
                                                                 '3.30PM'.tr,
                                                                 style:
@@ -252,7 +254,8 @@ class _MessageDetailsState extends State<MessageDetails> {
                                                           ),
                                                         ),
                                                         SizedBox(
-                                                          height: height / 200,
+                                                          height:
+                                                              height / 200,
                                                         ),
                                                         Row(
                                                           mainAxisAlignment:
@@ -288,8 +291,8 @@ class _MessageDetailsState extends State<MessageDetails> {
                                                   margin: EdgeInsets.only(
                                                       bottom: height / 60),
                                                   child: CustomPaint(
-                                                    size: Size(
-                                                        width / 8, height / 16),
+                                                    size: Size(width / 8,
+                                                        height / 16),
                                                     painter: SmsPainter2(),
                                                   ),
                                                 ),
@@ -334,8 +337,8 @@ class _MessageDetailsState extends State<MessageDetails> {
                                   con.listofDealssms[i]['datetime']
                                       .toString()
                                       .split(' ')[1];
-                              var time =
-                                  DateFormat.jm().format(DateTime.parse(value));
+                              var time = DateFormat.jm()
+                                  .format(DateTime.parse(value));
                               return userId !=
                                       '${con.listofDealssms[i]['to_msg']}'
                                   ? Column(
@@ -386,8 +389,9 @@ class _MessageDetailsState extends State<MessageDetails> {
                                                   child: Column(
                                                     children: [
                                                       Container(
-                                                        padding: EdgeInsets.all(
-                                                            width / 30),
+                                                        padding:
+                                                            EdgeInsets.all(
+                                                                width / 30),
                                                         decoration: BoxDecoration(
                                                             color: blueColor,
                                                             borderRadius:
@@ -397,8 +401,8 @@ class _MessageDetailsState extends State<MessageDetails> {
                                                         child: Text(
                                                           '${con.listofDealssms[i]['massages']}',
                                                           style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
+                                                              color: Colors
+                                                                  .white,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w300,
@@ -414,14 +418,15 @@ class _MessageDetailsState extends State<MessageDetails> {
                                                                 .end,
                                                         children: <Widget>[
                                                           Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
+                                                            padding: EdgeInsets
+                                                                .only(
                                                                     right:
                                                                         width /
                                                                             50),
                                                             child: Text(
                                                               time,
-                                                              style: TextStyle(
+                                                              style:
+                                                                  TextStyle(
                                                                 color: Colors
                                                                     .black54,
                                                                 fontSize: 7.0,
@@ -458,11 +463,13 @@ class _MessageDetailsState extends State<MessageDetails> {
                                                   child: Column(
                                                     children: [
                                                       Container(
-                                                        padding: EdgeInsets.all(
-                                                            width / 30),
+                                                        padding:
+                                                            EdgeInsets.all(
+                                                                width / 30),
                                                         decoration: BoxDecoration(
                                                             color: Colors
-                                                                .blueGrey[100],
+                                                                    .blueGrey[
+                                                                100],
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
@@ -470,8 +477,8 @@ class _MessageDetailsState extends State<MessageDetails> {
                                                         child: Text(
                                                           '${con.listofDealssms[i]['massages']}',
                                                           style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
+                                                              color: Colors
+                                                                  .black,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w300,
@@ -487,14 +494,14 @@ class _MessageDetailsState extends State<MessageDetails> {
                                                                 .start,
                                                         children: <Widget>[
                                                           Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    left:
-                                                                        width /
-                                                                            50),
+                                                            padding: EdgeInsets
+                                                                .only(
+                                                                    left: width /
+                                                                        50),
                                                             child: Text(
                                                               time,
-                                                              style: TextStyle(
+                                                              style:
+                                                                  TextStyle(
                                                                 color: Colors
                                                                     .black54,
                                                                 fontSize: 7.0,
@@ -552,7 +559,8 @@ class _MessageDetailsState extends State<MessageDetails> {
                         Expanded(
                           child: TextFormField(
                             controller: controller,
-                            style: TextStyle(color: Colors.black, fontSize: 14),
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 14),
                             decoration: InputDecoration(
                                 disabledBorder: new OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),

@@ -37,7 +37,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
               },
             ),
             title: Text(
-              'Add Business',
+              'Add Business'.tr,
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -66,7 +66,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                                 color: blueColor,
                                 borderRadius: BorderRadius.circular(5)),
                             child: Text(
-                              'Register your business with dialboxx and go online today! Help potential buyers get in touch with you using Dialboxx search engine.',
+                              'Register your business with dialboxx and go online today! Help potential buyers get in touch with you using Dialboxx search engine.'.tr,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 13,
@@ -77,7 +77,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                             height: 20,
                           ),
                           Text(
-                            'Choose the best subscription package for your business:',
+                            'Choose the best subscription package for your business:'.tr,
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w600),
                           ),
@@ -93,6 +93,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                                   children: <Widget>[
                                     InkWell(
                                       onTap: () {
+                                        isEditBusiness = false;
                                         Get.to(BuisnessRegistration(
                                           currentPackage: 0,
                                         ));
@@ -179,7 +180,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                                                   alignment: Alignment.center,
                                                   children: <Widget>[
                                                     Text(
-                                                      'Free',
+                                                      'Free'.tr,
                                                       style: TextStyle(
                                                           color: blueColor,
                                                           fontSize: 12),
@@ -220,6 +221,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                                   children: <Widget>[
                                     InkWell(
                                       onTap: () {
+                                        isEditBusiness = false;
                                         Get.to(BuisnessRegistration(
                                           currentPackage: 1,
                                         ));
@@ -347,6 +349,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                                   children: <Widget>[
                                     InkWell(
                                       onTap: () {
+                                        isEditBusiness = false;
                                         Get.to(BuisnessRegistration(
                                           currentPackage: 2,
                                         ));
@@ -473,7 +476,7 @@ class _AddNewBuisenessState extends State<AddNewBuiseness> {
                             height: 10,
                           ),
                           Text(
-                            'Package Benefits',
+                            'Package Benefits'.tr,
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w600),
                           ),

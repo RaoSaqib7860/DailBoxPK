@@ -165,7 +165,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                     ApiUtils.forgetpasswordApi(controller);
                                   } else {
                                     snackBarFailer(
-                                        'Please enter email or password');
+                                        'Please enter email or password'.tr);
                                   }
                                 },
                                 child: Text(

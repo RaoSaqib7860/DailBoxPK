@@ -3,8 +3,8 @@ import 'package:dail_box/Screens/AddNewBuisness/AddNewBuisness.dart';
 import 'package:dail_box/Screens/AddProduct.dart/AddProduct.dart';
 import 'package:dail_box/Screens/AddService/AddService.dart';
 import 'package:dail_box/Screens/FAQs/FAQs.dart';
-import 'package:dail_box/Screens/HowitWorks/HowitWorks.dart';
 import 'package:dail_box/Screens/SignIn/sign_in.dart';
+import 'package:dail_box/Screens/bottomNav/Home/home.dart';
 import 'package:dail_box/drawerScreens/advertise.dart';
 import 'package:dail_box/Screens/ContactUs/contact_us.dart';
 import 'package:dail_box/drawerScreens/notification.dart';
@@ -20,21 +20,21 @@ import 'package:get_storage/get_storage.dart';
 
 class HomeScreen extends StatefulWidget {
   static List<MenuItem> mainMenu = [
-    MenuItem(title: 'Add New Business'.tr, icon: CupertinoIcons.add, index: 7),
-    MenuItem(title: 'Profile'.tr, icon: Icons.person_outline, index: 0),
+    MenuItem(title: 'Add New Business', icon: CupertinoIcons.add, index: 7),
+    MenuItem(title: 'Profile', icon: Icons.person_outline, index: 0),
     MenuItem(
-        title: 'Add Product'.tr, icon: Icons.my_library_add_outlined, index: 5),
-    MenuItem(title: 'Add Service'.tr, icon: Icons.build, index: 6),
+        title: 'Add Product', icon: Icons.my_library_add_outlined, index: 5),
+    MenuItem(title: 'Add Service', icon: Icons.build, index: 6),
     MenuItem(
-        title: 'Add FAQs'.tr,
+        title: 'Add FAQs',
         icon: CupertinoIcons.question_circle_fill,
         index: 3),
     // MenuItem(
     //     title: 'Notifications'.tr, icon: Icons.notifications_none, index: 1),
-    MenuItem(title: 'Advertise'.tr, icon: Icons.business, index: 2),
-    MenuItem(title: 'Customer care'.tr, icon: Icons.child_care, index: 4),
-    MenuItem(title: 'Settings'.tr, icon: CupertinoIcons.settings, index: 8),
-    MenuItem(title: 'Logout'.tr, icon: Icons.logout, index: 9, iscolor: true),
+    MenuItem(title: 'Advertise', icon: Icons.business, index: 2),
+    MenuItem(title: 'Customer care', icon: Icons.child_care, index: 4),
+    MenuItem(title: 'Settings', icon: CupertinoIcons.settings, index: 8),
+    MenuItem(title: 'Logout', icon: Icons.logout, index: 9, iscolor: true),
   ];
 
   @override
@@ -102,6 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
       case 9:
         GetStorage storage = GetStorage();
         storage.erase();
+        timer!.cancel();
         Get.offAll(SignIn());
         break;
     }

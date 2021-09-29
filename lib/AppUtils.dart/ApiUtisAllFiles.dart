@@ -9,6 +9,7 @@ import 'package:dail_box/Screens/bottomNav/Home/home.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:path/path.dart';
 import '../main.dart';
@@ -103,7 +104,7 @@ class ApiUtilsAllFiles extends ChangeNotifier {
       if (data["result"] == "success") {
         Navigator.of(navigatorKey.currentContext!).pop();
         Navigator.of(navigatorKey.currentContext!).pop();
-        snackBarSuccess('Product has been added Successfully');
+        snackBarSuccess('${data['message']}'.tr);
         callHome();
       } else {}
     } catch (e) {}
@@ -131,11 +132,8 @@ class ApiUtilsAllFiles extends ChangeNotifier {
       'web_url': controller.businessWebsiteUrl.text,
       'timings':
           'Mon:${controller.mon.value == 'Select time' ? '' : controller.mon.value}\nTus:${controller.tue.value == 'Select time' ? '' : controller.tue.value}\nWed:${controller.wed.value == 'Select time' ? '' : controller.wed.value}\nThr:${controller.thus.value == 'Select time' ? '' : controller.thus.value}\nFri:${controller.fri.value == 'Select time' ? '' : controller.fri.value}\nSat:${controller.sat.value == 'Select time' ? '' : controller.sat.value}\nSun:${controller.sun.value == 'Select time' ? '' : controller.sun.value}',
-      'year_established': controller.Date.value,
-      'num_employees': controller.listofEmployee.isEmpty
-          ? ''
-          : controller
-              .listofEmployee[controller.currentlistofEmployeeIndex.value],
+      //'year_established': controller.Date.value,
+      'num_employees': '',
       'facebook': controller.businessFb.text,
       'insta': controller.businessInsta.text,
       'youtube': controller.businessNoOfYoutube.text,
@@ -166,17 +164,17 @@ class ApiUtilsAllFiles extends ChangeNotifier {
           ? ''
           : controller
               .listOfBooking[controller.currentlistOfBookingIndex.value],
-      'pick_up': controller.listpick_up.isEmpty
+      'pick_up': controller.pick_upHint.value == 'Take Away/Pick up'
           ? ''
           : controller.listpick_up[controller.currentpick_upIndex.value],
-      'by_appointment': controller.listby_appointment.isEmpty
+      'by_appointment': controller.by_appointmentHint.value == 'By Appointment'
           ? ''
           : controller
               .listby_appointment[controller.currentby_appointmentIndex.value],
-      'hear_about': controller.hearAboutController.text,
+      'hear_about': controller
+          .listofHearAbout[controller.currentlistofHearAboutIndex.value],
       'business_description': controller.businessDiscription.text,
-      'agent_id':
-          controller.agentId.text.isEmpty ? '0' : controller.agentId.text,
+      'agent_id': controller.agentId.text.trim(),
       'payment_mod': controller.cashController.text
     });
     printlog('calling api');
@@ -192,7 +190,8 @@ class ApiUtilsAllFiles extends ChangeNotifier {
         Navigator.of(navigatorKey.currentContext!).pop();
         Navigator.of(navigatorKey.currentContext!).pop();
         snackBarSuccess(
-            'Your listing has been sent for review. You will be notified once approved & online!');
+            'Your listing has been sent for review. You will be notified once approved & online!'
+                .tr);
         callHome();
       } else {}
     } catch (e) {}
@@ -232,7 +231,7 @@ class ApiUtilsAllFiles extends ChangeNotifier {
       'web_url': controller.businessWebsiteUrl.text,
       'timings':
           'Mon:${controller.mon.value == 'Select time' ? '' : controller.mon.value}\nTus:${controller.tue.value == 'Select time' ? '' : controller.tue.value}\nWed:${controller.wed.value == 'Select time' ? '' : controller.wed.value}\nThr:${controller.thus.value == 'Select time' ? '' : controller.thus.value}\nFri:${controller.fri.value == 'Select time' ? '' : controller.fri.value}\nSat:${controller.sat.value == 'Select time' ? '' : controller.sat.value}\nSun:${controller.sun.value == 'Select time' ? '' : controller.sun.value}',
-      'year_established': controller.Date.value,
+      //  'year_established': controller.Date.value,
       'num_employees': controller.listofEmployee.isEmpty
           ? ''
           : controller
@@ -267,16 +266,16 @@ class ApiUtilsAllFiles extends ChangeNotifier {
           ? ''
           : controller
               .listOfBooking[controller.currentlistOfBookingIndex.value],
-      'pick_up': controller.listpick_up.isEmpty
+      'pick_up': controller.pick_upHint.value == 'Take Away/Pick up'
           ? ''
           : controller.listpick_up[controller.currentpick_upIndex.value],
-      'by_appointment': controller.listby_appointment.isEmpty
+      'by_appointment': controller.by_appointmentHint.value == 'By Appointment'
           ? ''
           : controller
               .listby_appointment[controller.currentby_appointmentIndex.value],
-      // 'hear_about': '${controller.herarAbout}',
+      'hear_about': '${controller.herarAbout}',
       'business_description': controller.businessDiscription.text,
-      // 'agent_id': '${controller.agentID}',
+      'agent_id': '${controller.agentID}',
       'payment_mod': controller.cashController.text,
       'business_id': controller.business_id.value
     });
@@ -292,7 +291,7 @@ class ApiUtilsAllFiles extends ChangeNotifier {
       if (data["result"] == "success") {
         Navigator.of(navigatorKey.currentContext!).pop();
         Navigator.of(navigatorKey.currentContext!).pop();
-        snackBarSuccess('Your listing updated Successfully');
+        snackBarSuccess(data['message']);
         callHome();
       } else {}
     } catch (e) {}

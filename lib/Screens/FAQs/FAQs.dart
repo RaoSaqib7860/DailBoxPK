@@ -123,7 +123,7 @@ class _FAQsState extends State<FAQs> {
                                         right: 15),
                                     hintStyle: TextStyle(
                                         color: greyColor, fontSize: 12),
-                                    hintText: "Questions ?"),
+                                    hintText: "Question?".tr),
                               ),
                             ),
                           ),
@@ -163,7 +163,7 @@ class _FAQsState extends State<FAQs> {
                                         right: 15),
                                     hintStyle: TextStyle(
                                         color: greyColor, fontSize: 12),
-                                    hintText: "Type your answer here"),
+                                    hintText: "Type your answer here".tr),
                               ),
                             ),
                           ),
@@ -194,10 +194,10 @@ class _FAQsState extends State<FAQs> {
                                       }
                                     } else {
                                       snackBarFailer(
-                                          'Please add your questions');
+                                          'Please add your questions'.tr);
                                     }
                                   } else {
-                                    snackBarFailer('Please add your questions');
+                                    snackBarFailer('Please add your questions'.tr);
                                   }
                                 },
                                 child: Icon(
@@ -222,10 +222,10 @@ class _FAQsState extends State<FAQs> {
                                   controller.loading.value = false;
                                 } else {
                                   snackBarFailer(
-                                      'Please add your questions first');
+                                      'Please add your questions first'.tr);
                                 }
                               } else {
-                                snackBarFailer('Please select service first');
+                                snackBarFailer('Please select service first'.tr);
                               }
                             },
                             child: Container(
@@ -233,7 +233,7 @@ class _FAQsState extends State<FAQs> {
                               width: width * 0.3,
                               child: Center(
                                 child: Text(
-                                  'Submit',
+                                  'Submit'.tr,
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 12),
                                 ),

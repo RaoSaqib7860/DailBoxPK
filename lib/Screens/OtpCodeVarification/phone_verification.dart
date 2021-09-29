@@ -145,7 +145,7 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                                     ApiUtils.verifyotpApi(
                                         controller, widget.email!);
                                   } else {
-                                    snackBarFailer('Please enter otp code');
+                                    snackBarFailer('Please enter otp code'.tr);
                                   }
                                 },
                                 child: Text(

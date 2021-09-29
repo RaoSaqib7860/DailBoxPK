@@ -3,6 +3,7 @@ import 'package:dail_box/AppUtils.dart/ApiUtilsForAll.dart';
 import 'package:dail_box/AppUtils.dart/ShimmerEffect.dart';
 import 'package:dail_box/Screens/RecentListingDetails/RecentListingdDetails.dart';
 import 'package:dail_box/Screens/bottomNav/Listings/ListingsController.dart';
+import 'package:dail_box/main.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +48,7 @@ class _ListingsState extends State<Listings> {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            widget.name!,
+            widget.name!.tr,
             style: TextStyle(
               fontSize: 16,
             ),
@@ -108,16 +109,17 @@ class _ListingsState extends State<Listings> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                           findLanguageController.isEnglishLocale.value? CrossAxisAlignment.start: CrossAxisAlignment.end,
                                         children: [
                                           Text(
-                                            'RMS Pack & Movers Service',
+                                            'RMS Pack & Movers Service'.tr,
+                                           // textAlign: findLanguageController.isEnglishLocale.value? TextAlign.left:TextAlign.right,
                                             style: TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           Text(
-                                            'blue area islamabad',
+                                            'blue area islamabad'.tr,
                                             style: TextStyle(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.w300,
@@ -147,7 +149,7 @@ class _ListingsState extends State<Listings> {
                                                 }).toList(),
                                               ),
                                               Text(
-                                                '125 reviews',
+                                                '125 reviews'.tr,
                                                 style: TextStyle(
                                                     fontSize: 10,
                                                     color: Colors.black26),
@@ -177,7 +179,7 @@ class _ListingsState extends State<Listings> {
                                                       width: 5,
                                                     ),
                                                     Text(
-                                                      'Call',
+                                                      'Call'.tr,
                                                       style: TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 10),
@@ -211,7 +213,7 @@ class _ListingsState extends State<Listings> {
                                                       width: 5,
                                                     ),
                                                     Text(
-                                                      'Message',
+                                                      'Message'.tr,
                                                       style: TextStyle(
                                                           color: blueColor,
                                                           fontSize: 10),
@@ -243,7 +245,7 @@ class _ListingsState extends State<Listings> {
                           )
                         : controller.listofListings.isEmpty
                             ? Center(
-                                child: Text('Empty'),
+                                child: Text('Empty'.tr),
                               )
                             : ListView.builder(
                                 itemBuilder: (c, i) {
@@ -420,7 +422,7 @@ class _ListingsState extends State<Listings> {
                                                                 width: 5,
                                                               ),
                                                               Text(
-                                                                'Call',
+                                                                'Call'.tr,
                                                                 style: TextStyle(
                                                                     color: Colors
                                                                         .white,
@@ -464,7 +466,7 @@ class _ListingsState extends State<Listings> {
                                                                 width: 5,
                                                               ),
                                                               Text(
-                                                                'Message',
+                                                                'Message'.tr,
                                                                 style: TextStyle(
                                                                     color:
                                                                         blueColor,

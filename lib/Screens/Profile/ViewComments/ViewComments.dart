@@ -44,7 +44,7 @@ class _ViewCommentsState extends State<ViewComments> {
           },
         ),
         title: Text(
-          'All Comments',
+          'All Comments'.tr,
           style: TextStyle(
             fontSize: 16,
           ),
@@ -131,7 +131,7 @@ class _ViewCommentsState extends State<ViewComments> {
                   : controller.listofComment.isEmpty
                       ? Expanded(
                           child: Center(
-                            child: Text('Empty'),
+                            child: Text('Empty'.tr),
                           ),
                         )
                       : Expanded(

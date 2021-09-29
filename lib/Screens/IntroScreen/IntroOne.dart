@@ -1,6 +1,7 @@
 import 'package:dail_box/AppUtils.dart/SizedConfig.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class IntroOne extends StatefulWidget {
   const IntroOne({Key? key}) : super(key: key);
@@ -81,7 +82,7 @@ class _IntroOneState extends State<IntroOne> {
               Padding(
                 padding: EdgeInsets.only(right: 20),
                 child: Text(
-                  'Search for anything, anywhere in Pakistan.',
+                  'Search for anything, anywhere in Pakistan.'.tr,
                   style: TextStyle(fontSize: 25, color: Colors.white),
                 ),
               ),

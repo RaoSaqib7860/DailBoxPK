@@ -48,7 +48,7 @@ class _ViewAllRatingsState extends State<ViewAllRatings> {
               : controller.listofAllRatings.isEmpty
                   ? Expanded(
                       child: Center(
-                        child: Text('Empty'),
+                        child: Text('Empty'.tr),
                       ),
                     )
                   : Expanded(
@@ -88,7 +88,7 @@ class _ViewAllRatingsState extends State<ViewAllRatings> {
                                         Row(
                                           children: [1, 2, 3, 4, 5].map((e) {
                                             int value = int.parse(
-                                                    '${controller.listofAllRatings[0]['rating_points'] ?? '0'}')
+                                                    '${controller.listofAllRatings[i]['rating_points'] ?? '0'}')
                                                 .toInt();
                                             return value >= e
                                                 ? InkWell(

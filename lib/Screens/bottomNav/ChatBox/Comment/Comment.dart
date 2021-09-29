@@ -45,7 +45,7 @@ class _CommentPageState extends State<CommentPage> {
           },
         ),
         title: Text(
-          'All Comments',
+          'All Comments'.tr,
           style: TextStyle(
             fontSize: 16,
           ),
@@ -132,7 +132,7 @@ class _CommentPageState extends State<CommentPage> {
                   : controller.listofComment.isEmpty
                       ? Expanded(
                           child: Center(
-                            child: Text('Empty'),
+                            child: Text('Empty'.tr),
                           ),
                         )
                       : Expanded(
@@ -242,7 +242,7 @@ class _CommentPageState extends State<CommentPage> {
                                 color: Colors.black12,
                               )),
                           contentPadding: EdgeInsets.only(left: Get.width / 20),
-                          hintText: 'Say something …',
+                          hintText: 'Say something …'.tr,
                           hintStyle: TextStyle(
                               fontSize: 13,
                               letterSpacing: 0.5,

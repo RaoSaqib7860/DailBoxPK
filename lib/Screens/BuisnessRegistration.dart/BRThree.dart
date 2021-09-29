@@ -117,7 +117,9 @@ class _BRThreeState extends State<BRThree> {
                                 child: Padding(
                                   padding: EdgeInsets.all(5.0),
                                   child: Text(
-                                    controller.mon.value,
+                                    controller.mon.value.trim().isEmpty
+                                        ? 'Select time'.tr
+                                        : controller.mon.value,
                                     style: TextStyle(fontSize: 12),
                                   ),
                                 ),
@@ -173,7 +175,9 @@ class _BRThreeState extends State<BRThree> {
                                 child: Padding(
                                   padding: EdgeInsets.all(5.0),
                                   child: Text(
-                                    controller.tue.value,
+                                    controller.tue.value.trim().isEmpty
+                                        ? 'Select time'.tr
+                                        : controller.tue.value,
                                     style: TextStyle(fontSize: 12),
                                   ),
                                 ),
@@ -234,7 +238,9 @@ class _BRThreeState extends State<BRThree> {
                                 child: Padding(
                                   padding: EdgeInsets.all(5.0),
                                   child: Text(
-                                    controller.wed.value,
+                                    controller.wed.value.trim().isEmpty
+                                        ? 'Select time'.tr
+                                        : controller.wed.value,
                                     style: TextStyle(fontSize: 12),
                                   ),
                                 ),
@@ -290,7 +296,9 @@ class _BRThreeState extends State<BRThree> {
                                 child: Padding(
                                   padding: EdgeInsets.all(5.0),
                                   child: Text(
-                                    controller.thus.value,
+                                    controller.thus.value.trim().isEmpty
+                                        ? 'Select time'.tr
+                                        : controller.thus.value,
                                     style: TextStyle(fontSize: 12),
                                   ),
                                 ),
@@ -351,7 +359,9 @@ class _BRThreeState extends State<BRThree> {
                                 child: Padding(
                                   padding: EdgeInsets.all(5.0),
                                   child: Text(
-                                    controller.fri.value,
+                                    controller.fri.value.trim().isEmpty
+                                        ? 'Select time'.tr
+                                        : controller.fri.value,
                                     style: TextStyle(fontSize: 12),
                                   ),
                                 ),
@@ -407,7 +417,9 @@ class _BRThreeState extends State<BRThree> {
                                 child: Padding(
                                   padding: EdgeInsets.all(5.0),
                                   child: Text(
-                                    controller.sat.value,
+                                    controller.sat.value.trim().isEmpty
+                                        ? 'Select time'.tr
+                                        : controller.sat.value,
                                     style: TextStyle(fontSize: 12),
                                   ),
                                 ),
@@ -466,7 +478,9 @@ class _BRThreeState extends State<BRThree> {
                             child: Padding(
                               padding: EdgeInsets.all(5.0),
                               child: Text(
-                                controller.sun.value,
+                                controller.sun.value.trim().isEmpty
+                                    ? 'Select time'.tr
+                                    : controller.sun.value,
                                 style: TextStyle(fontSize: 12),
                               ),
                             ),
@@ -656,7 +670,7 @@ class _BRThreeState extends State<BRThree> {
                             size: 40,
                             color: Colors.black,
                           ),
-                          Text('Select Image'.tr),
+                          Text('Business profile image'.tr),
                         ],
                         mainAxisAlignment: MainAxisAlignment.center,
                       ),
@@ -695,7 +709,7 @@ class _BRThreeState extends State<BRThree> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text('Select Image'.tr),
+                                Text('Business profile image'.tr),
                                 Center(
                                   child: Icon(
                                     Icons.add,
@@ -739,10 +753,10 @@ class _BRThreeState extends State<BRThree> {
                           await ApiUtilsAllFiles.getaddListing(controller);
                           controller.loading.value = false;
                         } else {
-                          snackBarSuccess('Please select image');
+                          snackBarSuccess('Please upload image!'.tr);
                         }
                       } else {
-                        snackBarSuccess('Select how did you hear about us?');
+                        snackBarSuccess('Select how did you hear about us?'.tr);
                       }
                     }
                   },
@@ -752,7 +766,7 @@ class _BRThreeState extends State<BRThree> {
                     child: Center(
                       child: Text(
                         controller.listing_image.value != ''
-                            ? 'Update'
+                            ? 'Update'.tr
                             : 'SUBMIT'.tr,
                         style:
                             TextStyle(color: Colors.white, letterSpacing: 0.5),

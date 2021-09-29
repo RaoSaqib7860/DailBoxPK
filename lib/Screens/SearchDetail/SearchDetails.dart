@@ -43,18 +43,24 @@ class _SearchDetailsState extends State<SearchDetails> {
 
   @override
   void initState() {
-    controller.listofData.clear();
-    controller.listofReview.clear();
-    ApiUtils.getgetbussniesname(controller: controller, b_id: widget.b_ID);
-    if (widget.fromApi == 'product'.tr) {
-      ApiUtils.getgetproduct(controller: controller, id: widget.buisinessId);
-      ApiUtils.getgetproductallreview(
-          controller: controller, id: widget.buisinessId);
-    } else if (widget.fromApi == 'service'.tr) {
-      ApiUtils.getgetservice(controller: controller, id: widget.buisinessId);
-      ApiUtils.getgetserviceallreview(
-          controller: controller, id: widget.buisinessId);
-    }
+    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+      controller.loadData.value = false;
+      await ApiUtils.getgetbussniesname(
+          controller: controller, b_id: widget.b_ID);
+      if (widget.fromApi == 'product'.tr) {
+        await ApiUtils.getgetproduct(
+            controller: controller, id: widget.buisinessId);
+        await ApiUtils.getgetproductallreview(
+            controller: controller, id: widget.buisinessId);
+        controller.loadData.value = true;
+      } else if (widget.fromApi == 'service'.tr) {
+        await ApiUtils.getgetservice(
+            controller: controller, id: widget.buisinessId);
+        await ApiUtils.getgetserviceallreview(
+            controller: controller, id: widget.buisinessId);
+        controller.loadData.value = true;
+      }
+    });
     super.initState();
   }
 
@@ -74,7 +80,7 @@ class _SearchDetailsState extends State<SearchDetails> {
           ),
           title: Text(
             widget.fromApi == 'service'
-                ? 'Service Details'
+                ? 'Service Details'.tr
                 : 'Product Details'.tr,
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
@@ -87,7 +93,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                         onTap: () {
                           if (widget.fromApi == 'service') {
                             Get.to(AddService(
-                              mapData: controller.listofData[0],
+                              mapData: controller.listofForService[0],
                             ));
                           } else {
                             Get.to(AddProduct(
@@ -111,7 +117,8 @@ class _SearchDetailsState extends State<SearchDetails> {
                           if (widget.fromApi == 'service') {
                             ApiUtilsForAll.getserviceRemove(
                                 controller: controller,
-                                b_id: '${controller.listofData[0]['id']}');
+                                b_id:
+                                    '${controller.listofForService[0]['id']}');
                           } else {
                             ApiUtilsForAll.getproductRemove(
                                 controller: controller,
@@ -171,7 +178,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                       ),
                     ),
                     Obx(
-                      () => controller.listofData.isEmpty
+                      () => !controller.loadData.value
                           ? SizedBox(
                               height: height,
                               width: width,
@@ -196,7 +203,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                                         children: [
                                           Expanded(
                                             child: Text(
-                                              '${controller.listofData[0]['s_name']}',
+                                              '${controller.listofForService[0]['s_name']}',
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
                                                   fontSize: 16,
@@ -204,7 +211,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                                             ),
                                           ),
                                           storage.read('userId') ==
-                                                  '${controller.listofData[0]['user_id']}'
+                                                  '${controller.listofForService[0]['user_id']}'
                                               ? SizedBox()
                                               : InkWell(
                                                   onTap: () {
@@ -238,7 +245,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                                       Row(
                                         children: [
                                           Text(
-                                            '${controller.listofData[0]['rating'] ?? 0.0}',
+                                            '${controller.listofForService[0]['rating'] ?? 0.0}',
                                             style: TextStyle(
                                                 fontSize: 12, color: blueColor),
                                           ),
@@ -248,7 +255,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                                           Row(
                                             children: [1, 2, 3, 4, 5].map((e) {
                                               int value = double.parse(
-                                                      '${controller.listofData[0]['rating'] ?? '0.0'}')
+                                                      '${controller.listofForService[0]['rating'] ?? '0.0'}')
                                                   .toInt();
                                               return value >= e
                                                   ? InkWell(
@@ -273,7 +280,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                                             width: width * 0.020,
                                           ),
                                           Text(
-                                            'Reviews ${controller.listofData[0]['total_review']}',
+                                            'Reviews ${controller.listofForService[0]['total_review']}',
                                             style: TextStyle(
                                                 fontSize: 12,
                                                 color: Colors.black26),
@@ -284,7 +291,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                                         height: height * 0.010,
                                       ),
                                       Text(
-                                        '${controller.listofData[0]['s_details']}',
+                                        '${controller.listofForService[0]['s_details']}',
                                         style: TextStyle(
                                           fontSize: 11,
                                         ),
@@ -293,7 +300,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                                         height: height * 0.010,
                                       ),
                                       Text(
-                                        'Starting Cost : ${controller.listofData[0]['s_cost']} RS/-',
+                                        'Starting Cost : ${controller.listofForService[0]['s_cost']} RS/-',
                                         style: TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.bold,
@@ -312,9 +319,9 @@ class _SearchDetailsState extends State<SearchDetails> {
                                           ),
                                           Expanded(
                                             child: Text(controller
-                                                    .listofData.isEmpty
+                                                    .listofForService.isEmpty
                                                 ? ''
-                                                : ' ${controller.listofData[0]['service_cities']}'),
+                                                : ' ${controller.listofForService[0]['service_cities']}'),
                                           )
                                         ],
                                       ),
@@ -339,13 +346,15 @@ class _SearchDetailsState extends State<SearchDetails> {
                                           printlog(
                                               '${controller.listAllData[0]['business_id']}');
                                           printlog('${widget.name}');
-                                          Get.to(RecentListingsDetails(
-                                            id: controller.listAllData[0]['id'],
-                                            businessId: controller
-                                                .listAllData[0]['business_id'],
-                                            name: controller.listAllData[0]
-                                                ['business_name'],
-                                          ));
+                                          Get.to(() => RecentListingsDetails(
+                                                id: controller.listAllData[0]
+                                                    ['id'],
+                                                businessId:
+                                                    controller.listAllData[0]
+                                                        ['business_id'],
+                                                name: controller.listAllData[0]
+                                                    ['business_name'],
+                                              ));
                                         },
                                         child: Row(
                                           children: [
@@ -353,7 +362,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                                               padding: EdgeInsets.all(10),
                                               child: Center(
                                                 child: Text(
-                                                  'Go to Business'.tr,
+                                                  'View Business'.tr,
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 12),
@@ -650,7 +659,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                                                     width: width * 0.350,
                                                     child: Center(
                                                       child: Text(
-                                                        'Rate & Reviews'.tr,
+                                                        'Rate Product'.tr,
                                                         style: TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 12),
@@ -726,7 +735,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                                         height: height * 0.010,
                                       ),
                                       Text(
-                                        'Starting Cost : ${controller.listofData[0]['pprice']} Rs/-',
+                                        'Price : ${controller.listofData[0]['pprice']} Rs/-',
                                         style: TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.bold,
@@ -738,7 +747,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                                       Row(
                                         children: [
                                           Text(
-                                            'City :',
+                                            'City :'.tr,
                                             style: TextStyle(color: blueColor),
                                           ),
                                           Text(controller.listofData.isEmpty
@@ -756,20 +765,22 @@ class _SearchDetailsState extends State<SearchDetails> {
                                           printlog(
                                               '${controller.listAllData[0]['business_id']}');
                                           printlog('${widget.name}');
-                                          Get.to(RecentListingsDetails(
-                                            id: controller.listAllData[0]['id'],
-                                            businessId: controller
-                                                .listAllData[0]['business_id'],
-                                            name: controller.listAllData[0]
-                                                ['business_name'],
-                                          ));
+                                          Get.to(() => RecentListingsDetails(
+                                                id: controller.listAllData[0]
+                                                    ['id'],
+                                                businessId:
+                                                    controller.listAllData[0]
+                                                        ['business_id'],
+                                                name: controller.listAllData[0]
+                                                    ['business_name'],
+                                              ));
                                         },
                                         child: Row(
                                           children: [
                                             Container(
                                               child: Center(
                                                 child: Text(
-                                                  'Go to Business'.tr,
+                                                  'View Business'.tr,
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 12),
@@ -1070,11 +1081,11 @@ class _SearchDetailsState extends State<SearchDetails> {
                                   }
                                 } else {
                                   Navigator.of(context).pop();
-                                  snackBarFailer('Please enter feed back'.tr);
+                                  snackBarFailer('Please enter review!'.tr);
                                 }
                               } else {
                                 Navigator.of(context).pop();
-                                snackBarFailer('Please rate to Driver'.tr);
+                                snackBarFailer('Please select rating!'.tr);
                               }
                             },
                             child: Container(

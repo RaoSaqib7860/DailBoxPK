@@ -9,6 +9,7 @@ import 'package:dail_box/AppUtils.dart/SizedConfig.dart';
 import 'package:dail_box/AppUtils.dart/SnackBarUtils.dart';
 import 'package:dail_box/Screens/ForgotPassword/forgot_password.dart';
 import 'package:dail_box/Screens/SignUp/sign_up.dart';
+import 'package:dail_box/main.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -88,7 +89,10 @@ class _SignInState extends State<SignIn> {
                     padding: const EdgeInsets.all(30.0),
                     child: SingleChildScrollView(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment:
+                            findLanguageController.isEnglishLocale.value
+                                ? CrossAxisAlignment.start
+                                : CrossAxisAlignment.end,
                         children: <Widget>[
                           SizedBox(
                             height: height / 40,
@@ -118,29 +122,52 @@ class _SignInState extends State<SignIn> {
                                 ],
                               ),
                               child: TextFormField(
-                                cursorColor: Colors.black,
-                                keyboardType: TextInputType.text,
-                                controller: controller.emailCon,
-                                textInputAction: TextInputAction.next,
-                                decoration: new InputDecoration(
-                                    prefixIcon: Icon(
-                                      Icons.phone,
-                                      color: greyColor,
-                                    ),
-                                    border: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none,
-                                    errorBorder: InputBorder.none,
-                                    disabledBorder: InputBorder.none,
-                                    contentPadding: EdgeInsets.only(
-                                        left: 15,
-                                        bottom: 11,
-                                        top: 15,
-                                        right: 15),
-                                    hintStyle: TextStyle(
-                                        color: greyColor, fontSize: 12),
-                                    hintText: "Email or Phone".tr),
-                              ),
+                                  cursorColor: Colors.black,
+                                  keyboardType: TextInputType.text,
+                                  controller: controller.emailCon,
+                                  textAlign: findLanguageController
+                                          .isEnglishLocale.value
+                                      ? TextAlign.left
+                                      : TextAlign.right,
+                                  textInputAction: TextInputAction.next,
+                                  decoration: findLanguageController
+                                          .isEnglishLocale.value
+                                      ? InputDecoration(
+                                          prefixIcon: Icon(
+                                            Icons.phone,
+                                            color: greyColor,
+                                          ),
+                                          border: InputBorder.none,
+                                          focusedBorder: InputBorder.none,
+                                          enabledBorder: InputBorder.none,
+                                          errorBorder: InputBorder.none,
+                                          disabledBorder: InputBorder.none,
+                                          contentPadding: EdgeInsets.only(
+                                              left: 15,
+                                              bottom: 11,
+                                              top: 15,
+                                              right: 15),
+                                          hintStyle: TextStyle(
+                                              color: greyColor, fontSize: 12),
+                                          hintText: "Email or Phone".tr)
+                                      : InputDecoration(
+                                          suffixIcon: Icon(
+                                            Icons.phone,
+                                            color: greyColor,
+                                          ),
+                                          border: InputBorder.none,
+                                          focusedBorder: InputBorder.none,
+                                          enabledBorder: InputBorder.none,
+                                          errorBorder: InputBorder.none,
+                                          disabledBorder: InputBorder.none,
+                                          contentPadding: EdgeInsets.only(
+                                              left: 15,
+                                              bottom: 11,
+                                              top: 15,
+                                              right: 15),
+                                          hintStyle: TextStyle(
+                                              color: greyColor, fontSize: 12),
+                                          hintText: "Email or Phone".tr)),
                             ),
                           ),
                           SizedBox(
@@ -163,16 +190,50 @@ class _SignInState extends State<SignIn> {
                                 ),
                                 child: TextFormField(
                                   obscureText: controller.obsecure.value,
+                                  textAlign: findLanguageController
+                                          .isEnglishLocale.value
+                                      ? TextAlign.left
+                                      : TextAlign.right,
                                   cursorColor: Colors.black,
                                   keyboardType: TextInputType.text,
                                   controller: controller.passwordCon,
                                   textInputAction: TextInputAction.done,
-                                  decoration: new InputDecoration(
+                                  decoration: findLanguageController.isEnglishLocale.value? InputDecoration(
                                       prefixIcon: Icon(
                                         Icons.lock_outline,
                                         color: greyColor,
                                       ),
                                       suffixIcon: IconButton(
+                                        onPressed: () {
+                                          if (controller.obsecure.value) {
+                                            controller.obsecure.value = false;
+                                          } else {
+                                            controller.obsecure.value = true;
+                                          }
+                                        },
+                                        icon: Icon(Icons.remove_red_eye,
+                                            color: controller.obsecure.value
+                                                ? greyColor
+                                                : Colors.blue),
+                                      ),
+                                      border: InputBorder.none,
+                                      focusedBorder: InputBorder.none,
+                                      enabledBorder: InputBorder.none,
+                                      errorBorder: InputBorder.none,
+                                      disabledBorder: InputBorder.none,
+                                      contentPadding: EdgeInsets.only(
+                                          left: 15,
+                                          bottom: 11,
+                                          top: 15,
+                                          right: 15),
+                                      hintStyle: TextStyle(
+                                          color: greyColor, fontSize: 12),
+                                      hintText: "Password".tr):InputDecoration(
+                                      suffixIcon: Icon(
+                                        Icons.lock_outline,
+                                        color: greyColor,
+                                      ),
+                                      prefixIcon:  IconButton(
                                         onPressed: () {
                                           if (controller.obsecure.value) {
                                             controller.obsecure.value = false;
@@ -206,7 +267,7 @@ class _SignInState extends State<SignIn> {
                             height: 15,
                           ),
                           Align(
-                            alignment: Alignment.centerRight,
+                            alignment: findLanguageController.isEnglishLocale.value? Alignment.centerRight: Alignment.centerLeft,
                             child: InkWell(
                               onTap: () {
                                 Get.to(ForgotPassword());
@@ -237,10 +298,12 @@ class _SignInState extends State<SignIn> {
                                       controller.loading.value = true;
                                       ApiUtils.loginApi(controller);
                                     } else {
-                                      snackBarFailer('Please enter password');
+                                      snackBarFailer(
+                                          'Please enter password'.tr);
                                     }
                                   } else {
-                                    snackBarFailer('Please enter email first');
+                                    snackBarFailer(
+                                        'Please enter email first'.tr);
                                   }
                                 },
                                 child: Text(

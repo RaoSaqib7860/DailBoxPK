@@ -3,6 +3,7 @@ import 'package:dail_box/util/colors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class IntroFour extends StatefulWidget {
   const IntroFour({Key? key}) : super(key: key);
@@ -37,7 +38,7 @@ class _IntroFourState extends State<IntroFour> {
                       RichText(
                         textAlign: TextAlign.center,
                         text: TextSpan(
-                            text: 'Get in touch',
+                            text: 'Get in touch'.tr,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
@@ -47,7 +48,7 @@ class _IntroFourState extends State<IntroFour> {
                             children: [
                               TextSpan(
                                 text:
-                                    ' with businesses directly using our Message system. ',
+                                    ' with businesses directly using our Message system. '.tr,
                                 style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
@@ -107,7 +108,7 @@ class _IntroFourState extends State<IntroFour> {
                                           height: 5,
                                         ),
                                         Text(
-                                          'Hi , there ',
+                                          'Hi , there '.tr,
                                           style: TextStyle(
                                               color: greyColor,
                                               fontWeight: FontWeight.w600,

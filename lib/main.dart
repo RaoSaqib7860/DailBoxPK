@@ -1,3 +1,4 @@
+import 'package:dail_box/LocalizationFile/LanguageLocaleController.dart';
 import 'package:dail_box/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -7,6 +8,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'LocalizationFile/TranslatiionFile.dart';
+
+var findLanguageController = Get.find<LanguageLocalController>();
+var engLocale = Locale('en', 'US');
+var urduLocale = Locale('de', 'DE');
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
@@ -22,6 +30,7 @@ AndroidNotificationChannel? channel;
 FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
 
 main() async {
+  await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   WidgetsFlutterBinding.ensureInitialized();
@@ -57,13 +66,35 @@ main() async {
       sound: true,
     );
   }
-  await GetStorage.init();
-  runApp(MyApp());
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  var putLanguageController = Get.put(LanguageLocalController());
+  var firstTimeLocale = preferences.getString('en');
+
+  if (firstTimeLocale != null) {
+    String? en = preferences.getString('en');
+    String? dd = preferences.getString('dd');
+
+    if (en == 'en' && dd == 'US') {
+      putLanguageController.isEnglishLocale.value = true;
+    } else {
+      putLanguageController.isEnglishLocale.value = false;
+    }
+    runApp(MyApp(
+      en: en,
+      dd: dd,
+    ));
+  } else {
+    runApp(MyApp());
+  }
 }
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
+  final String? en;
+  final String? dd;
+
+  const MyApp({Key? key, this.en = 'en', this.dd = 'US'}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -71,6 +102,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
       defaultTransition: Transition.cupertino,
+      translations: TranslationFilePage(),
+      locale: Locale(en!, dd),
       transitionDuration: Duration(milliseconds: 700),
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,

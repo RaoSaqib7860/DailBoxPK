@@ -7,6 +7,8 @@ class MessageController extends GetxController {
   var listofMessages = [].obs;
   var loadmessage = false.obs;
 
+  var load = false.obs;
+
   Timer? timer;
   callBackgroundSms() {
     timer = Timer.periodic(Duration(seconds: 3), (timer) {

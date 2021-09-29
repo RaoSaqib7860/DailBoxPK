@@ -43,7 +43,7 @@ class _BROneState extends State<BROne> {
             height: height * 0.020,
           ),
           Text(
-            'Packages',
+            'Packages'.tr,
             style: TextStyle(fontSize: 14),
           ),
           SizedBox(
@@ -65,32 +65,35 @@ class _BROneState extends State<BROne> {
             height: height * 0.060,
             width: width,
             padding: EdgeInsets.symmetric(horizontal: width * 0.030),
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<dynamic>(
-                  items: controller.listofPackage.map((value) {
-                    return DropdownMenuItem<String>(
-                      value: '$value',
-                      child: Text('${value['package_name']}'),
-                      onTap: () {
-                        controller.currentPackageIndex.value =
-                            controller.listofPackage.indexOf(value);
-                        controller.packageHint.value = value['package_name'];
-                      },
-                    );
-                  }).toList(),
-                  hint: Text(
-                    controller.packageHint.value,
-                    style: TextStyle(fontSize: 14),
-                  ),
-                  onChanged: (_) {},
-                  isExpanded: true),
+            child: IgnorePointer(
+              ignoring: isEditBusiness ? true : false,
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<dynamic>(
+                    items: controller.listofPackage.map((value) {
+                      return DropdownMenuItem<String>(
+                        value: '$value',
+                        child: Text('${value['package_name']}'),
+                        onTap: () {
+                          controller.currentPackageIndex.value =
+                              controller.listofPackage.indexOf(value);
+                          controller.packageHint.value = value['package_name'];
+                        },
+                      );
+                    }).toList(),
+                    hint: Text(
+                      controller.packageHint.value,
+                      style: TextStyle(fontSize: 14),
+                    ),
+                    onChanged: (_) {},
+                    isExpanded: true),
+              ),
             ),
           ),
           SizedBox(
             height: height * 0.020,
           ),
           Text(
-            'Business Industry',
+            'Business Industry'.tr,
             style: TextStyle(fontSize: 14),
           ),
           SizedBox(
@@ -295,7 +298,7 @@ class _BROneState extends State<BROne> {
           SizedBox(
             height: height * 0.020,
           ),
-          Text('Business Cell Number*'),
+          Text('Business Cell Number*'.tr),
           SizedBox(
             height: height * 0.010,
           ),
@@ -310,7 +313,7 @@ class _BROneState extends State<BROne> {
                 ),
               ),
               SizedBox(
-                width:10,
+                width: 10,
               ),
               Text('+92'),
               SizedBox(
@@ -337,7 +340,7 @@ class _BROneState extends State<BROne> {
             height: height * 0.020,
           ),
           Text(
-            'Physical Location/Virtual*',
+            'Physical Location/Virtual*'.tr,
             style: TextStyle(fontSize: 12),
           ),
           SizedBox(
@@ -402,22 +405,22 @@ class _BROneState extends State<BROne> {
                             );
                           } else {
                             snackBarSuccess(
-                                'Select Physical store* / Virtual store* first');
+                                'Select Physical Location or Virtual first'.tr);
                           }
                         } else {
-                          snackBarSuccess('Add cell number first');
+                          snackBarSuccess('Add cell number first'.tr);
                         }
                       } else {
-                        snackBarSuccess('Add business name first');
+                        snackBarSuccess('Add business name first'.tr);
                       }
                     } else {
-                      snackBarSuccess('Select Industry first');
+                      snackBarSuccess('Select Industry first'.tr);
                     }
                   } else {
-                    snackBarSuccess('Select package first');
+                    snackBarSuccess('Select package first'.tr);
                   }
                 } else {
-                  snackBarSuccess('Select City first');
+                  snackBarSuccess('Select City first'.tr);
                 }
               },
               child: Container(

@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
-import 'package:dail_box/Screens/SignIn/sign_in.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -163,7 +162,7 @@ class MenuItemWidget extends StatelessWidget {
             widthBox!,
             Expanded(
               child: Text(
-                item!.title!,
+                item!.title!.tr,
                 style: TextStyle(
                     color: selected! ? blueColor : white, fontSize: 12),
               ),
@@ -176,7 +175,7 @@ class MenuItemWidget extends StatelessWidget {
 }
 
 class MenuItem {
-  final String? title;
+  String? title;
   final IconData? icon;
   final int? index;
   final bool? iscolor;

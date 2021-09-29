@@ -136,7 +136,7 @@ class _SearchPageState extends State<SearchPage> {
                                     left: 10, bottom: 11, top: 11, right: 10),
                                 hintStyle:
                                     TextStyle(color: greyColor, fontSize: 10),
-                                hintText: "Search here"),
+                                hintText: "Search here".tr),
                           ),
                         ),
                       ),

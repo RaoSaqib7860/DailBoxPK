@@ -180,43 +180,50 @@ class _AddServiceState extends State<AddService> {
                           FadeInUpBig(
                             child: InkWell(
                               onTap: () async {
-                                if (controller.selectserviceHint.value !=
-                                    'Select Business'.tr) {
-                                  if (controller.sNameCon.text.isNotEmpty) {
-                                    if (controller.sPriceCon.text.isNotEmpty) {
+                                if (controller.listofCityHint.value !=
+                                    'Select City') {
+                                  if (controller.selectserviceHint.value !=
+                                      'Select Business'.tr) {
+                                    if (controller.sNameCon.text.isNotEmpty) {
                                       if (controller
-                                          .sDetailsCon.text.isNotEmpty) {
-                                        controller.loading.value = true;
-                                        if (widget.mapData!.isNotEmpty) {
-                                          ApiUtilsForAll.getupdateServices(
-                                              controller,
-                                              controller.listofBuisness[
-                                                  controller
-                                                      .buisnessIDforservice
-                                                      .value]['business_id'],
-                                              '${widget.mapData!['id']}');
+                                          .sPriceCon.text.isNotEmpty) {
+                                        if (controller
+                                            .sDetailsCon.text.isNotEmpty) {
+                                          controller.loading.value = true;
+                                          if (widget.mapData!.isNotEmpty) {
+                                            ApiUtilsForAll.getupdateServices(
+                                                controller,
+                                                controller.listofBuisness[
+                                                    controller
+                                                        .buisnessIDforservice
+                                                        .value]['business_id'],
+                                                '${widget.mapData!['id']}');
+                                          } else {
+                                            ApiUtilsForAll.getaddservice(
+                                                controller,
+                                                controller.listofBuisness[
+                                                    controller
+                                                        .buisnessIDforservice
+                                                        .value]['business_id']);
+                                          }
                                         } else {
-                                          ApiUtilsForAll.getaddservice(
-                                              controller,
-                                              controller.listofBuisness[
-                                                  controller
-                                                      .buisnessIDforservice
-                                                      .value]['business_id']);
+                                          snackBarFailer(
+                                              'Please select product details first'.tr);
                                         }
                                       } else {
                                         snackBarFailer(
-                                            'Please select product details first');
+                                            'Please enter Starting Cost!'.tr);
                                       }
                                     } else {
                                       snackBarFailer(
-                                          'Please select product price first');
+                                          'Please enter Service Name!'.tr);
                                     }
                                   } else {
                                     snackBarFailer(
-                                        'Please select product name first');
+                                        'Please select business first'.tr);
                                   }
                                 } else {
-                                  snackBarFailer('Please select service first');
+                                  snackBarFailer('Please select city first'.tr);
                                 }
                               },
                               child: Container(

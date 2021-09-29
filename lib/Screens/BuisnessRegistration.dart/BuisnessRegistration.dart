@@ -63,10 +63,10 @@ class _BuisnessRegistrationState extends State<BuisnessRegistration> {
       if (widget.mapData!['p_v_store'] != null ||
           widget.mapData!['p_v_store'] != '') {
         if ('${widget.mapData!['p_v_store']}' == 'Virtual') {
-          controller.currentSVIndex.value = 0;
-          controller.SVHint.value = 'Virtual';
-        } else {
           controller.currentSVIndex.value = 1;
+          controller.SVHint.value = 'Virtual';
+        } else if ('${widget.mapData!['p_v_store']}' == 'Physical Location') {
+          controller.currentSVIndex.value = 0;
           controller.SVHint.value = 'Physical Location';
         }
       }
@@ -170,8 +170,8 @@ class _BuisnessRegistrationState extends State<BuisnessRegistration> {
               elevation: 0,
               title: Text(
                 widget.mapData!.isNotEmpty
-                    ? 'Update Business'
-                    : 'Business Registration',
+                    ? 'Update Business'.tr
+                    : 'Business Registration'.tr,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               ),
               centerTitle: true,

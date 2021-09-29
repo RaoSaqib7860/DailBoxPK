@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dail_box/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
@@ -50,7 +51,7 @@ class ChatBoxController extends GetxController {
             child: Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: findLanguageController.isEnglishLocale.value? MainAxisAlignment.start: MainAxisAlignment.end,
                   children: [
                     Column(
                       children: [

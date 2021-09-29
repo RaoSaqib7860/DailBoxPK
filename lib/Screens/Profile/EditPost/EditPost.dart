@@ -168,7 +168,7 @@ class _EditPostState extends State<EditPost> {
                     ApiUtilsAllFiles.getupdateDiscussionform(
                         controller: controller, map: widget.mapdata);
                   } else {
-                    snackBarSuccess('Please enter text');
+                    snackBarSuccess('Please enter text'.tr);
                   }
                 },
                 child: Container(

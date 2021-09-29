@@ -94,7 +94,8 @@ class ApiUtilsForAll {
         storage.erase();
         timer!.cancel();
         snackBarFailer(
-            'Your account has been suspended . Please contact customer support');
+            'Your account has been suspended . Please contact customer support'
+                .tr);
         Future.delayed(Duration(seconds: 2), () {
           Get.offAll(SignIn());
         });
@@ -367,7 +368,7 @@ class ApiUtilsForAll {
       if (data['result'] == 'success') {
         Navigator.of(navigatorKey.currentContext!).pop();
         callHome();
-        snackBarSuccess('Service has been added Successfully');
+        snackBarSuccess(data['message']);
       } else {
         snackBarFailer(data['message']);
       }
@@ -397,7 +398,7 @@ class ApiUtilsForAll {
         Navigator.of(navigatorKey.currentContext!).pop();
         Navigator.of(navigatorKey.currentContext!).pop();
         callHome();
-        snackBarSuccess('Service has been Updated Successfully');
+        snackBarSuccess(data['message']);
       } else {
         snackBarFailer(data['message']);
       }
@@ -620,8 +621,12 @@ class ApiUtilsForAll {
       var data = jsonDecode(responce.body);
       printlog('getgetlistingrating list is  = $data');
       printlog('data is = ${responce.statusCode}');
+      controller.loadmainList.value = false;
       if (data['result'] == 'success') {
-        controller.listofChatBox.removeAt(index!);
+        Future.delayed(Duration(milliseconds: 200), () {
+          controller.listofChatBox.removeAt(index!);
+          controller.loadmainList.value = true;
+        });
       } else {}
     } catch (e) {}
   }
@@ -816,7 +821,7 @@ class ApiUtilsForAll {
       var data = jsonDecode(responce.body);
       printlog('report is  = $data');
       printlog('report data is = ${responce.statusCode}');
-      snackBarSuccess('Report has been submitted');
+      snackBarSuccess('Report has been submitted'.tr);
     } catch (e) {}
   }
 

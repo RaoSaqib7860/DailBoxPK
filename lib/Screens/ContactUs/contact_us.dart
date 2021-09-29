@@ -349,7 +349,7 @@ class _ContactUsState extends State<ContactUs> {
                                 if (controller.messageCon.text.isNotEmpty) {
                                   ApiUtils.getcontactUs(controller: controller);
                                 } else {
-                                  snackBarFailer('Please enter message');
+                                  snackBarFailer('Please enter message'.tr);
                                 }
                               },
                               child: Text(
@@ -414,7 +414,7 @@ class _ContactUsState extends State<ContactUs> {
                     height: height / 30,
                   ),
                   Text(
-                    'Send Message',
+                    'Send Message'.tr,
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(
@@ -450,7 +450,7 @@ class _ContactUsState extends State<ContactUs> {
                                 left: 15, bottom: 11, top: 11, right: 15),
                             hintStyle:
                                 TextStyle(color: greyColor, fontSize: 12),
-                            hintText: "Enter message here"),
+                            hintText: "Enter message here".tr),
                       ),
                     ),
                   ),
@@ -464,7 +464,7 @@ class _ContactUsState extends State<ContactUs> {
                           Navigator.of(context).pop();
                         } else {
                           Navigator.of(context).pop();
-                          snackBarFailer('Please type message to receiver');
+                          snackBarFailer('Please type message to receiver'.tr);
                         }
                       },
                       child: Container(
@@ -472,7 +472,7 @@ class _ContactUsState extends State<ContactUs> {
                         width: width / 2,
                         child: Center(
                           child: Text(
-                            'Update',
+                            'Update'.tr,
                             style: TextStyle(color: Colors.white),
                           ),
                         ),

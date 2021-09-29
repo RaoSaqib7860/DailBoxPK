@@ -125,7 +125,7 @@ class ApiUtils {
           Get.offAll(HomeScreen());
         });
       } else {
-        if (data['message'] == 'Please verify your account') {
+        if (data['message'] == 'Please verify your account'.tr) {
           snackBarFailer(data['message']);
           Future.delayed(Duration(seconds: 2), () {
             Get.to(PhoneVerification(
@@ -153,10 +153,55 @@ class ApiUtils {
       printlog('data is = ${responce.statusCode}');
       controller!.loading.value = false;
       if (data['result'] == 'success') {
-        printlog('user id is = ${'${data['data']['userId']}'}');
         GetStorage storage = GetStorage();
+        Map mapdata = data;
+        if (mapdata.containsKey('userId')) {
+          printlog('user id is = ${'${data['userId']}'}');
+          storage.write('userId', '${data['userId']}');
+        } else {
+          printlog('user id is = ${'${data['data']['userId']}'}');
+          storage.write('userId', '${data['data']['userId']}');
+        }
         snackBarSuccess(data['message']);
-        storage.write('userId', '${data['data']['userId']}');
+        storage.write('email', '${data['data']['email']}');
+        storage.write('name', '${data['data']['name']}');
+        storage.write('f_name', '${data['data']['f_name']}');
+        storage.write('l_name', '${data['data']['l_name']}');
+        storage.write('profile_image', '${data['data']['profile_image']}');
+        storage.write('social', 'true');
+        Future.delayed(Duration(seconds: 2), () {
+          Get.offAll(HomeScreen());
+        });
+      } else {
+        snackBarFailer(data['message']);
+      }
+    } catch (e) {}
+  }
+
+  static Future socialloginApis(
+      {SignUpController? controller, Map? mapData}) async {
+    //http://dailboxx.websitescare.com/Alphaapis/login?code=DAILBOXX-03448567673
+    var url = Uri.parse('$baseUrl$sociallogin$secretCodeString');
+    try {
+      var responce = await http.post(
+        url,
+        body: mapData,
+      );
+      var data = jsonDecode(responce.body);
+      printlog('socialloginApi is = $data');
+      printlog('data is = ${responce.statusCode}');
+      controller!.loading.value = false;
+      if (data['result'] == 'success') {
+        GetStorage storage = GetStorage();
+        Map mapdata = data;
+        if (mapdata.containsKey('userId')) {
+          printlog('user id is = ${'${data['userId']}'}');
+          storage.write('userId', '${data['userId']}');
+        } else {
+          printlog('user id is = ${'${data['data']['userId']}'}');
+          storage.write('userId', '${data['data']['userId']}');
+        }
+        snackBarSuccess(data['message']);
         storage.write('email', '${data['data']['email']}');
         storage.write('name', '${data['data']['name']}');
         storage.write('f_name', '${data['data']['f_name']}');
@@ -448,7 +493,7 @@ class ApiUtils {
     } catch (e) {}
   }
 
-  static Future getgetAllMyMessages() async {
+  static Future getgetAllMyMessages({bool? isLoad = true}) async {
     var url = Uri.parse('$baseUrl$getAllMyMessages$secretCodeString');
     var controller = Get.find<MessageController>();
     GetStorage storage = GetStorage();
@@ -459,13 +504,42 @@ class ApiUtils {
       var data = jsonDecode(responce.body);
       printlog('getgetAllMyMessages list is  = $data');
       printlog('data is = ${responce.statusCode}');
+      if (isLoad!) {
+        controller.load.value = true;
+      }
       if (data['result'] == 'success') {
         controller.listofMessages.value = data['data'];
         controller.loadmessage.value = true;
       } else {
+        controller.listofMessages.value = [];
         controller.loadmessage.value = true;
       }
+      if (isLoad) {
+        Future.delayed(Duration(milliseconds: 30), () {
+          controller.load.value = false;
+        });
+      }
     } catch (e) {}
+  }
+
+  static Future<List> getgetAllMyMessagesunseen({String? post_id}) async {
+    var url = Uri.parse('$baseUrl$getAllMyMessages$secretCodeString');
+    List value = [];
+    GetStorage storage = GetStorage();
+    print('${storage.read('userId')}');
+    try {
+      var responce = await http.post(url,
+          body: {'userid': storage.read('userId'), 'post_id': post_id});
+      var data = jsonDecode(responce.body);
+      printlog('getgetAllMyMessagesunseen list is  = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {
+        value = data['data'];
+      } else {
+        value = [];
+      }
+    } catch (e) {}
+    return value;
   }
 
   //http://dailboxx.websitescare.com/Alphaapis/getChatOneToOne?code=DAILBOXX-03448567673
@@ -551,7 +625,8 @@ class ApiUtils {
       printlog('data is = $data');
       printlog('data is = ${responce.statusCode}');
       controller.loading.value = false;
-      if ('result' == 'success') {
+      if (data['result'] == 'success') {
+        storage.write('mobile', '${controller.phoneCon.text}');
         Navigator.of(navigatorKey.currentContext!).pop();
         callProfile();
         snackBarSuccess('${data['message']}');
@@ -565,18 +640,19 @@ class ApiUtils {
       {EditProfileController? controller}) async {
     var url = Uri.parse('$baseUrl$editMySocialProfile$secretCodeString');
     GetStorage storage = GetStorage();
-    print('call api${storage.read('email')}');
+    print('call api${storage.read('email')} ${controller!.phoneCon.text}');
     try {
       var responce = await http.post(url, body: {
         'userId': storage.read('userId'),
-        'mobile': controller!.phoneCon.text,
+        'mobile': controller.phoneCon.text,
         'email': storage.read('email') ?? '',
       });
       var data = jsonDecode(responce.body);
       printlog('data is = $data');
       printlog('data is = ${responce.statusCode}');
       controller.loading.value = false;
-      if ('result' == 'success') {
+      if (data['result'] == 'success') {
+        storage.write('mobile', '${controller.phoneCon.text}');
         Navigator.of(navigatorKey.currentContext!).pop();
         callProfile();
         snackBarSuccess('${data['message']}');
@@ -655,7 +731,8 @@ class ApiUtils {
       var data = jsonDecode(responce.body);
       printlog('getgetservice is = $data');
       printlog('data is = ${responce.statusCode}');
-      controller!.listofData.value = data['data'] ?? [];
+      // controller!.listofData.value = data['data'] ?? [];
+      controller!.listofForService.value = data['data'] ?? [];
     } catch (e) {}
   }
 

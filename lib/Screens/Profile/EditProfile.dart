@@ -21,6 +21,7 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   void initState() {
+    print('mobile is =${storage.read('mobile')}');
     controller.phoneCon.text = storage.read('mobile') ?? '';
     super.initState();
   }
@@ -258,7 +259,7 @@ class _EditProfileState extends State<EditProfile> {
                                   left: 15, bottom: 11, top: 15, right: 15),
                               hintStyle:
                                   TextStyle(color: greyColor, fontSize: 14),
-                              hintText: "Enter your mobile number"),
+                              hintText: "Enter your mobile number".tr),
                         ),
                       ),
                     ),
@@ -282,11 +283,11 @@ class _EditProfileState extends State<EditProfile> {
                                 ApiUtils.geteditMySocialProfile(
                                     controller: controller);
                               } else {
-                                controller.loading.value = true;
+                                controller.loading.value = false;
                               }
                             } else {
                               snackBarFailer(
-                                  'Phone number fields should not is empty');
+                                  'Phone number fields should not be empty'.tr);
                             }
                           } else {
                             if (controller.p1Con.text.isNotEmpty) {
@@ -297,15 +298,15 @@ class _EditProfileState extends State<EditProfile> {
                                       controller: controller);
                                 } else {
                                   snackBarFailer(
-                                      'Phone number fields should not is empty');
+                                      'Phone number fields should not is empty'.tr);
                                 }
                               } else {
                                 snackBarFailer(
-                                    'Please fields should not is empty');
+                                    'Please fields should not is empty'.tr);
                               }
                             } else {
                               snackBarFailer(
-                                  'Please fields should not is empty');
+                                  'Please fields should not is empty'.tr);
                             }
                           }
                         },

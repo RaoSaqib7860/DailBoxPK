@@ -65,8 +65,9 @@ class _AddProductState extends State<AddProduct> {
       var width = size.maxWidth;
       return SafeArea(
           child: Scaffold(
-        appBar: appBarGlobal(
-            widget.mapData!.isNotEmpty ? 'Update Product' : 'Add Product'.tr),
+        appBar: appBarGlobal(widget.mapData!.isNotEmpty
+            ? 'Update Product'.tr
+            : 'Add Product'.tr),
         body: Stack(
           children: [
             Container(
@@ -421,59 +422,66 @@ class _AddProductState extends State<AddProduct> {
                             FadeInUpBig(
                               child: InkWell(
                                 onTap: () {
-                                  if (controller.selectBusinessHint.value !=
-                                      'Select Business'.tr) {
-                                    if (controller.pNameCon.text.isNotEmpty) {
-                                      if (controller
-                                          .pPriceCon.text.isNotEmpty) {
+                                  if (controller.listofCityHint.value !=
+                                      'Select City') {
+                                    if (controller.selectBusinessHint.value !=
+                                        'Select Business'.tr) {
+                                      if (controller.pNameCon.text.isNotEmpty) {
                                         if (controller
-                                            .pDetailsCon.text.isNotEmpty) {
-                                          if (widget.mapData!.isNotEmpty) {
-                                            controller.loading.value = true;
-                                            ApiUtilsAllFiles.getupdateProduct(
-                                              id: controller.listofBuisness[
-                                                  controller
-                                                      .buisnessIDforProduct
-                                                      .value]['business_id'],
-                                              controller: controller,
-                                              product_id: widget.ProductID,
-                                              img1:
-                                                  '${widget.mapData!['pimage1']}',
-                                              img2:
-                                                  '${widget.mapData!['pimage2']}',
-                                              img3:
-                                                  '${widget.mapData!['pimage3']}',
-                                            );
-                                          } else {
-                                            if (controller.isf1.value) {
+                                            .pPriceCon.text.isNotEmpty) {
+                                          if (controller
+                                              .pDetailsCon.text.isNotEmpty) {
+                                            if (widget.mapData!.isNotEmpty) {
                                               controller.loading.value = true;
-                                              ApiUtilsAllFiles.gethomeproducts(
-                                                  controller,
-                                                  controller.listofBuisness[
-                                                      controller
-                                                          .buisnessIDforProduct
-                                                          .value]['business_id']);
+                                              ApiUtilsAllFiles.getupdateProduct(
+                                                id: controller.listofBuisness[
+                                                    controller
+                                                        .buisnessIDforProduct
+                                                        .value]['business_id'],
+                                                controller: controller,
+                                                product_id: widget.ProductID,
+                                                img1:
+                                                    '${widget.mapData!['pimage1']}',
+                                                img2:
+                                                    '${widget.mapData!['pimage2']}',
+                                                img3:
+                                                    '${widget.mapData!['pimage3']}',
+                                              );
                                             } else {
-                                              snackBarFailer(
-                                                  'Please select minimum one image first'
-                                                      .tr);
+                                              if (controller.isf1.value) {
+                                                controller.loading.value = true;
+                                                ApiUtilsAllFiles.gethomeproducts(
+                                                    controller,
+                                                    controller.listofBuisness[
+                                                        controller
+                                                            .buisnessIDforProduct
+                                                            .value]['business_id']);
+                                              } else {
+                                                snackBarFailer(
+                                                    'Please upload minimum 1 image(fist box)'
+                                                        .tr);
+                                              }
                                             }
+                                          } else {
+                                            snackBarFailer(
+                                                'Please enter Product details'
+                                                    .tr);
                                           }
                                         } else {
                                           snackBarFailer(
-                                              'Please select product details first');
+                                              'Please enter Price!'.tr);
                                         }
                                       } else {
                                         snackBarFailer(
-                                            'Please select product price first');
+                                            'Please enter Product Name!'.tr);
                                       }
                                     } else {
                                       snackBarFailer(
-                                          'Please select product name first');
+                                          'Please select Business first'.tr);
                                     }
                                   } else {
                                     snackBarFailer(
-                                        'Please select Business first');
+                                        'Please select city first'.tr);
                                   }
                                 },
                                 child: Container(
@@ -482,7 +490,7 @@ class _AddProductState extends State<AddProduct> {
                                   child: Center(
                                     child: Text(
                                       widget.mapData!.isNotEmpty
-                                          ? 'Update'
+                                          ? 'Update'.tr
                                           : 'Add Product'.tr,
                                       style: TextStyle(
                                           color: Colors.white,

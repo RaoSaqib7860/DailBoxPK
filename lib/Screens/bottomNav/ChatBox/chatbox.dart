@@ -10,6 +10,7 @@ import 'package:dail_box/Screens/Profile/AnotherProfile.dart';
 import 'package:dail_box/Screens/Profile/EditPost/EditPost.dart';
 import 'package:dail_box/Screens/Profile/ViewAllLike/ViewAllLike.dart';
 import 'package:dail_box/Screens/Profile/ViewComments/ViewComments.dart';
+import 'package:dail_box/main.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,7 @@ class ChatBox extends StatefulWidget {
 
 class _ChatBoxState extends State<ChatBox> {
   final controller = Get.put(ChatBoxController());
+  TextEditingController searchCopntroller = TextEditingController();
 
   @override
   void initState() {
@@ -122,64 +124,6 @@ class _ChatBoxState extends State<ChatBox> {
                           SizedBox(
                             width: 10,
                           ),
-                          Expanded(
-                            child: Container(
-                              padding: EdgeInsets.only(left: 10, right: 10),
-                              height: 30,
-                              color: Colors.red[900],
-                              child: Theme(
-                                  data: new ThemeData(
-                                      canvasColor: Colors.red[900],
-                                      primaryColor: Colors.black,
-                                      accentColor: Colors.black,
-                                      hintColor: Colors.black),
-                                  child: DropdownButton<String>(
-                                    items: controller.listofCat.map((value) {
-                                      return DropdownMenuItem<String>(
-                                        value: '$value',
-                                        child:
-                                            Text('${value['main_cat_name']}'),
-                                        onTap: () {
-                                          controller
-                                                  .currentlistofCatIndex.value =
-                                              controller.listofCat
-                                                  .indexOf(value);
-                                          controller.listofCatHint.value =
-                                              value['main_cat_name'];
-                                          controller.loadmainList.value = false;
-                                          ApiUtils.getsortDiscussionform(
-                                              main_cat_id: controller
-                                                      .listofIndustry[
-                                                  controller
-                                                      .currentlistofIndustryIndex
-                                                      .value]['id'],
-                                              sub_cat_id: controller.listofCat[
-                                                  controller
-                                                      .currentlistofCatIndex
-                                                      .value]['id'],
-                                              controller: controller);
-                                        },
-                                      );
-                                    }).toList(),
-                                    hint: Text(
-                                      controller.listofCatHint.value,
-                                      style: TextStyle(
-                                          fontSize: 12, color: Colors.white),
-                                    ),
-                                    icon: Icon(
-                                      Icons.keyboard_arrow_down,
-                                      color: Colors.white,
-                                    ),
-                                    underline: Container(
-                                      color: Colors.transparent,
-                                    ),
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 12),
-                                    isExpanded: true,
-                                    onChanged: (_) {},
-                                  )),
-                            ),
-                          ),
                         ],
                       ),
                     ),
@@ -206,6 +150,11 @@ class _ChatBoxState extends State<ChatBox> {
                               child: TextFormField(
                                 cursorColor: Colors.black,
                                 enabled: true,
+                                textAlign:
+                                    findLanguageController.isEnglishLocale.value
+                                        ? TextAlign.left
+                                        : TextAlign.right,
+                                controller: searchCopntroller,
                                 keyboardType: TextInputType.text,
                                 onChanged: (value) {
                                   controller.loadmainList.value = false;
@@ -213,19 +162,19 @@ class _ChatBoxState extends State<ChatBox> {
                                       controller: controller, search: value);
                                 },
                                 decoration: new InputDecoration(
-                                    border: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none,
-                                    errorBorder: InputBorder.none,
-                                    disabledBorder: InputBorder.none,
-                                    contentPadding: EdgeInsets.only(
-                                        left: 15,
-                                        bottom: 11,
-                                        top: 11,
-                                        right: 15),
-                                    hintStyle: TextStyle(
-                                        color: greyColor, fontSize: 14),
-                                    hintText: "Search here".tr),
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  disabledBorder: InputBorder.none,
+                                  contentPadding: EdgeInsets.only(
+                                      left: 15, bottom: 11, top: 11, right: 15),
+                                  hintStyle: TextStyle(
+                                    color: greyColor,
+                                    fontSize: 14,
+                                  ),
+                                  hintText: "Search here".tr,
+                                ),
                               ),
                             ),
                           ),
@@ -233,7 +182,7 @@ class _ChatBoxState extends State<ChatBox> {
                         InkWell(
                           onTap: () {
                             controller.loadmainList.value = false;
-
+                            searchCopntroller.clear();
                             controller.currentlistofIndustryIndex.value = 0;
                             controller.listofIndustryHint.value = 'Industry';
                             controller.currentlistofCatIndex.value = 0;
@@ -243,11 +192,13 @@ class _ChatBoxState extends State<ChatBox> {
                                 controller: controller);
                           },
                           child: Container(
-                            width: width * 0.2,
+                            width: findLanguageController.isEnglishLocale.value
+                                ? width * 0.2
+                                : width * 0.25,
                             height: height * 0.060,
                             child: Center(
                               child: Text(
-                                'Reset',
+                                'Reset'.tr,
                                 style: TextStyle(color: Colors.white),
                               ),
                             ),
@@ -475,6 +426,10 @@ class _ChatBoxState extends State<ChatBox> {
                               TextFormField(
                                 cursorColor: Colors.black,
                                 controller: controller.writeCommentCon.value,
+                                textAlign:
+                                    findLanguageController.isEnglishLocale.value
+                                        ? TextAlign.left
+                                        : TextAlign.right,
                                 keyboardType: TextInputType.text,
                                 decoration: new InputDecoration(
                                     border: InputBorder.none,
@@ -584,15 +539,15 @@ class _ChatBoxState extends State<ChatBox> {
                                                   controller: controller);
                                             } else {
                                               snackBarFailer(
-                                                  'Please enter text');
+                                                  'Please enter text'.tr);
                                             }
                                           } else {
                                             snackBarFailer(
-                                                'Please select Category');
+                                                'Please select Category'.tr);
                                           }
                                         } else {
                                           snackBarFailer(
-                                              'Please select industry');
+                                              'Please select industry'.tr);
                                         }
                                       },
                                       child: Container(

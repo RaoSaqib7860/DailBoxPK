@@ -1,6 +1,7 @@
 import 'package:dail_box/AppUtils.dart/APiUtilsForAuth.dart';
 import 'package:dail_box/AppUtils.dart/SizedConfig.dart';
 import 'package:dail_box/Screens/bottomNav/Gourment/GovernmentController.dart';
+import 'package:dail_box/main.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -49,7 +50,7 @@ class _GovernmentState extends State<Government> {
                       )
                     : controller.listGovernment.isEmpty
                         ? Center(
-                            child: Text('Empty'),
+                            child: Text('Empty'.tr),
                           )
                         : ListView.separated(
                             itemCount: controller.listGovernment.length,
@@ -107,10 +108,10 @@ class _GovernmentState extends State<Government> {
                                                           EdgeInsets.all(15),
                                                       child: Column(
                                                         crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
+                                                          findLanguageController.isEnglishLocale.value?  CrossAxisAlignment
+                                                                .start: CrossAxisAlignment.end,
                                                         children: <Widget>[
-                                                          Row(
+                                                         findLanguageController.isEnglishLocale.value? Row(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
                                                                     .spaceBetween,
@@ -134,7 +135,32 @@ class _GovernmentState extends State<Government> {
                                                                 },
                                                               )
                                                             ],
-                                                          ),
+                                                          ):  Row(
+                                                           mainAxisAlignment:
+                                                           MainAxisAlignment
+                                                               .spaceBetween,
+                                                           children: <Widget>[
+
+                                                             IconButton(
+                                                               icon: Icon(Icons
+                                                                   .clear),
+                                                               onPressed: () {
+                                                                 Navigator.pop(
+                                                                     context);
+                                                               },
+                                                             ),
+                                                             Text(
+                                                               'Department Name'
+                                                                   .tr,
+                                                               style: TextStyle(
+                                                                   fontWeight:
+                                                                   FontWeight
+                                                                       .bold,
+                                                                   fontSize:
+                                                                   16),
+                                                             ),
+                                                           ],
+                                                         ),
                                                           //SizedBox(height: 10,),
                                                           Text(
                                                             '${controller.listGovernment[index]['name']}',
@@ -146,6 +172,7 @@ class _GovernmentState extends State<Government> {
                                                           Divider(),
                                                           Text(
                                                             'Contact info'.tr,
+                                                            textAlign: findLanguageController.isEnglishLocale.value? TextAlign.left:TextAlign.right,
                                                             style: TextStyle(
                                                                 fontWeight:
                                                                     FontWeight

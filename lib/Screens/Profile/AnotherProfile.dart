@@ -181,7 +181,9 @@ class _AnotherProfileState extends State<AnotherProfile> {
                                             Text(
                                               'Activities'.tr,
                                               style: TextStyle(
-                                                  color: Colors.black,
+                                                  color: currentTab == 1
+                                                      ? Colors.black
+                                                      : Colors.grey,
                                                   fontWeight: FontWeight.w500,
                                                   fontSize: 10),
                                             )
@@ -244,12 +246,19 @@ class _AnotherProfileState extends State<AnotherProfile> {
                                             Container(
                                                 decoration: BoxDecoration(
                                                     shape: BoxShape.circle,
+                                                    color: currentTab == 3
+                                                        ? blueColor
+                                                        : Colors.white,
                                                     border: Border.all(
-                                                        color: greyColor)),
+                                                        color: currentTab != 3
+                                                            ? greyColor
+                                                            : blueColor)),
                                                 padding: EdgeInsets.all(10),
                                                 child: Icon(
                                                   CupertinoIcons.person,
-                                                  color: greyColor,
+                                                  color: currentTab != 3
+                                                      ? greyColor
+                                                      : Colors.white,
                                                   size: 22,
                                                 )),
                                             SizedBox(
@@ -258,7 +267,9 @@ class _AnotherProfileState extends State<AnotherProfile> {
                                             Text(
                                               'Information'.tr,
                                               style: TextStyle(
-                                                  color: Colors.grey,
+                                                  color: currentTab == 3
+                                                      ? Colors.black
+                                                      : Colors.grey,
                                                   fontSize: 10),
                                             )
                                           ],
@@ -289,7 +300,7 @@ class _AnotherProfileState extends State<AnotherProfile> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Experience',
+                                      'Experience'.tr,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15),
@@ -314,7 +325,7 @@ class _AnotherProfileState extends State<AnotherProfile> {
                                       height: height * 0.010,
                                     ),
                                     Text(
-                                      'Education',
+                                      'Education'.tr,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15),
@@ -339,7 +350,7 @@ class _AnotherProfileState extends State<AnotherProfile> {
                                       height: height * 0.010,
                                     ),
                                     Text(
-                                      'Skills',
+                                      'Skills'.tr,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15),
@@ -366,7 +377,7 @@ class _AnotherProfileState extends State<AnotherProfile> {
                                       height: height * 0.010,
                                     ),
                                     Text(
-                                      'Volunteering',
+                                      'Volunteering'.tr,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15),
@@ -394,7 +405,7 @@ class _AnotherProfileState extends State<AnotherProfile> {
                                       height: height * 0.010,
                                     ),
                                     Text(
-                                      'Accomplishments',
+                                      'Accomplishments'.tr,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15),
@@ -454,7 +465,7 @@ class _AnotherProfileState extends State<AnotherProfile> {
                               ? Obx(() => controller.listofListings.isEmpty
                                   ? SliverToBoxAdapter(
                                       child: Center(
-                                        child: Text('Empty'),
+                                        child: Text('Empty'.tr),
                                       ),
                                     )
                                   : SliverList(
@@ -518,7 +529,7 @@ class _AnotherProfileState extends State<AnotherProfile> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      '${controller.listofListings[i]['business_name']}',
+                                                      '${controller.listofListings[i]['user_name']}',
                                                       style: TextStyle(
                                                           fontSize: 14,
                                                           fontWeight:
@@ -828,8 +839,8 @@ class _AnotherProfileState extends State<AnotherProfile> {
     print('eeeeeeee===== $list');
     for (var i = 0; i < list.length; i++) {
       data = data +
-          'Position : ${list[i]['position'] ?? ''}\n' +
-          'Company Name : ${list[i]['company_name'] ?? ''}\n' +
+          'Company Name : ${list[i]['position'] ?? ''}\n' +
+          'Position : ${list[i]['company_name'] ?? ''}\n' +
           'Time Duration : ${list[i]['time_duration'] ?? ''}\n\n';
     }
     return data;
@@ -841,8 +852,8 @@ class _AnotherProfileState extends State<AnotherProfile> {
     print('eeeeeeee===== $list');
     for (var i = 0; i < list.length; i++) {
       data = data +
-          'Institute : ${list[i]['school_name'] ?? ''}\n' +
-          'Degree type : ${list[i]['degree_type'] ?? ''}\n' +
+          'Degree type : ${list[i]['school_name'] ?? ''}\n' +
+          'Institute : ${list[i]['degree_type'] ?? ''}\n' +
           'Time Duration : ${list[i]['start_end'] ?? ''}\n\n';
     }
     return data;
@@ -947,7 +958,7 @@ class _ChatBoxItemForAnotherProfileState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${widget.mapData!['industy_name']}',
+                      '${widget.mapData!['user_name']}',
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w600,
@@ -1136,7 +1147,7 @@ class _ChatBoxItemForAnotherProfileState
                     height: height / 30,
                   ),
                   Text(
-                    'Report',
+                    'Report'.tr,
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(
@@ -1172,7 +1183,7 @@ class _ChatBoxItemForAnotherProfileState
                                 left: 15, bottom: 11, top: 11, right: 15),
                             hintStyle:
                                 TextStyle(color: greyColor, fontSize: 12),
-                            hintText: "Enter message here"),
+                            hintText: "Enter message here".tr),
                       ),
                     ),
                   ),
@@ -1190,7 +1201,7 @@ class _ChatBoxItemForAnotherProfileState
                           Navigator.of(context).pop();
                         } else {
                           Navigator.of(context).pop();
-                          snackBarFailer('Please type message to receiver');
+                          snackBarFailer('Please type message to receiver'.tr);
                         }
                       },
                       child: Container(
@@ -1198,7 +1209,7 @@ class _ChatBoxItemForAnotherProfileState
                         width: width / 2,
                         child: Center(
                           child: Text(
-                            'Report',
+                            'Report'.tr,
                             style: TextStyle(color: Colors.white),
                           ),
                         ),

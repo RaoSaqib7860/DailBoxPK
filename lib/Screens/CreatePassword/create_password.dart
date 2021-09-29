@@ -98,7 +98,7 @@ class _CreatePasswordState extends State<CreatePassword> {
                                   ),
                                   new TextSpan(
                                     style: TextStyle(color: Colors.black),
-                                    text: 'Let\'s finally..'.tr,
+                                    text: ''.tr,
                                     recognizer: new TapGestureRecognizer()
                                       ..onTap = () => print('Tap Here onTap'),
                                   )
@@ -305,19 +305,20 @@ class _CreatePasswordState extends State<CreatePassword> {
                                             fromPhone: widget.fromPhone);
                                       } else {
                                         snackBarFailer(
-                                            'Otp fields should not is empty');
+                                            'Otp fields should not is empty'
+                                                .tr);
                                       }
                                     } else {
                                       snackBarFailer(
-                                          'Otp fields should not is empty');
+                                          'Otp fields should not is empty'.tr);
                                     }
                                   } else {
                                     snackBarFailer(
-                                        'Please fields should not is empty');
+                                        'Please fields should not is empty'.tr);
                                   }
                                 } else {
                                   snackBarFailer(
-                                      'Please fields should not is empty');
+                                      'Please fields should not is empty'.tr);
                                 }
                               },
                               child: Text(

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class IntroThree extends StatefulWidget {
   const IntroThree({Key? key}) : super(key: key);
@@ -39,7 +40,7 @@ class _IntroThreeState extends State<IntroThree> {
                         RichText(
                           textAlign: TextAlign.center,
                           text: TextSpan(
-                              text: 'Use Db discussion forum ',
+                              text: 'Use Db discussion forum '.tr,
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 20,
@@ -49,7 +50,7 @@ class _IntroThreeState extends State<IntroThree> {
                               children: [
                                 TextSpan(
                                   text:
-                                  ' to connect with likeminded people in our community.',
+                                  ' to connect with likeminded people in our community.'.tr,
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400,
@@ -80,7 +81,7 @@ class _IntroThreeState extends State<IntroThree> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'INDUSTRY',
+                                        'INDUSTRY'.tr,
                                         style: TextStyle(color: Colors.white),
                                       ),
                                       Icon(
@@ -111,7 +112,7 @@ class _IntroThreeState extends State<IntroThree> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'CATEGORIES',
+                                        'CATEGORIES'.tr,
                                         style: TextStyle(color: Colors.white),
                                       ),
                                       Icon(
@@ -175,7 +176,7 @@ class _IntroThreeState extends State<IntroThree> {
                                           ],
                                         ),
                                         Text(
-                                          'Categories > business',
+                                          'Categories > business'.tr,
                                           style: TextStyle(
                                               color: greyColor, fontSize: 10),
                                         ),
@@ -190,7 +191,7 @@ class _IntroThreeState extends State<IntroThree> {
                               Container(
                                 width: width,
                                 child: Text(
-                                  'Register your business with Dialboxx to gain visibility in the market-place.Showcase your business information products + service .... ',
+                                  'Register your business with Dialboxx to gain visibility in the market-place.Showcase your business information products + service .... '.tr,
                                   style: new TextStyle(
                                       fontSize: 12, color: Colors.black38),
                                 ),

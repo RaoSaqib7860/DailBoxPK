@@ -31,10 +31,7 @@ class _BRTwoState extends State<BRTwo> {
             height: height * 0.020,
           ),
           TextFromFieldsCustom(
-            hint: controller.listofSV[controller.currentSVIndex.value] ==
-                    'Virtual'
-                ? 'Area*'
-                : 'Business Address*'.tr,
+            hint: 'Business Address*'.tr,
             controller: controller.businessArea,
           ),
           SizedBox(
@@ -130,7 +127,7 @@ class _BRTwoState extends State<BRTwo> {
             height: height * 0.020,
           ),
           Text(
-            'Delivery Available*',
+            'Delivery Available*'.tr,
             style: TextStyle(fontSize: 12),
           ),
           SizedBox(
@@ -177,7 +174,7 @@ class _BRTwoState extends State<BRTwo> {
             height: height * 0.020,
           ),
           Text(
-            'Booking Available*',
+            'Booking Available*'.tr,
             style: TextStyle(fontSize: 12),
           ),
           SizedBox(
@@ -224,7 +221,7 @@ class _BRTwoState extends State<BRTwo> {
             height: height * 0.020,
           ),
           Text(
-            'Take Away/Pick up',
+            'Take Away/Pick up'.tr,
             style: TextStyle(fontSize: 12),
           ),
           SizedBox(
@@ -271,7 +268,7 @@ class _BRTwoState extends State<BRTwo> {
             height: height * 0.020,
           ),
           Text(
-            'By Appointment',
+            'By Appointment'.tr,
             style: TextStyle(fontSize: 12),
           ),
           SizedBox(
@@ -332,13 +329,13 @@ class _BRTwoState extends State<BRTwo> {
                         curve: Curves.fastOutSlowIn,
                       );
                     } else {
-                      snackBarFailer('Select Delivery Available first');
+                      snackBarFailer('Select Booking Available first'.tr);
                     }
                   } else {
-                    snackBarFailer('Select Delivery Available first');
+                    snackBarFailer('Select Delivery Available first'.tr);
                   }
                 } else {
-                  snackBarFailer('Select business address first');
+                  snackBarFailer('Enter Physical business address or Virtual city area'.tr);
                 }
               },
               child: Container(

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class IntroTwo extends StatefulWidget {
   const IntroTwo({Key? key}) : super(key: key);
@@ -45,7 +46,7 @@ class _IntroTwoState extends State<IntroTwo> {
                         RichText(
                           textAlign: TextAlign.center,
                           text: TextSpan(
-                              text: 'List your business',
+                              text: 'List your business'.tr,
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 20,
@@ -55,7 +56,7 @@ class _IntroTwoState extends State<IntroTwo> {
                               children: [
                                 TextSpan(
                                   text:
-                                      ' on Dialboxx to gain leads and to showcase your products, services & business information online.',
+                                      ' on Dialboxx to gain leads and to showcase your products, services & business information online.'.tr,
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400,
@@ -104,13 +105,13 @@ class _IntroTwoState extends State<IntroTwo> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'RMS Pack & Movers Service',
+                                        'RMS Pack & Movers Service'.tr,
                                         style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold),
                                       ),
                                       Text(
-                                        'blue area islamabad',
+                                        'blue area islamabad'.tr,
                                         style: TextStyle(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w300,
@@ -139,7 +140,7 @@ class _IntroTwoState extends State<IntroTwo> {
                                             }).toList(),
                                           ),
                                           Text(
-                                            '125 reviews',
+                                            '125 reviews'.tr,
                                             style: TextStyle(
                                                 fontSize: 10,
                                                 color: Colors.black26),
@@ -169,7 +170,7 @@ class _IntroTwoState extends State<IntroTwo> {
                                                   width: 5,
                                                 ),
                                                 Text(
-                                                  'Call',
+                                                  'Call'.tr,
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 10),
@@ -203,7 +204,7 @@ class _IntroTwoState extends State<IntroTwo> {
                                                   width: 5,
                                                 ),
                                                 Text(
-                                                  'Message',
+                                                  'Message'.tr,
                                                   style: TextStyle(
                                                       color: blueColor,
                                                       fontSize: 10),

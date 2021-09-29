@@ -43,7 +43,7 @@ class _ViewLikeState extends State<ViewLike> {
           },
         ),
         title: Text(
-          'All Likes',
+          'All Likes'.tr,
           style: TextStyle(
             fontSize: 16,
           ),
@@ -130,7 +130,7 @@ class _ViewLikeState extends State<ViewLike> {
                   : controller.listoflike.isEmpty
                       ? Expanded(
                           child: Center(
-                            child: Text('Empty'),
+                            child: Text('Empty'.tr),
                           ),
                         )
                       : Expanded(
