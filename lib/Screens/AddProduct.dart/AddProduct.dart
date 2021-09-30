@@ -198,6 +198,7 @@ class _AddProductState extends State<AddProduct> {
                               height: height * 0.030,
                             ),
                             Text(
+                              
                               'Add up to 3 Images'.tr,
                               style: TextStyle(fontSize: 14),
                             ),

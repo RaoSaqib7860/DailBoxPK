@@ -5,6 +5,7 @@ import 'package:dail_box/AppUtils.dart/ShimmerEffect.dart';
 import 'package:dail_box/AppUtils.dart/SnackBarUtils.dart';
 import 'package:dail_box/Screens/RecentListingDetails/RecentListingdDetails.dart';
 import 'package:dail_box/Screens/bottomNav/Home/HomeController.dart';
+import 'package:dail_box/main.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
   @override
   void initState() {
     homecontroller.currentlistofIndustryIndex.value = 0;
-    homecontroller.listofIndustryHint.value = 'Select City';
+    homecontroller.listofIndustryHint.value = 'Select City'.tr;
     Future.delayed(Duration(milliseconds: 0), () {
       controller.listofListings.clear();
       controller.isLoadinglist.value = false;
@@ -76,6 +77,9 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
                             context: context,
                             builder: (context) {
                               return Column(
+                                crossAxisAlignment: findLanguageController.isEnglishLocale.value?
+                                CrossAxisAlignment.start
+                                :CrossAxisAlignment.end,
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   SizedBox(
@@ -87,6 +91,9 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
                                           EdgeInsets.only(left: width * 0.050),
                                       child: new Text(
                                         'A to Z'.tr,
+                                        textAlign: 
+                                        findLanguageController.isEnglishLocale.value? TextAlign.left
+                                        :TextAlign.right,
                                       ),
                                     ),
                                     onTap: () async {
@@ -110,6 +117,10 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
                                           EdgeInsets.only(left: width * 0.050),
                                       child: new Text(
                                         'Z to A'.tr,
+                                        textAlign: 
+                                        findLanguageController.isEnglishLocale.value? TextAlign.left
+                                        :TextAlign.right,
+
                                       ),
                                     ),
                                     onTap: () async {
@@ -133,6 +144,10 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
                                           EdgeInsets.only(left: width * 0.050),
                                       child: new Text(
                                         'Reset'.tr,
+                                        textAlign: 
+                                        findLanguageController.isEnglishLocale.value? TextAlign.left
+                                        :TextAlign.right,
+
                                       ),
                                     ),
                                     onTap: () async {

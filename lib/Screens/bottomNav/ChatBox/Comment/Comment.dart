@@ -2,6 +2,7 @@ import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:dail_box/AppUtils.dart/ApiUtilsForAll.dart';
 import 'package:dail_box/AppUtils.dart/ShimmerEffect.dart';
 import 'package:dail_box/Screens/bottomNav/ChatBox/Comment/CommentPageController.dart';
+import 'package:dail_box/main.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -219,6 +220,7 @@ class _CommentPageState extends State<CommentPage> {
                   Expanded(
                     child: TextFormField(
                       controller: controller.textCon,
+                      textAlign: findLanguageController.isEnglishLocale.value?TextAlign.left:TextAlign.right,
                       style: TextStyle(color: Colors.black, fontSize: 14),
                       decoration: InputDecoration(
                           disabledBorder: new OutlineInputBorder(
@@ -243,6 +245,7 @@ class _CommentPageState extends State<CommentPage> {
                               )),
                           contentPadding: EdgeInsets.only(left: Get.width / 20),
                           hintText: 'Say something …'.tr,
+                          
                           hintStyle: TextStyle(
                               fontSize: 13,
                               letterSpacing: 0.5,

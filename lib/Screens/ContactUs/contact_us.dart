@@ -3,6 +3,7 @@ import 'package:dail_box/AppUtils.dart/AppBarGlobal.dart';
 import 'package:dail_box/AppUtils.dart/SizedConfig.dart';
 import 'package:dail_box/AppUtils.dart/SnackBarUtils.dart';
 import 'package:dail_box/Screens/ContactUs/ContactUsController.dart';
+import 'package:dail_box/main.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -21,9 +22,9 @@ class _ContactUsState extends State<ContactUs> {
   @override
   void initState() {
     storage = GetStorage();
-    controller.nameCon.text = storage!.read('name')??'';
-    controller.emailCon.text = storage!.read('email')??'';
-    controller.phoneCon.text = storage!.read('mobile')??'';
+    controller.nameCon.text = storage!.read('name') ?? '';
+    controller.emailCon.text = storage!.read('email') ?? '';
+    controller.phoneCon.text = storage!.read('mobile') ?? '';
     controller.messageCon.clear();
     super.initState();
   }
@@ -33,6 +34,7 @@ class _ContactUsState extends State<ContactUs> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
@@ -44,6 +46,9 @@ class _ContactUsState extends State<ContactUs> {
           ),
           title: Text(
             'Contact Us'.tr,
+            textAlign: findLanguageController.isEnglishLocale.value
+                ? TextAlign.left
+                : TextAlign.right,
             style: TextStyle(
               fontSize: 16,
             ),
@@ -60,7 +65,8 @@ class _ContactUsState extends State<ContactUs> {
                     padding: const EdgeInsets.only(left: 15.0, right: 15),
                     child: SingleChildScrollView(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: findLanguageController.isEnglishLocale.value?
+                         CrossAxisAlignment.start: CrossAxisAlignment.end,
                         children: <Widget>[
                           SizedBox(
                             height: 15,
@@ -98,7 +104,7 @@ class _ContactUsState extends State<ContactUs> {
                                           style: TextStyle(
                                               color: blueColor,
                                               fontWeight: FontWeight.w600,
-                                              fontSize: 12),
+                                              fontSize: findLanguageController.isEnglishLocale.value? 12 :10.5),
                                         )
                                       ],
                                     ),
@@ -144,7 +150,7 @@ class _ContactUsState extends State<ContactUs> {
                                           style: TextStyle(
                                               color: Colors.orange,
                                               fontWeight: FontWeight.w600,
-                                              fontSize: 12),
+                                              fontSize: findLanguageController.isEnglishLocale.value? 12 :10.5),
                                         )
                                       ],
                                     ),
@@ -158,6 +164,7 @@ class _ContactUsState extends State<ContactUs> {
                           ),
                           Text(
                             'Quick Contact'.tr,
+                            
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 18),
                           ),
@@ -180,10 +187,14 @@ class _ContactUsState extends State<ContactUs> {
                               ),
                               child: TextFormField(
                                 cursorColor: Colors.black,
+                                textAlign: findLanguageController.isEnglishLocale.value?
+                                TextAlign.left
+                                :TextAlign.right,
                                 controller: controller.nameCon,
                                 enabled: false,
                                 keyboardType: TextInputType.text,
-                                decoration: new InputDecoration(
+                                decoration: findLanguageController.isEnglishLocale.value?
+                                 InputDecoration(
                                     prefixIcon: Icon(
                                       Icons.person_outline,
                                       color: greyColor,
@@ -198,6 +209,24 @@ class _ContactUsState extends State<ContactUs> {
                                         bottom: 11,
                                         top: 11,
                                         right: 15),
+                                    hintStyle: TextStyle(
+                                        color: greyColor, fontSize: 14),
+                                    hintText: "First Name".tr)
+                                    :InputDecoration(
+                                    suffixIcon: Icon(
+                                      Icons.person_outline,
+                                      color: greyColor,
+                                    ),
+                                    border: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    errorBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                    contentPadding: EdgeInsets.only(
+                                        left: 15,
+                                        bottom: 11,
+                                        top: 11,
+                                        right: 0),
                                     hintStyle: TextStyle(
                                         color: greyColor, fontSize: 14),
                                     hintText: "First Name".tr),
@@ -224,9 +253,13 @@ class _ContactUsState extends State<ContactUs> {
                               child: TextFormField(
                                 controller: controller.emailCon,
                                 cursorColor: Colors.black,
+                                textAlign: findLanguageController.isEnglishLocale.value?
+                                TextAlign.left
+                                :TextAlign.right,
                                 enabled: false,
                                 keyboardType: TextInputType.text,
-                                decoration: new InputDecoration(
+                                decoration: findLanguageController.isEnglishLocale.value?
+                                 InputDecoration(
                                     prefixIcon: Icon(
                                       Icons.email,
                                       color: greyColor,
@@ -241,6 +274,24 @@ class _ContactUsState extends State<ContactUs> {
                                         bottom: 11,
                                         top: 11,
                                         right: 15),
+                                    hintStyle: TextStyle(
+                                        color: greyColor, fontSize: 14),
+                                    hintText: "Email".tr)
+                                    :InputDecoration(
+                                    suffixIcon: Icon(
+                                      Icons.email,
+                                      color: greyColor,
+                                    ),
+                                    border: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    errorBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                    contentPadding: EdgeInsets.only(
+                                        left: 15,
+                                        bottom: 11,
+                                        top: 11,
+                                        right: 0),
                                     hintStyle: TextStyle(
                                         color: greyColor, fontSize: 14),
                                     hintText: "Email".tr),
@@ -266,10 +317,14 @@ class _ContactUsState extends State<ContactUs> {
                               ),
                               child: TextFormField(
                                 cursorColor: Colors.black,
+                                textAlign: findLanguageController.isEnglishLocale.value?
+                                TextAlign.left
+                                :TextAlign.right,
                                 controller: controller.phoneCon,
                                 enabled: false,
                                 keyboardType: TextInputType.text,
-                                decoration: new InputDecoration(
+                                decoration: findLanguageController.isEnglishLocale.value?
+                                 InputDecoration(
                                     prefixIcon: Icon(
                                       Icons.phone,
                                       color: greyColor,
@@ -284,6 +339,24 @@ class _ContactUsState extends State<ContactUs> {
                                         bottom: 11,
                                         top: 11,
                                         right: 15),
+                                    hintStyle: TextStyle(
+                                        color: greyColor, fontSize: 14),
+                                    hintText: "Phone".tr)
+                                    :InputDecoration(
+                                    suffixIcon: Icon(
+                                      Icons.phone,
+                                      color: greyColor,
+                                    ),
+                                    border: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    errorBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                    contentPadding: EdgeInsets.only(
+                                        left: 15,
+                                        bottom: 11,
+                                        top: 11,
+                                        right: 0),
                                     hintStyle: TextStyle(
                                         color: greyColor, fontSize: 14),
                                     hintText: "Phone".tr),
@@ -309,10 +382,14 @@ class _ContactUsState extends State<ContactUs> {
                               ),
                               child: TextFormField(
                                 cursorColor: Colors.black,
+                                textAlign: findLanguageController.isEnglishLocale.value?
+                                TextAlign.left
+                                :TextAlign.right,
                                 controller: controller.messageCon,
                                 keyboardType: TextInputType.multiline,
                                 maxLines: 6,
-                                decoration: new InputDecoration(
+                                decoration: findLanguageController.isEnglishLocale.value?
+                                 InputDecoration(
                                     prefixIcon: Container(
                                       transform:
                                           Matrix4.translationValues(0, -50, 0),
@@ -331,6 +408,28 @@ class _ContactUsState extends State<ContactUs> {
                                         bottom: 11,
                                         top: 11,
                                         right: 15),
+                                    hintStyle: TextStyle(
+                                        color: greyColor, fontSize: 14),
+                                    hintText: "Message".tr)
+                                    :InputDecoration(
+                                    suffixIcon: Container(
+                                      transform:
+                                          Matrix4.translationValues(0, -50, 0),
+                                      child: Icon(
+                                        Icons.email,
+                                        color: greyColor,
+                                      ),
+                                    ),
+                                    border: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    errorBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                    contentPadding: EdgeInsets.only(
+                                        left: 15,
+                                        bottom: 11,
+                                        top: 11,
+                                        right: 0),
                                     hintStyle: TextStyle(
                                         color: greyColor, fontSize: 14),
                                     hintText: "Message".tr),

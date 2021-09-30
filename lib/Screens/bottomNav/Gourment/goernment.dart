@@ -83,6 +83,7 @@ class _GovernmentState extends State<Government> {
                                     ),
                                     InkWell(
                                       onTap: () {
+
                                         showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
@@ -213,13 +214,21 @@ class _GovernmentState extends State<Government> {
                                                                 fontSize: 14),
                                                           ),
                                                           Divider(),
-                                                          Text(
-                                                            'Services'.tr,
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: 16),
+
+                                                          Row(
+                                                            mainAxisAlignment: findLanguageController.isEnglishLocale.value?MainAxisAlignment.start
+                                                            :MainAxisAlignment.end,
+                                                            children: [
+                                                              Text(
+                                                                'Services'.tr,
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize: 16),
+                                                              ),
+                                                              findLanguageController.isEnglishLocale.value?SizedBox():SizedBox(width: 10,)
+                                                            ],
                                                           ),
                                                           SizedBox(
                                                             height: 10,
@@ -235,13 +244,21 @@ class _GovernmentState extends State<Government> {
                                                             height: 10,
                                                           ),
                                                           Divider(),
-                                                          Text(
-                                                            'Timings'.tr,
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: 16),
+
+                                                          Row(
+                                                            mainAxisAlignment: findLanguageController.isEnglishLocale.value?MainAxisAlignment.start
+                                                            :MainAxisAlignment.end,
+                                                            children: [
+                                                              Text(
+                                                                'Timings'.tr,
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize: 16),
+                                                              ),
+                                                              findLanguageController.isEnglishLocale.value?SizedBox():SizedBox(width: 10,)
+                                                            ],
                                                           ),
                                                           SizedBox(
                                                             height: 10,

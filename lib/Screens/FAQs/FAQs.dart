@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:dail_box/AppUtils.dart/ApiUtilsForAll.dart';
 import 'package:dail_box/AppUtils.dart/AppBarGlobal.dart';
 import 'package:dail_box/AppUtils.dart/SnackBarUtils.dart';
+import 'package:dail_box/main.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -35,7 +36,7 @@ class _FAQsState extends State<FAQs> {
     var width = Get.width;
     return SafeArea(
         child: Scaffold(
-            appBar: appBarGlobal('Add FAQs'),
+            appBar: appBarGlobal('Add FAQs'.tr),
             body: Padding(
               padding: EdgeInsets.symmetric(horizontal: width * 0.030),
               child: Obx(
@@ -106,6 +107,8 @@ class _FAQsState extends State<FAQs> {
                               ),
                               child: TextFormField(
                                 cursorColor: Colors.black,
+                                textAlign: findLanguageController.isEnglishLocale.value?
+                                TextAlign.left:TextAlign.right,
                                 maxLines: 1,
                                 keyboardType: TextInputType.text,
                                 controller: controller.QusCon,
@@ -147,6 +150,8 @@ class _FAQsState extends State<FAQs> {
                               child: TextFormField(
                                 cursorColor: Colors.black,
                                 maxLines: 6,
+                                textAlign: findLanguageController.isEnglishLocale.value?
+                                TextAlign.left:TextAlign.right,
                                 keyboardType: TextInputType.text,
                                 controller: controller.AnsCon,
                                 textInputAction: TextInputAction.done,

@@ -457,6 +457,8 @@ class _SignUpState extends State<SignUp> {
                                     decoration: findLanguageController
                                             .isEnglishLocale.value
                                         ? InputDecoration(
+
+                                          
                                             prefixIcon: Icon(
                                               Icons.lock_outline,
                                               color: greyColor,
@@ -492,6 +494,8 @@ class _SignUpState extends State<SignUp> {
                                                 color: greyColor, fontSize: 12),
                                             hintText: "Password".tr)
                                         : InputDecoration(
+
+
                                             suffixIcon: Icon(
                                               Icons.lock_outline,
                                               color: greyColor,

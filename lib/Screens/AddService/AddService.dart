@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
+import '../../main.dart';
+
 class AddService extends StatefulWidget {
   final Map? mapData;
 
@@ -166,6 +168,7 @@ class _AddServiceState extends State<AddService> {
                             controller: controller.sPriceCon,
                             hint: 'Service Starting Cost'.tr,
                             isNumber: true,
+                           
                           ),
                           SizedBox(
                             height: height * 0.030,
@@ -208,7 +211,8 @@ class _AddServiceState extends State<AddService> {
                                           }
                                         } else {
                                           snackBarFailer(
-                                              'Please select product details first'.tr);
+                                              'Please select product details first'
+                                                  .tr);
                                         }
                                       } else {
                                         snackBarFailer(

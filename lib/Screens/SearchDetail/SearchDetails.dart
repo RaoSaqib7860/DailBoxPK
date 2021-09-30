@@ -11,6 +11,7 @@ import 'package:dail_box/Screens/AddService/AddService.dart';
 import 'package:dail_box/Screens/ImagePreview/ImagePreview.dart';
 import 'package:dail_box/Screens/RecentListingDetails/RecentListingdDetails.dart';
 import 'package:dail_box/Screens/SearchDetail/SearchDetailsController.dart';
+import 'package:dail_box/main.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -47,13 +48,13 @@ class _SearchDetailsState extends State<SearchDetails> {
       controller.loadData.value = false;
       await ApiUtils.getgetbussniesname(
           controller: controller, b_id: widget.b_ID);
-      if (widget.fromApi == 'product'.tr) {
+      if (widget.fromApi == 'product') {
         await ApiUtils.getgetproduct(
             controller: controller, id: widget.buisinessId);
         await ApiUtils.getgetproductallreview(
             controller: controller, id: widget.buisinessId);
         controller.loadData.value = true;
-      } else if (widget.fromApi == 'service'.tr) {
+      } else if (widget.fromApi == 'service') {
         await ApiUtils.getgetservice(
             controller: controller, id: widget.buisinessId);
         await ApiUtils.getgetserviceallreview(
@@ -191,8 +192,10 @@ class _SearchDetailsState extends State<SearchDetails> {
                           : widget.fromApi == 'service'
                               ? SingleChildScrollView(
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: findLanguageController
+                                            .isEnglishLocale.value
+                                        ? CrossAxisAlignment.start
+                                        : CrossAxisAlignment.end,
                                     children: [
                                       SizedBox(
                                         height: height * 0.020,
@@ -220,7 +223,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                                                             widget.buisinessId);
                                                   },
                                                   child: Container(
-                                                    height: height * 0.040,
+                                                    height:  height * 0.040,
                                                     width: width * 0.350,
                                                     child: Center(
                                                       child: Text(
@@ -309,22 +312,44 @@ class _SearchDetailsState extends State<SearchDetails> {
                                       SizedBox(
                                         height: height * 0.010,
                                       ),
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'City :',
-                                            style: TextStyle(color: blueColor),
-                                          ),
-                                          Expanded(
-                                            child: Text(controller
-                                                    .listofForService.isEmpty
-                                                ? ''
-                                                : ' ${controller.listofForService[0]['service_cities']}'),
-                                          )
-                                        ],
-                                      ),
+                                      findLanguageController
+                                              .isEnglishLocale.value
+                                          ? Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'City :'.tr,
+                                                  style: TextStyle(
+                                                      color: blueColor),
+                                                ),
+                                                Expanded(
+                                                  child: Text(controller
+                                                          .listofForService
+                                                          .isEmpty
+                                                      ? ''
+                                                      : ' ${controller.listofForService[0]['service_cities']}'),
+                                                )
+                                              ],
+                                            )
+                                          : Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                              children: [
+                                             
+                                                Text(controller
+                                                        .listofForService
+                                                        .isEmpty
+                                                    ? ''
+                                                    : ' ${controller.listofForService[0]['service_cities']} :'),
+                                                   Text(
+                                                  'City :'.tr.replaceAll(':', ''),
+                                                  style: TextStyle(
+                                                      color: blueColor),
+                                                ),
+                                              ],
+                                            ),
                                       SizedBox(
                                         height: height * 0.010,
                                       ),
@@ -357,6 +382,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                                               ));
                                         },
                                         child: Row(
+                                          mainAxisAlignment: findLanguageController.isEnglishLocale.value?MainAxisAlignment.start:MainAxisAlignment.end,
                                           children: [
                                             Container(
                                               padding: EdgeInsets.all(10),
@@ -481,8 +507,10 @@ class _SearchDetailsState extends State<SearchDetails> {
                                 )
                               : SingleChildScrollView(
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: findLanguageController
+                                            .isEnglishLocale.value
+                                        ? CrossAxisAlignment.start
+                                        : CrossAxisAlignment.end,
                                     children: [
                                       SizedBox(
                                         height: height * 0.020,
@@ -655,11 +683,12 @@ class _SearchDetailsState extends State<SearchDetails> {
                                                             widget.buisinessId);
                                                   },
                                                   child: Container(
-                                                    height: height * 0.040,
+                                                    height:findLanguageController.isEnglishLocale.value?  height * 0.040:height * 0.055,
                                                     width: width * 0.350,
                                                     child: Center(
                                                       child: Text(
                                                         'Rate Product'.tr,
+                                                        textAlign: TextAlign.center,
                                                         style: TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 12),
@@ -744,17 +773,38 @@ class _SearchDetailsState extends State<SearchDetails> {
                                       SizedBox(
                                         height: height * 0.010,
                                       ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            'City :'.tr,
-                                            style: TextStyle(color: blueColor),
-                                          ),
-                                          Text(controller.listofData.isEmpty
-                                              ? ''
-                                              : ' ${controller.listofData[0]['product_cities']}')
-                                        ],
-                                      ),
+                                      findLanguageController
+                                              .isEnglishLocale.value
+                                          ? Row(
+                                              children: [
+                                                Text(
+                                                  'City :'.tr,
+                                                  style: TextStyle(
+                                                      color: blueColor),
+                                                ),
+                                                Text(controller
+                                                        .listofData.isEmpty
+                                                    ? ''
+                                                    : ' ${controller.listofData[0]['product_cities']}')
+                                              ],
+                                            )
+                                          : Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Text(controller
+                                                        .listofData.isEmpty
+                                                    ? ''
+                                                    : ' ${controller.listofData[0]['product_cities']} :'),
+                                                Text(
+                                                  'City :'
+                                                      .tr
+                                                      .replaceAll(':', ''),
+                                                  style: TextStyle(
+                                                      color: blueColor),
+                                                ),
+                                              ],
+                                            ),
                                       SizedBox(
                                         height: height * 0.010,
                                       ),
@@ -776,6 +826,11 @@ class _SearchDetailsState extends State<SearchDetails> {
                                               ));
                                         },
                                         child: Row(
+                                          mainAxisAlignment:
+                                              findLanguageController
+                                                      .isEnglishLocale.value
+                                                  ? MainAxisAlignment.start
+                                                  : MainAxisAlignment.end,
                                           children: [
                                             Container(
                                               child: Center(
@@ -800,6 +855,10 @@ class _SearchDetailsState extends State<SearchDetails> {
                                       ),
                                       Text(
                                         'Rate and Reviews'.tr,
+                                        textAlign: findLanguageController
+                                                .isEnglishLocale.value
+                                            ? TextAlign.left
+                                            : TextAlign.right,
                                         style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold),

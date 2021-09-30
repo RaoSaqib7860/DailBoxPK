@@ -17,6 +17,7 @@ class _AdvertiseState extends State<Advertise> {
       return SafeArea(
         child: Scaffold(
           appBar: AppBar(
+           
             leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
@@ -26,7 +27,7 @@ class _AdvertiseState extends State<Advertise> {
                 Navigator.of(context).pop();
               },
             ),
-            centerTitle: false,
+            centerTitle: true,
             title: Text(
               'Advertise'.tr,
               style: TextStyle(

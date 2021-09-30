@@ -383,7 +383,10 @@ class _TextFromFieldsCustomState extends State<TextFromFieldsCustom> {
           ],
         ),
         child: TextFormField(
-          textAlign:widget.isNumber?TextAlign.left: findLanguageController.isEnglishLocale.value? TextAlign.left:TextAlign.right,
+          textAlign:
+         // widget.isNumber?TextAlign.left:
+           findLanguageController.isEnglishLocale.value?
+            TextAlign.left:TextAlign.right,
           cursorColor: Colors.black,
           controller: widget.controller,
           textInputAction: TextInputAction.next,

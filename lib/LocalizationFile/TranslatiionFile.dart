@@ -7,14 +7,16 @@ class TranslationFilePage extends Translations {
           'Home': 'Home',
           'Discussion': 'Discussion',
           'Please confirm Terms and Condition':
-              'Please confirm Terms and Condition',
+            'Please confirm Terms and Condition',
           'Add': 'Add',
           'Monday :': 'Monday :',
           'Wednesday :': 'Wednesday :',
+          'Rate Service':'Rate Service',
           'Business Address*': 'Business Address*',
           ' business ': ' business ',
           'Facebook Link': 'Facebook Link',
           'Photos': 'Photos',
+          'New Password': 'New Password',
           'Add FAQs': 'Add FAQs',
           'Thursday:': 'Thursday:',
           'YouTube Link': 'YouTube Link',
@@ -35,6 +37,8 @@ class TranslationFilePage extends Translations {
           'Rate your Experience here': 'Rate your Experience here',
           'Rate Product': 'Rate Product',
           'Terms ': 'Terms ',
+          'Activities': 'Activities',
+          'Information': 'Information',
           'Rating & Reviews': 'Rating & Reviews',
           'View Business': 'View Business',
           'Update Education': 'Update Education',
@@ -114,6 +118,7 @@ class TranslationFilePage extends Translations {
           'Select how did you hear about us?':
               'Select how did you hear about us?',
           'Select City first': 'Select City first',
+          'Select City': 'Select City',
           'Please fields should not is empty':
               'Please fields should not is empty',
           'Delivery Available*': 'Delivery Available*',
@@ -253,6 +258,7 @@ class TranslationFilePage extends Translations {
           'Add Service': 'Add Service',
           'Product Name': 'Product Name',
           'Product Price': 'Product Price',
+          'Rate and Reviews':'Rate and Reviews',
           'Product Details': 'Product Details',
           'Product image 1': 'Product image 1',
           'Product image 2': 'Product image 2',
@@ -416,6 +422,7 @@ class TranslationFilePage extends Translations {
           'Rate this Business': 'Rate this Business',
           'Address': 'Address',
           'Social media': 'Social media',
+          'Social Media':'Social Media',
           'Business Description': 'Business Description',
           'Popular products': 'Popular products',
           'Popular Products': 'Popular Products',
@@ -460,7 +467,10 @@ class TranslationFilePage extends Translations {
           'List your business on Dialboxx to gain leads and to showcase your products, services & business information online':
               'List your business on Dialboxx to gain leads and to showcase your products, services & business information online',
           'Rate': 'Rate',
-          'Select Terms and Condition box': 'Select Terms and Condition box'
+          'Select Terms and Condition box': 'Select Terms and Condition box',
+          'Add up to 3 Images': 'Add up to 3 Images',
+          'Service Starting Cost': 'Service Starting Cost',
+
         },
 
         //...................................................//
@@ -489,7 +499,7 @@ class TranslationFilePage extends Translations {
           'Product has been added Successfully':
               'پروڈکٹ کامیابی کے ساتھ شامل کر دیا گیا ہے',
           'Advertising': 'تشہیر',
-          'Skills': 'ہن',
+          'Skills': 'ہنر',
           'View All ': 'سب دیکھیں',
           'kindly contact us for further information ':
               'مزید معلومات کے لیے ہم سے رابطہ کریں ',
@@ -503,7 +513,7 @@ class TranslationFilePage extends Translations {
           'Change Password': 'پاس ورڈ تبدیل کریں',
           'Terms & Conditions': 'شرائط و ضوابط',
           'Packages': 'پیکجز',
-          'Accomplishments': 'کارنامے۔',
+          'Accomplishments': 'کارنامے',
           'Privacy Policy': 'رازداری کی پالیسی',
           'Version': 'ورژن',
           'Register your business with dialboxx and go online today! Help potential buyers get in touch with you using Dialboxx search engine.':
@@ -512,6 +522,8 @@ class TranslationFilePage extends Translations {
           'Service has been added Successfully':
               'سروس کامیابی کے ساتھ شامل کر دی گئی ہے',
           'Skip': 'چھوڑ دو',
+          'Activities': 'سرگرمیاں',
+          'Information': 'معلومات',
           'All Comments': 'تمام تبصرے',
           'Let\'s do your new habit': 'آئیے اپنی نئی عادت بنائیں',
           'Verification Code': 'تصدیقی کوڈ',
@@ -523,6 +535,7 @@ class TranslationFilePage extends Translations {
           'Business Industry': 'کاروباری صنعت',
           'Please enter phone number first': 'براہ کرم پہلے فون نمبر درج کریں',
           'Industries': 'صنعتیں',
+          'New Password': 'نیا پاس ورڈ',
           'Experience': 'تجربہ',
           'Donʼt have an account ? ': 'کیا آپ کا اکاؤنٹ نہیں ہے؟',
           'Add': 'شامل کریں',
@@ -548,6 +561,7 @@ class TranslationFilePage extends Translations {
           'Please select Category': 'براہ کرم زمرہ منتخب کریں',
           'Education': 'تعلیم',
           'City :': 'شہر:',
+          'Rate and Reviews':'شرح اور جائزے',
           'Please enter message': 'براہ کرم پیغام درج کریں',
           'PKR': 'پی کے آر',
           'My Listings': 'میری فہرستیں',
@@ -673,6 +687,7 @@ class TranslationFilePage extends Translations {
           'Update Experience': 'تجربہ اپ ڈیٹ کریں',
           'See less': 'کم دیکھیں',
           'Mobile No*': 'موبائل نمبر*',
+          'Rate Service':'سروس کی شرح',
           'Password': 'پاس ورڈ',
           'Please enter first name': 'براہ کرم پہلا نام درج کریں',
           'Business City(s) : ': 'بزنس سٹی:',
@@ -850,7 +865,7 @@ class TranslationFilePage extends Translations {
           'Send Message': 'پیغام بھیجیں',
           'Enter message here': 'یہاں پیغام درج کریں',
           '3.30PM': '3.30PM',
-          'Say something …': 'کچھ بولیں …',
+          'Say something …': '… کچھ بولیں',
           'Phone verification': 'فون کی تصدیق',
           'Otp code': 'او ٹی پی کوڈ',
           'Arrive at your destination in the smoothest ride possible, by sailing through real-time trip planning to payment with a few clicks. We\'re never more than 5 minutes away with pick-up stations closer from and to your home, office or anywhere in between. Grabbing coffee along your way?':
@@ -872,6 +887,7 @@ class TranslationFilePage extends Translations {
           'Monday :': ': پیر',
           'Wednesday': ': بدھ',
           'Social media': 'سوشل میڈیا',
+          'Social Media':'سوشل میڈیا',
           'Business Description': 'کاروباری تفصیل',
           'Popular products': 'مقبول مصنوعات',
           'Popular Products': 'مقبول مصنوعات',
@@ -920,9 +936,12 @@ class TranslationFilePage extends Translations {
           'اردو': 'اردو',
           'Dial Box': 'ڈائل باکس',
           'Search for anything,anywhere in Pakistan':
-              'ٮ﮹اکستان مٮ﮵ں کہٮ﮵ں ٮ﮳ھیٮ﮳ھی ٮ﮴لاش کرٮ﮵ں ',
+           'ٮ﮹اکستان مٮ﮵ں کہٮ﮵ں ٮ﮳ھیٮ﮳ھی ٮ﮴لاش کرٮ﮵ں ',
           'Rate': 'شرح',
-          'Select Terms and Condition box': 'شرائط و ضوابط کا خانہ منتخب کریں'
+          'Select Terms and Condition box': 'شرائط و ضوابط کا خانہ منتخب کریں',
+          'Add up to 3 Images': 'تصاویر تک شامل کریں۔3',
+          'Service Starting Cost': 'سروس شروع کرنے کی لاگت',
+          'Select City': 'شہر منتخب کریں',
         }
       };
 }

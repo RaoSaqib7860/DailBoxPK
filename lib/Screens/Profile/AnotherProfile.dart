@@ -7,6 +7,7 @@ import 'package:dail_box/AppUtils.dart/SnackBarUtils.dart';
 import 'package:dail_box/Screens/Profile/AnotherProfileController.dart';
 import 'package:dail_box/Screens/Profile/ProfileController.dart';
 import 'package:dail_box/Screens/bottomNav/ChatBox/ChatBoxController.dart';
+import 'package:dail_box/main.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -296,8 +297,11 @@ class _AnotherProfileState extends State<AnotherProfile> {
                                     horizontal: width * 0.030,
                                     vertical: width * 0.030),
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: findLanguageController
+                                          .isEnglishLocale.value
+                                      ? CrossAxisAlignment.start
+                                      : CrossAxisAlignment.end,
+                                  //mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text(
                                       'Experience'.tr,
@@ -349,11 +353,23 @@ class _AnotherProfileState extends State<AnotherProfile> {
                                     SizedBox(
                                       height: height * 0.010,
                                     ),
-                                    Text(
-                                      'Skills'.tr,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15),
+
+                                    Row(
+                                      mainAxisAlignment: findLanguageController
+                                              .isEnglishLocale.value
+                                          ? MainAxisAlignment.start
+                                          : MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          'Skills'.tr,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                      ],
                                     ),
                                     SizedBox(
                                       height: height * 0.010,

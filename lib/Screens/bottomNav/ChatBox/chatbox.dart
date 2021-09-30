@@ -480,7 +480,9 @@ class _ChatBoxState extends State<ChatBox> {
                                         Center(
                                           child: Text(
                                             'Upload Picture'.tr,
-                                            style: TextStyle(fontSize: 11),
+                                             style: findLanguageController.isEnglishLocale.value?
+                                              TextStyle(fontSize: 11)
+                                              :TextStyle(fontSize: 10),
                                           ),
                                         ),
                                       ],
@@ -939,7 +941,7 @@ class _ChatBoxItem2State extends State<ChatBoxItem2> {
   @override
   void initState() {
     String text = '${widget.mapData!['discussionform_text']}';
-    // TODO: implement initState
+    
     if (text.length > 150) {
       firstHalf = text.substring(0, 150);
       secondHalf = text.substring(150, text.length);

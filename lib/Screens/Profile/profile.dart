@@ -216,7 +216,7 @@ class _ProfileState extends State<Profile> {
                                         height: 5,
                                       ),
                                       Text(
-                                        'Activities'.tr,
+                                        "Activities".tr,
                                         style: TextStyle(
                                             color: currentTab == 1
                                                 ? Colors.black
@@ -460,26 +460,47 @@ class _ProfileState extends State<Profile> {
                               SizedBox(
                                 height: height * 0.010,
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Education'.tr,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15),
-                                  ),
-                                  InkWell(
-                                    child: Icon(Icons.add),
-                                    onTap: () {
-                                      experince(
-                                          controller: controller,
-                                          from: 'Education');
-                                    },
-                                  )
-                                ],
-                              ),
+                              findLanguageController.isEnglishLocale.value
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Education'.tr,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15),
+                                        ),
+                                        InkWell(
+                                          child: Icon(Icons.add),
+                                          onTap: () {
+                                            experince(
+                                                controller: controller,
+                                                from: 'Education');
+                                          },
+                                        )
+                                      ],
+                                    )
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        InkWell(
+                                          child: Icon(Icons.add),
+                                          onTap: () {
+                                            experince(
+                                                controller: controller,
+                                                from: 'Education');
+                                          },
+                                        ),
+                                        Text(
+                                          'Education'.tr,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15),
+                                        ),
+                                      ],
+                                    ),
                               SizedBox(
                                 height: height * 0.010,
                               ),
@@ -563,24 +584,45 @@ class _ProfileState extends State<Profile> {
                               SizedBox(
                                 height: height * 0.010,
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Accomplishments'.tr,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15),
-                                  ),
-                                  InkWell(
-                                    child: Icon(Icons.add),
-                                    onTap: () {
-                                      accomplishments(controller: controller);
-                                    },
-                                  )
-                                ],
-                              ),
+                              findLanguageController.isEnglishLocale.value
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Accomplishments'.tr,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15),
+                                        ),
+                                        InkWell(
+                                          child: Icon(Icons.add),
+                                          onTap: () {
+                                            accomplishments(
+                                                controller: controller);
+                                          },
+                                        )
+                                      ],
+                                    )
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        InkWell(
+                                          child: Icon(Icons.add),
+                                          onTap: () {
+                                            accomplishments(
+                                                controller: controller);
+                                          },
+                                        ),
+                                        Text(
+                                          'Accomplishments'.tr,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15),
+                                        ),
+                                      ],
+                                    ),
                               SizedBox(
                                 height: height * 0.010,
                               ),
@@ -648,26 +690,57 @@ class _ProfileState extends State<Profile> {
                               SizedBox(
                                 height: height * 0.010,
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Skills'.tr,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15),
-                                  ),
-                                  InkWell(
-                                    child: Icon(Icons.add),
-                                    onTap: () {
-                                      accomplishments(
-                                          controller: controller,
-                                          isupdate: 'skill');
-                                    },
-                                  )
-                                ],
-                              ),
+                              findLanguageController.isEnglishLocale.value
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Skills'.tr,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15),
+                                        ),
+                                        InkWell(
+                                          child: Icon(Icons.add),
+                                          onTap: () {
+                                            accomplishments(
+                                                controller: controller,
+                                                isupdate: 'skill');
+                                          },
+                                        )
+                                      ],
+                                    )
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        InkWell(
+                                          child: Icon(Icons.add),
+                                          onTap: () {
+                                            accomplishments(
+                                                controller: controller,
+                                                isupdate: 'skill');
+                                          },
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              'Skills'.tr,
+                                              textAlign: TextAlign.right,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                               SizedBox(
                                 height: height * 0.010,
                               ),
@@ -733,26 +806,53 @@ class _ProfileState extends State<Profile> {
                               SizedBox(
                                 height: height * 0.010,
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Volunteering'.tr,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15),
-                                  ),
-                                  InkWell(
-                                    child: Icon(Icons.add),
-                                    onTap: () {
-                                      accomplishments(
-                                          controller: controller,
-                                          isupdate: 'Volunteering');
-                                    },
-                                  )
-                                ],
-                              ),
+                              findLanguageController.isEnglishLocale.value
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Volunteering'.tr,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15),
+                                        ),
+                                        InkWell(
+                                          child: Icon(Icons.add),
+                                          onTap: () {
+                                            accomplishments(
+                                                controller: controller,
+                                                isupdate: 'Volunteering');
+                                          },
+                                        )
+                                      ],
+                                    )
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        InkWell(
+                                          child: Icon(Icons.add),
+                                          onTap: () {
+                                            accomplishments(
+                                                controller: controller,
+                                                isupdate: 'Volunteering');
+                                          },
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              'Volunteering'.tr,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
+                                            ),
+                                            SizedBox(width: 10,)
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                               SizedBox(
                                 height: height * 0.010,
                               ),
@@ -922,6 +1022,9 @@ class _ProfileState extends State<Profile> {
                       child: TextFormField(
                         cursorColor: Colors.black,
                         maxLines: 6,
+                        textAlign: findLanguageController.isEnglishLocale.value
+                            ? TextAlign.left
+                            : TextAlign.right,
                         keyboardType: TextInputType.text,
                         controller: textCon,
                         textInputAction: TextInputAction.done,

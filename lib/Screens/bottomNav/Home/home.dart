@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
   HomeController controller = Get.put(HomeController());
   SharedPreferenceClass sharedPreferenceClass = SharedPreferenceClass();
 
-  int _value = 1;
+  int? _value;
   @override
   void initState() {
     getLocation();
@@ -52,6 +52,8 @@ class _HomeState extends State<Home> {
     timer = Timer.periodic(Duration(minutes: 5), (timer) {
       ApiUtilsForAll.getcheckuser();
     });
+
+    _value = findLanguageController.isEnglishLocale.value ? 1 : 2;
     super.initState();
   }
 
@@ -86,7 +88,7 @@ class _HomeState extends State<Home> {
               Align(
                 alignment: Alignment.centerRight,
                 child: Container(
-                  width: width * 0.2,
+                  width: width * 0.24,
                   color: Colors.transparent,
                   child: DropdownButton(
                     alignment: Alignment.centerRight,
@@ -110,7 +112,7 @@ class _HomeState extends State<Home> {
                           sharedPreferenceClass.addLocale(en: 'en', dd: 'US');
                           print(
                               ' is english locale ==  ${findLanguageController.isEnglishLocale.value}');
-                         // Get.offAll(HomeScreen());
+                          // Get.offAll(HomeScreen());
                         },
                       ),
                       DropdownMenuItem(
@@ -302,28 +304,54 @@ class _HomeState extends State<Home> {
                                 ),
                                 child: TextFormField(
                                   cursorColor: Colors.black,
+                                  textAlign: findLanguageController
+                                          .isEnglishLocale.value
+                                      ? TextAlign.left
+                                      : TextAlign.right,
                                   keyboardType: TextInputType.text,
                                   enabled: false,
-                                  decoration: new InputDecoration(
-                                      prefixIcon: Icon(
-                                        Icons.search,
-                                        color: greyColor,
-                                      ),
-                                      border: InputBorder.none,
-                                      focusedBorder: InputBorder.none,
-                                      enabledBorder: InputBorder.none,
-                                      errorBorder: InputBorder.none,
-                                      disabledBorder: InputBorder.none,
-                                      contentPadding: EdgeInsets.only(
-                                          left: 10,
-                                          bottom: 11,
-                                          top: 10,
-                                          right: 10),
-                                      hintStyle: TextStyle(
-                                          color: greyColor, fontSize: 10),
-                                      hintText:
-                                          "Search for service, product or business"
-                                              .tr),
+                                  decoration: findLanguageController
+                                          .isEnglishLocale.value
+                                      ? InputDecoration(
+                                          prefixIcon: Icon(
+                                            Icons.search,
+                                            color: greyColor,
+                                          ),
+                                          border: InputBorder.none,
+                                          focusedBorder: InputBorder.none,
+                                          enabledBorder: InputBorder.none,
+                                          errorBorder: InputBorder.none,
+                                          disabledBorder: InputBorder.none,
+                                          contentPadding: EdgeInsets.only(
+                                              left: 10,
+                                              bottom: 11,
+                                              top: 10,
+                                              right: 10),
+                                          hintStyle: TextStyle(
+                                              color: greyColor, fontSize: 10),
+                                          hintText:
+                                              "Search for service, product or business"
+                                                  .tr)
+                                      : InputDecoration(
+                                          suffixIcon: Icon(
+                                            Icons.search,
+                                            color: greyColor,
+                                          ),
+                                          border: InputBorder.none,
+                                          focusedBorder: InputBorder.none,
+                                          enabledBorder: InputBorder.none,
+                                          errorBorder: InputBorder.none,
+                                          disabledBorder: InputBorder.none,
+                                          contentPadding: EdgeInsets.only(
+                                              left: 0,
+                                              bottom: 11,
+                                              top: 10,
+                                              right: 0),
+                                          hintStyle: TextStyle(
+                                              color: greyColor, fontSize: 10),
+                                          hintText:
+                                              "Search for service, product or business"
+                                                  .tr),
                                 ),
                               ),
                             ),
@@ -343,112 +371,118 @@ class _HomeState extends State<Home> {
                                 SliverToBoxAdapter(
                                   child: Padding(
                                     padding: const EdgeInsets.all(10.0),
-                                    child: findLanguageController.isEnglishLocale.value? Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(
-                                          'Industries'.tr,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 16),
-                                        ),
-                                        InkWell(
-                                          onTap: () {},
-                                          child: Row(
-                                            children: [
+                                    child: findLanguageController
+                                            .isEnglishLocale.value
+                                        ? Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
                                               Text(
-                                                'View All '.tr,
+                                                'Industries'.tr,
                                                 style: TextStyle(
-                                                    color: blueColor,
-                                                    fontSize: 12),
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 16),
                                               ),
-                                              SizedBox(
-                                                width: width * 0.010,
-                                              ),
-                                              !controller.isOpenIndustry.value
-                                                  ? InkWell(
-                                                      onTap: () {
-                                                        controller
-                                                            .isOpenIndustry
-                                                            .value = true;
-                                                      },
-                                                      child: Icon(
-                                                        CupertinoIcons
-                                                            .chevron_down_circle_fill,
-                                                        color: blueColor,
-                                                      ),
-                                                    )
-                                                  : InkWell(
-                                                      onTap: () {
-                                                        controller
-                                                            .isOpenIndustry
-                                                            .value = false;
-                                                      },
-                                                      child: Icon(
-                                                        CupertinoIcons
-                                                            .arrow_up_circle_fill,
-                                                        color: blueColor,
-                                                      ),
-                                                    )
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ):Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-
-                                        InkWell(
-                                          onTap: () {},
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                'View All '.tr,
-                                                style: TextStyle(
-                                                    color: blueColor,
-                                                    fontSize: 12),
-                                              ),
-                                              SizedBox(
-                                                width: width * 0.010,
-                                              ),
-                                              !controller.isOpenIndustry.value
-                                                  ? InkWell(
-                                                onTap: () {
-                                                  controller
-                                                      .isOpenIndustry
-                                                      .value = true;
-                                                },
-                                                child: Icon(
-                                                  CupertinoIcons
-                                                      .chevron_down_circle_fill,
-                                                  color: blueColor,
-                                                ),
-                                              )
-                                                  : InkWell(
-                                                onTap: () {
-                                                  controller
-                                                      .isOpenIndustry
-                                                      .value = false;
-                                                },
-                                                child: Icon(
-                                                  CupertinoIcons
-                                                      .arrow_up_circle_fill,
-                                                  color: blueColor,
+                                              InkWell(
+                                                onTap: () {},
+                                                child: Row(
+                                                  children: [
+                                                    Text(
+                                                      'View All '.tr,
+                                                      style: TextStyle(
+                                                          color: blueColor,
+                                                          fontSize: 12),
+                                                    ),
+                                                    SizedBox(
+                                                      width: width * 0.010,
+                                                    ),
+                                                    !controller.isOpenIndustry
+                                                            .value
+                                                        ? InkWell(
+                                                            onTap: () {
+                                                              controller
+                                                                  .isOpenIndustry
+                                                                  .value = true;
+                                                            },
+                                                            child: Icon(
+                                                              CupertinoIcons
+                                                                  .chevron_down_circle_fill,
+                                                              color: blueColor,
+                                                            ),
+                                                          )
+                                                        : InkWell(
+                                                            onTap: () {
+                                                              controller
+                                                                  .isOpenIndustry
+                                                                  .value = false;
+                                                            },
+                                                            child: Icon(
+                                                              CupertinoIcons
+                                                                  .arrow_up_circle_fill,
+                                                              color: blueColor,
+                                                            ),
+                                                          )
+                                                  ],
                                                 ),
                                               )
                                             ],
+                                          )
+                                        : Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              InkWell(
+                                                onTap: () {},
+                                                child: Row(
+                                                  children: [
+                                                  
+                                                  
+                                                    !controller.isOpenIndustry
+                                                            .value
+                                                        ? InkWell(
+                                                            onTap: () {
+                                                              controller
+                                                                  .isOpenIndustry
+                                                                  .value = true;
+                                                            },
+                                                            child: Icon(
+                                                              CupertinoIcons
+                                                                  .chevron_down_circle_fill,
+                                                              color: blueColor,
+                                                            ),
+                                                          )
+                                                        : InkWell(
+                                                            onTap: () {
+                                                              controller
+                                                                  .isOpenIndustry
+                                                                  .value = false;
+                                                            },
+                                                            child: Icon(
+                                                              CupertinoIcons
+                                                                  .arrow_up_circle_fill,
+                                                              color: blueColor,
+                                                            ),
+                                                          ),
+                                                            SizedBox(
+                                                      width: width * 0.010,
+                                                    ),
+                                                            Text(
+                                                      'View All '.tr,
+                                                      style: TextStyle(
+                                                          color: blueColor,
+                                                          fontSize: 12),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Text(
+                                                'Industries'.tr,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 16),
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                        Text(
-                                          'Industries'.tr,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 16),
-                                        ),
-                                      ],
-                                    ),
                                   ),
                                 ),
                                 SliverToBoxAdapter(
@@ -563,8 +597,10 @@ class _HomeState extends State<Home> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(10.0),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          findLanguageController.isEnglishLocale.value? MainAxisAlignment.start: MainAxisAlignment.end,
+                                      mainAxisAlignment: findLanguageController
+                                              .isEnglishLocale.value
+                                          ? MainAxisAlignment.start
+                                          : MainAxisAlignment.end,
                                       children: <Widget>[
                                         Text(
                                           'Trending'.tr,
@@ -700,8 +736,10 @@ class _HomeState extends State<Home> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(10.0),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          findLanguageController.isEnglishLocale.value? MainAxisAlignment.start:MainAxisAlignment.end,
+                                      mainAxisAlignment: findLanguageController
+                                              .isEnglishLocale.value
+                                          ? MainAxisAlignment.start
+                                          : MainAxisAlignment.end,
                                       children: <Widget>[
                                         Text(
                                           'Recent Listings'.tr,
@@ -791,8 +829,10 @@ class _HomeState extends State<Home> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(10.0),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          findLanguageController.isEnglishLocale.value? MainAxisAlignment.start: MainAxisAlignment.end,
+                                      mainAxisAlignment: findLanguageController
+                                              .isEnglishLocale.value
+                                          ? MainAxisAlignment.start
+                                          : MainAxisAlignment.end,
                                       children: <Widget>[
                                         Text(
                                           'Popular Products'.tr,
@@ -802,7 +842,10 @@ class _HomeState extends State<Home> {
                                         ),
                                         SizedBox(
                                           height: height * 0.030,
-                                          width: findLanguageController.isEnglishLocale.value? 0:10,
+                                          width: findLanguageController
+                                                  .isEnglishLocale.value
+                                              ? 0
+                                              : 10,
                                         ),
                                       ],
                                     ),
@@ -867,8 +910,10 @@ class _HomeState extends State<Home> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(10.0),
                                     child: Row(
-                                      mainAxisAlignment:
-                                         findLanguageController.isEnglishLocale.value? MainAxisAlignment.start: MainAxisAlignment.end,
+                                      mainAxisAlignment: findLanguageController
+                                              .isEnglishLocale.value
+                                          ? MainAxisAlignment.start
+                                          : MainAxisAlignment.end,
                                       children: <Widget>[
                                         Text(
                                           'Popular Services'.tr,
@@ -878,7 +923,10 @@ class _HomeState extends State<Home> {
                                         ),
                                         SizedBox(
                                           height: height * 0.030,
-                                          width: findLanguageController.isEnglishLocale.value? 0:10,
+                                          width: findLanguageController
+                                                  .isEnglishLocale.value
+                                              ? 0
+                                              : 10,
                                         ),
                                       ],
                                     ),
