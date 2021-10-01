@@ -408,6 +408,7 @@ class _TextFromFieldsCustomState extends State<TextFromFieldsCustom> {
                 left: 15,
                 bottom: 11,
                 top: 11,
+                right: 10,
               ),
               hintStyle: TextStyle(color: greyColor, fontSize: 12),
               hintText: widget.hint!),

@@ -37,7 +37,7 @@ class _BRThreeState extends State<BRThree> {
                 height: height * 0.020,
               ),
               Container(
-                height: height * 0.240,
+                height: height * 0.255,
                 width: width,
                 padding: EdgeInsets.symmetric(horizontal: width * 0.030),
                 decoration: BoxDecoration(
