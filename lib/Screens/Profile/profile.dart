@@ -840,7 +840,8 @@ class _ProfileState extends State<Profile> {
                                           },
                                         ),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
                                           children: [
                                             Text(
                                               'Volunteering'.tr,
@@ -848,7 +849,9 @@ class _ProfileState extends State<Profile> {
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 15),
                                             ),
-                                            SizedBox(width: 10,)
+                                            SizedBox(
+                                              width: 10,
+                                            )
                                           ],
                                         ),
                                       ],

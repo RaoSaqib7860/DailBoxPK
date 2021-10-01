@@ -131,7 +131,7 @@ class ApiUtilsAllFiles extends ChangeNotifier {
       'area': controller.businessArea.text,
       'web_url': controller.businessWebsiteUrl.text,
       'timings':
-          'Mon:${controller.mon.value == 'Select time' ? '' : controller.mon.value}\nTus:${controller.tue.value == 'Select time' ? '' : controller.tue.value}\nWed:${controller.wed.value == 'Select time' ? '' : controller.wed.value}\nThr:${controller.thus.value == 'Select time' ? '' : controller.thus.value}\nFri:${controller.fri.value == 'Select time' ? '' : controller.fri.value}\nSat:${controller.sat.value == 'Select time' ? '' : controller.sat.value}\nSun:${controller.sun.value == 'Select time' ? '' : controller.sun.value}',
+          'Mon:${controller.mon.value == 'Select time'.tr ? '' : controller.mon.value}\nTus:${controller.tue.value == 'Select time'.tr ? '' : controller.tue.value}\nWed:${controller.wed.value == 'Select time'.tr ? '' : controller.wed.value}\nThr:${controller.thus.value == 'Select time'.tr ? '' : controller.thus.value}\nFri:${controller.fri.value == 'Select time'.tr ? '' : controller.fri.value}\nSat:${controller.sat.value == 'Select time'.tr ? '' : controller.sat.value}\nSun:${controller.sun.value == 'Select time'.tr ? '' : controller.sun.value}',
       //'year_established': controller.Date.value,
       'num_employees': '',
       'facebook': controller.businessFb.text,

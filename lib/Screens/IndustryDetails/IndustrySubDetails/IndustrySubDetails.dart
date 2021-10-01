@@ -77,9 +77,10 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
                             context: context,
                             builder: (context) {
                               return Column(
-                                crossAxisAlignment: findLanguageController.isEnglishLocale.value?
-                                CrossAxisAlignment.start
-                                :CrossAxisAlignment.end,
+                                crossAxisAlignment:
+                                    findLanguageController.isEnglishLocale.value
+                                        ? CrossAxisAlignment.start
+                                        : CrossAxisAlignment.end,
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   SizedBox(
@@ -91,9 +92,10 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
                                           EdgeInsets.only(left: width * 0.050),
                                       child: new Text(
                                         'A to Z'.tr,
-                                        textAlign: 
-                                        findLanguageController.isEnglishLocale.value? TextAlign.left
-                                        :TextAlign.right,
+                                        textAlign: findLanguageController
+                                                .isEnglishLocale.value
+                                            ? TextAlign.left
+                                            : TextAlign.right,
                                       ),
                                     ),
                                     onTap: () async {
@@ -117,10 +119,10 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
                                           EdgeInsets.only(left: width * 0.050),
                                       child: new Text(
                                         'Z to A'.tr,
-                                        textAlign: 
-                                        findLanguageController.isEnglishLocale.value? TextAlign.left
-                                        :TextAlign.right,
-
+                                        textAlign: findLanguageController
+                                                .isEnglishLocale.value
+                                            ? TextAlign.left
+                                            : TextAlign.right,
                                       ),
                                     ),
                                     onTap: () async {
@@ -144,20 +146,19 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
                                           EdgeInsets.only(left: width * 0.050),
                                       child: new Text(
                                         'Reset'.tr,
-                                        textAlign: 
-                                        findLanguageController.isEnglishLocale.value? TextAlign.left
-                                        :TextAlign.right,
-
+                                        textAlign: findLanguageController
+                                                .isEnglishLocale.value
+                                            ? TextAlign.left
+                                            : TextAlign.right,
                                       ),
                                     ),
                                     onTap: () async {
                                       print(
                                           '${homecontroller.listofIndustry[homecontroller.currentlistofIndustryIndex.value]}');
-                                      ApiUtilsForAll.getgetbusinesssort(
-                                          controller: controller,
-                                          sub_cat_id: widget.subId,
-                                          city: '',
-                                          sort: 'rand');
+                                      ApiUtilsForAll
+                                          .getgetmybusinesslistforListingss(
+                                              controller: controller,
+                                              subid: widget.subId);
                                       Navigator.of(context).pop();
                                     },
                                   ),

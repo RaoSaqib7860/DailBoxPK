@@ -198,67 +198,74 @@ class _SignInState extends State<SignIn> {
                                   keyboardType: TextInputType.text,
                                   controller: controller.passwordCon,
                                   textInputAction: TextInputAction.done,
-                                  decoration: findLanguageController.isEnglishLocale.value? InputDecoration(
-                                      prefixIcon: Icon(
-                                        Icons.lock_outline,
-                                        color: greyColor,
-                                      ),
-                                      suffixIcon: IconButton(
-                                        onPressed: () {
-                                          if (controller.obsecure.value) {
-                                            controller.obsecure.value = false;
-                                          } else {
-                                            controller.obsecure.value = true;
-                                          }
-                                        },
-                                        icon: Icon(Icons.remove_red_eye,
-                                            color: controller.obsecure.value
-                                                ? greyColor
-                                                : Colors.blue),
-                                      ),
-                                      border: InputBorder.none,
-                                      focusedBorder: InputBorder.none,
-                                      enabledBorder: InputBorder.none,
-                                      errorBorder: InputBorder.none,
-                                      disabledBorder: InputBorder.none,
-                                      contentPadding: EdgeInsets.only(
-                                          left: 15,
-                                          bottom: 11,
-                                          top: 15,
-                                          right: 15),
-                                      hintStyle: TextStyle(
-                                          color: greyColor, fontSize: 12),
-                                      hintText: "Password".tr):InputDecoration(
-                                      suffixIcon: Icon(
-                                        Icons.lock_outline,
-                                        color: greyColor,
-                                      ),
-                                      prefixIcon:  IconButton(
-                                        onPressed: () {
-                                          if (controller.obsecure.value) {
-                                            controller.obsecure.value = false;
-                                          } else {
-                                            controller.obsecure.value = true;
-                                          }
-                                        },
-                                        icon: Icon(Icons.remove_red_eye,
-                                            color: controller.obsecure.value
-                                                ? greyColor
-                                                : Colors.blue),
-                                      ),
-                                      border: InputBorder.none,
-                                      focusedBorder: InputBorder.none,
-                                      enabledBorder: InputBorder.none,
-                                      errorBorder: InputBorder.none,
-                                      disabledBorder: InputBorder.none,
-                                      contentPadding: EdgeInsets.only(
-                                          left: 15,
-                                          bottom: 11,
-                                          top: 15,
-                                          right: 15),
-                                      hintStyle: TextStyle(
-                                          color: greyColor, fontSize: 12),
-                                      hintText: "Password".tr),
+                                  decoration: findLanguageController
+                                          .isEnglishLocale.value
+                                      ? InputDecoration(
+                                          prefixIcon: Icon(
+                                            Icons.lock_outline,
+                                            color: greyColor,
+                                          ),
+                                          suffixIcon: IconButton(
+                                            onPressed: () {
+                                              if (controller.obsecure.value) {
+                                                controller.obsecure.value =
+                                                    false;
+                                              } else {
+                                                controller.obsecure.value =
+                                                    true;
+                                              }
+                                            },
+                                            icon: Icon(Icons.remove_red_eye,
+                                                color: controller.obsecure.value
+                                                    ? greyColor
+                                                    : Colors.blue),
+                                          ),
+                                          border: InputBorder.none,
+                                          focusedBorder: InputBorder.none,
+                                          enabledBorder: InputBorder.none,
+                                          errorBorder: InputBorder.none,
+                                          disabledBorder: InputBorder.none,
+                                          contentPadding: EdgeInsets.only(
+                                              left: 15,
+                                              bottom: 11,
+                                              top: 15,
+                                              right: 15),
+                                          hintStyle: TextStyle(
+                                              color: greyColor, fontSize: 12),
+                                          hintText: "Password".tr)
+                                      : InputDecoration(
+                                          suffixIcon: Icon(
+                                            Icons.lock_outline,
+                                            color: greyColor,
+                                          ),
+                                          prefixIcon: IconButton(
+                                            onPressed: () {
+                                              if (controller.obsecure.value) {
+                                                controller.obsecure.value =
+                                                    false;
+                                              } else {
+                                                controller.obsecure.value =
+                                                    true;
+                                              }
+                                            },
+                                            icon: Icon(Icons.remove_red_eye,
+                                                color: controller.obsecure.value
+                                                    ? greyColor
+                                                    : Colors.blue),
+                                          ),
+                                          border: InputBorder.none,
+                                          focusedBorder: InputBorder.none,
+                                          enabledBorder: InputBorder.none,
+                                          errorBorder: InputBorder.none,
+                                          disabledBorder: InputBorder.none,
+                                          contentPadding: EdgeInsets.only(
+                                              left: 15,
+                                              bottom: 11,
+                                              top: 15,
+                                              right: 15),
+                                          hintStyle: TextStyle(
+                                              color: greyColor, fontSize: 12),
+                                          hintText: "Password".tr),
                                 ),
                               ),
                             ),
@@ -267,7 +274,10 @@ class _SignInState extends State<SignIn> {
                             height: 15,
                           ),
                           Align(
-                            alignment: findLanguageController.isEnglishLocale.value? Alignment.centerRight: Alignment.centerLeft,
+                            alignment:
+                                findLanguageController.isEnglishLocale.value
+                                    ? Alignment.centerRight
+                                    : Alignment.centerLeft,
                             child: InkWell(
                               onTap: () {
                                 Get.to(ForgotPassword());
