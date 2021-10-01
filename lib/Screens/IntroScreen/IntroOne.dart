@@ -12,14 +12,14 @@ class IntroOne extends StatefulWidget {
 
 class _IntroOneState extends State<IntroOne> {
   List list = [
-    'p1.jpeg',
-    'p2.jpg',
-    'p3.jpg',
-    'p4.jpg',
-    'p5.jpeg',
-    'p6.png',
-    'p7.png',
-    'p8.png',
+    'new p1.jpg',
+    'new p2.jpg',
+    'new p3.jpg',
+    'new p4.jpg',
+    'new p5.jpg',
+    'new p6.jpg',
+    'new p7.jpg',
+    'new p8.jpg',
     'p9.jpeg',
     'p10.jpeg'
   ];
@@ -82,10 +82,11 @@ class _IntroOneState extends State<IntroOne> {
               Padding(
                 padding: EdgeInsets.only(right: 20),
                 child: Text(
-                  'Search for anything, anywhere in Pakistan.'.tr,
+                  'Search for anything, anywhere in Pakistan'.tr,
                   style: TextStyle(fontSize: 25, color: Colors.white),
                 ),
               ),
+              
               SizedBox(
                 height: 15,
               ),

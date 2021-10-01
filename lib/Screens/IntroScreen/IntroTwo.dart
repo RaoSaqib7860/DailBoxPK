@@ -16,10 +16,13 @@ class IntroTwo extends StatefulWidget {
 class _IntroTwoState extends State<IntroTwo> {
   List list = [
     'p1.jpeg',
+  ];
+  List list2 = [
     'p2.jpg',
+  ];
+  List list3 = [
     'p3.jpg',
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +38,7 @@ class _IntroTwoState extends State<IntroTwo> {
             children: [
               SvgPicture.asset(
                 'assets/svg/db main.svg',
-                height: height / 3,
+                height: height/3,
               ),
               Expanded(
                 child: Transform.translate(
@@ -56,7 +59,8 @@ class _IntroTwoState extends State<IntroTwo> {
                               children: [
                                 TextSpan(
                                   text:
-                                      ' on Dialboxx to gain leads and to showcase your products, services & business information online.'.tr,
+                                      ' on Dialboxx to gain leads and to showcase your products, services & business information online.'
+                                          .tr,
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400,
@@ -105,13 +109,21 @@ class _IntroTwoState extends State<IntroTwo> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'RMS Pack & Movers Service'.tr,
+                                        'OG Oil'.tr,
                                         style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold),
                                       ),
                                       Text(
-                                        'blue area islamabad'.tr,
+                                        'F7,Islamabad'.tr,
+                                        style: TextStyle(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w300,
+                                            color: Colors.black26),
+                                      ),
+                                      Text(
+                                        'OG Oil bring you a traditional pakistani organitic Oil Solution proven over generation to reverse hair fall'
+                                            .tr,
                                         style: TextStyle(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w300,
@@ -222,15 +234,355 @@ class _IntroTwoState extends State<IntroTwo> {
                                       )
                                     ],
                                   )),
-                                  Icon(
-                                    CupertinoIcons.suit_heart,
-                                    color: Colors.black38,
-                                  )
+                                  // Icon(
+                                  //   CupertinoIcons.suit_heart,
+                                  //   color: Colors.black38,
+                                  // )
                                 ],
                               ),
                             );
                           }).toList(),
-                        )
+                        ),
+                        Column(
+                          children: list2.map((e) {
+                            return Container(
+                              height: height * 0.170,
+                              width: width,
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(
+                                          color: Colors.black12, width: 1))),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    height: height * 0.150,
+                                    width: width * 0.300,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            width: 1.5, color: blueColor),
+                                        borderRadius: BorderRadius.circular(5)),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(2),
+                                      child: Image.asset(
+                                        'assets/images/$e',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: width * 0.020,
+                                  ),
+                                  Expanded(
+                                      child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Hashmi Law Associates'.tr,
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        'Office no 213,shokat plaza, F-6 markaz,Islamabad'.tr,
+                                        style: TextStyle(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w300,
+                                            color: Colors.black26),
+                                      ),
+                                      Text(
+                                        'Associate Advocate and Corporate\n Consultants'
+                                            .tr,
+                                        style: TextStyle(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w300,
+                                            color: Colors.black26),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            '4.0',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.black26),
+                                          ),
+                                          SizedBox(
+                                            width: width * 0.010,
+                                          ),
+                                          Row(
+                                            children: [1, 2, 3, 4, 5].map((e) {
+                                              return InkWell(
+                                                child: Icon(
+                                                  Icons.star,
+                                                  size: 16,
+                                                  color: Colors.yellow[700],
+                                                ),
+                                              );
+                                            }).toList(),
+                                          ),
+                                          Text(
+                                            '125 reviews'.tr,
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                color: Colors.black26),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.010,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            height: height * 0.040,
+                                            width: width * 0.220,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.call,
+                                                  color: Colors.white,
+                                                  size: 15,
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                  'Call'.tr,
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 10),
+                                                )
+                                              ],
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: blueColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: width * 0.020,
+                                          ),
+                                          Container(
+                                            height: height * 0.040,
+                                            width: width * 0.220,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.messenger_outline,
+                                                  color: blueColor,
+                                                  size: 15,
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                  'Message'.tr,
+                                                  style: TextStyle(
+                                                      color: blueColor,
+                                                      fontSize: 10),
+                                                )
+                                              ],
+                                            ),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                border: Border.all(
+                                                    width: 1,
+                                                    color: blueColor)),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  )),
+                                  // Icon(
+                                  //   CupertinoIcons.suit_heart,
+                                  //   color: Colors.black38,
+                                  // )
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                        Column(
+                          children: list3.map((e) {
+                            return Container(
+                              height: height * 0.170,
+                              width: width,
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(
+                                          color: Colors.black12, width: 1))),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    height: height * 0.150,
+                                    width: width * 0.300,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            width: 1.5, color: blueColor),
+                                        borderRadius: BorderRadius.circular(5)),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(2),
+                                      child: Image.asset(
+                                        'assets/images/$e',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: width * 0.020,
+                                  ),
+                                  Expanded(
+                                      child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Makeup by Rahima Saad'.tr,
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        'Islamabad'.tr,
+                                        style: TextStyle(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w300,
+                                            color: Colors.black26),
+                                      ),
+                                      Text(
+                                        'Airbush Certified MUA from London\nCollage of makeup'
+                                            .tr,
+                                        style: TextStyle(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w300,
+                                            color: Colors.black26),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            '4.0',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.black26),
+                                          ),
+                                          SizedBox(
+                                            width: width * 0.010,
+                                          ),
+                                          Row(
+                                            children: [1, 2, 3, 4, 5].map((e) {
+                                              return InkWell(
+                                                child: Icon(
+                                                  Icons.star,
+                                                  size: 16,
+                                                  color: Colors.yellow[700],
+                                                ),
+                                              );
+                                            }).toList(),
+                                          ),
+                                          Text(
+                                            '125 reviews'.tr,
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                color: Colors.black26),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.010,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            height: height * 0.040,
+                                            width: width * 0.220,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.call,
+                                                  color: Colors.white,
+                                                  size: 15,
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                  'Call'.tr,
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 10),
+                                                )
+                                              ],
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: blueColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: width * 0.020,
+                                          ),
+                                          Container(
+                                            height: height * 0.040,
+                                            width: width * 0.220,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.messenger_outline,
+                                                  color: blueColor,
+                                                  size: 15,
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                  'Message'.tr,
+                                                  style: TextStyle(
+                                                      color: blueColor,
+                                                      fontSize: 10),
+                                                )
+                                              ],
+                                            ),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                border: Border.all(
+                                                    width: 1,
+                                                    color: blueColor)),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  )),
+                                  // Icon(
+                                  //   CupertinoIcons.suit_heart,
+                                  //   color: Colors.black38,
+                                  // )
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                        ),
                       ],
                     ),
                   ),

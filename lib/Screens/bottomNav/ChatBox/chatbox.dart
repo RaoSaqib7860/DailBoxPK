@@ -552,7 +552,8 @@ class _ChatBoxState extends State<ChatBox> {
                                               'Please select industry'.tr);
                                         }
                                       },
-                                      child: Container(
+                                      child: 
+                                      Container(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 15, vertical: 8),
                                         decoration: BoxDecoration(
@@ -573,7 +574,9 @@ class _ChatBoxState extends State<ChatBox> {
                                               fontSize: 12,
                                               fontWeight: FontWeight.bold),
                                         ),
-                                      ))
+                                      ),
+                                      
+                                      )
                                 ],
                               ),
                               SizedBox(

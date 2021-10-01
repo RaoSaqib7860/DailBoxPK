@@ -3,6 +3,8 @@ import 'package:dail_box/util/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
@@ -50,7 +52,8 @@ class _IntroThreeState extends State<IntroThree> {
                               children: [
                                 TextSpan(
                                   text:
-                                  ' to connect with likeminded people in our community.'.tr,
+                                      ' to connect with likeminded people in our community.'
+                                          .tr,
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400,
@@ -67,9 +70,12 @@ class _IntroThreeState extends State<IntroThree> {
                           children: <Widget>[
                             Expanded(
                               child: Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Colors.grey.shade400,
+                                        width: 1.7)),
                                 padding: EdgeInsets.only(left: 10, right: 10),
-                                height: 40,
-                                color: Colors.red[900],
+                                height: 35,
                                 child: Theme(
                                   data: new ThemeData(
                                       canvasColor: Colors.red[900],
@@ -81,12 +87,15 @@ class _IntroThreeState extends State<IntroThree> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'INDUSTRY'.tr,
-                                        style: TextStyle(color: Colors.white),
+                                        'Select Industry'.tr,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w600,fontSize: 12),
                                       ),
                                       Icon(
                                         Icons.keyboard_arrow_down_outlined,
-                                        color: Colors.white,
+                                        color: Colors.black45,
+                                        size: 27,
                                       )
                                     ],
                                   ),
@@ -99,8 +108,11 @@ class _IntroThreeState extends State<IntroThree> {
                             Expanded(
                               child: Container(
                                 padding: EdgeInsets.only(left: 10, right: 10),
-                                height: 40,
-                                color: blueColor,
+                                height: 35,
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Colors.grey.shade400,
+                                        width: 1.7)),
                                 child: Theme(
                                   data: new ThemeData(
                                       canvasColor: Colors.red[900],
@@ -112,12 +124,15 @@ class _IntroThreeState extends State<IntroThree> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'CATEGORIES'.tr,
-                                        style: TextStyle(color: Colors.white),
+                                        'Category'.tr,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w600,fontSize: 12),
                                       ),
                                       Icon(
                                         Icons.keyboard_arrow_down_outlined,
-                                        color: Colors.white,
+                                        color: Colors.black45,
+                                        size: 27,
                                       )
                                     ],
                                   ),
@@ -127,8 +142,78 @@ class _IntroThreeState extends State<IntroThree> {
                           ],
                         ),
                         SizedBox(
+                          height: height * 0.010,
+                        ),
+                        TextField(
+                          decoration: InputDecoration(
+                              hintText: 'Write some thing here...',
+                              contentPadding: EdgeInsets.only(
+                                  left: 15, bottom: 11, top: 11, right: 15),
+                              hintStyle: TextStyle(
+                                  color: Colors.black26, fontSize: 16),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.black26,
+                                  width: 2,
+                                  style: BorderStyle.solid,
+                                ),
+                              )),
+                          enabled: false,
+                        ),
+                        SizedBox(
                           height: height * 0.030,
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.image,
+                              size: 30,
+                              color: Colors.black26,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Upload Picture',
+                              style: TextStyle(
+                                  fontSize: 13,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: height * 0.020,
+                        ),
+                        Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                          decoration: BoxDecoration(
+                              color: Colors.blueGrey[100],
+                              borderRadius: BorderRadius.circular(5),
+                              // boxShadow: [
+                              //   BoxShadow(
+                              //       color: Colors.black.withOpacity(0.1),
+                              //       offset: Offset(2, 2),
+                              //       blurRadius: 5)
+                              // ]
+
+                              ),
+                          child: Text(
+                            'Publish'.tr,
+                            style: TextStyle(
+                                color: blueColor,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        SizedBox(
+                                height: 10,
+                              ),
+                              Divider(
+                                thickness: 10,
+                              ),
                         Container(
                           padding: EdgeInsets.all(10),
                           child: Column(
@@ -191,7 +276,8 @@ class _IntroThreeState extends State<IntroThree> {
                               Container(
                                 width: width,
                                 child: Text(
-                                  'Register your business with Dialboxx to gain visibility in the market-place.Showcase your business information products + service .... '.tr,
+                                  'I am a Business Analyst,I will conduct market analysis,both product lines and the overall profitability of the business. I will ensure business data and reporting needs are met.'
+                                      .tr,
                                   style: new TextStyle(
                                       fontSize: 12, color: Colors.black38),
                                 ),

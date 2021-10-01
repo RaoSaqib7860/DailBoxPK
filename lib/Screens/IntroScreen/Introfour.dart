@@ -13,6 +13,18 @@ class IntroFour extends StatefulWidget {
 }
 
 class _IntroFourState extends State<IntroFour> {
+  List list = [
+    'assets/images/man.jpeg',
+    'assets/images/person2.png',
+    'assets/images/person.jpg',
+    'assets/images/woman.png',
+  ];
+  List list2 = [
+    'waqas',
+    'Ahmad',
+    'Ali',
+    'Hina'
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +78,7 @@ class _IntroFourState extends State<IntroFour> {
                         padding:
                             EdgeInsets.symmetric(horizontal: width * 0.030),
                         child: ListView.separated(
-                          itemCount: 4,
+                          itemCount: list2.length,
                           itemBuilder: (BuildContext ctxt, int index) {
                             return Container(
                               child: Row(
@@ -75,13 +87,13 @@ class _IntroFourState extends State<IntroFour> {
                                     height: 60,
                                     width: 60,
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
+                                        borderRadius: BorderRadius.circular(30),
                                         border: Border.all(
-                                            color: blueColor, width: 1),
+                                            color: Colors.transparent, width: 1),
                                         image: DecorationImage(
                                             fit: BoxFit.cover,
                                             image: AssetImage(
-                                                'assets/images/man.jpeg'))),
+                                                list[index]))),
                                   ),
                                   SizedBox(
                                     width: 15,
@@ -95,7 +107,7 @@ class _IntroFourState extends State<IntroFour> {
                                           children: <Widget>[
                                             Expanded(
                                               child: Text(
-                                                'Wqas Ahmed',
+                                                list2[index],
                                                 style: TextStyle(
                                                     color: blueColor,
                                                     fontWeight: FontWeight.w600,
@@ -107,13 +119,13 @@ class _IntroFourState extends State<IntroFour> {
                                         SizedBox(
                                           height: 5,
                                         ),
-                                        Text(
-                                          'Hi , there '.tr,
-                                          style: TextStyle(
-                                              color: greyColor,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 10),
-                                        ),
+                                        // Text(
+                                        //   'Hi , there '.tr,
+                                        //   style: TextStyle(
+                                        //       color: greyColor,
+                                        //       fontWeight: FontWeight.w600,
+                                        //       fontSize: 10),
+                                        // ),
                                       ],
                                     ),
                                   ),
@@ -132,12 +144,12 @@ class _IntroFourState extends State<IntroFour> {
                                       ),
                                       true
                                           ? Container(
-                                              padding: EdgeInsets.all(5),
+                                              padding: EdgeInsets.all(3),
                                               decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
                                                   color: blueColor),
                                               child: Text(
-                                                '2',
+                                                '',
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 10),
@@ -145,15 +157,15 @@ class _IntroFourState extends State<IntroFour> {
                                             )
                                           : Container()
                                     ],
-                                  )
-                                ],
+                                  ),
+                                                                  ],
                               ),
                             );
                           },
                           separatorBuilder: (BuildContext ctxt, int index) {
                             return Divider(
-                              thickness: 10,
-                              color: Colors.transparent,
+                              thickness: 2.5,
+                              
                             );
                           },
                         ),
