@@ -46,7 +46,7 @@ class BuisnessRegistrationController extends GetxController {
 
   var listofCity = [].obs;
   var currentlistofCityIndex = 0.obs;
-  var listofCityHint = 'Select City'.tr.obs;
+  var listofCityHint = 'Select City'.obs;
 
   var listofEmployee = ['1-10', '10-49', '50+'].obs;
   var currentlistofEmployeeIndex = 0.obs;

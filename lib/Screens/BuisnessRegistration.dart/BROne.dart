@@ -132,7 +132,7 @@ class _BROneState extends State<BROne> {
                     );
                   }).toList(),
                   hint: Text(
-                    controller.listofIndustryHint.value,
+                    controller.listofIndustryHint.value.tr,
                     style: TextStyle(fontSize: 14),
                   ),
                   onChanged: (_) {},
@@ -261,7 +261,7 @@ class _BROneState extends State<BROne> {
                     );
                   }).toList(),
                   hint: Text(
-                    controller.listofCityHint.value,
+                    controller.listofCityHint.value.tr,
                     style: TextStyle(fontSize: 14),
                   ),
                   onChanged: (_) {},

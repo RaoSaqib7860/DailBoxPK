@@ -23,7 +23,7 @@ class AddProductController extends GetxController {
 
   var listofCity = [].obs;
   var currentlistofCityIndex = 0.obs;
-  var listofCityHint = 'Select City'.tr.obs;
+  var listofCityHint = 'Select City'.obs;
 
   var loading = false.obs;
   var firstTab = true.obs;

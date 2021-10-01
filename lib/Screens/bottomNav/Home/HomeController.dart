@@ -25,5 +25,5 @@ class HomeController extends GetxController {
 
   var listofIndustry = [].obs;
   var currentlistofIndustryIndex = 0.obs;
-  var listofIndustryHint = 'Select City'.tr.obs;
+  var listofIndustryHint = 'Select City'.obs;
 }

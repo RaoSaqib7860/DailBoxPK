@@ -147,7 +147,7 @@ class _AddServiceState extends State<AddService> {
                                     );
                                   }).toList(),
                                   hint: Text(
-                                    controller.listofCityHint.value,
+                                    controller.listofCityHint.value.tr,
                                     style: TextStyle(fontSize: 14),
                                   ),
                                   onChanged: (_) {},

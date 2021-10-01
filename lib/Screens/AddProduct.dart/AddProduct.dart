@@ -180,7 +180,7 @@ class _AddProductState extends State<AddProduct> {
                                       );
                                     }).toList(),
                                     hint: Text(
-                                      controller.listofCityHint.value,
+                                      controller.listofCityHint.value.tr,
                                       style: TextStyle(fontSize: 14),
                                     ),
                                     onChanged: (_) {},
@@ -459,7 +459,7 @@ class _AddProductState extends State<AddProduct> {
                                                             .value]['business_id']);
                                               } else {
                                                 snackBarFailer(
-                                                    'Please upload minimum 1 image(fist box)'
+                                                    'Add minimum 1 image (first box)'
                                                         .tr);
                                               }
                                             }

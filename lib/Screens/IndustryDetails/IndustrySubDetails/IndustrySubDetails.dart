@@ -34,7 +34,7 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
   @override
   void initState() {
     homecontroller.currentlistofIndustryIndex.value = 0;
-    homecontroller.listofIndustryHint.value = 'Select City'.tr;
+    homecontroller.listofIndustryHint.value = 'Select City';
     Future.delayed(Duration(milliseconds: 0), () {
       controller.listofListings.clear();
       controller.isLoadinglist.value = false;
@@ -227,7 +227,7 @@ class _IndustrySubDetailsState extends State<IndustrySubDetails> {
                                 );
                               }).toList(),
                               hint: Text(
-                                homecontroller.listofIndustryHint.value,
+                                homecontroller.listofIndustryHint.value.tr,
                                 style: TextStyle(
                                     fontSize: 12, color: Colors.white),
                               ),

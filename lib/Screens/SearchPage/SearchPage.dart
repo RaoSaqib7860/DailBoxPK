@@ -9,6 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../main.dart';
+
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
 
@@ -72,7 +74,7 @@ class _SearchPageState extends State<SearchPage> {
                               );
                             }).toList(),
                             hint: Text(
-                              controller.listofIndustryHint.value,
+                              controller.listofIndustryHint.value.tr,
                               style:
                                   TextStyle(fontSize: 10, color: Colors.white),
                             ),
@@ -110,6 +112,10 @@ class _SearchPageState extends State<SearchPage> {
                           ),
                           child: TextFormField(
                             controller: serchController.searchCon,
+                            textAlign:
+                                findLanguageController.isEnglishLocale.value
+                                    ? TextAlign.left
+                                    : TextAlign.right,
                             cursorColor: Colors.black,
                             keyboardType: TextInputType.text,
                             enabled: true,
@@ -122,21 +128,44 @@ class _SearchPageState extends State<SearchPage> {
                               }
                               setState(() {});
                             },
-                            decoration: new InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.search,
-                                  color: greyColor,
-                                ),
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none,
-                                contentPadding: EdgeInsets.only(
-                                    left: 10, bottom: 11, top: 11, right: 10),
-                                hintStyle:
-                                    TextStyle(color: greyColor, fontSize: 10),
-                                hintText: "Search here".tr),
+                            decoration:
+                                findLanguageController.isEnglishLocale.value
+                                    ? InputDecoration(
+                                        prefixIcon: Icon(
+                                          Icons.search,
+                                          color: greyColor,
+                                        ),
+                                        border: InputBorder.none,
+                                        focusedBorder: InputBorder.none,
+                                        enabledBorder: InputBorder.none,
+                                        errorBorder: InputBorder.none,
+                                        disabledBorder: InputBorder.none,
+                                        contentPadding: EdgeInsets.only(
+                                            left: 10,
+                                            bottom: 11,
+                                            top: 11,
+                                            right: 10),
+                                        hintStyle: TextStyle(
+                                            color: greyColor, fontSize: 10),
+                                        hintText: "Search here".tr)
+                                    : InputDecoration(
+                                        suffixIcon: Icon(
+                                          Icons.search,
+                                          color: greyColor,
+                                        ),
+                                        border: InputBorder.none,
+                                        focusedBorder: InputBorder.none,
+                                        enabledBorder: InputBorder.none,
+                                        errorBorder: InputBorder.none,
+                                        disabledBorder: InputBorder.none,
+                                        contentPadding: EdgeInsets.only(
+                                            left: 10,
+                                            bottom: 11,
+                                            top: 11,
+                                            right: 0),
+                                        hintStyle: TextStyle(
+                                            color: greyColor, fontSize: 10),
+                                        hintText: "Search here".tr),
                           ),
                         ),
                       ),

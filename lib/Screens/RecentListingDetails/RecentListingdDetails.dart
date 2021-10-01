@@ -98,9 +98,18 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                           child: Padding(
                             padding: EdgeInsets.only(right: width * 0.030),
                             child: Center(
-                              child: Text(
-                                'Update'.tr,
-                                style: TextStyle(),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'Update'.tr,
+                                    style: TextStyle(),
+                                  ),
+                                  findLanguageController.isEnglishLocale.value
+                                      ? SizedBox()
+                                      : SizedBox(
+                                          width: 10,
+                                        ),
+                                ],
                               ),
                             ),
                           ),
@@ -117,7 +126,10 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                         ? ShimerEffect(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment:findLanguageController.isEnglishLocale.value? CrossAxisAlignment.start:CrossAxisAlignment.end,
+                              crossAxisAlignment:
+                                  findLanguageController.isEnglishLocale.value
+                                      ? CrossAxisAlignment.start
+                                      : CrossAxisAlignment.end,
                               children: [
                                 SizedBox(
                                   height: height * 0.020,
@@ -367,10 +379,16 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                   height: height * 0.030,
                                 ),
                                 Row(
-                                  mainAxisAlignment: findLanguageController.isEnglishLocale.value?MainAxisAlignment.start:MainAxisAlignment.end,
+                                  mainAxisAlignment: findLanguageController
+                                          .isEnglishLocale.value
+                                      ? MainAxisAlignment.start
+                                      : MainAxisAlignment.end,
                                   children: [
                                     Text('Social media'.tr,
-                                    textAlign:findLanguageController.isEnglishLocale.value?TextAlign.left: TextAlign.right,
+                                        textAlign: findLanguageController
+                                                .isEnglishLocale.value
+                                            ? TextAlign.left
+                                            : TextAlign.right,
                                         style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.bold,
@@ -442,7 +460,10 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                 ),
                                 Text(
                                   'Business Description'.tr,
-                                  textAlign: findLanguageController.isEnglishLocale.value? TextAlign.left:TextAlign.right,
+                                  textAlign: findLanguageController
+                                          .isEnglishLocale.value
+                                      ? TextAlign.left
+                                      : TextAlign.right,
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold),
@@ -524,7 +545,10 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                           )
                         : Column(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: findLanguageController.isEnglishLocale.value?CrossAxisAlignment.start :CrossAxisAlignment.end,
+                            crossAxisAlignment:
+                                findLanguageController.isEnglishLocale.value
+                                    ? CrossAxisAlignment.start
+                                    : CrossAxisAlignment.end,
                             children: [
                               SizedBox(
                                 height: height * 0.020,
@@ -615,35 +639,38 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                               SizedBox(
                                 height: 5,
                               ),
-                             findLanguageController.isEnglishLocale.value?Row(
-                                children: [
-                                  Text(
-                                    'Business City(s) : '.tr,
-                                    style: TextStyle(
-                                        color: blueColor, fontSize: 12),
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      '${controller.listofrecentListings[0]['city']}',
-                                      style: TextStyle(fontSize: 12),
+                              findLanguageController.isEnglishLocale.value
+                                  ? Row(
+                                      children: [
+                                        Text(
+                                          'Business City(s) : '.tr,
+                                          style: TextStyle(
+                                              color: blueColor, fontSize: 12),
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            '${controller.listofrecentListings[0]['city']}',
+                                            style: TextStyle(fontSize: 12),
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  : Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          '${controller.listofrecentListings[0]['city']}:',
+                                          style: TextStyle(fontSize: 12),
+                                        ),
+                                        Text(
+                                          'Business City(s) : '
+                                              .tr
+                                              .replaceAll(':', ''),
+                                          style: TextStyle(
+                                              color: blueColor, fontSize: 12),
+                                        ),
+                                      ],
                                     ),
-                                  )
-                                ],
-                              ): Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                
-                                  Text(
-                                    '${controller.listofrecentListings[0]['city']}:',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                    Text(
-                                    'Business City(s) : '.tr.replaceAll(':', ''),
-                                    style: TextStyle(
-                                        color: blueColor, fontSize: 12),
-                                  ),
-                                ],
-                              ),
                               SizedBox(
                                 height: 5,
                               ),
@@ -747,12 +774,22 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                               business_id: widget.businessId,
                                             ));
                                           },
-                                          child: Text(
-                                            'View All'.tr,
-                                            style: TextStyle(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.bold,
-                                                color: blueColor),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'View All'.tr,
+                                                style: TextStyle(
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: blueColor),
+                                              ),
+                                              findLanguageController
+                                                      .isEnglishLocale.value
+                                                  ? SizedBox()
+                                                  : SizedBox(
+                                                      width: 10,
+                                                    ),
+                                            ],
                                           ),
                                         ),
                                       ],
@@ -982,7 +1019,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                           zoomControlsEnabled: true,
                                           zoomGesturesEnabled: true,
                                           mapType: MapType.normal,
-                                          myLocationButtonEnabled: false, 
+                                          myLocationButtonEnabled: false,
                                           myLocationEnabled: false,
                                           markers: controller.marker,
                                           initialCameraPosition:
@@ -1167,201 +1204,207 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                               SizedBox(
                                 height: height * 0.030,
                               ),
-                             findLanguageController.isEnglishLocale.value? Row(  
-                                children: [
-                                  Text('Social Media'.tr,
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                      )),
-                                  SizedBox(
-                                    width: width * 0.030,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      controller.listofrecentListings[0]
-                                                  ['insta']
-                                              .toString()
-                                              .trim()
-                                              .isEmpty
-                                          ? SizedBox()
-                                          : InkWell(
-                                              child: Card(
-                                                elevation: 3,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      10.0),
-                                                  child: Image(
-                                                    height: height / 30,
-                                                    image: AssetImage(
-                                                        'assets/icons/insta.png'),
+                              findLanguageController.isEnglishLocale.value
+                                  ? Row(
+                                      children: [
+                                        Text('Social Media'.tr,
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                            )),
+                                        SizedBox(
+                                          width: width * 0.030,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: <Widget>[
+                                            controller.listofrecentListings[0]
+                                                        ['insta']
+                                                    .toString()
+                                                    .trim()
+                                                    .isEmpty
+                                                ? SizedBox()
+                                                : InkWell(
+                                                    child: Card(
+                                                      elevation: 3,
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(10.0),
+                                                        child: Image(
+                                                          height: height / 30,
+                                                          image: AssetImage(
+                                                              'assets/icons/insta.png'),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    onTap: () {
+                                                      launchURL(
+                                                          '${controller.listofrecentListings[0]['insta']}');
+                                                    },
                                                   ),
-                                                ),
-                                              ),
-                                              onTap: () {
-                                                launchURL(
-                                                    '${controller.listofrecentListings[0]['insta']}');
-                                              },
+                                            SizedBox(
+                                              width: width * 0.010,
                                             ),
-                                      SizedBox(
-                                        width: width * 0.010,
-                                      ),
-                                      controller.listofrecentListings[0]
-                                                  ['facebook']
-                                              .toString()
-                                              .trim()
-                                              .isEmpty
-                                          ? SizedBox()
-                                          : InkWell(
-                                              onTap: () {
-                                                launchURL(
-                                                    '${controller.listofrecentListings[0]['facebook']}');
-                                              },
-                                              child: Card(
-                                                elevation: 3,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      10.0),
-                                                  child: Image(
-                                                    height: height / 30,
-                                                    image: AssetImage(
-                                                        'assets/icons/facebook.png'),
+                                            controller.listofrecentListings[0]
+                                                        ['facebook']
+                                                    .toString()
+                                                    .trim()
+                                                    .isEmpty
+                                                ? SizedBox()
+                                                : InkWell(
+                                                    onTap: () {
+                                                      launchURL(
+                                                          '${controller.listofrecentListings[0]['facebook']}');
+                                                    },
+                                                    child: Card(
+                                                      elevation: 3,
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(10.0),
+                                                        child: Image(
+                                                          height: height / 30,
+                                                          image: AssetImage(
+                                                              'assets/icons/facebook.png'),
+                                                        ),
+                                                      ),
+                                                    ),
                                                   ),
-                                                ),
-                                              ),
+                                            SizedBox(
+                                              width: width * 0.010,
                                             ),
-                                      SizedBox(
-                                        width: width * 0.010,
-                                      ),
-                                      controller.listofrecentListings[0]
-                                                  ['youtube']
-                                              .toString()
-                                              .trim()
-                                              .isEmpty
-                                          ? SizedBox()
-                                          : InkWell(
-                                              onTap: () {
-                                                launchURL(
-                                                    '${controller.listofrecentListings[0]['youtube']}');
-                                              },
-                                              child: Card(
-                                                elevation: 3,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      10.0),
-                                                  child: Image(
-                                                    height: height / 30,
-                                                    image: AssetImage(
-                                                        'assets/images/youtube.png'),
+                                            controller.listofrecentListings[0]
+                                                        ['youtube']
+                                                    .toString()
+                                                    .trim()
+                                                    .isEmpty
+                                                ? SizedBox()
+                                                : InkWell(
+                                                    onTap: () {
+                                                      launchURL(
+                                                          '${controller.listofrecentListings[0]['youtube']}');
+                                                    },
+                                                    child: Card(
+                                                      elevation: 3,
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(10.0),
+                                                        child: Image(
+                                                          height: height / 30,
+                                                          image: AssetImage(
+                                                              'assets/images/youtube.png'),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                                  : Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: <Widget>[
+                                            controller.listofrecentListings[0]
+                                                        ['insta']
+                                                    .toString()
+                                                    .trim()
+                                                    .isEmpty
+                                                ? SizedBox()
+                                                : InkWell(
+                                                    child: Card(
+                                                      elevation: 3,
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(10.0),
+                                                        child: Image(
+                                                          height: height / 30,
+                                                          image: AssetImage(
+                                                              'assets/icons/insta.png'),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    onTap: () {
+                                                      launchURL(
+                                                          '${controller.listofrecentListings[0]['insta']}');
+                                                    },
                                                   ),
-                                                ),
-                                              ),
-                                            )
-                                    ],
-                                  ),
-                                ],
-                              ): Row(  
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  
-                                 
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      controller.listofrecentListings[0]
-                                                  ['insta']
-                                              .toString()
-                                              .trim()
-                                              .isEmpty
-                                          ? SizedBox()
-                                          : InkWell(
-                                              child: Card(
-                                                elevation: 3,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      10.0),
-                                                  child: Image(
-                                                    height: height / 30,
-                                                    image: AssetImage(
-                                                        'assets/icons/insta.png'),
-                                                  ),
-                                                ),
-                                              ),
-                                              onTap: () {
-                                                launchURL(
-                                                    '${controller.listofrecentListings[0]['insta']}');
-                                              },
+                                            SizedBox(
+                                              width: width * 0.010,
                                             ),
-                                      SizedBox(
-                                        width: width * 0.010,
-                                      ),
-                                      controller.listofrecentListings[0]
-                                                  ['facebook']
-                                              .toString()
-                                              .trim()
-                                              .isEmpty
-                                          ? SizedBox()
-                                          : InkWell(
-                                              onTap: () {
-                                                launchURL(
-                                                    '${controller.listofrecentListings[0]['facebook']}');
-                                              },
-                                              child: Card(
-                                                elevation: 3,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      10.0),
-                                                  child: Image(
-                                                    height: height / 30,
-                                                    image: AssetImage(
-                                                        'assets/icons/facebook.png'),
+                                            controller.listofrecentListings[0]
+                                                        ['facebook']
+                                                    .toString()
+                                                    .trim()
+                                                    .isEmpty
+                                                ? SizedBox()
+                                                : InkWell(
+                                                    onTap: () {
+                                                      launchURL(
+                                                          '${controller.listofrecentListings[0]['facebook']}');
+                                                    },
+                                                    child: Card(
+                                                      elevation: 3,
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(10.0),
+                                                        child: Image(
+                                                          height: height / 30,
+                                                          image: AssetImage(
+                                                              'assets/icons/facebook.png'),
+                                                        ),
+                                                      ),
+                                                    ),
                                                   ),
-                                                ),
-                                              ),
+                                            SizedBox(
+                                              width: width * 0.010,
                                             ),
-                                      SizedBox(
-                                        width: width * 0.010,
-                                      ),
-                                      controller.listofrecentListings[0]
-                                                  ['youtube']
-                                              .toString()
-                                              .trim()
-                                              .isEmpty
-                                          ? SizedBox()
-                                          : InkWell(
-                                              onTap: () {
-                                                launchURL(
-                                                    '${controller.listofrecentListings[0]['youtube']}');
-                                              },
-                                              child: Card(
-                                                elevation: 3,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      10.0),
-                                                  child: Image(
-                                                    height: height / 30,
-                                                    image: AssetImage(
-                                                        'assets/images/youtube.png'),
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-                                    ],
-                                  ),
-                                   SizedBox(
-                                    width: width * 0.030,
-                                  ),
-                                  Text('Social Media'.tr,
-                                  textAlign:TextAlign.right,
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                      )),
-                                ],
-                              ),
+                                            controller.listofrecentListings[0]
+                                                        ['youtube']
+                                                    .toString()
+                                                    .trim()
+                                                    .isEmpty
+                                                ? SizedBox()
+                                                : InkWell(
+                                                    onTap: () {
+                                                      launchURL(
+                                                          '${controller.listofrecentListings[0]['youtube']}');
+                                                    },
+                                                    child: Card(
+                                                      elevation: 3,
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(10.0),
+                                                        child: Image(
+                                                          height: height / 30,
+                                                          image: AssetImage(
+                                                              'assets/images/youtube.png'),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          width: width * 0.030,
+                                        ),
+                                        Text('Social Media'.tr,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                            )),
+                                      ],
+                                    ),
                               SizedBox(
                                 height: height * 0.030,
                               ),
@@ -1411,7 +1454,10 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                 height: height * 0.020,
                               ),
                               Row(
-                                mainAxisAlignment: findLanguageController.isEnglishLocale.value?MainAxisAlignment.start:MainAxisAlignment.end,
+                                mainAxisAlignment:
+                                    findLanguageController.isEnglishLocale.value
+                                        ? MainAxisAlignment.start
+                                        : MainAxisAlignment.end,
                                 children: [
                                   Text(
                                     'FAQs'.tr,
@@ -1419,8 +1465,11 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  findLanguageController.isEnglishLocale.value?SizedBox():SizedBox(width: 10,),
-
+                                  findLanguageController.isEnglishLocale.value
+                                      ? SizedBox()
+                                      : SizedBox(
+                                          width: 10,
+                                        ),
                                 ],
                               ),
                               SizedBox(
@@ -1509,7 +1558,10 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                 height: height * 0.020,
                               ),
                               Row(
-                                mainAxisAlignment: findLanguageController.isEnglishLocale.value?MainAxisAlignment.start:MainAxisAlignment.end,
+                                mainAxisAlignment:
+                                    findLanguageController.isEnglishLocale.value
+                                        ? MainAxisAlignment.start
+                                        : MainAxisAlignment.end,
                                 children: [
                                   Text(
                                     'Products'.tr,
@@ -1517,7 +1569,11 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  findLanguageController.isEnglishLocale.value?SizedBox():SizedBox(width: 10,),
+                                  findLanguageController.isEnglishLocale.value
+                                      ? SizedBox()
+                                      : SizedBox(
+                                          width: 10,
+                                        ),
                                 ],
                               ),
                               controller.listoflistingsProduct.isEmpty
@@ -1688,8 +1744,10 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                 height: height * 0.020,
                               ),
                               Row(
-                                mainAxisAlignment: findLanguageController.isEnglishLocale.value?MainAxisAlignment.start:MainAxisAlignment.end,
-
+                                mainAxisAlignment:
+                                    findLanguageController.isEnglishLocale.value
+                                        ? MainAxisAlignment.start
+                                        : MainAxisAlignment.end,
                                 children: [
                                   Text(
                                     'Services'.tr,
@@ -1697,7 +1755,11 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  findLanguageController.isEnglishLocale.value?SizedBox():SizedBox(width: 10,),
+                                  findLanguageController.isEnglishLocale.value
+                                      ? SizedBox()
+                                      : SizedBox(
+                                          width: 10,
+                                        ),
                                 ],
                               ),
                               SizedBox(
@@ -1831,7 +1893,10 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                   child: Column(
                     children: [
                       Row(
-                                mainAxisAlignment: findLanguageController.isEnglishLocale.value?MainAxisAlignment.start:MainAxisAlignment.end,
+                        mainAxisAlignment:
+                            findLanguageController.isEnglishLocale.value
+                                ? MainAxisAlignment.start
+                                : MainAxisAlignment.end,
                         children: [
                           Text(
                             'Categories'.tr,
@@ -1872,7 +1937,9 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
             crossAxisCount: 4, childAspectRatio: 1.250, mainAxisSpacing: 8),
         delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
           return Column(
-            crossAxisAlignment: findLanguageController.isEnglishLocale.value? CrossAxisAlignment.start:CrossAxisAlignment.end,
+            crossAxisAlignment: findLanguageController.isEnglishLocale.value
+                ? CrossAxisAlignment.start
+                : CrossAxisAlignment.end,
             children: [
               Container(
                 padding: EdgeInsets.all(5),
@@ -1922,7 +1989,6 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
             : Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                 
                   Expanded(
                     child: Text(
                       title!,
@@ -1932,7 +1998,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                       style: TextStyle(fontSize: 13, color: Colors.black38),
                     ),
                   ),
-                   SizedBox(
+                  SizedBox(
                     width: width * 0.030,
                   ),
                   Icon(

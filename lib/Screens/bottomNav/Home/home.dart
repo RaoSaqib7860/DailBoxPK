@@ -88,7 +88,7 @@ class _HomeState extends State<Home> {
               Align(
                 alignment: Alignment.centerRight,
                 child: Container(
-                  width: width * 0.24,
+                  width: width * 0.20,
                   color: Colors.transparent,
                   child: DropdownButton(
                     alignment: Alignment.centerRight,
@@ -97,13 +97,14 @@ class _HomeState extends State<Home> {
                     icon: Icon(
                       CupertinoIcons.chevron_down_circle_fill,
                       color: Colors.white,
+                      size: 16,
                     ),
                     value: _value,
                     items: [
                       DropdownMenuItem(
                         child: Text(
                           "English ",
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.white, fontSize: 13),
                         ),
                         value: 1,
                         onTap: () {
@@ -118,7 +119,7 @@ class _HomeState extends State<Home> {
                       DropdownMenuItem(
                         child: Text(
                           "Urdu ",
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.white, fontSize: 13),
                         ),
                         value: 2,
                         onTap: () {
@@ -435,8 +436,6 @@ class _HomeState extends State<Home> {
                                                 onTap: () {},
                                                 child: Row(
                                                   children: [
-                                                  
-                                                  
                                                     !controller.isOpenIndustry
                                                             .value
                                                         ? InkWell(
@@ -463,10 +462,10 @@ class _HomeState extends State<Home> {
                                                               color: blueColor,
                                                             ),
                                                           ),
-                                                            SizedBox(
+                                                    SizedBox(
                                                       width: width * 0.010,
                                                     ),
-                                                            Text(
+                                                    Text(
                                                       'View All '.tr,
                                                       style: TextStyle(
                                                           color: blueColor,
