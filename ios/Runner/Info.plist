@@ -27,7 +27,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.520279645446-605r5vkr458v5m02bd4rqpv4k55r1k2b</string>
+				<string>com.googleusercontent.apps.622338838565-sit4ripuursj937rvoc7bvbv86f2d3m5</string>
 			</array>
 		</dict>
 		<dict>
@@ -72,6 +72,8 @@
 	<string>Dialboxx would like to access your motion.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Your photo library is used to update food image and profile picture.</string>
+    <key>NSLocalNetworkUsageDescription</key>
+    <string>Dialboxx use your local network for Server communication.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>The app uses speech recognition for dictating notes.</string>
 	<key>UIBackgroundModes</key>
@@ -100,5 +102,11 @@
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
+    <key>FacebookAutoLogAppEventsEnabled</key>
+    <true/>
+    <key>FacebookAdvertiserIDCollectionEnabled</key>
+    <true/>
+    <key>GoogleUtilitiesAppDelegateProxyEnabled</key>
+    <false/>
 </dict>
 </plist>
