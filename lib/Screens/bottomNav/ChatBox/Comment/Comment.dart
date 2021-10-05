@@ -52,6 +52,7 @@ class _CommentPageState extends State<CommentPage> {
           ),
         ),
         elevation: 0,
+        centerTitle: true,
         backgroundColor: blueColor,
       ),
       body: Padding(
@@ -220,7 +221,9 @@ class _CommentPageState extends State<CommentPage> {
                   Expanded(
                     child: TextFormField(
                       controller: controller.textCon,
-                      textAlign: findLanguageController.isEnglishLocale.value?TextAlign.left:TextAlign.right,
+                      textAlign: findLanguageController.isEnglishLocale.value
+                          ? TextAlign.left
+                          : TextAlign.right,
                       style: TextStyle(color: Colors.black, fontSize: 14),
                       decoration: InputDecoration(
                           disabledBorder: new OutlineInputBorder(
@@ -243,9 +246,13 @@ class _CommentPageState extends State<CommentPage> {
                               borderSide: new BorderSide(
                                 color: Colors.black12,
                               )),
-                          contentPadding: EdgeInsets.only(left: Get.width / 20),
-                          hintText: 'Say something …'.tr,
-                          
+                          contentPadding: EdgeInsets.only(
+                              left: Get.width / 20,
+                              right:
+                                  findLanguageController.isEnglishLocale.value
+                                      ? 0
+                                      : Get.width / 30),
+                          hintText: 'Write something here'.tr,
                           hintStyle: TextStyle(
                               fontSize: 13,
                               letterSpacing: 0.5,
@@ -266,8 +273,8 @@ class _CommentPageState extends State<CommentPage> {
                           '${con.listofChatBox[widget.index!]['total_comments']}');
                       con.listofChatBox[widget.index!]['total_comments'] =
                           '${total + 1}';
-                      con.loadmainList.value=false;
-                      con.loadmainList.value=true;
+                      con.loadmainList.value = false;
+                      con.loadmainList.value = true;
                       controller.textCon.clear();
                     },
                     child: Container(

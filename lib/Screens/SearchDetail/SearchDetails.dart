@@ -137,7 +137,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                     ],
                   ))
           ],
-          centerTitle: false,
+          centerTitle: true,
           backgroundColor: blueColor,
         ),
         body: Stack(
@@ -223,7 +223,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                                                             widget.buisinessId);
                                                   },
                                                   child: Container(
-                                                    height:  height * 0.040,
+                                                    height: height * 0.040,
                                                     width: width * 0.350,
                                                     child: Center(
                                                       child: Text(
@@ -283,7 +283,8 @@ class _SearchDetailsState extends State<SearchDetails> {
                                             width: width * 0.020,
                                           ),
                                           Text(
-                                            'Reviews ${controller.listofForService[0]['total_review']}',
+                                            'reviews'.tr +
+                                                ' ${controller.listofForService[0]['total_review']}',
                                             style: TextStyle(
                                                 fontSize: 12,
                                                 color: Colors.black26),
@@ -303,7 +304,13 @@ class _SearchDetailsState extends State<SearchDetails> {
                                         height: height * 0.010,
                                       ),
                                       Text(
-                                        'Starting Cost : ${controller.listofForService[0]['s_cost']} RS/-',
+                                        findLanguageController
+                                                .isEnglishLocale.value
+                                            ? 'Starting Cost : ${controller.listofForService[0]['s_cost']} RS/-'
+                                            : ' ${controller.listofForService[0]['s_cost']} ' +
+                                                'RS/-' +
+                                                ':' +
+                                                'Starting Cost'.tr,
                                         style: TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.bold,
@@ -316,7 +323,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                                               .isEnglishLocale.value
                                           ? Row(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Text(
                                                   'City :'.tr,
@@ -334,17 +341,18 @@ class _SearchDetailsState extends State<SearchDetails> {
                                             )
                                           : Row(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
                                               children: [
-                                             
-                                                Text(controller
-                                                        .listofForService
+                                                Text(controller.listofForService
                                                         .isEmpty
                                                     ? ''
                                                     : ' ${controller.listofForService[0]['service_cities']} :'),
-                                                   Text(
-                                                  'City :'.tr.replaceAll(':', ''),
+                                                Text(
+                                                  'City :'
+                                                      .tr
+                                                      .replaceAll(':', ''),
                                                   style: TextStyle(
                                                       color: blueColor),
                                                 ),
@@ -382,7 +390,11 @@ class _SearchDetailsState extends State<SearchDetails> {
                                               ));
                                         },
                                         child: Row(
-                                          mainAxisAlignment: findLanguageController.isEnglishLocale.value?MainAxisAlignment.start:MainAxisAlignment.end,
+                                          mainAxisAlignment:
+                                              findLanguageController
+                                                      .isEnglishLocale.value
+                                                  ? MainAxisAlignment.start
+                                                  : MainAxisAlignment.end,
                                           children: [
                                             Container(
                                               padding: EdgeInsets.all(10),
@@ -683,12 +695,18 @@ class _SearchDetailsState extends State<SearchDetails> {
                                                             widget.buisinessId);
                                                   },
                                                   child: Container(
-                                                    height:findLanguageController.isEnglishLocale.value?  height * 0.040:height * 0.055,
+                                                    height:
+                                                        findLanguageController
+                                                                .isEnglishLocale
+                                                                .value
+                                                            ? height * 0.040
+                                                            : height * 0.055,
                                                     width: width * 0.350,
                                                     child: Center(
                                                       child: Text(
                                                         'Rate Product'.tr,
-                                                        textAlign: TextAlign.center,
+                                                        textAlign:
+                                                            TextAlign.center,
                                                         style: TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 12),
@@ -744,7 +762,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                                             width: width * 0.020,
                                           ),
                                           Text(
-                                            'Reviews ${controller.listofData[0]['total_review']}',
+                                            'reviews'.tr+' ${controller.listofData[0]['total_review']}',
                                             style: TextStyle(
                                                 fontSize: 12,
                                                 color: Colors.black26),
@@ -764,7 +782,12 @@ class _SearchDetailsState extends State<SearchDetails> {
                                         height: height * 0.010,
                                       ),
                                       Text(
-                                        'Price : ${controller.listofData[0]['pprice']} Rs/-',
+                                        findLanguageController
+                                                .isEnglishLocale.value
+                                            ? 'Price : ${controller.listofData[0]['pprice']} Rs/-'
+                                            : 'Price'.tr +
+                                                ': Rs/-' +
+                                                ' : ${controller.listofData[0]['pprice']} ',
                                         style: TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.bold,

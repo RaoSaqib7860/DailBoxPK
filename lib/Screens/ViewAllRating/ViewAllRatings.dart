@@ -33,7 +33,7 @@ class _ViewAllRatingsState extends State<ViewAllRatings> {
     var width = Get.width;
     return SafeArea(
         child: Scaffold(
-      appBar: appBarGlobal('All Ratings'),
+      appBar: appBarGlobal('All Ratings'.tr),
       body: Column(
         children: [
           SizedBox(

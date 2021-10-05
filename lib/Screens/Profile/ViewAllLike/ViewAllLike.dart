@@ -48,6 +48,7 @@ class _ViewLikeState extends State<ViewLike> {
             fontSize: 16,
           ),
         ),
+        centerTitle: true,
         elevation: 0,
         backgroundColor: blueColor,
       ),

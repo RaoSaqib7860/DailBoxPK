@@ -305,6 +305,7 @@ class _HomeState extends State<Home> {
                                 ),
                                 child: TextFormField(
                                   cursorColor: Colors.black,
+                                  textAlignVertical: TextAlignVertical.center,
                                   textAlign: findLanguageController
                                           .isEnglishLocale.value
                                       ? TextAlign.left
@@ -317,19 +318,21 @@ class _HomeState extends State<Home> {
                                           prefixIcon: Icon(
                                             Icons.search,
                                             color: greyColor,
+                                            size: 22,
                                           ),
                                           border: InputBorder.none,
                                           focusedBorder: InputBorder.none,
                                           enabledBorder: InputBorder.none,
                                           errorBorder: InputBorder.none,
                                           disabledBorder: InputBorder.none,
+                                          isDense: true,
                                           contentPadding: EdgeInsets.only(
                                               left: 10,
                                               bottom: 11,
                                               top: 5,
                                               right: 10),
                                           hintStyle: TextStyle(
-                                              color: greyColor, fontSize: 10),
+                                              color: greyColor, fontSize: 13),
                                           hintText:
                                               "Search for service, product or business"
                                                   .tr)
@@ -337,8 +340,10 @@ class _HomeState extends State<Home> {
                                           suffixIcon: Icon(
                                             Icons.search,
                                             color: greyColor,
+                                            size: 22,
                                           ),
                                           border: InputBorder.none,
+                                          isDense: true,
                                           focusedBorder: InputBorder.none,
                                           enabledBorder: InputBorder.none,
                                           errorBorder: InputBorder.none,
@@ -349,7 +354,7 @@ class _HomeState extends State<Home> {
                                               top: 5,
                                               right: 0),
                                           hintStyle: TextStyle(
-                                              color: greyColor, fontSize: 10),
+                                              color: greyColor, fontSize: 13),
                                           hintText:
                                               "Search for service, product or business"
                                                   .tr),

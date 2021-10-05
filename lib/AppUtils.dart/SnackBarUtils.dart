@@ -7,5 +7,6 @@ snackBarFailer(String message) {
 }
 
 snackBarSuccess(String message) {
-  Get.snackbar('Success'.tr, message.tr, barBlur: 15.0);
+  Get.snackbar('Success'.tr, message.tr,
+      barBlur: 15.0, isEng: findLanguageController.isEnglishLocale.value);
 }

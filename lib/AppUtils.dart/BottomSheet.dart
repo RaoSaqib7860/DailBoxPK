@@ -81,19 +81,19 @@ class _BottomSheetCustomState extends State<BottomSheetCustom> {
     return [
       PersistentBottomNavBarItem(
         icon: Icon(CupertinoIcons.home),
-        title: ("Home".tr),
+        title: ("Home"),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(CupertinoIcons.bubble_left_bubble_right_fill),
-        title: ("Discussion".tr),
+        title: ("Discussion"),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.list_alt),
-        title: ("Listings".tr),
+        title: ("Listings"),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
@@ -113,13 +113,13 @@ class _BottomSheetCustomState extends State<BottomSheetCustom> {
             //   ],
             // ),
             Icon(CupertinoIcons.chat_bubble_text),
-        title: ("Message".tr),
+        title: ("Message"),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.account_balance),
-        title: ("Government".tr),
+        title: ("Government"),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),

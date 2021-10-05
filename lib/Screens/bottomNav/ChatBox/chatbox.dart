@@ -480,9 +480,10 @@ class _ChatBoxState extends State<ChatBox> {
                                         Center(
                                           child: Text(
                                             'Upload Picture'.tr,
-                                             style: findLanguageController.isEnglishLocale.value?
-                                              TextStyle(fontSize: 11)
-                                              :TextStyle(fontSize: 10),
+                                            style: findLanguageController
+                                                    .isEnglishLocale.value
+                                                ? TextStyle(fontSize: 11)
+                                                : TextStyle(fontSize: 10),
                                           ),
                                         ),
                                       ],
@@ -517,66 +518,62 @@ class _ChatBoxState extends State<ChatBox> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   InkWell(
-                                      onTap: () async {
-                                        if (controller
-                                                .listofIndustryHinttwo.value !=
-                                            'Select Industry'.tr) {
-                                          if (controller
-                                                  .listofCatHinttwo.value !=
-                                              'Category'.tr) {
-                                            if (controller.writeCommentCon.value
-                                                .text.isNotEmpty) {
-                                              controller.loading.value = true;
-                                              await ApiUtilsAllFiles
-                                                  .getpostDiscussionform(
-                                                      controller);
-                                              controller.writeCommentCon.value
-                                                  .text = '';
-                                              controller.isf1.value = false;
-                                              controller.f1.value =
-                                                  File('path');
-                                              controller.loadmainList.value =
-                                                  false;
-                                              ApiUtils.getgetDiscussionform(
-                                                  controller: controller);
-                                            } else {
-                                              snackBarFailer(
-                                                  'Please enter text'.tr);
-                                            }
+                                    onTap: () async {
+                                      if (controller
+                                              .listofIndustryHinttwo.value !=
+                                          'Select Industry'.tr) {
+                                        if (controller.listofCatHinttwo.value !=
+                                            'Category'.tr) {
+                                          if (controller.writeCommentCon.value
+                                              .text.isNotEmpty) {
+                                            controller.loading.value = true;
+                                            await ApiUtilsAllFiles
+                                                .getpostDiscussionform(
+                                                    controller);
+                                            controller.writeCommentCon.value
+                                                .text = '';
+                                            controller.isf1.value = false;
+                                            controller.f1.value = File('path');
+                                            controller.loadmainList.value =
+                                                false;
+                                            ApiUtils.getgetDiscussionform(
+                                                controller: controller);
                                           } else {
                                             snackBarFailer(
-                                                'Please select Category'.tr);
+                                                'Please enter text'.tr);
                                           }
                                         } else {
                                           snackBarFailer(
-                                              'Please select industry'.tr);
+                                              'Please select Category'.tr);
                                         }
-                                      },
-                                      child: 
-                                      Container(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 15, vertical: 8),
-                                        decoration: BoxDecoration(
-                                            color: Colors.blueGrey[100],
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Colors.black
-                                                      .withOpacity(0.1),
-                                                  offset: Offset(2, 2),
-                                                  blurRadius: 5)
-                                            ]),
-                                        child: Text(
-                                          'Publish'.tr,
-                                          style: TextStyle(
-                                              color: blueColor,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                                      } else {
+                                        snackBarFailer(
+                                            'Please select industry'.tr);
+                                      }
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 15, vertical: 8),
+                                      decoration: BoxDecoration(
+                                          color: Colors.blueGrey[100],
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.1),
+                                                offset: Offset(2, 2),
+                                                blurRadius: 5)
+                                          ]),
+                                      child: Text(
+                                        'Publish'.tr,
+                                        style: TextStyle(
+                                            color: blueColor,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                      
-                                      )
+                                    ),
+                                  )
                                 ],
                               ),
                               SizedBox(
@@ -879,7 +876,7 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
                         width: 5,
                       ),
                       Text(
-                        '${widget.mapData!['total_rating']} Likes',
+                        '${widget.mapData!['total_rating']} ' + 'Likes'.tr,
                         style: TextStyle(fontSize: 12),
                       )
                     ],
@@ -905,7 +902,7 @@ class _ChatBoxItemState extends State<ChatBoxItem> {
                         width: 5,
                       ),
                       Text(
-                        '${widget.mapData!['total_review']} Comments',
+                        '${widget.mapData!['total_review']} ' + 'Comments'.tr,
                         style: TextStyle(fontSize: 12),
                       )
                     ],
@@ -937,6 +934,7 @@ class _ChatBoxItem2State extends State<ChatBoxItem2> {
   String? firstHalf;
   String? secondHalf;
   bool flag = true;
+  bool glitchLike = true;
 
   List commitList = [];
   List Likelist = [];
@@ -944,7 +942,7 @@ class _ChatBoxItem2State extends State<ChatBoxItem2> {
   @override
   void initState() {
     String text = '${widget.mapData!['discussionform_text']}';
-    
+
     if (text.length > 150) {
       firstHalf = text.substring(0, 150);
       secondHalf = text.substring(150, text.length);
@@ -1141,15 +1139,23 @@ class _ChatBoxItem2State extends State<ChatBoxItem2> {
                       });
                     } else {
                       print('dislike');
-                      ApiUtilsForAll.getlikeDiscussionform(
-                              form_id:
-                                  '${widget.controller!.listofChatBox[widget.index!]['discussion_id']}',
-                              index: widget.index,
-                              controller: widget.controller,
-                              isLike: false)
-                          .then((value) {
-                        setState(() {});
-                      });
+                      if (int.parse(
+                                  '${widget.controller!.listofChatBox[widget.index!]['total_likes']}') >
+                              0 &&
+                          glitchLike == true) {
+                        glitchLike = false;
+                        ApiUtilsForAll.getlikeDiscussionform(
+                                form_id:
+                                    '${widget.controller!.listofChatBox[widget.index!]['discussion_id']}',
+                                index: widget.index,
+                                controller: widget.controller,
+                                isLike: false)
+                            .then((value) {
+                          setState(() {
+                            glitchLike = true;
+                          });
+                        });
+                      }
                     }
                   },
                   child: Row(
@@ -1170,7 +1176,8 @@ class _ChatBoxItem2State extends State<ChatBoxItem2> {
                         width: 5,
                       ),
                       Text(
-                        '${widget.controller!.listofChatBox[widget.index!]['total_likes']} Likes',
+                        '${widget.controller!.listofChatBox[widget.index!]['total_likes']} ' +
+                            'Likes'.tr,
                         style: TextStyle(fontSize: 12),
                       )
                     ],
@@ -1197,7 +1204,7 @@ class _ChatBoxItem2State extends State<ChatBoxItem2> {
                         width: 5,
                       ),
                       Text(
-                        '${widget.mapData!['total_comments']} Comments',
+                        '${widget.mapData!['total_comments']} ' + 'Comments'.tr,
                         style: TextStyle(fontSize: 12),
                       )
                     ],

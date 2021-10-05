@@ -64,7 +64,9 @@ class _SearchPageState extends State<SearchPage> {
                             items: controller.listofIndustry.map((value) {
                               return DropdownMenuItem<String>(
                                 value: '$value',
-                                child: Text('${value['city']}'),
+                                child: Text(
+                                  '${value['city']}',
+                                ),
                                 onTap: () {
                                   controller.currentlistofIndustryIndex.value =
                                       controller.listofIndustry.indexOf(value);
@@ -112,6 +114,7 @@ class _SearchPageState extends State<SearchPage> {
                           ),
                           child: TextFormField(
                             controller: serchController.searchCon,
+                            textAlignVertical: TextAlignVertical.center,
                             textAlign:
                                 findLanguageController.isEnglishLocale.value
                                     ? TextAlign.left
@@ -134,8 +137,10 @@ class _SearchPageState extends State<SearchPage> {
                                         prefixIcon: Icon(
                                           Icons.search,
                                           color: greyColor,
+                                          size: 22,
                                         ),
                                         border: InputBorder.none,
+                                        isDense: true,
                                         focusedBorder: InputBorder.none,
                                         enabledBorder: InputBorder.none,
                                         errorBorder: InputBorder.none,
@@ -146,14 +151,16 @@ class _SearchPageState extends State<SearchPage> {
                                             top: 5,
                                             right: 10),
                                         hintStyle: TextStyle(
-                                            color: greyColor, fontSize: 10),
+                                            color: greyColor, fontSize: 12),
                                         hintText: "Search here".tr)
                                     : InputDecoration(
                                         suffixIcon: Icon(
                                           Icons.search,
                                           color: greyColor,
+                                          size: 22,
                                         ),
                                         border: InputBorder.none,
+                                        isDense: true,
                                         focusedBorder: InputBorder.none,
                                         enabledBorder: InputBorder.none,
                                         errorBorder: InputBorder.none,
@@ -164,7 +171,7 @@ class _SearchPageState extends State<SearchPage> {
                                             top: 5,
                                             right: 0),
                                         hintStyle: TextStyle(
-                                            color: greyColor, fontSize: 10),
+                                            color: greyColor, fontSize: 12),
                                         hintText: "Search here".tr),
                           ),
                         ),

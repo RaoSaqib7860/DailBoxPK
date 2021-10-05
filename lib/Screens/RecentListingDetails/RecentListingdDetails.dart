@@ -761,7 +761,8 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                               width: width * 0.010,
                                             ),
                                             Text(
-                                              '${controller.listgetlistingrating[0]['reviews']} reviews',
+                                              '${controller.listgetlistingrating[0]['reviews']} ' +
+                                                  'reviews'.tr,
                                               style: TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.black26),
@@ -1719,7 +1720,7 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                                                                     0.020,
                                                               ),
                                                               Text(
-                                                                '${double.parse('${controller.listoflistingsProduct[i]['total_review']}').toInt().toString()} reviews',
+                                                                '${double.parse('${controller.listoflistingsProduct[i]['total_review']}').toInt().toString()} '+'reviews'.tr,
                                                                 style: TextStyle(
                                                                     fontSize:
                                                                         10),
@@ -1903,6 +1904,11 @@ class _RecentListingsDetailsState extends State<RecentListingsDetails> {
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
+                          findLanguageController.isEnglishLocale.value
+                              ? SizedBox()
+                              : SizedBox(
+                                  width: 5,
+                                ),
                         ],
                       ),
                       SizedBox(

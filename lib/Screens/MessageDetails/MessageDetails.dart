@@ -9,6 +9,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 
+import '../../main.dart';
+
 class MessageDetails extends StatefulWidget {
   final String? incommingId;
   final String? IncommingName;
@@ -87,6 +89,7 @@ class _MessageDetailsState extends State<MessageDetails> {
               fontSize: 16,
             ),
           ),
+          centerTitle: true,
           elevation: 0,
           backgroundColor: blueColor,
         ),
@@ -558,6 +561,10 @@ class _MessageDetailsState extends State<MessageDetails> {
                         Expanded(
                           child: TextFormField(
                             controller: controller,
+                            textAlign:
+                                findLanguageController.isEnglishLocale.value
+                                    ? TextAlign.left
+                                    : TextAlign.right,
                             style: TextStyle(color: Colors.black, fontSize: 14),
                             decoration: InputDecoration(
                                 disabledBorder: new OutlineInputBorder(
@@ -580,9 +587,13 @@ class _MessageDetailsState extends State<MessageDetails> {
                                     borderSide: new BorderSide(
                                       color: Colors.black12,
                                     )),
-                                contentPadding:
-                                    EdgeInsets.only(left: Get.width / 20),
-                                hintText: 'Say something …'.tr,
+                                contentPadding: EdgeInsets.only(
+                                    left: Get.width / 20,
+                                    right: findLanguageController
+                                            .isEnglishLocale.value
+                                        ? 0
+                                        : Get.width / 30),
+                                hintText: 'Write something here'.tr,
                                 hintStyle: TextStyle(
                                     fontSize: 13,
                                     letterSpacing: 0.5,

@@ -83,7 +83,6 @@ class _GovernmentState extends State<Government> {
                                     ),
                                     InkWell(
                                       onTap: () {
-
                                         showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
@@ -109,59 +108,71 @@ class _GovernmentState extends State<Government> {
                                                           EdgeInsets.all(15),
                                                       child: Column(
                                                         crossAxisAlignment:
-                                                          findLanguageController.isEnglishLocale.value?  CrossAxisAlignment
-                                                                .start: CrossAxisAlignment.end,
+                                                            findLanguageController
+                                                                    .isEnglishLocale
+                                                                    .value
+                                                                ? CrossAxisAlignment
+                                                                    .start
+                                                                : CrossAxisAlignment
+                                                                    .end,
                                                         children: <Widget>[
-                                                         findLanguageController.isEnglishLocale.value? Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: <Widget>[
-                                                              Text(
-                                                                'Department Name'
-                                                                    .tr,
-                                                                style: TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    fontSize:
-                                                                        16),
-                                                              ),
-                                                              IconButton(
-                                                                icon: Icon(Icons
-                                                                    .clear),
-                                                                onPressed: () {
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                },
-                                                              )
-                                                            ],
-                                                          ):  Row(
-                                                           mainAxisAlignment:
-                                                           MainAxisAlignment
-                                                               .spaceBetween,
-                                                           children: <Widget>[
-
-                                                             IconButton(
-                                                               icon: Icon(Icons
-                                                                   .clear),
-                                                               onPressed: () {
-                                                                 Navigator.pop(
-                                                                     context);
-                                                               },
-                                                             ),
-                                                             Text(
-                                                               'Department Name'
-                                                                   .tr,
-                                                               style: TextStyle(
-                                                                   fontWeight:
-                                                                   FontWeight
-                                                                       .bold,
-                                                                   fontSize:
-                                                                   16),
-                                                             ),
-                                                           ],
-                                                         ),
+                                                          findLanguageController
+                                                                  .isEnglishLocale
+                                                                  .value
+                                                              ? Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: <
+                                                                      Widget>[
+                                                                    Text(
+                                                                      'Department Name'
+                                                                          .tr,
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize:
+                                                                              16),
+                                                                    ),
+                                                                    IconButton(
+                                                                      icon: Icon(
+                                                                          Icons
+                                                                              .clear),
+                                                                      onPressed:
+                                                                          () {
+                                                                        Navigator.pop(
+                                                                            context);
+                                                                      },
+                                                                    )
+                                                                  ],
+                                                                )
+                                                              : Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: <
+                                                                      Widget>[
+                                                                    IconButton(
+                                                                      icon: Icon(
+                                                                          Icons
+                                                                              .clear),
+                                                                      onPressed:
+                                                                          () {
+                                                                        Navigator.pop(
+                                                                            context);
+                                                                      },
+                                                                    ),
+                                                                    Text(
+                                                                      'Department Name'
+                                                                          .tr,
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize:
+                                                                              16),
+                                                                    ),
+                                                                  ],
+                                                                ),
                                                           //SizedBox(height: 10,),
                                                           Text(
                                                             '${controller.listGovernment[index]['name']}',
@@ -173,7 +184,14 @@ class _GovernmentState extends State<Government> {
                                                           Divider(),
                                                           Text(
                                                             'Contact info'.tr,
-                                                            textAlign: findLanguageController.isEnglishLocale.value? TextAlign.left:TextAlign.right,
+                                                            textAlign:
+                                                                findLanguageController
+                                                                        .isEnglishLocale
+                                                                        .value
+                                                                    ? TextAlign
+                                                                        .left
+                                                                    : TextAlign
+                                                                        .right,
                                                             style: TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
@@ -216,8 +234,14 @@ class _GovernmentState extends State<Government> {
                                                           Divider(),
 
                                                           Row(
-                                                            mainAxisAlignment: findLanguageController.isEnglishLocale.value?MainAxisAlignment.start
-                                                            :MainAxisAlignment.end,
+                                                            mainAxisAlignment:
+                                                                findLanguageController
+                                                                        .isEnglishLocale
+                                                                        .value
+                                                                    ? MainAxisAlignment
+                                                                        .start
+                                                                    : MainAxisAlignment
+                                                                        .end,
                                                             children: [
                                                               Text(
                                                                 'Services'.tr,
@@ -225,9 +249,16 @@ class _GovernmentState extends State<Government> {
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
-                                                                    fontSize: 16),
+                                                                    fontSize:
+                                                                        16),
                                                               ),
-                                                              findLanguageController.isEnglishLocale.value?SizedBox():SizedBox(width: 10,)
+                                                              findLanguageController
+                                                                      .isEnglishLocale
+                                                                      .value
+                                                                  ? SizedBox()
+                                                                  : SizedBox(
+                                                                      width: 10,
+                                                                    )
                                                             ],
                                                           ),
                                                           SizedBox(
@@ -246,8 +277,14 @@ class _GovernmentState extends State<Government> {
                                                           Divider(),
 
                                                           Row(
-                                                            mainAxisAlignment: findLanguageController.isEnglishLocale.value?MainAxisAlignment.start
-                                                            :MainAxisAlignment.end,
+                                                            mainAxisAlignment:
+                                                                findLanguageController
+                                                                        .isEnglishLocale
+                                                                        .value
+                                                                    ? MainAxisAlignment
+                                                                        .start
+                                                                    : MainAxisAlignment
+                                                                        .end,
                                                             children: [
                                                               Text(
                                                                 'Timings'.tr,
@@ -255,9 +292,16 @@ class _GovernmentState extends State<Government> {
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
-                                                                    fontSize: 16),
+                                                                    fontSize:
+                                                                        16),
                                                               ),
-                                                              findLanguageController.isEnglishLocale.value?SizedBox():SizedBox(width: 10,)
+                                                              findLanguageController
+                                                                      .isEnglishLocale
+                                                                      .value
+                                                                  ? SizedBox()
+                                                                  : SizedBox(
+                                                                      width: 10,
+                                                                    )
                                                             ],
                                                           ),
                                                           SizedBox(

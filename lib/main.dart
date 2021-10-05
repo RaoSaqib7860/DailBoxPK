@@ -1,5 +1,6 @@
 import 'package:dail_box/LocalizationFile/LanguageLocaleController.dart';
 import 'package:dail_box/splash.dart';
+import 'package:dail_box/util/colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -33,6 +34,15 @@ main() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: blueColor,
+    statusBarIconBrightness: Brightness.light,
+    systemNavigationBarColor: blueColor,
+    systemNavigationBarIconBrightness: Brightness.light,
+    systemNavigationBarDividerColor: Colors.transparent,
+  ));
+
   await Firebase.initializeApp();
   // Set the background messaging handler early on, as a named top-level function
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);

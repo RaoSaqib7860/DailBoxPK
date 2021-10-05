@@ -49,6 +49,7 @@ class _ViewCommentsState extends State<ViewComments> {
             fontSize: 16,
           ),
         ),
+        centerTitle: true,
         elevation: 0,
         backgroundColor: blueColor,
       ),

@@ -274,7 +274,7 @@ class _FAQsState extends State<FAQs> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'Questions (${index + 1}) : ${element['faq_q']}',
+                                            'Questions'.tr+' (${index + 1}) : ${element['faq_q']}',
                                             style: TextStyle(
                                                 fontSize: 13,
                                                 color: blueColor,
