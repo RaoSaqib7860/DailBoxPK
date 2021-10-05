@@ -24,7 +24,7 @@ class RecentListnigsController extends GetxController {
 
   getLocationData() async {
     List<Location> locations = await locationFromAddress(
-        "${listofrecentListings[0]['business_address']} ${listofrecentListings[0]['area']}");
+        "${listofrecentListings[0]['business_address']} ${listofrecentListings[0]['area']} Pakistan");
     locations.forEach((element) {
       Location location = element;
       lat.value = location.latitude;

@@ -22,14 +22,50 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   @override
   void initState() {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
     FirebaseMessaging.instance
         .getInitialMessage()
         .then((RemoteMessage? message) {
       if (message != null) {
+        print('$message');
         // Navigator.pushNamed(context, '/message',
         //     arguments: MessageArguments(message, true));
       }
     });
+    print('Start notification requestPermission now');
+    Future.delayed(Duration(milliseconds: 10), () async {
+      NotificationSettings settings = await messaging.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true,
+      );
+      print('Now requesting fcm token ');
+      String? token = await FirebaseMessaging.instance.getToken();
+      firebaseToken = '$token';
+      print('fcm token is outer = $token');
+      if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+        print('User granted permission now');
+      } else if (settings.authorizationStatus ==
+          AuthorizationStatus.provisional) {
+        print('User granted provisional permission');
+      } else {
+        print('User declined or has not accepted permission');
+      }
+      await messaging.getNotificationSettings();
+    });
+    print('Start fcm now');
+    // Future.delayed(Duration(seconds: 3), () async {
+    printlog('Now requesting fcm token ');
+    //   String? token = await FirebaseMessaging.instance.getToken().then((value){
+    //     printlog('fcm token is = $value');
+    //   });
+    //   firebaseToken = '$token';
+    //   printlog('fcm token is = $token');
+    // });
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
@@ -43,7 +79,7 @@ class _SplashState extends State<Splash> {
                 'channel.id',
                 'channel.name',
                 'channel.description',
-                icon: 'launch_background',
+                icon: '@mipmap/ic_launcher',
               ),
             ));
       }
@@ -53,11 +89,6 @@ class _SplashState extends State<Splash> {
       print('A new onMessageOpenedApp event was published!');
       // Navigator.pushNamed(context, '/message',
       //     arguments: MessageArguments(message, true));
-    });
-    Future.delayed(Duration(seconds: 3), () async {
-      String? token = await FirebaseMessaging.instance.getToken();
-      firebaseToken = token!;
-      printlog('fcm token is = $token');
     });
     gpsService(context);
     getStorage();

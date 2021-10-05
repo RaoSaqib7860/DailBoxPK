@@ -9,9 +9,9 @@ class MessageDetailsController extends GetxController {
 
   Timer? timer;
 
-  callBackgroundSms(String id, String businessID) {
+  callBackgroundSms(String id, String businessID, String randomid) {
     timer = Timer.periodic(Duration(seconds: 3), (timer) {
-      ApiUtils.getgetChatOneToOne(id, businessID);
+      ApiUtils.getgetChatOneToOne(id, businessID, randomid);
     });
   }
 }

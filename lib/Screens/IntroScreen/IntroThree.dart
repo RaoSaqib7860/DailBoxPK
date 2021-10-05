@@ -228,7 +228,7 @@ class _IntroThreeState extends State<IntroThree> {
                                         image: DecorationImage(
                                             fit: BoxFit.cover,
                                             image: AssetImage(
-                                                'assets/images/nature.jpg'))),
+                                                'assets/images/fm.jpeg'))),
                                   ),
                                   SizedBox(
                                     width: 15,
@@ -291,7 +291,7 @@ class _IntroThreeState extends State<IntroThree> {
                                   height: height * 0.2,
                                   width: width,
                                   child: Image.asset(
-                                    'assets/images/p1.jpeg',
+                                    'assets/images/business.jpeg',
                                     fit: BoxFit.cover,
                                   ),
                                 ),

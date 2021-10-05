@@ -184,6 +184,8 @@ class _MessagesState extends State<Messages> {
                                                 '${controller.listofMessages[index]['listing_image']}',
                                             businessId:
                                                 '${controller.listofMessages[index]['post_id']}',
+                                            random_id:
+                                                '${controller.listofMessages[index]['random_id']}',
                                           ),
                                           withNavBar: true,
                                           // OPTIONAL VALUE. True by default.

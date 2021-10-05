@@ -88,6 +88,7 @@ class ApiUtils {
   static final String forgetpasswordmobile = '/forgetpasswordmobile';
   static final String checkmynumber = '/checkmynumber';
   static final String editMySocialProfile = '/editMySocialProfile';
+  static final String logout = '/logout';
 
   static Future loginApi(SignInController controller) async {
     //http://dailboxx.websitescare.com/Alphaapis/login?code=DAILBOXX-03448567673
@@ -545,7 +546,7 @@ class ApiUtils {
   //http://dailboxx.websitescare.com/Alphaapis/getChatOneToOne?code=DAILBOXX-03448567673
 
   static Future getgetChatOneToOne(
-      String incommingId, String businessID) async {
+      String incommingId, String businessID, String randomId) async {
     var url = Uri.parse('$baseUrl$getChatOneToOne$secretCodeString');
     var controller = Get.find<MessageDetailsController>();
     GetStorage storage = GetStorage();
@@ -553,7 +554,8 @@ class ApiUtils {
       var responce = await http.post(url, body: {
         'userid': storage.read('userId'),
         'incoming_id': incommingId,
-        'post_id': "$businessID"
+        'post_id': "$businessID",
+        'random_id': '$randomId'
       });
       var data = jsonDecode(responce.body);
       printlog('getgetChatOneToOne list is  = $data');
@@ -570,7 +572,10 @@ class ApiUtils {
   //http://dailboxx.websitescare.com/Alphaapis/totalLikeform?code=DAILBOXX-03448567673
 
   static Future getgetChatOneToOneSave(
-      {String? incommingId, String? message, String? post_id}) async {
+      {String? incommingId,
+      String? message,
+      String? post_id,
+      String? random_id}) async {
     var url = Uri.parse('$baseUrl$getChatOneToOneSave$secretCodeString');
     GetStorage storage = GetStorage();
     try {
@@ -578,7 +583,8 @@ class ApiUtils {
         'userid': storage.read('userId'),
         'incoming_id': '$incommingId',
         'message': message,
-        'post_id': '$post_id'
+        'post_id': '$post_id',
+        'random_id': '$random_id'
       });
       var data = jsonDecode(responce.body);
       printlog('getgetChatOneToOne list is  = $data');
@@ -1341,5 +1347,19 @@ class ApiUtils {
       }
     } catch (e) {}
     return result!;
+  }
+
+  static Future getlogout() async {
+    GetStorage storage = GetStorage();
+    var url = Uri.parse('$baseUrl$logout$secretCodeString');
+    print('userId = ${storage.read('userId')}');
+    try {
+      var responce =
+          await http.post(url, body: {'userid': '${storage.read('userId')}'});
+      var data = jsonDecode(responce.body);
+      printlog('logout is = $data');
+      printlog('data is = ${responce.statusCode}');
+      if (data['result'] == 'success') {}
+    } catch (e) {}
   }
 }

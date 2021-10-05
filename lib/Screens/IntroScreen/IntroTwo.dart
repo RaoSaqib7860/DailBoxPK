@@ -15,13 +15,13 @@ class IntroTwo extends StatefulWidget {
 
 class _IntroTwoState extends State<IntroTwo> {
   List list = [
-    'p1.jpeg',
+    '1.jpg',
   ];
   List list2 = [
-    'p2.jpg',
+    '3.jpg',
   ];
   List list3 = [
-    'p3.jpg',
+    '2.jpeg',
   ];
   @override
   Widget build(BuildContext context) {
@@ -132,7 +132,7 @@ class _IntroTwoState extends State<IntroTwo> {
                                       Row(
                                         children: [
                                           Text(
-                                            '4.0',
+                                            '5.0',
                                             style: TextStyle(
                                                 fontSize: 12,
                                                 color: Colors.black26),
@@ -302,7 +302,7 @@ class _IntroTwoState extends State<IntroTwo> {
                                       Row(
                                         children: [
                                           Text(
-                                            '4.0',
+                                            '5.0',
                                             style: TextStyle(
                                                 fontSize: 12,
                                                 color: Colors.black26),
@@ -472,7 +472,7 @@ class _IntroTwoState extends State<IntroTwo> {
                                       Row(
                                         children: [
                                           Text(
-                                            '4.0',
+                                            '5.0',
                                             style: TextStyle(
                                                 fontSize: 12,
                                                 color: Colors.black26),

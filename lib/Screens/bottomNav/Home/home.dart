@@ -326,7 +326,7 @@ class _HomeState extends State<Home> {
                                           contentPadding: EdgeInsets.only(
                                               left: 10,
                                               bottom: 11,
-                                              top: 10,
+                                              top: 5,
                                               right: 10),
                                           hintStyle: TextStyle(
                                               color: greyColor, fontSize: 10),
@@ -346,7 +346,7 @@ class _HomeState extends State<Home> {
                                           contentPadding: EdgeInsets.only(
                                               left: 0,
                                               bottom: 11,
-                                              top: 10,
+                                              top: 5,
                                               right: 0),
                                           hintStyle: TextStyle(
                                               color: greyColor, fontSize: 10),

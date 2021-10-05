@@ -13,7 +13,7 @@
         android:requestLegacyExternalStorage="true">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBKWeZRXoG7tZskLBKYTbjWh0xac0mZZAk" />
+            android:value="AIzaSyAbTaqS99X-gMbJNWDjDfn76P36Sy5YNe8" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

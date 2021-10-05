@@ -143,7 +143,7 @@ class _SearchPageState extends State<SearchPage> {
                                         contentPadding: EdgeInsets.only(
                                             left: 10,
                                             bottom: 11,
-                                            top: 11,
+                                            top: 5,
                                             right: 10),
                                         hintStyle: TextStyle(
                                             color: greyColor, fontSize: 10),
@@ -161,7 +161,7 @@ class _SearchPageState extends State<SearchPage> {
                                         contentPadding: EdgeInsets.only(
                                             left: 10,
                                             bottom: 11,
-                                            top: 11,
+                                            top: 5,
                                             right: 0),
                                         hintStyle: TextStyle(
                                             color: greyColor, fontSize: 10),

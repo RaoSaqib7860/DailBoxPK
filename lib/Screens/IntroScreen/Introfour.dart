@@ -14,16 +14,16 @@ class IntroFour extends StatefulWidget {
 
 class _IntroFourState extends State<IntroFour> {
   List list = [
-    'assets/images/man.jpeg',
+    'assets/images/ogoil.jpeg',
     'assets/images/person2.png',
-    'assets/images/person.jpg',
-    'assets/images/woman.png',
+    'assets/images/business.jpeg',
+    'assets/images/man2.jpg',
   ];
   List list2 = [
-    'waqas',
+    'OG Oils',
     'Ahmad',
-    'Ali',
-    'Hina'
+    'DYNAMIC TECH',
+    'Abdullha'
   ];
   @override
   Widget build(BuildContext context) {

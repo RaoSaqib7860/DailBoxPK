@@ -33,9 +33,9 @@ class _SignInState extends State<SignIn> {
 
   @override
   void initState() {
+    getLocation();
     GetStorage storage = GetStorage();
     storage.write('isFirst', 'true');
-    getLocation();
     super.initState();
   }
 

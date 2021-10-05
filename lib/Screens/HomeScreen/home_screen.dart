@@ -1,3 +1,4 @@
+import 'package:dail_box/AppUtils.dart/APiUtilsForAuth.dart';
 import 'package:dail_box/AppUtils.dart/BottomSheet.dart';
 import 'package:dail_box/Screens/AddNewBuisness/AddNewBuisness.dart';
 import 'package:dail_box/Screens/AddProduct.dart/AddProduct.dart';
@@ -26,9 +27,7 @@ class HomeScreen extends StatefulWidget {
         title: 'Add Product', icon: Icons.my_library_add_outlined, index: 5),
     MenuItem(title: 'Add Service', icon: Icons.build, index: 6),
     MenuItem(
-        title: 'Add FAQs',
-        icon: CupertinoIcons.question_circle_fill,
-        index: 3),
+        title: 'Add FAQs', icon: CupertinoIcons.question_circle_fill, index: 3),
     // MenuItem(
     //     title: 'Notifications'.tr, icon: Icons.notifications_none, index: 1),
     MenuItem(title: 'Advertise', icon: Icons.business, index: 2),
@@ -100,6 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Get.to(Settings());
         break;
       case 9:
+        ApiUtils.getlogout();
         GetStorage storage = GetStorage();
         storage.erase();
         timer!.cancel();
