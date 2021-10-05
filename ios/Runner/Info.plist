@@ -39,13 +39,19 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAdvertiserIDCollectionEnabled</key>
+	<true/>
 	<key>FacebookAppID</key>
 	<string>1067522870443906</string>
+	<key>FacebookAutoLogAppEventsEnabled</key>
+	<true/>
 	<key>FacebookCodelessDebugLogEnabled</key>
 	<true/>
 	<key>FacebookDisplayName</key>
 	<string>Dialboxx</string>
 	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
+	<key>GoogleUtilitiesAppDelegateProxyEnabled</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -62,6 +68,8 @@
 	<string>Your Camera is used to update your profile and add food images.</string>
 	<key>NSContactsUsageDescription</key>
 	<string>YOur Contact is used to update your profile with contact information.</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Dialboxx use your local network for Server communication.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Your Location is used to show you nearby foods.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -72,8 +80,6 @@
 	<string>Dialboxx would like to access your motion.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Your photo library is used to update food image and profile picture.</string>
-    <key>NSLocalNetworkUsageDescription</key>
-    <string>Dialboxx use your local network for Server communication.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>The app uses speech recognition for dictating notes.</string>
 	<key>UIBackgroundModes</key>
@@ -102,11 +108,5 @@
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
-    <key>FacebookAutoLogAppEventsEnabled</key>
-    <true/>
-    <key>FacebookAdvertiserIDCollectionEnabled</key>
-    <true/>
-    <key>GoogleUtilitiesAppDelegateProxyEnabled</key>
-    <false/>
 </dict>
 </plist>
