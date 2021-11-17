@@ -10,7 +10,7 @@ class TranslationFilePage extends Translations {
               'Please confirm Terms and Condition',
           'Add': 'Add',
           'Monday :': 'Monday :',
-          'Price':'Price',
+          'Price': 'Price',
           'Wednesday :': 'Wednesday :',
           'Rate Service': 'Rate Service',
           'Business Address*': 'Business Address*',
@@ -32,7 +32,7 @@ class TranslationFilePage extends Translations {
               'You can start listing your businesses after\n registration.',
           'Rate your experience': 'Rate your experience',
           'for FREE today': 'for FREE today',
-          'City :': 'City :',
+          'City :': 'City(s) :',
           'Categories': 'Categories',
           'Donʼt have an account ? ': 'Donʼt have an account ? ',
           'Rate your Experience here': 'Rate your Experience here',
@@ -107,7 +107,7 @@ class TranslationFilePage extends Translations {
           'Enter your email or number below and we will send you a link to reset your password.':
               'Enter your email or number below and we will send you a link to reset your password.',
           'Listings': 'Listings',
-          'Likes':'Likes',
+          'Likes': 'Likes',
           'Fill in the': 'Fill in the',
           'Instagram Link': 'Instagram Link',
           'Add Experience': 'Add Experience',
@@ -122,7 +122,7 @@ class TranslationFilePage extends Translations {
           'Select how did you hear about us?':
               'Select how did you hear about us?',
           'Select City first': 'Select City first',
-          'Select City': 'Select City',
+          'Select City': 'Select City(s)',
           'Please fields should not is empty':
               'Please fields should not is empty',
           'Delivery Available*': 'Delivery Available*',
@@ -382,7 +382,7 @@ class TranslationFilePage extends Translations {
           'Chat with Us': 'Chat with Us',
           'Quick Contact': 'Quick Contact',
           'First Name': 'First Name',
-          'Email': 'Email',
+          'Email': 'Email (Optional)',
           'Phone': 'Phone',
           'SEND': 'SEND',
           'Confirm': 'Confirm',
@@ -480,14 +480,14 @@ class TranslationFilePage extends Translations {
 
         //...................................................//
         'de_DE': {
-          'Home': 'گھر',
-          'Discussion': 'بحث',
-          'Listings': 'فہرستیں',
+          'Home': 'ہوم',
+          'Discussion': 'گفتگو',
+          'Listings': 'میرا کاروبار',
           'Please select industry': 'براہ کرم انڈسٹری منتخب کریں',
-          'Message': 'پیغام بھیجیں',
+          'Message': 'پیغامات',
           'Your listing has been sent for review. You will be notified once approved & online!':
               'آپ کی لسٹنگ جائزہ کے لیے بھیج دی گئی ہے۔ ایک بار منظوری اور آن لائن آپ کو مطلع کیا جائے گا!',
-          'Government': 'حکومت',
+          'Government': 'گورنمیٹ',
           'Your account has been suspended . Please contact customer support':
               'آپ کا اکاؤنٹ معطل کر دیا گیا ہے۔ براے مہربانی کسٹمر سپورٹ سے رابطہ کریں',
           'Can\'t get gurrent location': 'گورینٹ لوکیشن نہیں مل سکتی',
@@ -752,7 +752,7 @@ class TranslationFilePage extends Translations {
               'پہلے ڈیلیوری دستیاب کو منتخب کریں',
           'Call': 'کال کریں',
           'Chat': 'گپ شپ',
-          'Likes':'پسند کیا',
+          'Likes': 'پسند کیا',
           'Tuesday :': ' منگل : ',
           'Business name*': '*کاروبار کا نام',
           'Business Name*': '*کاروبار کا نام',
@@ -834,7 +834,7 @@ class TranslationFilePage extends Translations {
           'Quick Contact': 'فوری رابطہ',
           'First Name': 'پہلا نام',
           'Add cell number first': 'پہلے سیل نمبر شامل کریں',
-          'Email': 'ای میل',
+          'Email': '(اختیاری)ای میل',
           'Phone': 'فون',
           ' with businesses directly using our Message system. ':
               'ہمارے میسج سسٹم کو براہ راست استعمال کرنے والے کاروباروں کے ساتھ',
@@ -865,7 +865,7 @@ class TranslationFilePage extends Translations {
           ' business ': 'کاروبار ',
           'YouTube Link': 'یوٹیوب لنک',
           'reviews': 'جائزے',
-          'Price':'قیمت',
+          'Price': 'قیمت',
           'Verified': 'تصدیق شدہ',
           'Facebook Link': 'فیس بک لنک',
           'Open Now': 'ابھی کھولیں',

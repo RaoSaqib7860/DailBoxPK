@@ -30,171 +30,170 @@ class _ViewLikeState extends State<ViewLike> {
   Widget build(BuildContext context) {
     var height = Get.height;
     var width = Get.width;
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        title: Text(
-          'All Likes'.tr,
-          style: TextStyle(
-            fontSize: 16,
-          ),
-        ),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: blueColor,
+    leading: IconButton(
+      icon: Icon(
+        Icons.arrow_back,
+        color: Colors.white,
+      ),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    ),
+    title: Text(
+      'All Likes'.tr,
+      style: TextStyle(
+        fontSize: 16,
+      ),
+    ),
+    centerTitle: true,
+    elevation: 0,
+    backgroundColor: blueColor,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: width * 0.030),
-        child: Column(
-          children: [
-            SizedBox(
-              height: height * 0.010,
-            ),
-            Obx(
-              () => !controller.isloading.value
-                  ? Expanded(
-                      child: ListView.builder(
-                      itemBuilder: (c, size) {
-                        return ShimerEffect(
-                          child: Column(
+    padding: EdgeInsets.symmetric(horizontal: width * 0.030),
+    child: Column(
+      children: [
+        SizedBox(
+          height: height * 0.010,
+        ),
+        Obx(
+          () => !controller.isloading.value
+              ? Expanded(
+                  child: ListView.builder(
+                  itemBuilder: (c, size) {
+                    return ShimerEffect(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: height * 0.010,
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              CircularProfileAvatar(
+                                '',
+                                child:
+                                    Image.asset('assets/images/nature.jpg'),
+                                borderColor: Colors.white,
+                                borderWidth: 1,
+                                elevation: 5,
+                                radius: 20,
+                              ),
                               SizedBox(
-                                height: height * 0.010,
+                                width: width * 0.030,
                               ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  CircularProfileAvatar(
-                                    '',
-                                    child:
-                                        Image.asset('assets/images/nature.jpg'),
-                                    borderColor: Colors.white,
-                                    borderWidth: 1,
-                                    elevation: 5,
-                                    radius: 20,
-                                  ),
-                                  SizedBox(
-                                    width: width * 0.030,
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          '..........',
-                                          style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        SizedBox(
-                                          height: height * 0.010,
-                                        ),
-                                        SizedBox(
-                                          child: Text(
-                                            '................................................................................................................................................................',
-                                            style: TextStyle(
-                                                fontSize: 11,
-                                                color: Colors.black45),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: height * 0.010,
-                                        ),
-                                      ],
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      '..........',
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color: Colors.black12,
-                                            width: 0.5))),
+                                    SizedBox(
+                                      height: height * 0.010,
+                                    ),
+                                    SizedBox(
+                                      child: Text(
+                                        '................................................................................................................................................................',
+                                        style: TextStyle(
+                                            fontSize: 11,
+                                            color: Colors.black45),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.010,
+                                    ),
+                                  ],
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                ),
                               ),
                             ],
                           ),
-                        );
-                      },
-                      itemCount: 10,
-                    ))
-                  : controller.listoflike.isEmpty
-                      ? Expanded(
-                          child: Center(
-                            child: Text('Empty'.tr),
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                                        color: Colors.black12,
+                                        width: 0.5))),
                           ),
-                        )
-                      : Expanded(
-                          child: ListView.builder(
-                          itemBuilder: (c, i) {
-                            return Column(
+                        ],
+                      ),
+                    );
+                  },
+                  itemCount: 10,
+                ))
+              : controller.listoflike.isEmpty
+                  ? Expanded(
+                      child: Center(
+                        child: Text('Empty'.tr),
+                      ),
+                    )
+                  : Expanded(
+                      child: ListView.builder(
+                      itemBuilder: (c, i) {
+                        return Column(
+                          children: [
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(
-                                  height: 10,
+                                CircularProfileAvatar(
+                                  '${controller.listoflike[i]['profile_image']}',
+                                  borderColor: blueColor,
+                                  borderWidth: 1,
+                                  elevation: 5,
+                                  radius: 20,
                                 ),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    CircularProfileAvatar(
-                                      '${controller.listoflike[i]['profile_image']}',
-                                      borderColor: blueColor,
-                                      borderWidth: 1,
-                                      elevation: 5,
-                                      radius: 20,
-                                    ),
-                                    SizedBox(
-                                      width: width * 0.030,
-                                    ),
-                                    Expanded(
-                                      child: Column(
-                                        children: [
-                                          SizedBox(
-                                            height: height * 0.015,
-                                          ),
-                                          Text(
-                                            '${controller.listoflike[i]['name']}',
-                                            style: TextStyle(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                SizedBox(
+                                  width: width * 0.030,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: height * 0.015,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                              color: Colors.black12,
-                                              width: 0.5))),
+                                      Text(
+                                        '${controller.listoflike[i]['name']}',
+                                        style: TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                  ),
                                 ),
                               ],
-                            );
-                          },
-                          itemCount: controller.listoflike.length,
-                        )),
-            )
-          ],
-        ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(
+                                          color: Colors.black12,
+                                          width: 0.5))),
+                            ),
+                          ],
+                        );
+                      },
+                      itemCount: controller.listoflike.length,
+                    )),
+        )
+      ],
+    ),
       ),
-    ));
+    );
   }
 }

@@ -733,7 +733,6 @@ class _BRThreeState extends State<BRThree> {
                   ),
                 ),
               ),
-
               SizedBox(
                 height: height * 0.030,
               ),

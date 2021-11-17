@@ -259,6 +259,10 @@ class ApiUtilsForAll {
       printlog('data is = ${responce.statusCode}');
       if (data['result'] == 'success') {
         controller.listofrecentListings.value = data['data'] ?? [];
+        printlog('b_lat data  is = ${data['b_lat']}');
+        printlog('b_log data  is = ${data['b_log']}');
+        controller.lat.value=double.parse('${data['b_lat']}');
+        controller.lng.value=double.parse('${data['b_log']}');
         printlog('getgetlisting data is = ${controller.listofrecentListings}');
       } else {
         controller.listofrecentListings.clear();

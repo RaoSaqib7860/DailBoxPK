@@ -16,6 +16,7 @@ import 'package:dail_box/Screens/SearchDetail/SearchDetails.dart';
 import 'package:dail_box/Screens/SearchPage/SearchPage.dart';
 import 'package:dail_box/Screens/bottomNav/Home/HomeController.dart';
 import 'package:dail_box/main.dart';
+import 'package:dail_box/util/StatusBarStyle.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,7 @@ class _HomeState extends State<Home> {
   SharedPreferenceClass sharedPreferenceClass = SharedPreferenceClass();
 
   int? _value;
+
   @override
   void initState() {
     getLocation();
@@ -62,215 +64,215 @@ class _HomeState extends State<Home> {
     var height = Get.height;
     var width = Get.width;
 
-    return SafeArea(
-      child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            backgroundColor: blueColor,
-            elevation: 0,
-            title: Container(
-              child: Image.asset(
-                'assets/icons/logo.png',
-                height: height * 0.140,
-              ),
+    return Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          backgroundColor: blueColor,
+          elevation: 0,
+          title: Container(
+            child: Image.asset(
+              'assets/icons/logo.png',
+              height: height * 0.140,
             ),
-            centerTitle: true,
-            leading: IconButton(
-              onPressed: () {
-                ZoomDrawer.of(context)!.toggle();
-              },
-              icon: Icon(
-                Icons.dehaze,
-                color: Colors.white,
-              ),
-            ),
-            actions: [
-              Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  width: width * 0.20,
-                  color: Colors.transparent,
-                  child: DropdownButton(
-                    alignment: Alignment.centerRight,
-                    underline: SizedBox(),
-                    dropdownColor: blueColor,
-                    icon: Icon(
-                      CupertinoIcons.chevron_down_circle_fill,
-                      color: Colors.white,
-                      size: 16,
-                    ),
-                    value: _value,
-                    items: [
-                      DropdownMenuItem(
-                        child: Text(
-                          "English ",
-                          style: TextStyle(color: Colors.white, fontSize: 13),
-                        ),
-                        value: 1,
-                        onTap: () {
-                          findLanguageController.isEnglishLocale.value = true;
-                          Get.updateLocale(engLocale);
-                          sharedPreferenceClass.addLocale(en: 'en', dd: 'US');
-                          print(
-                              ' is english locale ==  ${findLanguageController.isEnglishLocale.value}');
-                          // Get.offAll(HomeScreen());
-                        },
-                      ),
-                      DropdownMenuItem(
-                        child: Text(
-                          "Urdu ",
-                          style: TextStyle(color: Colors.white, fontSize: 13),
-                        ),
-                        value: 2,
-                        onTap: () {
-                          findLanguageController.isEnglishLocale.value = false;
-                          Get.updateLocale(urduLocale);
-                          sharedPreferenceClass.addLocale(en: 'de', dd: 'DE');
-                          print(
-                              ' is english locale ==  ${findLanguageController.isEnglishLocale.value}');
-                          // Get.offAll(HomeScreen());
-                        },
-                      ),
-                    ],
-                    onChanged: (int? value) {
-                      setState(() {
-                        _value = value!;
-                      });
-                    },
-                  ),
-
-                  // child: Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     InkWell(
-                  //       onTap: (){
-                  //         findLanguageController.isEnglishLocale.value = true;
-                  //         Get.updateLocale(engLocale);
-                  //         sharedPreferenceClass.addLocale(
-                  //           en: 'en',
-                  //           dd: 'US'
-                  //         );
-                  //
-                  //         print( ' is english locale ==  ${ findLanguageController.isEnglishLocale.value}');
-                  //
-                  //       },
-                  //       child: Container(
-                  //         height: height * 0.025,
-                  //         width: width * 0.12,
-                  //         color: findLanguageController.isEnglishLocale.value? Colors.blue : Colors.black12,
-                  //         child: Center(
-                  //           child: Text(
-                  //             'Eng',
-                  //
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     SizedBox(
-                  //       width: width * 0.025,
-                  //     ),
-                  //     InkWell(
-                  //       onTap: () {
-                  //         findLanguageController.isEnglishLocale.value = false;
-                  //         Get.updateLocale(urduLocale);
-                  //         sharedPreferenceClass.addLocale(
-                  //           en: 'de',
-                  //           dd: 'DE'
-                  //         );
-                  //         print( ' is english locale ==  ${ findLanguageController.isEnglishLocale.value}');
-                  //       },
-                  //       child: Container(
-                  //         height: height * 0.025,
-                  //         width: width * 0.12,
-                  //         color: findLanguageController.isEnglishLocale.value? Colors.black12: Colors.blue,
-                  //         child: Center(
-                  //           child: Text(
-                  //             'Urdu'.tr,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                ),
-              ),
-              // Container(
-              //   height: 10,
-              //   width: 1,
-              //   child: Obx(
-              //         () => Row(
-              //       children: [
-              //         InkWell(
-              //           // onTap: () {
-              //           //   findLanguageController
-              //           //       .isEnglishLocale.value = true;
-              //           //   Get.updateLocale(engLocale);
-              //           //   sharedPreferenceCalss.addLocale(
-              //           //       en: 'en', dd: 'US');
-              //           //   Get.back();
-              //           // },
-              //           child: Container(
-              //             height: 10,
-              //             width: 10,
-              //             child: Center(
-              //               child: Text(
-              //                 'ENG',
-              //                 // style: TextStyle(
-              //                 //     color:
-              //                 //     findLanguageController
-              //                 //         .isEnglishLocale
-              //                 //         .value
-              //                 //         ? Colors.white
-              //                 //         : Colors.black38,
-              //                 //     fontSize: 12),
-              //               ),
-              //             ),
-              //             // decoration: BoxDecoration(
-              //             //     color: findLanguageController
-              //             //         .isEnglishLocale.value
-              //             //         ? AppColors.blueColor
-              //             //         : AppColors.offskyblue),
-              //           ),
-              //         ),
-              //         InkWell(
-              //           // onTap: () {
-              //           //   findLanguageController
-              //           //       .isEnglishLocale.value = false;
-              //           //   Get.updateLocale(arabLocale);
-              //           //   sharedPreferenceCalss.addLocale(
-              //           //       en: 'de', dd: 'DE');
-              //           //   Get.back();
-              //           // },
-              //           child: Container(
-              //             height: 10,
-              //             width: 10,
-              //             child: Center(
-              //               child: Text(
-              //                 'العربية',
-              //                 // style: TextStyle(
-              //                 //     color:
-              //                 //     findLanguageController
-              //                 //         .isEnglishLocale
-              //                 //         .value
-              //                 //         ? Colors.black38
-              //                 //         : Colors.white,
-              //                 //     fontSize: 12),
-              //               ),
-              //             ),
-              //             // decoration: BoxDecoration(
-              //             //     color: findLanguageController
-              //             //         .isEnglishLocale.value
-              //             //         ? AppColors.offskyblue
-              //             //         : AppColors.blueColor),
-              //           ),
-              //         )
-              //       ],
-              //     ),
-              //   ),
-              // )
-            ],
           ),
-          body: Stack(
+          centerTitle: true,
+          leading: IconButton(
+            onPressed: () {
+              ZoomDrawer.of(context)!.toggle();
+            },
+            icon: Icon(
+              Icons.dehaze,
+              color: Colors.white,
+            ),
+          ),
+          actions: [
+            Align(
+              alignment: Alignment.centerRight,
+              child: Container(
+                width: width * 0.20,
+                color: Colors.transparent,
+                child: DropdownButton(
+                  alignment: Alignment.centerRight,
+                  underline: SizedBox(),
+                  dropdownColor: blueColor,
+                  icon: Icon(
+                    CupertinoIcons.chevron_down_circle_fill,
+                    color: Colors.white,
+                    size: 16,
+                  ),
+                  value: _value,
+                  items: [
+                    DropdownMenuItem(
+                      child: Text(
+                        "English ",
+                        style: TextStyle(color: Colors.white, fontSize: 13),
+                      ),
+                      value: 1,
+                      onTap: () {
+                        findLanguageController.isEnglishLocale.value = true;
+                        Get.updateLocale(engLocale);
+                        sharedPreferenceClass.addLocale(en: 'en', dd: 'US');
+                        print(
+                            ' is english locale ==  ${findLanguageController.isEnglishLocale.value}');
+                        // Get.offAll(HomeScreen());
+                      },
+                    ),
+                    DropdownMenuItem(
+                      child: Text(
+                        "Urdu ",
+                        style: TextStyle(color: Colors.white, fontSize: 13),
+                      ),
+                      value: 2,
+                      onTap: () {
+                        findLanguageController.isEnglishLocale.value = false;
+                        Get.updateLocale(urduLocale);
+                        sharedPreferenceClass.addLocale(en: 'de', dd: 'DE');
+                        print(
+                            ' is english locale ==  ${findLanguageController.isEnglishLocale.value}');
+                        // Get.offAll(HomeScreen());
+                      },
+                    ),
+                  ],
+                  onChanged: (int? value) {
+                    setState(() {
+                      _value = value!;
+                    });
+                  },
+                ),
+
+                // child: Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     InkWell(
+                //       onTap: (){
+                //         findLanguageController.isEnglishLocale.value = true;
+                //         Get.updateLocale(engLocale);
+                //         sharedPreferenceClass.addLocale(
+                //           en: 'en',
+                //           dd: 'US'
+                //         );
+                //
+                //         print( ' is english locale ==  ${ findLanguageController.isEnglishLocale.value}');
+                //
+                //       },
+                //       child: Container(
+                //         height: height * 0.025,
+                //         width: width * 0.12,
+                //         color: findLanguageController.isEnglishLocale.value? Colors.blue : Colors.black12,
+                //         child: Center(
+                //           child: Text(
+                //             'Eng',
+                //
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //     SizedBox(
+                //       width: width * 0.025,
+                //     ),
+                //     InkWell(
+                //       onTap: () {
+                //         findLanguageController.isEnglishLocale.value = false;
+                //         Get.updateLocale(urduLocale);
+                //         sharedPreferenceClass.addLocale(
+                //           en: 'de',
+                //           dd: 'DE'
+                //         );
+                //         print( ' is english locale ==  ${ findLanguageController.isEnglishLocale.value}');
+                //       },
+                //       child: Container(
+                //         height: height * 0.025,
+                //         width: width * 0.12,
+                //         color: findLanguageController.isEnglishLocale.value? Colors.black12: Colors.blue,
+                //         child: Center(
+                //           child: Text(
+                //             'Urdu'.tr,
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
+              ),
+            ),
+            // Container(
+            //   height: 10,
+            //   width: 1,
+            //   child: Obx(
+            //         () => Row(
+            //       children: [
+            //         InkWell(
+            //           // onTap: () {
+            //           //   findLanguageController
+            //           //       .isEnglishLocale.value = true;
+            //           //   Get.updateLocale(engLocale);
+            //           //   sharedPreferenceCalss.addLocale(
+            //           //       en: 'en', dd: 'US');
+            //           //   Get.back();
+            //           // },
+            //           child: Container(
+            //             height: 10,
+            //             width: 10,
+            //             child: Center(
+            //               child: Text(
+            //                 'ENG',
+            //                 // style: TextStyle(
+            //                 //     color:
+            //                 //     findLanguageController
+            //                 //         .isEnglishLocale
+            //                 //         .value
+            //                 //         ? Colors.white
+            //                 //         : Colors.black38,
+            //                 //     fontSize: 12),
+            //               ),
+            //             ),
+            //             // decoration: BoxDecoration(
+            //             //     color: findLanguageController
+            //             //         .isEnglishLocale.value
+            //             //         ? AppColors.blueColor
+            //             //         : AppColors.offskyblue),
+            //           ),
+            //         ),
+            //         InkWell(
+            //           // onTap: () {
+            //           //   findLanguageController
+            //           //       .isEnglishLocale.value = false;
+            //           //   Get.updateLocale(arabLocale);
+            //           //   sharedPreferenceCalss.addLocale(
+            //           //       en: 'de', dd: 'DE');
+            //           //   Get.back();
+            //           // },
+            //           child: Container(
+            //             height: 10,
+            //             width: 10,
+            //             child: Center(
+            //               child: Text(
+            //                 'العربية',
+            //                 // style: TextStyle(
+            //                 //     color:
+            //                 //     findLanguageController
+            //                 //         .isEnglishLocale
+            //                 //         .value
+            //                 //         ? Colors.black38
+            //                 //         : Colors.white,
+            //                 //     fontSize: 12),
+            //               ),
+            //             ),
+            //             // decoration: BoxDecoration(
+            //             //     color: findLanguageController
+            //             //         .isEnglishLocale.value
+            //             //         ? AppColors.offskyblue
+            //             //         : AppColors.blueColor),
+            //           ),
+            //         )
+            //       ],
+            //     ),
+            //   ),
+            // )
+          ],
+        ),
+        body: SafeArea(
+          child: Stack(
             children: [
               Obx(
                 () => controller.loaddata.value
@@ -326,11 +328,6 @@ class _HomeState extends State<Home> {
                                           errorBorder: InputBorder.none,
                                           disabledBorder: InputBorder.none,
                                           isDense: true,
-                                          contentPadding: EdgeInsets.only(
-                                              left: 10,
-                                              bottom: 11,
-                                              top: 5,
-                                              right: 10),
                                           hintStyle: TextStyle(
                                               color: greyColor, fontSize: 13),
                                           hintText:
@@ -348,11 +345,6 @@ class _HomeState extends State<Home> {
                                           enabledBorder: InputBorder.none,
                                           errorBorder: InputBorder.none,
                                           disabledBorder: InputBorder.none,
-                                          contentPadding: EdgeInsets.only(
-                                              left: 0,
-                                              bottom: 11,
-                                              top: 5,
-                                              right: 0),
                                           hintStyle: TextStyle(
                                               color: greyColor, fontSize: 13),
                                           hintText:
@@ -1043,8 +1035,8 @@ class _HomeState extends State<Home> {
                       ),
               ),
             ],
-          )),
-    );
+          ),
+        ));
   }
 }
 

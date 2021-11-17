@@ -12,6 +12,7 @@ import 'package:dail_box/drawerScreens/notification.dart';
 import 'package:dail_box/Screens/Profile/profile.dart';
 import 'package:dail_box/drawerScreens/setting.dart';
 import 'package:dail_box/menu_page.dart';
+import 'package:dail_box/util/StatusBarStyle.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -46,23 +47,25 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: ZoomDrawer(
-        controller: _drawerController,
-        menuScreen: MenuScreen(
-          HomeScreen.mainMenu,
-          callback: _updatePage,
-          closeDrawer: _closeDrawer,
-          current: _currentPage,
+    return statusBarStyle(
+      child: Scaffold(
+        body: ZoomDrawer(
+          controller: _drawerController,
+          menuScreen: MenuScreen(
+            HomeScreen.mainMenu,
+            callback: _updatePage,
+            closeDrawer: _closeDrawer,
+            current: _currentPage,
+          ),
+          mainScreen: MainScreen(),
+          // backgroundColor: Colors.blue,
+          borderRadius: 24.0,
+          showShadow: true,
+          angle: 0.0,
+          slideWidth: MediaQuery.of(context).size.width * .45,
+          openCurve: Curves.fastOutSlowIn,
+          closeCurve: Curves.easeIn,
         ),
-        mainScreen: MainScreen(),
-        // backgroundColor: Colors.blue,
-        borderRadius: 24.0,
-        showShadow: true,
-        angle: 0.0,
-        slideWidth: MediaQuery.of(context).size.width * .45,
-        openCurve: Curves.fastOutSlowIn,
-        closeCurve: Curves.easeIn,
       ),
     );
   }

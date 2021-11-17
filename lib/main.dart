@@ -1,6 +1,5 @@
 import 'package:dail_box/LocalizationFile/LanguageLocaleController.dart';
 import 'package:dail_box/splash.dart';
-import 'package:dail_box/util/colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -10,7 +9,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'LocalizationFile/TranslatiionFile.dart';
 
 var findLanguageController = Get.find<LanguageLocalController>();
@@ -35,13 +33,12 @@ main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: blueColor,
-    statusBarIconBrightness: Brightness.light,
-    systemNavigationBarColor: blueColor,
-    systemNavigationBarIconBrightness: Brightness.light,
-    systemNavigationBarDividerColor: Colors.transparent,
-  ));
+  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  //     statusBarBrightness: Brightness.dark,
+  //     systemNavigationBarIconBrightness: Brightness.dark,
+  //     statusBarColor: blueColor,
+  //     systemNavigationBarColor: blueColor,
+  //     statusBarIconBrightness: Brightness.dark));
 
   await Firebase.initializeApp();
   // Set the background messaging handler early on, as a named top-level function
@@ -104,6 +101,7 @@ class MyApp extends StatelessWidget {
   final String? dd;
 
   const MyApp({Key? key, this.en = 'en', this.dd = 'US'}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

@@ -175,7 +175,9 @@ class ApiUtilsAllFiles extends ChangeNotifier {
           .listofHearAbout[controller.currentlistofHearAboutIndex.value],
       'business_description': controller.businessDiscription.text,
       'agent_id': controller.agentId.text.trim(),
-      'payment_mod': controller.cashController.text
+      'payment_mod': controller.cashController.text,
+      // 'b_lat': controller.b_lat.value.toString(),
+      // 'b_log': controller.b_lng.value.toString()
     });
     printlog('calling api');
     try {
@@ -277,7 +279,9 @@ class ApiUtilsAllFiles extends ChangeNotifier {
       'business_description': controller.businessDiscription.text,
       'agent_id': '${controller.agentID}',
       'payment_mod': controller.cashController.text,
-      'business_id': controller.business_id.value
+      'business_id': controller.business_id.value,
+      // 'b_lat': controller.b_lat.value,
+      // 'b_log': controller.b_lng.value
     });
     printlog('calling api');
     try {

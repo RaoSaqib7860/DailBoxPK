@@ -62,9 +62,11 @@ dependencies:
   firebase_core: ^1.6.0
   firebase_auth: any
   google_sign_in: ^5.0.7
-  flutter_facebook_auth: ^3.5.1
+  flutter_facebook_auth: ^3.5.2
   flutter_launcher_icons: ^0.9.2
   shared_preferences: any
+  google_maps_place_picker:
+  sign_in_with_apple: ^3.2.0
 
 dev_dependencies:
   flutter_test:

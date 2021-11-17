@@ -3,7 +3,10 @@ import 'package:dail_box/AppUtils.dart/SnackBarUtils.dart';
 import 'package:dail_box/main.dart';
 import 'package:dail_box/util/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 import 'BuisnessRegistration.dart';
 import 'BuisnessRegistrationController.dart';
 
@@ -19,6 +22,7 @@ class BRTwo extends StatefulWidget {
 
 class _BRTwoState extends State<BRTwo> {
   var controller = Get.find<BuisnessRegistrationController>();
+  PickResult? selectedPlace;
 
   @override
   Widget build(BuildContext context) {
@@ -362,5 +366,108 @@ class _BRTwoState extends State<BRTwo> {
         ],
       ),
     );
+  }
+
+  openGoogleDailog() {
+    showGeneralDialog(
+        context: context,
+        barrierDismissible: true,
+        barrierLabel:
+            MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierColor: Colors.black45,
+        transitionDuration: const Duration(milliseconds: 200),
+        pageBuilder: (BuildContext buildContext, Animation animation,
+            Animation secondaryAnimation) {
+          return LayoutBuilder(builder: (c, size) {
+            var height = size.maxHeight;
+            var width = size.maxWidth;
+            return SafeArea(
+              child: Scaffold(
+                appBar: PreferredSize(
+                    child: Container(
+                      height: height * 0.070,
+                      width: width,
+                      child: Row(
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              icon: Icon(
+                                Icons.arrow_back_ios_rounded,
+                                size: 20,
+                                color: blueColor,
+                              )),
+                          Padding(
+                            padding: EdgeInsets.only(right: width * 0.080),
+                            child: Text(
+                              'Location',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: blueColor,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                          SizedBox()
+                        ],
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      ),
+                      decoration: BoxDecoration(boxShadow: [
+                        BoxShadow(
+                            color: Colors.blue.withOpacity(0.20),
+                            offset: Offset(0, 3),
+                            blurRadius: 5),
+                      ], color: Colors.white),
+                    ),
+                    preferredSize: Size.fromHeight(height * 0.070)),
+                body: Container(
+                  width: Get.width,
+                  height: Get.height,
+                  color: Colors.white,
+                  child: PlacePicker(
+                    apiKey: 'AIzaSyAbTaqS99X-gMbJNWDjDfn76P36Sy5YNe8',
+                    initialPosition: LatLng(-33.8567844, 151.213108),
+                    useCurrentLocation: true,
+                    autocompleteLanguage: 'en_US',
+                    searchingText: 'Search place here'.tr,
+                    onMapCreated: (GoogleMapController controller) {},
+                    selectInitialPosition: true,
+                    enableMapTypeButton: true,
+                    hidePlaceDetailsWhenDraggingPin: false,
+                    usePlaceDetailSearch: true,
+                    automaticallyImplyAppBarLeading: false,
+                    onPlacePicked: (result) async {
+                      selectedPlace = result;
+                      List<Placemark> newPlace = await placemarkFromCoordinates(
+                          selectedPlace!.geometry!.location.lat,
+                          selectedPlace!.geometry!.location.lng,
+                          localeIdentifier: 'en_US');
+                      controller.b_lat.value =
+                          '${selectedPlace!.geometry!.location.lat}';
+                      controller.b_lng.value =
+                          '${selectedPlace!.geometry!.location.lng}';
+                      // this is all you need
+                      Placemark placeMark = newPlace[0];
+                      String name = placeMark.name!;
+                      String? subLocality = placeMark.subLocality;
+                      String? locality = placeMark.locality;
+                      String? administrativeArea = placeMark.administrativeArea;
+                      String? postalCode = placeMark.postalCode;
+                      String? country = placeMark.country;
+                      print(
+                          '$name $subLocality $locality $administrativeArea $postalCode $country');
+                      controller.businessArea.text =
+                          '$name $subLocality $locality $administrativeArea $postalCode $country'
+                              .toString()
+                              .replaceAll('null', '');
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ),
+              ),
+            );
+          });
+        });
   }
 }

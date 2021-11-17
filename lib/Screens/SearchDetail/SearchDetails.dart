@@ -70,8 +70,7 @@ class _SearchDetailsState extends State<SearchDetails> {
     return LayoutBuilder(builder: (s, size) {
       var height = size.maxHeight;
       var width = size.maxWidth;
-      return SafeArea(
-          child: Scaffold(
+      return Scaffold(
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
@@ -323,7 +322,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                                               .isEnglishLocale.value
                                           ? Row(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   'City :'.tr,
@@ -331,26 +330,34 @@ class _SearchDetailsState extends State<SearchDetails> {
                                                       color: blueColor),
                                                 ),
                                                 Expanded(
-                                                  child: Text(controller
-                                                          .listofForService
-                                                          .isEmpty
-                                                      ? ''
-                                                      : ' ${controller.listofForService[0]['service_cities']}'),
+                                                  child: Text(
+                                                    controller.listofForService
+                                                            .isEmpty
+                                                        ? ''
+                                                        : ' ${controller.listofForService[0]['service_cities']}',
+                                                    maxLines: 5,
+                                                  ),
                                                 )
                                               ],
                                             )
                                           : Row(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.start,
                                               mainAxisAlignment:
                                                   MainAxisAlignment.end,
                                               children: [
-                                                Text(controller.listofForService
-                                                        .isEmpty
-                                                    ? ''
-                                                    : ' ${controller.listofForService[0]['service_cities']} :'),
+                                                Expanded(
+                                                  child: Text(
+                                                    controller.listofForService
+                                                            .isEmpty
+                                                        ? ''
+                                                        : ' ${controller.listofForService[0]['service_cities']} :',
+                                                    maxLines: 5,
+                                                  ),
+                                                ),
                                                 Text(
                                                   'City :'
+                                                      .tr
                                                       .tr
                                                       .replaceAll(':', ''),
                                                   style: TextStyle(
@@ -762,7 +769,8 @@ class _SearchDetailsState extends State<SearchDetails> {
                                             width: width * 0.020,
                                           ),
                                           Text(
-                                            'reviews'.tr+' ${controller.listofData[0]['total_review']}',
+                                            'reviews'.tr +
+                                                ' ${controller.listofData[0]['total_review']}',
                                             style: TextStyle(
                                                 fontSize: 12,
                                                 color: Colors.black26),
@@ -799,26 +807,40 @@ class _SearchDetailsState extends State<SearchDetails> {
                                       findLanguageController
                                               .isEnglishLocale.value
                                           ? Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   'City :'.tr,
                                                   style: TextStyle(
                                                       color: blueColor),
                                                 ),
-                                                Text(controller
-                                                        .listofData.isEmpty
-                                                    ? ''
-                                                    : ' ${controller.listofData[0]['product_cities']}')
+                                                Expanded(
+                                                  child: Text(
+                                                    controller
+                                                            .listofData.isEmpty
+                                                        ? ''
+                                                        : ' ${controller.listofData[0]['product_cities']}',
+                                                    maxLines: 5,
+                                                  ),
+                                                )
                                               ],
                                             )
                                           : Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.end,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                Text(controller
-                                                        .listofData.isEmpty
-                                                    ? ''
-                                                    : ' ${controller.listofData[0]['product_cities']} :'),
+                                                Expanded(
+                                                  child: Text(
+                                                    controller
+                                                            .listofData.isEmpty
+                                                        ? ''
+                                                        : ' ${controller.listofData[0]['product_cities']} :',
+                                                    maxLines: 5,
+                                                  ),
+                                                ),
                                                 Text(
                                                   'City :'
                                                       .tr
@@ -1007,7 +1029,7 @@ class _SearchDetailsState extends State<SearchDetails> {
                 : SizedBox())
           ],
         ),
-      ));
+      );
     });
   }
 

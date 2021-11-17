@@ -122,7 +122,7 @@ class _IntroTwoState extends State<IntroTwo> {
                                             color: Colors.black26),
                                       ),
                                       Text(
-                                        'OG Oil bring you a traditional pakistani organitic Oil Solution proven over generation to reverse hair fall'
+                                        'OG Oil bring you a traditional pakistani Organic Oil Solution proven over generation to reverse hair fall'
                                             .tr,
                                         style: TextStyle(
                                             fontSize: 10,

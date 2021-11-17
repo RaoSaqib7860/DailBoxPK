@@ -51,6 +51,8 @@ class _BuisnessRegistrationState extends State<BuisnessRegistration> {
       controller.businessAddress.text =
           '${widget.mapData!['business_address'] ?? ''}';
       controller.businessArea.text = '${widget.mapData!['area'] ?? ''}';
+      // controller.b_lat.value = '${widget.mapData!['b_lat']}';
+      // controller.b_lng.value = '${widget.mapData!['b_log']}';
       controller.businessWebsiteUrl.text =
           '${widget.mapData!['web_url'] ?? ''}';
       controller.businessDiscription.text =
@@ -164,117 +166,118 @@ class _BuisnessRegistrationState extends State<BuisnessRegistration> {
             return true;
           }
         },
-        child: SafeArea(
-          child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: blueColor,
-              elevation: 0,
-              title: Text(
-                widget.mapData!.isNotEmpty
-                    ? 'Update Business'.tr
-                    : 'Business Registration'.tr,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-              ),
-              centerTitle: true,
-              leading: IconButton(
-                  onPressed: () {
-                    if (controller.currentIndex.value != 1) {
-                      controller.currentIndex.value =
-                          controller.currentIndex.value - 1;
-                    } else {
-                      Get.back();
-                    }
-                  },
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                  )),
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: blueColor,
+            elevation: 0,
+            title: Text(
+              widget.mapData!.isNotEmpty
+                  ? 'Update Business'.tr
+                  : 'Business Registration'.tr,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
             ),
-            body: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              controller: scrollController,
-              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: width * 0.030),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: height * 0.020,
-                    ),
-                    Obx(
-                      () => controller.currentIndex.value == 1
-                          ? RichText(
-                              text: new TextSpan(
-                                text: 'Fill in the'.tr,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    letterSpacing: 0.5,
-                                    fontWeight: FontWeight.w500),
-                                children: [
-                                  new TextSpan(
-                                    text: ' business '.tr,
-                                    style: TextStyle(color: blueColor),
-                                    recognizer: new TapGestureRecognizer()
-                                      ..onTap = () => print('Tap Here onTap'),
-                                  ),
-                                  new TextSpan(
-                                    text:
-                                        'form and submit listing. Once approved, you can start listing products & services.'
-                                            .tr,
-                                    recognizer: new TapGestureRecognizer()
-                                      ..onTap = () => print('Tap Here onTap'),
-                                  )
-                                ],
-                              ),
-                              textAlign: findLanguageController.isEnglishLocale.value? TextAlign.left:TextAlign.right,
-                            )
-                          : SizedBox(),
-                    ),
-                    Obx(
-                      () => controller.currentIndex.value == 1
-                          ? BROne(
-                              height: height,
-                              width: width,
-                            )
-                          : controller.currentIndex.value == 2
-                              ? BRTwo(
-                                  height: height,
-                                  width: width,
-                                )
-                              : BRThree(
-                                  height: height,
-                                  width: width,
+            centerTitle: true,
+            leading: IconButton(
+                onPressed: () {
+                  if (controller.currentIndex.value != 1) {
+                    controller.currentIndex.value =
+                        controller.currentIndex.value - 1;
+                  } else {
+                    Get.back();
+                  }
+                },
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                )),
+          ),
+          body: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            controller: scrollController,
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: width * 0.030),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: height * 0.020,
+                  ),
+                  Obx(
+                    () => controller.currentIndex.value == 1
+                        ? RichText(
+                            text: new TextSpan(
+                              text: 'Fill in the'.tr,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  letterSpacing: 0.5,
+                                  fontWeight: FontWeight.w500),
+                              children: [
+                                new TextSpan(
+                                  text: ' business '.tr,
+                                  style: TextStyle(color: blueColor),
+                                  recognizer: new TapGestureRecognizer()
+                                    ..onTap = () => print('Tap Here onTap'),
                                 ),
-                    ),
-                    Obx(
-                      () => Row(
-                        children: [1, 2, 3].map((e) {
-                          return controller.currentIndex.value == e
-                              ? Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: width * 0.020),
-                                  height: 6,
-                                  width: 6,
-                                  decoration: BoxDecoration(color: blueColor),
+                                new TextSpan(
+                                  text:
+                                      'form and submit listing. Once approved, you can start listing products & services.'
+                                          .tr,
+                                  recognizer: new TapGestureRecognizer()
+                                    ..onTap = () => print('Tap Here onTap'),
                                 )
-                              : Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: width * 0.015),
-                                  height: 6,
-                                  width: 6,
-                                  decoration: BoxDecoration(
-                                      color: Colors.blueGrey[300]),
-                                );
-                        }).toList(),
-                        mainAxisAlignment: MainAxisAlignment.center,
-                      ),
+                              ],
+                            ),
+                            textAlign:
+                                findLanguageController.isEnglishLocale.value
+                                    ? TextAlign.left
+                                    : TextAlign.right,
+                          )
+                        : SizedBox(),
+                  ),
+                  Obx(
+                    () => controller.currentIndex.value == 1
+                        ? BROne(
+                            height: height,
+                            width: width,
+                          )
+                        : controller.currentIndex.value == 2
+                            ? BRTwo(
+                                height: height,
+                                width: width,
+                              )
+                            : BRThree(
+                                height: height,
+                                width: width,
+                              ),
+                  ),
+                  Obx(
+                    () => Row(
+                      children: [1, 2, 3].map((e) {
+                        return controller.currentIndex.value == e
+                            ? Container(
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: width * 0.020),
+                                height: 6,
+                                width: 6,
+                                decoration: BoxDecoration(color: blueColor),
+                              )
+                            : Container(
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: width * 0.015),
+                                height: 6,
+                                width: 6,
+                                decoration:
+                                    BoxDecoration(color: Colors.blueGrey[300]),
+                              );
+                      }).toList(),
+                      mainAxisAlignment: MainAxisAlignment.center,
                     ),
-                    SizedBox(
-                      height: height * 0.030,
-                    )
-                  ],
-                ),
+                  ),
+                  SizedBox(
+                    height: height * 0.030,
+                  )
+                ],
               ),
             ),
           ),
@@ -384,9 +387,10 @@ class _TextFromFieldsCustomState extends State<TextFromFieldsCustom> {
         ),
         child: TextFormField(
           textAlign:
-         // widget.isNumber?TextAlign.left:
-           findLanguageController.isEnglishLocale.value?
-            TextAlign.left:TextAlign.right,
+              // widget.isNumber?TextAlign.left:
+              findLanguageController.isEnglishLocale.value
+                  ? TextAlign.left
+                  : TextAlign.right,
           cursorColor: Colors.black,
           controller: widget.controller,
           textInputAction: TextInputAction.next,

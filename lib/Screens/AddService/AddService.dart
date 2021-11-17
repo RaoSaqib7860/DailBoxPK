@@ -50,232 +50,231 @@ class _AddServiceState extends State<AddService> {
     return LayoutBuilder(builder: (context, size) {
       var height = size.maxHeight;
       var width = size.maxWidth;
-      return SafeArea(
-          child: Scaffold(
+      return Scaffold(
         appBar: appBarGlobal('Add Service'.tr),
         body: Stack(
-          children: [
-            Container(
-              height: height,
-              width: width,
-              padding: EdgeInsets.symmetric(horizontal: width * 0.030),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: height * 0.020,
-                  ),
-                  Expanded(
-                      child: Obx(
-                    () => SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5.0),
-                              color: Colors.grey[200],
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
-                                  offset: Offset(0.0, 3),
-                                  //(x,y)
-                                  blurRadius: 5.0,
-                                ),
-                              ],
+      children: [
+        Container(
+          height: height,
+          width: width,
+          padding: EdgeInsets.symmetric(horizontal: width * 0.030),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: height * 0.020,
+              ),
+              Expanded(
+                  child: Obx(
+                () => SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0),
+                          color: Colors.grey[200],
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              offset: Offset(0.0, 3),
+                              //(x,y)
+                              blurRadius: 5.0,
                             ),
-                            height: height * 0.060,
-                            width: width,
-                            padding:
-                                EdgeInsets.symmetric(horizontal: width * 0.030),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton<dynamic>(
-                                  items: controller.listofBuisness.map((value) {
-                                    return DropdownMenuItem<String>(
-                                      value: '$value',
-                                      child: Text('${value['business_name']}'),
-                                      onTap: () {
-                                        controller.buisnessIDforservice.value =
-                                            controller.listofBuisness
-                                                .indexOf(value);
-                                        controller.selectserviceHint.value =
-                                            value['business_name'];
-                                      },
-                                    );
-                                  }).toList(),
-                                  hint: Text(
-                                    controller.selectserviceHint.value,
-                                    style: TextStyle(fontSize: 14),
-                                  ),
-                                  onChanged: (_) {},
-                                  isExpanded: true),
+                          ],
+                        ),
+                        height: height * 0.060,
+                        width: width,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: width * 0.030),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<dynamic>(
+                              items: controller.listofBuisness.map((value) {
+                                return DropdownMenuItem<String>(
+                                  value: '$value',
+                                  child: Text('${value['business_name']}'),
+                                  onTap: () {
+                                    controller.buisnessIDforservice.value =
+                                        controller.listofBuisness
+                                            .indexOf(value);
+                                    controller.selectserviceHint.value =
+                                        value['business_name'];
+                                  },
+                                );
+                              }).toList(),
+                              hint: Text(
+                                controller.selectserviceHint.value,
+                                style: TextStyle(fontSize: 14),
+                              ),
+                              onChanged: (_) {},
+                              isExpanded: true),
+                        ),
+                      ),
+                      SizedBox(
+                        height: height * 0.020,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0),
+                          color: Colors.grey[200],
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              offset: Offset(0.0, 3),
+                              //(x,y)
+                              blurRadius: 5.0,
                             ),
-                          ),
-                          SizedBox(
-                            height: height * 0.020,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5.0),
-                              color: Colors.grey[200],
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
-                                  offset: Offset(0.0, 3),
-                                  //(x,y)
-                                  blurRadius: 5.0,
-                                ),
-                              ],
-                            ),
-                            height: height * 0.060,
-                            width: width,
-                            padding:
-                                EdgeInsets.symmetric(horizontal: width * 0.030),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton<dynamic>(
-                                  items: controller.listofCity.map((value) {
-                                    return DropdownMenuItem<String>(
-                                      value: '$value',
-                                      child: Text('${value['city']}'),
-                                      onTap: () {
-                                        controller
-                                                .currentlistofCityIndex.value =
-                                            controller.listofCity
-                                                .indexOf(value);
-                                        controller.listofCityHint.value =
-                                            value['city'];
-                                      },
-                                    );
-                                  }).toList(),
-                                  hint: Text(
-                                    controller.listofCityHint.value.tr,
-                                    style: TextStyle(fontSize: 14),
-                                  ),
-                                  onChanged: (_) {},
-                                  isExpanded: true),
-                            ),
-                          ),
-                          SizedBox(
-                            height: height * 0.030,
-                          ),
-                          TextFromFieldsCustom(
-                            controller: controller.sNameCon,
-                            hint: 'Service Name'.tr,
-                          ),
-                          SizedBox(
-                            height: height * 0.030,
-                          ),
-                          TextFromFieldsCustom(
-                            controller: controller.sPriceCon,
-                            hint: 'Service Starting Cost'.tr,
-                            isNumber: true,
-                           
-                          ),
-                          SizedBox(
-                            height: height * 0.030,
-                          ),
-                          TextFromFieldsCustom(
-                            controller: controller.sDetailsCon,
-                            hint: 'Service Details'.tr,
-                          ),
-                          SizedBox(
-                            height: height * 0.030,
-                          ),
-                          FadeInUpBig(
-                            child: InkWell(
-                              onTap: () async {
-                                if (controller.listofCityHint.value !=
-                                    'Select City') {
-                                  if (controller.selectserviceHint.value !=
-                                      'Select Business'.tr) {
-                                    if (controller.sNameCon.text.isNotEmpty) {
-                                      if (controller
-                                          .sPriceCon.text.isNotEmpty) {
-                                        if (controller
-                                            .sDetailsCon.text.isNotEmpty) {
-                                          controller.loading.value = true;
-                                          if (widget.mapData!.isNotEmpty) {
-                                            ApiUtilsForAll.getupdateServices(
-                                                controller,
-                                                controller.listofBuisness[
-                                                    controller
-                                                        .buisnessIDforservice
-                                                        .value]['business_id'],
-                                                '${widget.mapData!['id']}');
-                                          } else {
-                                            ApiUtilsForAll.getaddservice(
-                                                controller,
-                                                controller.listofBuisness[
-                                                    controller
-                                                        .buisnessIDforservice
-                                                        .value]['business_id']);
-                                          }
-                                        } else {
-                                          snackBarFailer(
-                                              'Please select product details first'
-                                                  .tr);
-                                        }
+                          ],
+                        ),
+                        height: height * 0.060,
+                        width: width,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: width * 0.030),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<dynamic>(
+                              items: controller.listofCity.map((value) {
+                                return DropdownMenuItem<String>(
+                                  value: '$value',
+                                  child: Text('${value['city']}'),
+                                  onTap: () {
+                                    controller
+                                            .currentlistofCityIndex.value =
+                                        controller.listofCity
+                                            .indexOf(value);
+                                    controller.listofCityHint.value =
+                                        value['city'];
+                                  },
+                                );
+                              }).toList(),
+                              hint: Text(
+                                controller.listofCityHint.value.tr,
+                                style: TextStyle(fontSize: 14),
+                              ),
+                              onChanged: (_) {},
+                              isExpanded: true),
+                        ),
+                      ),
+                      SizedBox(
+                        height: height * 0.030,
+                      ),
+                      TextFromFieldsCustom(
+                        controller: controller.sNameCon,
+                        hint: 'Service Name'.tr,
+                      ),
+                      SizedBox(
+                        height: height * 0.030,
+                      ),
+                      TextFromFieldsCustom(
+                        controller: controller.sPriceCon,
+                        hint: 'Service Starting Cost'.tr,
+                        isNumber: true,
+
+                      ),
+                      SizedBox(
+                        height: height * 0.030,
+                      ),
+                      TextFromFieldsCustom(
+                        controller: controller.sDetailsCon,
+                        hint: 'Service Details'.tr,
+                      ),
+                      SizedBox(
+                        height: height * 0.030,
+                      ),
+                      FadeInUpBig(
+                        child: InkWell(
+                          onTap: () async {
+                            if (controller.listofCityHint.value !=
+                                'Select City') {
+                              if (controller.selectserviceHint.value !=
+                                  'Select Business'.tr) {
+                                if (controller.sNameCon.text.isNotEmpty) {
+                                  if (controller
+                                      .sPriceCon.text.isNotEmpty) {
+                                    if (controller
+                                        .sDetailsCon.text.isNotEmpty) {
+                                      controller.loading.value = true;
+                                      if (widget.mapData!.isNotEmpty) {
+                                        ApiUtilsForAll.getupdateServices(
+                                            controller,
+                                            controller.listofBuisness[
+                                                controller
+                                                    .buisnessIDforservice
+                                                    .value]['business_id'],
+                                            '${widget.mapData!['id']}');
                                       } else {
-                                        snackBarFailer(
-                                            'Please enter Starting Cost!'.tr);
+                                        ApiUtilsForAll.getaddservice(
+                                            controller,
+                                            controller.listofBuisness[
+                                                controller
+                                                    .buisnessIDforservice
+                                                    .value]['business_id']);
                                       }
                                     } else {
                                       snackBarFailer(
-                                          'Please enter Service Name!'.tr);
+                                          'Please select product details first'
+                                              .tr);
                                     }
                                   } else {
                                     snackBarFailer(
-                                        'Please select business first'.tr);
+                                        'Please enter Starting Cost!'.tr);
                                   }
                                 } else {
-                                  snackBarFailer('Please select city first'.tr);
+                                  snackBarFailer(
+                                      'Please enter Service Name!'.tr);
                                 }
-                              },
-                              child: Container(
-                                height: height * 0.070,
-                                width: width,
-                                child: Center(
-                                  child: Text(
-                                    widget.mapData!.isNotEmpty
-                                        ? 'Update Service'.tr
-                                        : 'Add Service'.tr,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        letterSpacing: 0.5),
-                                  ),
-                                ),
-                                decoration: BoxDecoration(color: blueColor),
+                              } else {
+                                snackBarFailer(
+                                    'Please select business first'.tr);
+                              }
+                            } else {
+                              snackBarFailer('Please select city first'.tr);
+                            }
+                          },
+                          child: Container(
+                            height: height * 0.070,
+                            width: width,
+                            child: Center(
+                              child: Text(
+                                widget.mapData!.isNotEmpty
+                                    ? 'Update Service'.tr
+                                    : 'Add Service'.tr,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    letterSpacing: 0.5),
                               ),
                             ),
+                            decoration: BoxDecoration(color: blueColor),
                           ),
-                        ],
-                      ),
-                    ),
-                  ))
-                ],
-              ),
-            ),
-            Obx(() => controller.loading.value == true
-                ? InkWell(
-                    onTap: () {
-                      controller.loading.value = false;
-                    },
-                    child: Container(
-                      height: height,
-                      width: width,
-                      child: Center(
-                        child: SpinKitPulse(
-                          color: Colors.white,
-                          size: 80.0,
                         ),
                       ),
-                      decoration:
-                          BoxDecoration(color: Colors.black.withOpacity(0.5)),
-                    ),
-                  )
-                : SizedBox())
-          ],
+                    ],
+                  ),
+                ),
+              ))
+            ],
+          ),
         ),
-      ));
+        Obx(() => controller.loading.value == true
+            ? InkWell(
+                onTap: () {
+                  controller.loading.value = false;
+                },
+                child: Container(
+                  height: height,
+                  width: width,
+                  child: Center(
+                    child: SpinKitPulse(
+                      color: Colors.white,
+                      size: 80.0,
+                    ),
+                  ),
+                  decoration:
+                      BoxDecoration(color: Colors.black.withOpacity(0.5)),
+                ),
+              )
+            : SizedBox())
+      ],
+        ),
+      );
     });
   }
 }

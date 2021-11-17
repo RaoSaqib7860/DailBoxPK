@@ -70,284 +70,44 @@ class _MessageDetailsState extends State<MessageDetails> {
   Widget build(BuildContext context) {
     var height = Get.height;
     var width = Get.width;
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-              ApiUtils.getgetAllMyMessages();
-            },
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
           ),
-          title: Text(
-            '${widget.IncommingName}',
-            style: TextStyle(
-              fontSize: 16,
-            ),
-          ),
-          centerTitle: true,
-          elevation: 0,
-          backgroundColor: blueColor,
+          onPressed: () {
+            Navigator.of(context).pop();
+            ApiUtils.getgetAllMyMessages();
+          },
         ),
-        body: Stack(
-          children: [
-            Obx(
-              () => Column(
-                children: [
-                  Expanded(
-                      child: Container(
-                    child: !con.loadData.value
-                        ? ListView.builder(
-                            keyboardDismissBehavior:
-                                ScrollViewKeyboardDismissBehavior.onDrag,
-                            physics: BouncingScrollPhysics(),
-                            itemBuilder: (c, i) {
-                              return listbool[i] == true
-                                  ? ShimerEffect(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          SizedBox(
-                                            height: width / 20,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: <Widget>[
-                                              // Container(
-                                              //   margin: EdgeInsets.only(
-                                              //       bottom: height / 60),
-                                              //   child: CircularProfileAvatar(
-                                              //     '',
-                                              //     child: Center(
-                                              //         child: Icon(
-                                              //       Icons.person,
-                                              //       color: Colors.black45,
-                                              //       size: 35,
-                                              //     )),
-                                              //     borderColor: Colors.black,
-                                              //     borderWidth: 0.5,
-                                              //     radius: height / 40,
-                                              //   ),
-                                              // ),
-                                              SizedBox(
-                                                width: width / 40,
-                                              ),
-                                              Transform.translate(
-                                                offset: Offset(2, 0),
-                                                child: Container(
-                                                  height: height / 50,
-                                                  width: width / 25,
-                                                  margin: EdgeInsets.only(
-                                                      bottom: height / 60),
-                                                  child: CustomPaint(
-                                                    size: Size(
-                                                        width / 8, height / 16),
-                                                    painter: SmsPainter(),
-                                                  ),
-                                                ),
-                                              ),
-                                              ConstrainedBox(
-                                                  constraints: BoxConstraints(
-                                                      maxWidth: width / 1.7),
-                                                  child: IntrinsicWidth(
-                                                    child: Column(
-                                                      children: [
-                                                        Container(
-                                                          padding:
-                                                              EdgeInsets.all(
-                                                                  width / 30),
-                                                          decoration: BoxDecoration(
-                                                              color: blueColor,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          12)),
-                                                          child: Text(
-                                                            '${list[i]}',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w300,
-                                                                fontSize: 12),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: height / 200,
-                                                        ),
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .end,
-                                                          children: <Widget>[
-                                                            Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      right:
-                                                                          width /
-                                                                              50),
-                                                              child: Text(
-                                                                '3.30PM'.tr,
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .black54,
-                                                                  fontSize:
-                                                                      10.0,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        )
-                                                      ],
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                    ),
-                                                  )),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  : ShimerEffect(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: <Widget>[
-                                          SizedBox(
-                                            height: width / 20,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              ConstrainedBox(
-                                                  constraints: BoxConstraints(
-                                                      maxWidth: width / 1.7),
-                                                  child: IntrinsicWidth(
-                                                    child: Column(
-                                                      children: [
-                                                        Container(
-                                                          padding:
-                                                              EdgeInsets.all(
-                                                                  width / 30),
-                                                          decoration: BoxDecoration(
-                                                              color: Colors
-                                                                      .blueGrey[
-                                                                  100],
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          12)),
-                                                          child: Text(
-                                                            '${list[i]}',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w300,
-                                                                fontSize: 12),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: height / 200,
-                                                        ),
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          children: <Widget>[
-                                                            Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      left: width /
-                                                                          50),
-                                                              child: Text(
-                                                                '3.30PM'.tr,
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .black54,
-                                                                  fontSize:
-                                                                      10.0,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        )
-                                                      ],
-                                                    ),
-                                                  )),
-                                              Transform.translate(
-                                                offset: Offset(-2, 0),
-                                                child: Container(
-                                                  height: height / 50,
-                                                  width: width / 25,
-                                                  margin: EdgeInsets.only(
-                                                      bottom: height / 60),
-                                                  child: CustomPaint(
-                                                    size: Size(
-                                                        width / 8, height / 16),
-                                                    painter: SmsPainter2(),
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: width / 40,
-                                              ),
-                                              // Container(
-                                              //   margin: EdgeInsets.only(
-                                              //       bottom: height / 60),
-                                              //   child: CircularProfileAvatar(
-                                              //     '',
-                                              //     child: Center(
-                                              //         child: Icon(
-                                              //       Icons.person,
-                                              //       color: Colors.black45,
-                                              //       size: 35,
-                                              //     )),
-                                              //     borderColor: Colors.black,
-                                              //     borderWidth: 0.5,
-                                              //     radius: height / 40,
-                                              //   ),
-                                              // ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                            },
-                            reverse: true,
-                            itemCount: list.length,
-                          )
-                        : ListView.builder(
-                            keyboardDismissBehavior:
-                                ScrollViewKeyboardDismissBehavior.onDrag,
-                            physics: BouncingScrollPhysics(),
-                            itemBuilder: (c, i) {
-                              String value = con.listofDealssms[i]['datetime']
-                                      .toString()
-                                      .split(' ')[0] +
-                                  'T' +
-                                  con.listofDealssms[i]['datetime']
-                                      .toString()
-                                      .split(' ')[1];
-                              var time =
-                                  DateFormat.jm().format(DateTime.parse(value));
-                              return userId !=
-                                      '${con.listofDealssms[i]['to_msg']}'
-                                  ? Column(
+        title: Text(
+          '${widget.IncommingName}',
+          style: TextStyle(
+            fontSize: 16,
+          ),
+        ),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: blueColor,
+      ),
+      body: Stack(
+        children: [
+          Obx(
+            () => Column(
+              children: [
+                Expanded(
+                    child: Container(
+                  child: !con.loadData.value
+                      ? ListView.builder(
+                          keyboardDismissBehavior:
+                              ScrollViewKeyboardDismissBehavior.onDrag,
+                          physics: BouncingScrollPhysics(),
+                          itemBuilder: (c, i) {
+                            return listbool[i] == true
+                                ? ShimerEffect(
+                                    child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
@@ -364,10 +124,15 @@ class _MessageDetailsState extends State<MessageDetails> {
                                             //   margin: EdgeInsets.only(
                                             //       bottom: height / 60),
                                             //   child: CircularProfileAvatar(
-                                            //     '${widget.incomingProfile}',
+                                            //     '',
+                                            //     child: Center(
+                                            //         child: Icon(
+                                            //       Icons.person,
+                                            //       color: Colors.black45,
+                                            //       size: 35,
+                                            //     )),
                                             //     borderColor: Colors.black,
                                             //     borderWidth: 0.5,
-                                            //     elevation: 3,
                                             //     radius: height / 40,
                                             //   ),
                                             // ),
@@ -395,8 +160,9 @@ class _MessageDetailsState extends State<MessageDetails> {
                                                   child: Column(
                                                     children: [
                                                       Container(
-                                                        padding: EdgeInsets.all(
-                                                            width / 30),
+                                                        padding:
+                                                            EdgeInsets.all(
+                                                                width / 30),
                                                         decoration: BoxDecoration(
                                                             color: blueColor,
                                                             borderRadius:
@@ -404,10 +170,10 @@ class _MessageDetailsState extends State<MessageDetails> {
                                                                     .circular(
                                                                         12)),
                                                         child: Text(
-                                                          '${con.listofDealssms[i]['massages']}',
+                                                          '${list[i]}',
                                                           style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
+                                                              color: Colors
+                                                                  .white,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w300,
@@ -423,17 +189,19 @@ class _MessageDetailsState extends State<MessageDetails> {
                                                                 .end,
                                                         children: <Widget>[
                                                           Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
+                                                            padding: EdgeInsets
+                                                                .only(
                                                                     right:
                                                                         width /
                                                                             50),
                                                             child: Text(
-                                                              time,
-                                                              style: TextStyle(
+                                                              '3.30PM'.tr,
+                                                              style:
+                                                                  TextStyle(
                                                                 color: Colors
                                                                     .black54,
-                                                                fontSize: 7.0,
+                                                                fontSize:
+                                                                    10.0,
                                                               ),
                                                             ),
                                                           ),
@@ -448,8 +216,10 @@ class _MessageDetailsState extends State<MessageDetails> {
                                           ],
                                         ),
                                       ],
-                                    )
-                                  : Column(
+                                    ),
+                                  )
+                                : ShimerEffect(
+                                    child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
                                       children: <Widget>[
@@ -467,20 +237,22 @@ class _MessageDetailsState extends State<MessageDetails> {
                                                   child: Column(
                                                     children: [
                                                       Container(
-                                                        padding: EdgeInsets.all(
-                                                            width / 30),
+                                                        padding:
+                                                            EdgeInsets.all(
+                                                                width / 30),
                                                         decoration: BoxDecoration(
                                                             color: Colors
-                                                                .blueGrey[100],
+                                                                    .blueGrey[
+                                                                100],
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
                                                                         12)),
                                                         child: Text(
-                                                          '${con.listofDealssms[i]['massages']}',
+                                                          '${list[i]}',
                                                           style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
+                                                              color: Colors
+                                                                  .black,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w300,
@@ -496,17 +268,18 @@ class _MessageDetailsState extends State<MessageDetails> {
                                                                 .start,
                                                         children: <Widget>[
                                                           Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    left:
-                                                                        width /
-                                                                            50),
+                                                            padding: EdgeInsets
+                                                                .only(
+                                                                    left: width /
+                                                                        50),
                                                             child: Text(
-                                                              time,
-                                                              style: TextStyle(
+                                                              '3.30PM'.tr,
+                                                              style:
+                                                                  TextStyle(
                                                                 color: Colors
                                                                     .black54,
-                                                                fontSize: 7.0,
+                                                                fontSize:
+                                                                    10.0,
                                                               ),
                                                             ),
                                                           ),
@@ -532,112 +305,337 @@ class _MessageDetailsState extends State<MessageDetails> {
                                             SizedBox(
                                               width: width / 40,
                                             ),
+                                            // Container(
+                                            //   margin: EdgeInsets.only(
+                                            //       bottom: height / 60),
+                                            //   child: CircularProfileAvatar(
+                                            //     '',
+                                            //     child: Center(
+                                            //         child: Icon(
+                                            //       Icons.person,
+                                            //       color: Colors.black45,
+                                            //       size: 35,
+                                            //     )),
+                                            //     borderColor: Colors.black,
+                                            //     borderWidth: 0.5,
+                                            //     radius: height / 40,
+                                            //   ),
+                                            // ),
                                           ],
                                         ),
                                       ],
-                                    );
-                            },
-                            reverse: true,
-                            itemCount: con.listofDealssms.length,
-                          ),
-                    padding:
-                        EdgeInsets.only(left: width / 25, right: width / 25),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                    ),
-                  )),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    height: height / 14,
-                    width: width,
-                    decoration: BoxDecoration(color: Colors.blueGrey[100]),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Expanded(
-                          child: TextFormField(
-                            controller: controller,
-                            textAlign:
-                                findLanguageController.isEnglishLocale.value
-                                    ? TextAlign.left
-                                    : TextAlign.right,
-                            style: TextStyle(color: Colors.black, fontSize: 14),
-                            decoration: InputDecoration(
-                                disabledBorder: new OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: new BorderSide(
-                                      color: Colors.black12,
-                                    )),
-                                focusedBorder: new OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: new BorderSide(
-                                      color: Colors.black12,
-                                    )),
-                                enabledBorder: new OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: new BorderSide(
-                                      color: Colors.black12,
-                                    )),
-                                border: new OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: new BorderSide(
-                                      color: Colors.black12,
-                                    )),
-                                contentPadding: EdgeInsets.only(
-                                    left: Get.width / 20,
-                                    right: findLanguageController
-                                            .isEnglishLocale.value
-                                        ? 0
-                                        : Get.width / 30),
-                                hintText: 'Write something here'.tr,
-                                hintStyle: TextStyle(
-                                    fontSize: 13,
-                                    letterSpacing: 0.5,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w400)),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            if (controller.text.trim().isNotEmpty) {
-                              ApiUtils.getgetChatOneToOneSave(
-                                  incommingId: widget.incommingId,
-                                  post_id: '${widget.businessId}',
-                                  message: controller.text,
-                                  random_id: widget.random_id!);
-                              ApiUtils.getgetChatOneToOne(widget.incommingId!,
-                                  widget.businessId!, widget.random_id!);
-                              controller.clear();
-                            }
+                                    ),
+                                  );
                           },
-                          child: Container(
-                            height: height / 18,
-                            width: width / 9,
-                            child: Center(
-                              child: Icon(
-                                Icons.send_outlined,
-                                color: Colors.white,
-                              ),
-                            ),
-                            margin: EdgeInsets.only(
-                                right: width / 15, left: width / 30),
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle, color: blueColor),
-                          ),
+                          reverse: true,
+                          itemCount: list.length,
                         )
-                      ],
-                    ),
-                  )
-                ],
-                mainAxisAlignment: MainAxisAlignment.start,
-              ),
+                      : ListView.builder(
+                          keyboardDismissBehavior:
+                              ScrollViewKeyboardDismissBehavior.onDrag,
+                          physics: BouncingScrollPhysics(),
+                          itemBuilder: (c, i) {
+                            String value = con.listofDealssms[i]['datetime']
+                                    .toString()
+                                    .split(' ')[0] +
+                                'T' +
+                                con.listofDealssms[i]['datetime']
+                                    .toString()
+                                    .split(' ')[1];
+                            var time =
+                                DateFormat.jm().format(DateTime.parse(value));
+                            return userId !=
+                                    '${con.listofDealssms[i]['to_msg']}'
+                                ? Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      SizedBox(
+                                        height: width / 20,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          // Container(
+                                          //   margin: EdgeInsets.only(
+                                          //       bottom: height / 60),
+                                          //   child: CircularProfileAvatar(
+                                          //     '${widget.incomingProfile}',
+                                          //     borderColor: Colors.black,
+                                          //     borderWidth: 0.5,
+                                          //     elevation: 3,
+                                          //     radius: height / 40,
+                                          //   ),
+                                          // ),
+                                          SizedBox(
+                                            width: width / 40,
+                                          ),
+                                          Transform.translate(
+                                            offset: Offset(2, 0),
+                                            child: Container(
+                                              height: height / 50,
+                                              width: width / 25,
+                                              margin: EdgeInsets.only(
+                                                  bottom: height / 60),
+                                              child: CustomPaint(
+                                                size: Size(
+                                                    width / 8, height / 16),
+                                                painter: SmsPainter(),
+                                              ),
+                                            ),
+                                          ),
+                                          ConstrainedBox(
+                                              constraints: BoxConstraints(
+                                                  maxWidth: width / 1.7),
+                                              child: IntrinsicWidth(
+                                                child: Column(
+                                                  children: [
+                                                    Container(
+                                                      padding: EdgeInsets.all(
+                                                          width / 30),
+                                                      decoration: BoxDecoration(
+                                                          color: blueColor,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      12)),
+                                                      child: Text(
+                                                        '${con.listofDealssms[i]['massages']}',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w300,
+                                                            fontSize: 12),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: height / 200,
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .end,
+                                                      children: <Widget>[
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  right:
+                                                                      width /
+                                                                          50),
+                                                          child: Text(
+                                                            time,
+                                                            style: TextStyle(
+                                                              color: Colors
+                                                                  .black54,
+                                                              fontSize: 7.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .start,
+                                                ),
+                                              )),
+                                        ],
+                                      ),
+                                    ],
+                                  )
+                                : Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.end,
+                                    children: <Widget>[
+                                      SizedBox(
+                                        height: width / 20,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          ConstrainedBox(
+                                              constraints: BoxConstraints(
+                                                  maxWidth: width / 1.7),
+                                              child: IntrinsicWidth(
+                                                child: Column(
+                                                  children: [
+                                                    Container(
+                                                      padding: EdgeInsets.all(
+                                                          width / 30),
+                                                      decoration: BoxDecoration(
+                                                          color: Colors
+                                                              .blueGrey[100],
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      12)),
+                                                      child: Text(
+                                                        '${con.listofDealssms[i]['massages']}',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.black,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w300,
+                                                            fontSize: 12),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: height / 200,
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  left:
+                                                                      width /
+                                                                          50),
+                                                          child: Text(
+                                                            time,
+                                                            style: TextStyle(
+                                                              color: Colors
+                                                                  .black54,
+                                                              fontSize: 7.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
+                                              )),
+                                          Transform.translate(
+                                            offset: Offset(-2, 0),
+                                            child: Container(
+                                              height: height / 50,
+                                              width: width / 25,
+                                              margin: EdgeInsets.only(
+                                                  bottom: height / 60),
+                                              child: CustomPaint(
+                                                size: Size(
+                                                    width / 8, height / 16),
+                                                painter: SmsPainter2(),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: width / 40,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  );
+                          },
+                          reverse: true,
+                          itemCount: con.listofDealssms.length,
+                        ),
+                  padding:
+                      EdgeInsets.only(left: width / 25, right: width / 25),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  ),
+                )),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  height: height / 14,
+                  width: width,
+                  decoration: BoxDecoration(color: Colors.blueGrey[100]),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Expanded(
+                        child: TextFormField(
+                          controller: controller,
+                          textAlign:
+                              findLanguageController.isEnglishLocale.value
+                                  ? TextAlign.left
+                                  : TextAlign.right,
+                          style: TextStyle(color: Colors.black, fontSize: 14),
+                          decoration: InputDecoration(
+                              disabledBorder: new OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: new BorderSide(
+                                    color: Colors.black12,
+                                  )),
+                              focusedBorder: new OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: new BorderSide(
+                                    color: Colors.black12,
+                                  )),
+                              enabledBorder: new OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: new BorderSide(
+                                    color: Colors.black12,
+                                  )),
+                              border: new OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: new BorderSide(
+                                    color: Colors.black12,
+                                  )),
+                              contentPadding: EdgeInsets.only(
+                                  left: Get.width / 20,
+                                  right: findLanguageController
+                                          .isEnglishLocale.value
+                                      ? 0
+                                      : Get.width / 30),
+                              hintText: 'Write something here'.tr,
+                              hintStyle: TextStyle(
+                                  fontSize: 13,
+                                  letterSpacing: 0.5,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w400)),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          if (controller.text.trim().isNotEmpty) {
+                            ApiUtils.getgetChatOneToOneSave(
+                                incommingId: widget.incommingId,
+                                post_id: '${widget.businessId}',
+                                message: controller.text,
+                                random_id: widget.random_id!);
+                            ApiUtils.getgetChatOneToOne(widget.incommingId!,
+                                widget.businessId!, widget.random_id!);
+                            controller.clear();
+                          }
+                        },
+                        child: Container(
+                          height: height / 18,
+                          width: width / 9,
+                          child: Center(
+                            child: Icon(
+                              Icons.send_outlined,
+                              color: Colors.white,
+                            ),
+                          ),
+                          margin: EdgeInsets.only(
+                              right: width / 15, left: width / 30),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle, color: blueColor),
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+              mainAxisAlignment: MainAxisAlignment.start,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

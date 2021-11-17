@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:dail_box/AppUtils.dart/APiUtilsForAuth.dart';
 import 'package:dail_box/AppUtils.dart/LogsUtils.dart';
 import 'package:dail_box/Screens/IntroScreen/IntroScrenns.dart';
+import 'package:dail_box/util/StatusBarStyle.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -117,20 +118,18 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Stack(
-          children: <Widget>[
-            Center(
-              child: ZoomIn(
-                duration: Duration(seconds: 1),
-                child: SvgPicture.asset(
-                  'assets/svg/db main.svg',
-                ),
+    return Scaffold(
+      body: Stack(
+        children: <Widget>[
+          Center(
+            child: ZoomIn(
+              duration: Duration(seconds: 1),
+              child: SvgPicture.asset(
+                'assets/svg/db main.svg',
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

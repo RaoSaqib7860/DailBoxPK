@@ -16,43 +16,42 @@ class _ImagePreviewState extends State<ImagePreview> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Get.back();
-          },
-        ),
+    backgroundColor: Colors.black,
+    elevation: 0,
+    leading: IconButton(
+      icon: Icon(
+        Icons.arrow_back,
+        color: Colors.white,
+      ),
+      onPressed: () {
+        Get.back();
+      },
+    ),
       ),
       backgroundColor: Colors.black,
       body: Container(
-          height: Get.height,
-          width: Get.width,
-          child: PageView.builder(
-            itemBuilder: (c, i) {
-              return CachedNetworkImage(
-                height: Get.height,
-                width: Get.width,
-                fit: BoxFit.contain,
-                imageUrl: '${widget.listofImage![i]}',
-                placeholder: (context, url) => SpinKitSquareCircle(
-                  color: Colors.blue,
-                  size: 20.0,
-                ),
-                errorWidget: (context, url, error) => Image.network(
-                    'http://dailboxx.websitescare.com/upload/appnoimage.png'),
-              );
-            },
-            itemCount: widget.listofImage!.length,
-          )),
-    ));
+      height: Get.height,
+      width: Get.width,
+      child: PageView.builder(
+        itemBuilder: (c, i) {
+          return CachedNetworkImage(
+            height: Get.height,
+            width: Get.width,
+            fit: BoxFit.contain,
+            imageUrl: '${widget.listofImage![i]}',
+            placeholder: (context, url) => SpinKitSquareCircle(
+              color: Colors.blue,
+              size: 20.0,
+            ),
+            errorWidget: (context, url, error) => Image.network(
+                'http://dailboxx.websitescare.com/upload/appnoimage.png'),
+          );
+        },
+        itemCount: widget.listofImage!.length,
+      )),
+    );
   }
 }
 
@@ -68,21 +67,19 @@ class SingleImagePreview extends StatefulWidget {
 class _SingleImagePreviewState extends State<SingleImagePreview> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.black,
-        body: CachedNetworkImage(
-          height: Get.height,
-          width: Get.width,
-          fit: BoxFit.contain,
-          imageUrl: '${widget.url}',
-          placeholder: (context, url) => SpinKitSquareCircle(
-            color: Colors.blue,
-            size: 20.0,
-          ),
-          errorWidget: (context, url, error) => Image.network(
-              'http://dailboxx.websitescare.com/upload/appnoimage.png'),
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: CachedNetworkImage(
+        height: Get.height,
+        width: Get.width,
+        fit: BoxFit.contain,
+        imageUrl: '${widget.url}',
+        placeholder: (context, url) => SpinKitSquareCircle(
+          color: Colors.blue,
+          size: 20.0,
         ),
+        errorWidget: (context, url, error) => Image.network(
+            'http://dailboxx.websitescare.com/upload/appnoimage.png'),
       ),
     );
   }

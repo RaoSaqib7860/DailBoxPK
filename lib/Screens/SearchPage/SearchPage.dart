@@ -28,8 +28,7 @@ class _SearchPageState extends State<SearchPage> {
     return LayoutBuilder(builder: (context, size) {
       var height = size.maxHeight;
       var width = size.maxWidth;
-      return SafeArea(
-          child: Scaffold(
+      return Scaffold(
         appBar: appBarGlobal('Search'.tr),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: width * 0.030),
@@ -145,11 +144,6 @@ class _SearchPageState extends State<SearchPage> {
                                         enabledBorder: InputBorder.none,
                                         errorBorder: InputBorder.none,
                                         disabledBorder: InputBorder.none,
-                                        contentPadding: EdgeInsets.only(
-                                            left: 10,
-                                            bottom: 11,
-                                            top: 5,
-                                            right: 10),
                                         hintStyle: TextStyle(
                                             color: greyColor, fontSize: 12),
                                         hintText: "Search here".tr)
@@ -165,11 +159,6 @@ class _SearchPageState extends State<SearchPage> {
                                         enabledBorder: InputBorder.none,
                                         errorBorder: InputBorder.none,
                                         disabledBorder: InputBorder.none,
-                                        contentPadding: EdgeInsets.only(
-                                            left: 10,
-                                            bottom: 11,
-                                            top: 5,
-                                            right: 0),
                                         hintStyle: TextStyle(
                                             color: greyColor, fontSize: 12),
                                         hintText: "Search here".tr),
@@ -288,7 +277,7 @@ class _SearchPageState extends State<SearchPage> {
             ],
           ),
         ),
-      ));
+      );
     });
   }
 }

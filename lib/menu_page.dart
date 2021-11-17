@@ -49,11 +49,11 @@ class _MenuScreenState extends State<MenuScreen> {
             ? androidStyle
             : iosStyle;
     return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(color: blueColor),
-        child: SafeArea(
+      body: SafeArea(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(color: blueColor),
           child: Stack(
             children: <Widget>[
               Column(

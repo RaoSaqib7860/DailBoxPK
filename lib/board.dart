@@ -13,85 +13,83 @@ class BoardScreen extends StatefulWidget {
 class _BoardScreenState extends State<BoardScreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Stack(
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage('assets/images/board.png'))),
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              color: blueColor.withOpacity(0.8),
-            ),
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'Choose your language'.tr,
-                    style: TextStyle(
+    return Scaffold(
+      body: Stack(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage('assets/images/board.png'))),
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            color: blueColor.withOpacity(0.8),
+          ),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Choose your language'.tr,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  'اپنی زبان کا انتخاب کریں'.tr,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                FadeInUp(delay: Duration(milliseconds: 500),
+                  child: Container(
+                    margin: EdgeInsets.only(left: 30, right: 30),
+                    width: MediaQuery.of(context).size.width,
+                    height: height/16,
+                    child: RaisedButton(
                       color: Colors.white,
-                      fontSize: 25,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'اپنی زبان کا انتخاب کریں'.tr,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  FadeInUp(delay: Duration(milliseconds: 500),
-                    child: Container(
-                      margin: EdgeInsets.only(left: 30, right: 30),
-                      width: MediaQuery.of(context).size.width,
-                      height: height/16,
-                      child: RaisedButton(
-                        color: Colors.white,
-                        onPressed: () {
-                          Get.to(RegisterSelection());
-                        },
-                        child: Text(
-                          "ENGLISH".tr,
-                          style: TextStyle(color: blueColor),
-                        ),
+                      onPressed: () {
+                        Get.to(RegisterSelection());
+                      },
+                      child: Text(
+                        "ENGLISH".tr,
+                        style: TextStyle(color: blueColor),
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  FadeInUp(delay: Duration(milliseconds: 500),
-                    child: Container(
-                      margin: EdgeInsets.only(left: 30, right: 30),
-                      width: MediaQuery.of(context).size.width,
-                      height: height/16,
-                      child: RaisedButton(
-                        color: redColor,
-                        onPressed: () {},
-                        child: Text(
-                          "اردو".tr,
-                          style: TextStyle(color: Colors.white),
-                        ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                FadeInUp(delay: Duration(milliseconds: 500),
+                  child: Container(
+                    margin: EdgeInsets.only(left: 30, right: 30),
+                    width: MediaQuery.of(context).size.width,
+                    height: height/16,
+                    child: RaisedButton(
+                      color: redColor,
+                      onPressed: () {},
+                      child: Text(
+                        "اردو".tr,
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ),
-                ],
-              ),
-            )
-          ],
-        ),
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:dail_box/AppUtils.dart/APiUtilsForAuth.dart';
@@ -20,6 +21,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -32,9 +34,9 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Stack(
+    return Scaffold(
+      body: SafeArea(
+        child: Stack(
           children: [
             Align(
               alignment: Alignment.topCenter,
@@ -457,8 +459,6 @@ class _SignUpState extends State<SignUp> {
                                     decoration: findLanguageController
                                             .isEnglishLocale.value
                                         ? InputDecoration(
-
-                                          
                                             prefixIcon: Icon(
                                               Icons.lock_outline,
                                               color: greyColor,
@@ -494,8 +494,6 @@ class _SignUpState extends State<SignUp> {
                                                 color: greyColor, fontSize: 12),
                                             hintText: "Password".tr)
                                         : InputDecoration(
-
-
                                             suffixIcon: Icon(
                                               Icons.lock_outline,
                                               color: greyColor,
@@ -641,7 +639,8 @@ class _SignUpState extends State<SignUp> {
                               ),
                               findLanguageController.isEnglishLocale.value
                                   ? Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: [
                                         Checkbox(
                                           value: istermsCheck,
@@ -658,16 +657,18 @@ class _SignUpState extends State<SignUp> {
                                           width: width * 0.030,
                                         ),
                                         Text(
-                                          'I agree to Dialboxx Terms & Conditions'.tr,
+                                          'I agree to Dialboxx Terms & Conditions'
+                                              .tr,
                                           style: TextStyle(fontSize: 12),
                                         )
                                       ],
                                     )
                                   : Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         Text(
-                                          'I agree to Dialboxx Terms & Conditions'.tr,
+                                          'I agree to Dialboxx Terms & Conditions'
+                                              .tr,
                                           style: TextStyle(fontSize: 12),
                                         ),
                                         SizedBox(
@@ -863,6 +864,67 @@ class _SignUpState extends State<SignUp> {
                                   ),
                                 ],
                               ),
+                              Platform.isIOS
+                                  ? Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            _fblogin();
+                                          },
+                                          child: SignInWithAppleButton(
+                                            onPressed: () async {
+                                              final credential =
+                                                  await SignInWithApple
+                                                      .getAppleIDCredential(
+                                                scopes: [
+                                                  AppleIDAuthorizationScopes
+                                                      .email,
+                                                  AppleIDAuthorizationScopes
+                                                      .fullName,
+                                                ],
+                                              );
+                                              print('Apple sign In start');
+                                              print(
+                                                  'email = ${credential.email}');
+                                              print(
+                                                  'authorizationCode = ${credential.authorizationCode}');
+                                              print(
+                                                  'identityToken = ${credential.identityToken}');
+                                              print(
+                                                  'userIdentifier = ${credential.userIdentifier}');
+                                              print(
+                                                  'givenName = ${credential.givenName}');
+                                              print(
+                                                  'familyName = ${credential.familyName}');
+                                              Map mapdata = {
+                                                'email_id':
+                                                    '${credential.email}',
+                                                'social_id':
+                                                    '${credential.userIdentifier}',
+                                                'fullname':
+                                                    '${credential.givenName}',
+                                                'f_name':
+                                                    '${credential.givenName}',
+                                                'l_name': '',
+                                                'picture':
+                                                    'https://www.dialboxx.pk/upload/profile/profile-no-image.png',
+                                                'login_type': 'apple',
+                                                'device_type': device_type,
+                                                'device_token': firebaseToken,
+                                              };
+                                              controller.loading.value = true;
+                                              ApiUtils.socialloginApis(
+                                                  controller: controller,
+                                                  mapData: mapdata);
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : SizedBox(),
                               SizedBox(
                                 height: 40,
                               ),

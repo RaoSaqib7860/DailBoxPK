@@ -198,4 +198,7 @@ class BuisnessRegistrationController extends GetxController {
   var loading = false.obs;
   var listing_image = ''.obs;
   var business_id = ''.obs;
+
+  var b_lat = ''.obs;
+  var b_lng = ''.obs;
 }

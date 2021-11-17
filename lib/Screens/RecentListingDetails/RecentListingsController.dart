@@ -23,30 +23,75 @@ class RecentListnigsController extends GetxController {
   var loadMap = false.obs;
 
   getLocationData() async {
-    List<Location> locations = await locationFromAddress(
-        "${listofrecentListings[0]['business_address']} ${listofrecentListings[0]['area']} Pakistan");
-    locations.forEach((element) {
-      Location location = element;
-      lat.value = location.latitude;
-      lng.value = location.longitude;
-      marker.add(Marker(
-        position: LatLng(
-          lat.value,
-          lng.value,
-        ),
-        markerId: MarkerId('abc'),
-      ));
-      kGooglePlex.value = CameraPosition(
-        target: LatLng(
-          lat.value,
-          lng.value,
-        ),
-        zoom: 13.4746,
-      );
-      printlog('isloaded');
-      isload.value = true;
-      loadMap.value = true;
-    });
+    marker.add(Marker(
+      position: LatLng(
+        lat.value,
+        lng.value,
+      ),
+      markerId: MarkerId('abc'),
+    ));
+    kGooglePlex.value = CameraPosition(
+      target: LatLng(
+        lat.value,
+        lng.value,
+      ),
+      zoom: 13.4746,
+    );
+    printlog('isloaded');
+    isload.value = true;
+    loadMap.value = true;
+    // try {
+    //   List<Location> locations = await locationFromAddress(
+    //       "${listofrecentListings[0]['area']} Pakistan");
+    //   locations.forEach((element) {
+    //     Location location = element;
+    //     lat.value = location.latitude;
+    //     lng.value = location.longitude;
+    //     marker.add(Marker(
+    //       position: LatLng(
+    //         lat.value,
+    //         lng.value,
+    //       ),
+    //       markerId: MarkerId('abc'),
+    //     ));
+    //     kGooglePlex.value = CameraPosition(
+    //       target: LatLng(
+    //         lat.value,
+    //         lng.value,
+    //       ),
+    //       zoom: 13.4746,
+    //     );
+    //     printlog('isloaded');
+    //     isload.value = true;
+    //     loadMap.value = true;
+    //   });
+    // } catch (e) {
+    //   List<Location> locations = await locationFromAddress(
+    //     "Islamabad Pakistan",
+    //   );
+    //   locations.forEach((element) {
+    //     Location location = element;
+    //     lat.value = location.latitude;
+    //     lng.value = location.longitude;
+    //     marker.add(Marker(
+    //       position: LatLng(
+    //         lat.value,
+    //         lng.value,
+    //       ),
+    //       markerId: MarkerId('abc'),
+    //     ));
+    //     kGooglePlex.value = CameraPosition(
+    //       target: LatLng(
+    //         lat.value,
+    //         lng.value,
+    //       ),
+    //       zoom: 13.4746,
+    //     );
+    //     printlog('isloaded');
+    //     isload.value = true;
+    //     loadMap.value = true;
+    //   });
+    //}
   }
 
   var ratingPoints = 0.obs;

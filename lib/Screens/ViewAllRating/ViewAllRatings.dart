@@ -31,116 +31,115 @@ class _ViewAllRatingsState extends State<ViewAllRatings> {
   Widget build(BuildContext context) {
     var height = Get.height;
     var width = Get.width;
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       appBar: appBarGlobal('All Ratings'.tr),
       body: Column(
-        children: [
-          SizedBox(
-            height: height * 0.030,
-          ),
-          Obx(() => !controller.isloadings.value
+    children: [
+      SizedBox(
+        height: height * 0.030,
+      ),
+      Obx(() => !controller.isloadings.value
+          ? Expanded(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            )
+          : controller.listofAllRatings.isEmpty
               ? Expanded(
                   child: Center(
-                    child: CircularProgressIndicator(),
+                    child: Text('Empty'.tr),
                   ),
                 )
-              : controller.listofAllRatings.isEmpty
-                  ? Expanded(
-                      child: Center(
-                        child: Text('Empty'.tr),
-                      ),
-                    )
-                  : Expanded(
-                      child: ListView.builder(
-                      itemBuilder: (c, i) {
-                        return Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: width * 0.030),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CircularProfileAvatar(
-                                '${controller.listofAllRatings[i]['profile_image']}',
-                                borderColor: Colors.white,
-                                borderWidth: 1,
-                                elevation: 5,
-                                radius: 20,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+              : Expanded(
+                  child: ListView.builder(
+                  itemBuilder: (c, i) {
+                    return Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: width * 0.030),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CircularProfileAvatar(
+                            '${controller.listofAllRatings[i]['profile_image']}',
+                            borderColor: Colors.white,
+                            borderWidth: 1,
+                            elevation: 5,
+                            radius: 20,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  ' ${controller.listofAllRatings[i]['name']}',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Row(
                                   children: [
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      ' ${controller.listofAllRatings[i]['name']}',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold),
-                                    ),
                                     Row(
-                                      children: [
-                                        Row(
-                                          children: [1, 2, 3, 4, 5].map((e) {
-                                            int value = int.parse(
-                                                    '${controller.listofAllRatings[i]['rating_points'] ?? '0'}')
-                                                .toInt();
-                                            return value >= e
-                                                ? InkWell(
-                                                    child: Icon(
-                                                      Icons.star,
-                                                      size: 16,
-                                                      color: Colors.yellow[700],
-                                                    ),
-                                                  )
-                                                : InkWell(
-                                                    child: Icon(
-                                                      Icons.star_border,
-                                                      size: 16,
-                                                      color: Colors.yellow[700],
-                                                    ),
-                                                  );
-                                          }).toList(),
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text(
-                                          'Rating ${controller.listofAllRatings[i]['rating_points']}.0',
-                                          style: TextStyle(
-                                            fontSize: 10,
-                                            color: Colors.black12,
-                                          ),
-                                        ),
-                                      ],
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      children: [1, 2, 3, 4, 5].map((e) {
+                                        int value = int.parse(
+                                                '${controller.listofAllRatings[i]['rating_points'] ?? '0'}')
+                                            .toInt();
+                                        return value >= e
+                                            ? InkWell(
+                                                child: Icon(
+                                                  Icons.star,
+                                                  size: 16,
+                                                  color: Colors.yellow[700],
+                                                ),
+                                              )
+                                            : InkWell(
+                                                child: Icon(
+                                                  Icons.star_border,
+                                                  size: 16,
+                                                  color: Colors.yellow[700],
+                                                ),
+                                              );
+                                      }).toList(),
                                     ),
                                     SizedBox(
-                                      height: 5,
+                                      width: 5,
                                     ),
                                     Text(
-                                      ' ${controller.listofAllRatings[i]['rating_review']}',
+                                      'Rating ${controller.listofAllRatings[i]['rating_points']}.0',
                                       style: TextStyle(
-                                          fontSize: 9, color: Colors.black45),
-                                      maxLines: 4,
+                                        fontSize: 10,
+                                        color: Colors.black12,
+                                      ),
                                     ),
                                   ],
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.start,
                                 ),
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                      itemCount: controller.listofAllRatings.length,
-                    )))
-        ],
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  ' ${controller.listofAllRatings[i]['rating_review']}',
+                                  style: TextStyle(
+                                      fontSize: 9, color: Colors.black45),
+                                  maxLines: 4,
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                  itemCount: controller.listofAllRatings.length,
+                )))
+    ],
       ),
-    ));
+    );
   }
 }

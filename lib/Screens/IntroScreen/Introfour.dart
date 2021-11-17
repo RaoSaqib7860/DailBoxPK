@@ -20,7 +20,7 @@ class _IntroFourState extends State<IntroFour> {
     'assets/images/man2.jpg',
   ];
   List list2 = [
-    'OG Oils',
+    'OG Oil',
     'Ahmad',
     'DYNAMIC TECH',
     'Abdullha'
